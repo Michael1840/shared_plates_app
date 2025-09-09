@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../home/ui/home_page.dart';
+import '../../recipe/ui/recipe_detail/recipe_detail_view.dart';
+import '../../recipe/ui/recipe_page.dart';
 import 'nav_shell.dart';
 
 class Routes {
@@ -11,6 +13,7 @@ class Routes {
   static const String dashboard = '/';
 
   static const String recipes = '/recipes';
+  static const String recipeDetail = 'recipe-detail';
 
   static const String discover = '/discover';
 
@@ -48,6 +51,26 @@ class NavigationRouter {
                 pageBuilder: (context, state) =>
                     buildSlideTransition(const HomePage(), state.pageKey),
                 routes: [],
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: Routes.recipes,
+                name: Routes.recipes,
+                pageBuilder: (context, state) =>
+                    buildSlideTransition(const RecipesPage(), state.pageKey),
+                routes: [
+                  GoRoute(
+                    path: Routes.recipeDetail,
+                    name: Routes.recipeDetail,
+                    pageBuilder: (context, state) => buildSlideTransition(
+                      const RecipeDetailView(),
+                      state.pageKey,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

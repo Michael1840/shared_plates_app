@@ -49,6 +49,7 @@ dependencies:
   dotted_line: ^3.2.3
   flutter_svg_icons: ^0.0.1+4
   coolicons: ^1.0.0
+  dotted_border: ^3.1.0
 
 dev_dependencies:
   flutter_test:

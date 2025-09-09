@@ -22,6 +22,10 @@ class AccentColors {
   static const Color primary = Color(0xFFDE6109);
 
   static const Color green = Color(0xFF89AC46);
+
+  static const Color purple = Color.fromARGB(255, 121, 70, 172);
+
+  static const Color red = Color.fromARGB(255, 172, 70, 70);
 }
 
 class TextColors {

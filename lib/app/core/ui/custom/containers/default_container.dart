@@ -23,7 +23,7 @@ class DefaultContainer extends StatelessWidget {
     this.margin,
     this.padding = const EdgeInsets.all(16),
     this.expanded = false,
-    this.hasBorder = true,
+    this.hasBorder = false,
     this.radius = Rounding.reg,
     required this.child,
   });

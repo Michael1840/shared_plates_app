@@ -31,7 +31,8 @@ class MyApp extends StatelessWidget {
         );
         return SafeArea(
           top: false,
-          bottom: true,
+          bottom: false,
+          // bottom: true,
           child: MediaQuery(
             data: MediaQuery.of(context).copyWith(textScaler: scale),
             child: child!,

@@ -10,10 +10,10 @@ import '../../core/ui/custom/fields/search_field.dart';
 import '../../core/ui/custom/icons/my_icons.dart';
 import '../../core/ui/layouts/page_container.dart';
 import '../../core/utils/extensions.dart';
-import 'items/recipe_item.dart';
+import '../../home/ui/items/recipe_item.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class RecipesPage extends StatelessWidget {
+  const RecipesPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class HomePage extends StatelessWidget {
         ],
       ),
       body: PageContainer(
-        padding: EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 0),
+        padding: const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 0),
         child: Column(
           spacing: 20,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,8 +45,8 @@ class HomePage extends StatelessWidget {
                 const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    AppText.primary(text: 'Welcome,'),
-                    AppText.heading(text: 'Michael Kiggen'),
+                    AppText.primary(text: 'Your'),
+                    AppText.heading(text: 'Recipes'),
                   ],
                 ),
                 const Row(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../theme/theme.dart';
 import '../../../utils/extensions.dart';
 
 class MyIconButton extends StatelessWidget {
@@ -39,11 +38,11 @@ class MyIconButton extends StatelessWidget {
               ? context.onContainer.withValues(alpha: 0.4)
               : context.primary.withValues(alpha: 0.4),
           borderRadius: BorderRadius.circular(8),
-          border: !_isColored
-              ? Border.all(
-                  color: context.borderSecondary.withValues(alpha: 0.4),
-                )
-              : null,
+          // border: !_isColored
+          //     ? Border.all(
+          //         color: context.borderSecondary.withValues(alpha: 0.4),
+          //       )
+          //     : null,
         ),
         child: Icon(
           icon,
@@ -58,7 +57,7 @@ class MyIconButton extends StatelessWidget {
       decoration: BoxDecoration(
         color: !_isColored ? context.container : context.primary,
         borderRadius: BorderRadius.circular(100),
-        border: !_isColored ? Border.all(color: BorderColors.secondary) : null,
+        // border: !_isColored ? Border.all(color: BorderColors.secondary) : null,
       ),
       child: !isLoading
           ? Icon(icon, color: context.textSecondary, size: 18)

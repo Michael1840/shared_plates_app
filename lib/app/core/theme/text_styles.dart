@@ -8,6 +8,7 @@ class AppText extends StatelessWidget {
   final Color? color;
   final TextOverflow? overflow;
   final TextAlign? alignment;
+  final TextDecoration? decoration;
   final int? maxLines;
   final FontStyle? style;
   final FontWeight weight;
@@ -20,6 +21,7 @@ class AppText extends StatelessWidget {
     this.size = 22,
     this.alignment,
     this.maxLines,
+    this.decoration,
     this.overflow,
     this.color,
     this.style,
@@ -33,6 +35,7 @@ class AppText extends StatelessWidget {
     this.alignment,
     this.maxLines,
     this.overflow,
+    this.decoration,
     this.color,
     this.style,
     this.weight = Weights.reg,
@@ -45,6 +48,7 @@ class AppText extends StatelessWidget {
     this.alignment,
     this.maxLines,
     this.overflow,
+    this.decoration,
     this.color,
     this.style,
     this.weight = Weights.reg,
@@ -70,6 +74,7 @@ class AppText extends StatelessWidget {
         size: size,
         style: style,
         weight: weight,
+        decoration: decoration,
       ),
     );
   }

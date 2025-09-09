@@ -67,21 +67,34 @@ class _NavigationShellState extends State<NavigationShell> {
             },
             items: [
               BottomNavigationBarItem(
-                icon: Icon(
+                icon: const Icon(MyIcons.house_02).paddingBottom(4),
+                label: 'Home',
+                activeIcon: Icon(
                   MyIcons.house_02,
                   color: context.primary,
                 ).paddingBottom(4),
-                label: 'Home',
               ),
               BottomNavigationBarItem(
+                activeIcon: Icon(
+                  MyIcons.book,
+                  color: context.primary,
+                ).paddingBottom(4),
                 icon: const Icon(MyIcons.book).paddingBottom(4),
                 label: 'Recipes',
               ),
               BottomNavigationBarItem(
+                activeIcon: Icon(
+                  MyIcons.compass,
+                  color: context.primary,
+                ).paddingBottom(4),
                 icon: const Icon(MyIcons.compass).paddingBottom(4),
                 label: 'Discover',
               ),
               BottomNavigationBarItem(
+                activeIcon: Icon(
+                  MyIcons.users_group,
+                  color: context.primary,
+                ).paddingBottom(4),
                 icon: const Icon(MyIcons.users_group).paddingBottom(4),
                 label: 'Friends',
               ),
