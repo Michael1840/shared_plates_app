@@ -15,6 +15,7 @@ class Routes {
   static const String dashboard = '/';
 
   static const String recipes = '/recipes';
+  static const String recipeDetail = '/recipeDetail';
 
   static const String discover = '/discover';
 

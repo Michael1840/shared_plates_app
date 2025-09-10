@@ -43,7 +43,7 @@ class MySliverList extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomScrollView(
       physics: const ClampingScrollPhysics(),
-      clipBehavior: Clip.none,
+      clipBehavior: Clip.hardEdge,
       scrollDirection: scrollDirection,
       shrinkWrap: shrinkWrap,
 

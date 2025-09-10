@@ -55,11 +55,7 @@ class RecipeItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Icon(
-                  MyIcons.heart_02,
-                  color: StatusColors.failure,
-                  size: 20,
-                ),
+                Icon(MyIcons.heart_02, color: context.textSecondary, size: 20),
                 Icon(
                   MyIcons.chevron_right,
                   color: context.textSecondary,

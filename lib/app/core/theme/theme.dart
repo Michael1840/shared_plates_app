@@ -46,7 +46,7 @@ class MyTheme {
     appBarTheme: const AppBarTheme().copyWith(
       surfaceTintColor: Colors.transparent,
       scrolledUnderElevation: 0,
-      backgroundColor: AppColors.backgroundLight,
+      backgroundColor: Colors.transparent,
     ),
   );
 
@@ -57,7 +57,7 @@ class MyTheme {
       surfaceTintColor: Colors.transparent,
       scrolledUnderElevation: 0,
       elevation: 0,
-      backgroundColor: AppColors.backgroundDark,
+      backgroundColor: Colors.transparent,
     ),
   );
 }
