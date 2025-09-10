@@ -186,6 +186,7 @@ extension ThemeExtensions on BuildContext {
   Color get background => colorScheme.surface;
   Color get container => colorScheme.primaryContainer;
   Color get onContainer => colorScheme.onPrimaryContainer;
+  Color get containerInverse => colorScheme.onTertiaryContainer;
 
   Color get textPrimary => colorScheme.onSurface;
   Color get textSecondary => colorScheme.onSurfaceVariant;
@@ -203,6 +204,7 @@ extension ThemeExtensions on BuildContext {
   Color get tertiary => colorScheme.tertiary;
   Color get onTertiary => colorScheme.onTertiary;
 
+  Color get darkText => TextColors.primaryLight;
   Color get white => Colors.white;
   Color get green => AccentColors.green;
 

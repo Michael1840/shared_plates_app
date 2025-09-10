@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../theme/theme.dart';
 import '../../../utils/extensions.dart';
+import '../../../utils/sizing.dart';
 import '../animations/ball_animation.dart';
 import '../containers/default_container.dart';
 
@@ -12,6 +13,10 @@ class WideTextButton extends StatelessWidget {
   final EdgeInsets padding;
   final bool disabled;
   final bool isLoading;
+  final double? radius;
+  final Color? color;
+  final Color? textColor;
+
   const WideTextButton({
     super.key,
     required this.text,
@@ -20,6 +25,9 @@ class WideTextButton extends StatelessWidget {
     this.padding = const EdgeInsets.all(16),
     this.disabled = false,
     this.isLoading = false,
+    this.radius,
+    this.color,
+    this.textColor,
   });
 
   const WideTextButton.action({
@@ -30,6 +38,9 @@ class WideTextButton extends StatelessWidget {
     this.padding = const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
     this.disabled = false,
     this.isLoading = false,
+    this.radius,
+    this.color,
+    this.textColor,
   });
 
   @override
@@ -41,10 +52,9 @@ class WideTextButton extends StatelessWidget {
             .subtract(const EdgeInsets.all(6))
             .resolve(TextDirection.ltr),
         hasBorder: false,
-        color: isReversed ? context.onContainer : context.primary,
-        child: const Center(
-          child: BallAnimation(ballSize: 15),
-        ),
+        radius: radius ?? Rounding.reg,
+        color: isReversed ? context.onContainer : color ?? context.primary,
+        child: const Center(child: BallAnimation(ballSize: 15)),
       );
     }
 
@@ -55,7 +65,7 @@ class WideTextButton extends StatelessWidget {
         padding: padding.subtract(const EdgeInsetsGeometry.all(1)),
         decoration: BoxDecoration(
           color: context.onContainer,
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(radius ?? Rounding.reg),
           border: Border.all(
             color: disabled
                 ? context.borderSecondary.withValues(alpha: 0.4)
@@ -67,8 +77,9 @@ class WideTextButton extends StatelessWidget {
           child: AppText.heading(
             text: text,
             color: disabled
-                ? context.textPrimary.withValues(alpha: 0.4)
-                : context.textPrimary,
+                ? textColor?.withValues(alpha: 0.4) ??
+                      context.white.withValues(alpha: 0.4)
+                : textColor ?? context.white,
             size: 14,
           ),
         ),
@@ -80,11 +91,15 @@ class WideTextButton extends StatelessWidget {
         expanded: true,
         padding: padding,
         hasBorder: isReversed,
-        color: context.primary.withValues(alpha: 0.4),
+        color:
+            color?.withValues(alpha: 0.4) ??
+            context.primary.withValues(alpha: 0.4),
         child: Center(
           child: AppText.heading(
             text: text,
-            color: context.textPrimary.withValues(alpha: 0.4),
+            color:
+                textColor?.withValues(alpha: 0.4) ??
+                context.white.withValues(alpha: 0.4),
             size: 14,
           ),
         ),
@@ -95,11 +110,12 @@ class WideTextButton extends StatelessWidget {
       expanded: true,
       padding: padding,
       hasBorder: false,
-      color: context.primary,
+      radius: radius ?? Rounding.reg,
+      color: color ?? context.green,
       child: Center(
         child: AppText.heading(
           text: text,
-          color: context.textPrimary,
+          color: textColor ?? context.white,
           size: 14,
         ),
       ),

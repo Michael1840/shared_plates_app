@@ -16,12 +16,13 @@ class MyTheme {
         surface: AppColors.backgroundLight,
         onSurface: TextColors.primaryLight,
         onSurfaceVariant: TextColors.secondary,
+        onInverseSurface: TextColors.primaryDark,
         primaryContainer: AppColors.containerLight,
         onPrimaryContainer: AppColors.onContainer,
+        onTertiaryContainer: AppColors.containerLight,
         outline: BorderColors.primary,
         outlineVariant: BorderColors.secondary,
 
-        //TODO: SET ACCENT COLOURS
         primary: AccentColors.primary,
       );
 
@@ -29,19 +30,20 @@ class MyTheme {
     surface: AppColors.backgroundDark,
     onSurface: TextColors.primaryDark,
     onSurfaceVariant: TextColors.secondary,
+    onInverseSurface: TextColors.primaryLight,
     primaryContainer: AppColors.containerDark,
     onPrimaryContainer: AppColors.onContainer,
+    onTertiaryContainer: AppColors.containerLight,
     outline: BorderColors.primary,
     outlineVariant: BorderColors.secondary,
 
-    //TODO: SET ACCENT COLOURS
     primary: AccentColors.primary,
   );
 
   static ThemeData get lightTheme => _baseTheme.copyWith(
     colorScheme: lightColorScheme,
     scaffoldBackgroundColor: lightColorScheme.surface,
-    appBarTheme: AppBarTheme().copyWith(
+    appBarTheme: const AppBarTheme().copyWith(
       surfaceTintColor: Colors.transparent,
       scrolledUnderElevation: 0,
       backgroundColor: AppColors.backgroundLight,
@@ -51,7 +53,7 @@ class MyTheme {
   static ThemeData get darkTheme => _baseTheme.copyWith(
     colorScheme: darkColorScheme,
     scaffoldBackgroundColor: darkColorScheme.surface,
-    appBarTheme: AppBarTheme().copyWith(
+    appBarTheme: const AppBarTheme().copyWith(
       surfaceTintColor: Colors.transparent,
       scrolledUnderElevation: 0,
       elevation: 0,
