@@ -14,9 +14,9 @@ enum DioMethod { post, get, put, delete }
 
 class DioClient {
   static String get baseUrl {
-    if (kDebugMode) {
-      return ApiRoutes.debugUrl;
-    }
+    // if (kDebugMode) {
+    //   return ApiRoutes.debugUrl;
+    // }
 
     return ApiRoutes.releaseUrl;
   }
@@ -102,6 +102,7 @@ class ApiHelper {
         data: parsedData,
       );
     } catch (e) {
+      print(e.toString());
       return const ApiResponseModel(statusCode: -1);
     }
   }
@@ -126,12 +127,50 @@ class ApiInterceptors extends Interceptor {
     DioException err,
     ErrorInterceptorHandler handler,
   ) async {
+    final baseUrl = err.requestOptions.baseUrl;
     final endpoint = err.requestOptions.path;
     final statusCode = err.response?.statusCode;
-    debugPrint('[ERROR] ⇩ $statusCode $endpoint');
-    debugPrint('  └─ Error: ${err.response}');
 
-    if (err.response?.statusCode == 401 && !_isRefreshing) {
+    debugPrint(
+      '────────────────────────── API ERROR ──────────────────────────',
+    );
+    debugPrint('🚨 STATUS CODE: $statusCode');
+    debugPrint('🔗 URL: $baseUrl$endpoint');
+
+    if (err.requestOptions.headers.isNotEmpty) {
+      debugPrint('HEADERS: ${err.requestOptions.headers}');
+    }
+
+    if (err.requestOptions.data != null) {
+      debugPrint('➡️ REQUEST BODY: ${err.requestOptions.data}');
+    }
+
+    if (err.response?.data != null) {
+      debugPrint('⬅️ RESPONSE BODY: ${err.response?.data}');
+    } else {
+      // This is the key part to catch empty/null responses
+      debugPrint('⬅️ RESPONSE BODY: (empty or null)');
+    }
+
+    debugPrint('❌ ERROR MESSAGE: ${err.message}');
+    debugPrint(
+      '─────────────────────────────────────────────────────────────────',
+    );
+
+    if (err.response?.statusCode == 502 || err.response?.statusCode == 500) {
+      _isRefreshing = true;
+
+      try {
+        final options = err.requestOptions;
+
+        final retryResponse = await Dio().fetch(options);
+        _isRefreshing = false;
+        return handler.resolve(retryResponse);
+      } catch (e) {
+        _isRefreshing = false;
+        return handler.reject(err);
+      }
+    } else if (err.response?.statusCode == 401 && !_isRefreshing) {
       _isRefreshing = true;
 
       final refreshToken = await tokenStorage.getRefreshToken();
@@ -174,26 +213,61 @@ class ApiInterceptors extends Interceptor {
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
+    final baseUrl = options.baseUrl;
     final endpoint = options.path;
     final method = options.method;
     final data = options.data;
     final queryParams = options.queryParameters;
 
-    debugPrint('[REQUEST] ➜ $method $endpoint');
-    if (data != null) debugPrint('  ├─ Body: $data');
-    if (queryParams.isNotEmpty) debugPrint('  ├─ Query: $queryParams');
-    debugPrint('  └─ Headers: ${options.headers}');
+    debugPrint(
+      '────────────────────────── API REQUEST ──────────────────────────',
+    );
+    debugPrint('🔗 URL: $baseUrl$endpoint');
+    debugPrint('➡️ METHOD: $method');
+
+    if (options.headers.isNotEmpty) {
+      debugPrint('HEADERS: ${options.headers}');
+    }
+
+    if (data != null) {
+      debugPrint('➡️ REQUEST BODY: $data');
+    }
+
+    if (queryParams.isNotEmpty) {
+      debugPrint('➡️ QUERY PARAMS: $queryParams');
+    }
+
+    debugPrint(
+      '─────────────────────────────────────────────────────────────────',
+    );
 
     super.onRequest(options, handler);
   }
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
+    final baseUrl = response.requestOptions.baseUrl;
     final endpoint = response.requestOptions.path;
+    final method = response.requestOptions.method;
     final statusCode = response.statusCode;
+    final responseBody = response.data;
 
-    debugPrint('[RESPONSE] ⇦ $statusCode $endpoint');
-    debugPrint('  └─ Data: ${response.data}');
+    debugPrint(
+      '────────────────────────── API RESPONSE ─────────────────────────',
+    );
+    debugPrint('🔗 URL: $baseUrl$endpoint');
+    debugPrint('⬅️ METHOD: $method');
+    debugPrint('✅ STATUS CODE: $statusCode');
+
+    if (responseBody != null) {
+      debugPrint('⬅️ RESPONSE BODY: $responseBody');
+    } else {
+      debugPrint('⬅️ RESPONSE BODY: (empty)');
+    }
+
+    debugPrint(
+      '─────────────────────────────────────────────────────────────────',
+    );
 
     super.onResponse(response, handler);
   }

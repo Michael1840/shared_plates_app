@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../auth/blocs/user_bloc/user_bloc.dart';
+import '../../auth/ui/auth_page.dart';
 import '../../home/ui/home_page.dart';
 import '../../onboarding/ui/onboarding_page.dart';
 import 'nav_shell.dart';
@@ -9,8 +12,8 @@ class Routes {
   // MAIN ROUTES
   static const String onboarding = '/onboarding';
 
-  static const String login = '/login';
-  static const String register = '/register';
+  static const String authCheck = '/auth-check';
+  static const String auth = '/auth';
 
   static const String dashboard = '/';
 
@@ -30,26 +33,31 @@ class NavigationRouter {
   static final GoRouter router = GoRouter(
     initialLocation: Routes.onboarding,
     navigatorKey: key,
+    redirect: (context, state) {
+      final String? path = state.fullPath;
+
+      final userState = context.read<UserBloc>().state;
+      if (userState is UserUnauthenticated &&
+          (path != Routes.authCheck &&
+              path != Routes.onboarding &&
+              path != Routes.auth)) {
+        return Routes.auth;
+      }
+      return null;
+    },
     routes: [
-      GoRoute(
-        path: Routes.register,
-        name: Routes.register,
-        pageBuilder: (context, state) =>
-            buildSlideTransition(const HomePage(), state.pageKey),
-        routes: [],
-      ),
-      GoRoute(
-        path: Routes.login,
-        name: Routes.login,
-        pageBuilder: (context, state) =>
-            buildSlideTransition(const HomePage(), state.pageKey),
-        routes: [],
-      ),
       GoRoute(
         path: Routes.onboarding,
         name: Routes.onboarding,
         pageBuilder: (context, state) =>
             buildSlideTransition(const OnboardingPage(), state.pageKey),
+        routes: [],
+      ),
+      GoRoute(
+        path: Routes.auth,
+        name: Routes.auth,
+        pageBuilder: (context, state) =>
+            buildSlideTransition(const AuthPage(), state.pageKey),
         routes: [],
       ),
 
