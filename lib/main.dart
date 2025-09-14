@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'app/api/services/recipe_api_service.dart';
 import 'app/api/services/user_api_service.dart';
 import 'app/auth/blocs/user_bloc/user_bloc.dart';
 import 'app/auth/data/repo/user_repo.dart';
 import 'app/core/data/helpers/token_storage.dart';
 import 'app/core/router/routes.dart';
 import 'app/core/theme/theme.dart';
+import 'app/recipe/data/repo/recipe_repo.dart';
 
 final TokenStorage tokenStorage = TokenStorage();
 
@@ -27,6 +29,9 @@ class MyApp extends StatelessWidget {
       providers: [
         RepositoryProvider<UserRepository>(
           create: (context) => UserDataProvider(UserApiService()),
+        ),
+        RepositoryProvider<RecipesRepository>(
+          create: (context) => RecipesDataProvider(RecipeApiService()),
         ),
         BlocProvider(
           create: (context) => UserBloc(context.read<UserRepository>()),

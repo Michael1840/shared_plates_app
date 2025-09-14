@@ -25,10 +25,8 @@ class SmallTextButton extends StatelessWidget {
             padding ?? const EdgeInsets.symmetric(vertical: 8, horizontal: 14),
         decoration: BoxDecoration(
           color: context.onContainer,
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(
-            color: context.borderSecondary,
-          ),
+          borderRadius: BorderRadius.circular(100),
+          border: Border.all(color: context.borderSecondary),
         ),
         child: Center(
           child: AppText.heading(
@@ -44,8 +42,8 @@ class SmallTextButton extends StatelessWidget {
       padding:
           padding ?? const EdgeInsets.symmetric(vertical: 8, horizontal: 14),
       decoration: BoxDecoration(
-        color: context.primary,
-        borderRadius: BorderRadius.circular(8),
+        color: context.green,
+        borderRadius: BorderRadius.circular(100),
       ),
       child: Center(
         child: AppText.heading(

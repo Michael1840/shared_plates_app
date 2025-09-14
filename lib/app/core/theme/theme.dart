@@ -24,6 +24,8 @@ class MyTheme {
         outlineVariant: BorderColors.secondary,
 
         primary: AccentColors.primary,
+        secondaryContainer: LoadingColors.lightContainer,
+        onSecondaryContainer: LoadingColors.lightOnContainer,
       );
 
   static final ColorScheme darkColorScheme = const ColorScheme.dark().copyWith(
@@ -38,6 +40,8 @@ class MyTheme {
     outlineVariant: BorderColors.secondary,
 
     primary: AccentColors.primary,
+    secondaryContainer: LoadingColors.darkContainer,
+    onSecondaryContainer: LoadingColors.darkOnContainer,
   );
 
   static ThemeData get lightTheme => _baseTheme.copyWith(

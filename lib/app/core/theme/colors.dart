@@ -28,6 +28,14 @@ class AccentColors {
   static const Color red = Color.fromARGB(255, 172, 70, 70);
 }
 
+class LoadingColors {
+  static const Color darkOnContainer = Color(0xFF333333);
+  static const Color darkContainer = Color(0xFF282828);
+
+  static const Color lightOnContainer = Color(0xFFD6D6D6);
+  static const Color lightContainer = Color(0xFFEAEAEA);
+}
+
 class TextColors {
   static const Color accent = Color(0xFF89AC46);
 

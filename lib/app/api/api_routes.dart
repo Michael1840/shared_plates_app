@@ -12,4 +12,10 @@ class ApiRoutes {
   static const String logout = '/logout';
 
   static const String profile = '/profile';
+
+  static const String recipe = '/meals';
+  static String recipeWithId(int id) => '/meals/$id';
+  static const String userRecipes = '';
+  static const String trendingRecipes = '';
+  static const String friendsRecipes = '';
 }

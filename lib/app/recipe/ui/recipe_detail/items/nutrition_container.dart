@@ -36,7 +36,7 @@ class NutritionContainer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           spacing: 8,
           children: [
-            AppText.heading(text: amount, size: 18),
+            AppText.heading(text: amount, size: 14),
             AppText.secondary(text: label, size: 10),
           ],
         ),

@@ -6,6 +6,10 @@ import '../../auth/blocs/user_bloc/user_bloc.dart';
 import '../../auth/ui/auth_page.dart';
 import '../../home/ui/home_page.dart';
 import '../../onboarding/ui/onboarding_page.dart';
+import '../../recipe/bloc/recipe_detail_cubit/recipe_detail_cubit.dart';
+import '../../recipe/data/repo/recipe_repo.dart';
+import '../../recipe/ui/recipe_detail/recipe_detail_view.dart';
+import '../../recipe/ui/recipe_page.dart';
 import 'nav_shell.dart';
 
 class Routes {
@@ -83,6 +87,35 @@ class NavigationRouter {
                 pageBuilder: (context, state) =>
                     buildSlideTransition(const HomePage(), state.pageKey),
                 routes: [],
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: Routes.recipes,
+                name: Routes.recipes,
+                pageBuilder: (context, state) =>
+                    buildSlideTransition(const RecipesPage(), state.pageKey),
+                routes: [
+                  GoRoute(
+                    path: Routes.recipeDetail,
+                    name: Routes.recipeDetail,
+                    pageBuilder: (context, state) {
+                      int? id = state.extra as int?;
+
+                      return buildSlideTransition(
+                        BlocProvider(
+                          create: (context) => RecipeDetailCubit(
+                            context.read<RecipesRepository>(),
+                          ),
+                          child: RecipeDetailView(id: id),
+                        ),
+                        state.pageKey,
+                      );
+                    },
+                  ),
+                ],
               ),
             ],
           ),

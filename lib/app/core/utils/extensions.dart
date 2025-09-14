@@ -11,6 +11,11 @@ extension AnimationExtensions on Widget {
       .fade(duration: 200.ms)
       .slide(begin: const Offset(-0.1, 0), duration: 200.ms)
       .then(delay: (150 * (index % 10)).ms);
+
+  Widget containerAnimate(int index, [Duration? duration]) =>
+      animate(delay: (index * 500 + 250).ms)
+          .fadeIn(duration: 500.ms)
+          .slideY(begin: 1, end: 0, duration: duration ?? 500.ms);
 }
 
 extension WidgetExtension on Widget? {
@@ -187,6 +192,9 @@ extension ThemeExtensions on BuildContext {
   Color get container => colorScheme.primaryContainer;
   Color get onContainer => colorScheme.onPrimaryContainer;
   Color get containerInverse => colorScheme.onTertiaryContainer;
+
+  Color get primaryLoadingContainer => colorScheme.onSecondaryContainer;
+  Color get secondaryLoadingContainer => colorScheme.secondaryContainer;
 
   Color get textPrimary => colorScheme.onSurface;
   Color get textSecondary => colorScheme.onSurfaceVariant;

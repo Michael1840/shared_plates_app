@@ -1,0 +1,65 @@
+import 'package:flutter/material.dart';
+
+import '../../../core/ui/custom/animations/loading_containers.dart';
+import '../../../core/ui/layouts/page_container.dart';
+import 'recipe_item_skeleton.dart';
+
+class RecipesPageSkeleton extends StatelessWidget {
+  const RecipesPageSkeleton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const PageContainer.scrollable(
+      physics: NeverScrollableScrollPhysics(),
+      child: Column(
+        spacing: 20,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            spacing: 10,
+            children: [
+              PrimaryLoadingContainer(width: 75, height: 12),
+              PrimaryLoadingContainer(width: 200, height: 20),
+            ],
+          ),
+          Row(
+            spacing: 10,
+            children: [
+              Expanded(
+                child: SecondaryLoadingContainer(
+                  padding: EdgeInsets.all(16),
+                  width: double.infinity,
+                  radius: 40,
+                  child: Row(
+                    spacing: 12,
+                    children: [
+                      PrimaryLoadingContainer(width: 14, height: 14),
+                      Expanded(
+                        flex: 3,
+                        child: PrimaryLoadingContainer(width: 14, height: 14),
+                      ),
+                      Expanded(child: SizedBox()),
+                    ],
+                  ),
+                ),
+              ),
+              SecondaryLoadingContainer(
+                padding: EdgeInsets.all(16),
+                radius: 40,
+                child: Row(
+                  children: [PrimaryLoadingContainer(width: 14, height: 14)],
+                ),
+              ),
+            ],
+          ),
+          RecipeItemSkeleton(),
+          RecipeItemSkeleton(),
+          RecipeItemSkeleton(),
+          RecipeItemSkeleton(),
+          RecipeItemSkeleton(),
+        ],
+      ),
+    );
+  }
+}

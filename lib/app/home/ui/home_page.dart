@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/router/routes.dart';
 import '../../core/theme/theme.dart';
 import '../../core/ui/custom/animations/animate_list.dart';
-import '../../core/ui/custom/buttons/my_icon_button.dart';
-import '../../core/ui/custom/containers/default_container.dart';
+import '../../core/ui/custom/appbar/main_app_bar.dart';
+import '../../core/ui/custom/containers/view_all_row.dart';
 import '../../core/ui/custom/fields/search_field.dart';
-import '../../core/ui/custom/icons/my_icons.dart';
 import '../../core/ui/layouts/page_container.dart';
 import '../../core/utils/extensions.dart';
+import '../../recipe/bloc/recipe_bloc/recipe_bloc.dart';
+import '../../recipe/data/models/recipe_model.dart';
 import 'items/recipe_item.dart';
+import 'items/trending_recipe_item.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -18,79 +22,113 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 75,
-        leadingWidth: 100,
-        leading: Row(
-          children: [
-            const SizedBox(width: 20),
-            CircleAvatar(maxRadius: 24, backgroundColor: context.onContainer),
-          ],
-        ),
-        actions: [
-          const MyIconButton(icon: MyIcons.bell),
-          const SizedBox(width: 20),
-        ],
-      ),
-      body: PageContainer(
-        padding: EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 0),
-        child: Column(
-          spacing: 20,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Column(
+      resizeToAvoidBottomInset: false,
+      appBar: const MainAppBar(),
+      body: BlocBuilder<RecipeBloc, RecipeState>(
+        builder: (context, state) {
+          if (state.isFriendsLoading || state.isTrendingLoading) {
+            return SizedBox();
+          }
+
+          if (state.friendsRecipesResult.value == null ||
+              state.trendingRecipesResult.value == null) {
+            return SizedBox();
+          }
+
+          int friendsLength = 5;
+          int trendingLength = 5;
+
+          final List<RecipeModel> friendsRecipes =
+              state.friendsRecipesResult.value!;
+          final List<RecipeModel> trendingRecipes =
+              state.trendingRecipesResult.value!;
+
+          if (friendsRecipes.length < friendsLength) {
+            friendsLength = friendsRecipes.length;
+          }
+
+          if (trendingRecipes.length < trendingLength) {
+            trendingLength = trendingRecipes.length;
+          }
+
+          return PageContainer(
+            padding: const EdgeInsets.only(
+              top: 20,
+              left: 20,
+              right: 20,
+              bottom: 0,
+            ),
+            child: Column(
               spacing: 20,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Column(
+                  spacing: 20,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    AppText.primary(text: 'Welcome,'),
-                    AppText.heading(text: 'Michael Kiggen'),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AppText.primary(text: 'Welcome,'),
+                        AppText.heading(text: 'Michael Kiggen'),
+                      ],
+                    ),
+                    Row(
+                      spacing: 10,
+                      children: [
+                        Expanded(
+                          child: SearchField(hint: 'What\'s cooking today?'),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
-                const Row(
+                Column(
                   spacing: 10,
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(child: SearchField()),
-                    MyIconButton(icon: MyIcons.heart_02, padding: 14),
-                  ],
-                ),
-                ConstrainedBox(
-                  constraints: const BoxConstraints(
-                    maxHeight: 33.64,
-                    minHeight: 32.8,
-                  ),
-                  child: MySliverList.horizontal(
-                    gap: 10,
-                    itemBuilder: (context, index) => DefaultContainer(
-                      color: index == 0 ? context.green : null,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 24,
-                        vertical: 8,
-                      ),
-                      child: AppText.secondary(
-                        text: 'Test',
-                        color: index == 0 ? context.white : null,
-                        weight: index == 0 ? Weights.bold : Weights.reg,
+                    ViewAllRow(title: 'Trending Recipes', onTap: () {}),
+                    SizedBox(
+                      height: 213,
+                      child: MySliverList.horizontal(
+                        itemBuilder: (context, index) =>
+                            TrendingRecipeItem(recipe: trendingRecipes[index])
+                                .onTap(() {
+                                  context.pushNamed(Routes.recipeDetail);
+                                })
+                                .listAnimate(index),
+                        itemCount: trendingLength,
                       ),
                     ),
-                    itemCount: 5,
+                  ],
+                ),
+
+                Expanded(
+                  child: Column(
+                    spacing: 10,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ViewAllRow(title: 'Friends Recents', onTap: () {}),
+                      Expanded(
+                        child: MySliverList(
+                          itemBuilder: (context, index) =>
+                              RecipeItem(recipe: friendsRecipes[index])
+                                  .onTap(() {
+                                    context.pushNamed(Routes.recipeDetail);
+                                  })
+                                  .listAnimate(index),
+                          itemCount: friendsLength,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
             ),
-            Expanded(
-              child: MySliverList(
-                itemBuilder: (context, index) => const RecipeItem().onTap(() {
-                  context.pushNamed(Routes.recipeDetail);
-                }),
-                itemCount: 5,
-              ),
-            ),
-          ],
-        ),
-      ),
+          );
+        },
+      ).containerAnimate(0, 250.ms),
     );
   }
 }

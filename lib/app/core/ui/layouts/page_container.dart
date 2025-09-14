@@ -8,6 +8,7 @@ class PageContainer extends StatelessWidget {
   final EdgeInsets? padding;
   final Color? color;
   final bool isScrollable;
+  final ScrollPhysics? physics;
 
   const PageContainer({
     super.key,
@@ -16,7 +17,7 @@ class PageContainer extends StatelessWidget {
     this.color,
     this.isScrollable = false,
     required this.child,
-  });
+  }) : physics = null;
 
   const PageContainer.scrollable({
     super.key,
@@ -24,6 +25,7 @@ class PageContainer extends StatelessWidget {
     this.padding,
     this.color,
     this.isScrollable = true,
+    this.physics,
     required this.child,
   });
 
@@ -41,7 +43,7 @@ class PageContainer extends StatelessWidget {
         });
 
     if (isScrollable) {
-      return SingleChildScrollView(child: pageContainer);
+      return SingleChildScrollView(physics: physics, child: pageContainer);
     }
 
     return pageContainer;

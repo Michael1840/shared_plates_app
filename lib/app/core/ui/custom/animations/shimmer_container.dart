@@ -21,7 +21,7 @@ class MyShimmerContainer extends StatelessWidget {
       ),
       child: Shimmer.fromColors(
         baseColor: context.onContainer,
-        highlightColor: context.borderSecondary.withValues(alpha: 0.4),
+        highlightColor: context.textSecondary.withValues(alpha: 0.4),
         child:
             child ??
             Container(
