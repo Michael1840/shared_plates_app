@@ -208,6 +208,7 @@ extension ThemeExtensions on BuildContext {
 
   Color get secondary => colorScheme.secondary;
   Color get onSecondary => colorScheme.onSecondary;
+  Color get shimmer => colorScheme.onTertiaryFixed;
 
   Color get tertiary => colorScheme.tertiary;
   Color get onTertiary => colorScheme.onTertiary;

@@ -44,17 +44,18 @@ class MyApp extends StatelessWidget {
         themeMode: ThemeMode.system,
         routerConfig: NavigationRouter.router,
         builder: (context, child) {
-          final mediaQueryData = MediaQuery.of(context);
-          final scale = mediaQueryData.textScaler.clamp(
-            minScaleFactor: 1.0,
-            maxScaleFactor: 1.05,
-          );
           return SafeArea(
             top: true,
             bottom: false,
             // bottom: true,
             child: MediaQuery(
-              data: MediaQuery.of(context).copyWith(textScaler: scale),
+              data: MediaQuery.of(context).copyWith(
+                textScaler: TextScaler.linear(
+                  MediaQuery.of(context).textScaler
+                      .clamp(minScaleFactor: 1.0, maxScaleFactor: 1.05)
+                      .scale(1.0),
+                ),
+              ),
               child: child!,
             ),
           );

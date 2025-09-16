@@ -2,26 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../utils/extensions.dart';
-import '../../../utils/sizing.dart';
 
 class MyShimmerContainer extends StatelessWidget {
   final double? height;
   final double? width;
+  final double? radius;
   final Widget? child;
-  const MyShimmerContainer({super.key, this.height, this.width, this.child});
+  const MyShimmerContainer({
+    super.key,
+    this.height,
+    this.width,
+    this.child,
+    this.radius,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(Rounding.reg),
+        borderRadius: BorderRadius.circular(radius ?? 0),
         // border: Border.all(color: context.borderPrimary),
         color: context.container,
       ),
       child: Shimmer.fromColors(
-        baseColor: context.onContainer,
-        highlightColor: context.textSecondary.withValues(alpha: 0.4),
+        baseColor: context.primaryLoadingContainer,
+        highlightColor: context.shimmer,
         child:
             child ??
             Container(

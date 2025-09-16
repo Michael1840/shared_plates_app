@@ -1,7 +1,18 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:json_annotation/json_annotation.dart';
 
+import 'ingredient_model.dart';
+
 part 'recipe_model.g.dart';
+
+enum PrivacyStatus {
+  @JsonValue('1')
+  public,
+  @JsonValue('2')
+  friends,
+  @JsonValue('3')
+  private,
+}
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class RecipeModel {
@@ -29,6 +40,10 @@ class RecipeModel {
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class RecipeDetailModel extends RecipeModel {
+  final List<IngredientModel> ingredients;
+  final List<String> tags;
+  final PrivacyStatus privacyStatus;
+
   const RecipeDetailModel({
     required super.id,
     required super.title,
@@ -36,6 +51,9 @@ class RecipeDetailModel extends RecipeModel {
     required super.serves,
     required super.createdBy,
     super.assetUrl,
+    required this.ingredients,
+    required this.tags,
+    required this.privacyStatus,
   });
 
   @override

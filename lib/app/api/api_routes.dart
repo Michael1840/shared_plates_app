@@ -15,7 +15,7 @@ class ApiRoutes {
 
   static const String recipe = '/meals';
   static String recipeWithId(int id) => '/meals/$id';
-  static const String userRecipes = '';
-  static const String trendingRecipes = '';
-  static const String friendsRecipes = '';
+  static const String userRecipes = '/meals';
+  static const String trendingRecipes = '/meals';
+  static const String friendsRecipes = '/meals';
 }

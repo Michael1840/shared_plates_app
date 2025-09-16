@@ -31,9 +31,11 @@ class AccentColors {
 class LoadingColors {
   static const Color darkOnContainer = Color(0xFF333333);
   static const Color darkContainer = Color(0xFF282828);
+  static const Color darkShimmer = Color(0xFF474747);
 
   static const Color lightOnContainer = Color(0xFFD6D6D6);
   static const Color lightContainer = Color(0xFFEAEAEA);
+  static const Color lightShimmer = Color(0xFFF0F0F0);
 }
 
 class TextColors {

@@ -20,6 +20,8 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
     on<RecipeFetchUserRecipes>(_handleFetchUserProjects);
     on<RecipeFetchTrendingRecipes>(_handleFetchTrendingRecipes);
     on<RecipeFetchFriendRecipes>(_handleFetchFriendsRecipes);
+
+    add(RecipeFetchUserRecipes());
   }
 
   Future<void> _handleFetchUserProjects(

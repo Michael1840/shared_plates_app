@@ -26,6 +26,7 @@ class MyTheme {
         primary: AccentColors.primary,
         secondaryContainer: LoadingColors.lightContainer,
         onSecondaryContainer: LoadingColors.lightOnContainer,
+        onTertiaryFixed: LoadingColors.lightShimmer,
       );
 
   static final ColorScheme darkColorScheme = const ColorScheme.dark().copyWith(
@@ -42,6 +43,7 @@ class MyTheme {
     primary: AccentColors.primary,
     secondaryContainer: LoadingColors.darkContainer,
     onSecondaryContainer: LoadingColors.darkOnContainer,
+    onTertiaryFixed: LoadingColors.darkShimmer,
   );
 
   static ThemeData get lightTheme => _baseTheme.copyWith(

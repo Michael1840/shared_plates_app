@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../../../theme/theme.dart';
+import '../appbar/main_app_bar.dart';
+import '../buttons/my_icon_button.dart';
+import '../fields/search_field.dart';
+import '../icons/my_icons.dart';
+
 class MySliverList extends StatelessWidget {
   final int itemCount;
   final Widget? Function(BuildContext context, int index) itemBuilder;
@@ -48,7 +54,36 @@ class MySliverList extends StatelessWidget {
       shrinkWrap: shrinkWrap,
 
       slivers: [
-        ?customPinnedWidget,
+        const SliverAppBar(
+          pinned: true,
+          automaticallyImplyLeading: false,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          toolbarHeight: 0,
+          collapsedHeight: 0,
+          expandedHeight: 75,
+          flexibleSpace: MainAppBar(),
+        ),
+        const PinnedHeaderSliver(
+          child: Column(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppText.primary(text: 'Your'),
+                  AppText.heading(text: 'Recipe Book'),
+                ],
+              ),
+              Row(
+                spacing: 10,
+                children: [
+                  Expanded(child: SearchField()),
+                  MyIconButton(icon: MyIcons.heart_02, padding: 14),
+                ],
+              ),
+            ],
+          ),
+        ),
         SliverList.separated(
           itemBuilder: itemBuilder,
           separatorBuilder: (context, index) =>

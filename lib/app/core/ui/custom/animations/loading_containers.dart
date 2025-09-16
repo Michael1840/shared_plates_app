@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../utils/extensions.dart';
+import 'shimmer_container.dart';
 
 class PrimaryLoadingContainer extends StatelessWidget {
   final double? width;
@@ -15,12 +16,14 @@ class PrimaryLoadingContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: width,
-      height: height,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(radius ?? 4),
-        color: context.primaryLoadingContainer,
+    return MyShimmerContainer(
+      child: Container(
+        width: width,
+        height: height,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(radius ?? 4),
+          color: context.primaryLoadingContainer,
+        ),
       ),
     );
   }

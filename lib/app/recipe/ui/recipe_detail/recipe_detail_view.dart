@@ -1,4 +1,3 @@
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -8,13 +7,15 @@ import '../../../core/ui/custom/animations/animate_list.dart';
 import '../../../core/ui/custom/buttons/my_icon_button.dart';
 import '../../../core/ui/custom/containers/default_container.dart';
 import '../../../core/ui/custom/containers/network_image.dart';
+import '../../../core/ui/custom/containers/tag_container.dart';
 import '../../../core/ui/custom/icons/my_icons.dart';
-import '../../../core/utils/constants.dart';
 import '../../../core/utils/extensions.dart';
 import '../../bloc/recipe_detail_cubit/recipe_detail_cubit.dart';
 import '../../data/models/recipe_model.dart';
 import 'items/ingredient_item.dart';
 import 'items/nutrition_container.dart';
+import 'items/servings_container.dart';
+import 'loading_skeleton.dart/recipe_detail_page_skeleton.dart';
 
 class RecipeDetailView extends StatefulWidget {
   final int? id;
@@ -48,10 +49,10 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
       child: BlocBuilder<RecipeDetailCubit, RecipeDetailState>(
         builder: (context, state) {
           if (state.isLoading || state.loadingResult.value == null) {
-            return const SizedBox();
+            return const RecipeDetailPageSkeleton();
           }
 
-          final RecipeModel recipe = state.loadingResult.value ?? kRecipes[0];
+          final RecipeDetailModel recipe = state.loadingResult.value!;
 
           return Scaffold(
             body: Stack(
@@ -110,7 +111,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
                             spacing: 8,
                             children: [
                               AppText.heading(
-                                text: 'R${recipe.cost}',
+                                text: 'R${recipe.cost.floor()}',
                                 size: 18,
                               ),
                               CircleAvatar(
@@ -126,53 +127,10 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
                             ],
                           ),
                           const SizedBox(),
-                          DottedBorder(
-                            options: RoundedRectDottedBorderOptions(
-                              radius: const Radius.circular(100),
-                              color: context.green,
-                              dashPattern: [8, 8],
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 16,
-                                vertical: 16,
-                              ),
-                            ),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: AppText.primary(
-                                    text: 'Servings',
-                                    color: context.green,
-                                  ),
-                                ),
-                                Row(
-                                  spacing: 16,
-                                  children: [
-                                    CircleAvatar(
-                                      radius: 12,
-                                      backgroundColor: context.green,
-                                      child: Icon(
-                                        MyIcons.remove_minus,
-                                        color: context.white,
-                                        size: 18,
-                                      ),
-                                    ),
-                                    AppText.primary(
-                                      text: recipe.serves.toString(),
-                                      color: context.green,
-                                    ),
-                                    CircleAvatar(
-                                      radius: 12,
-                                      backgroundColor: context.green,
-                                      child: Icon(
-                                        MyIcons.add_plus,
-                                        color: context.white,
-                                        size: 18,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
+                          ServingsContainer(
+                            recipe: recipe,
+                            increment: () {},
+                            decrement: () {},
                           ),
                           const SizedBox(),
                           ConstrainedBox(
@@ -182,20 +140,9 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
                             ),
                             child: MySliverList.horizontal(
                               gap: 10,
-                              itemBuilder: (context, index) => DefaultContainer(
-                                color: index == 0 ? context.green : null,
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 24,
-                                  vertical: 8,
-                                ),
-                                child: AppText.secondary(
-                                  text: 'Test',
-                                  color: index == 0 ? context.white : null,
-                                  weight: index == 0
-                                      ? Weights.bold
-                                      : Weights.reg,
-                                ),
-                              ),
+                              itemBuilder: (context, index) => TagContainer(
+                                title: recipe.tags[index],
+                              ).listAnimate(index),
                               itemCount: 5,
                             ),
                           ),
@@ -276,35 +223,29 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
                                     ),
                                   ],
                                 ),
-                                const IngredientItem(
-                                  name: 'Brocolli',
-                                  amount: '50g',
-                                  isChecked: true,
-                                ),
-                                const IngredientItem(
-                                  name: 'Milk',
-                                  amount: '250ml',
-                                  isChecked: true,
-                                ),
-                                const IngredientItem(
-                                  name: 'Spinach',
-                                  amount: '200g',
-                                  isChecked: false,
-                                ),
-                                const IngredientItem(
-                                  name: 'Pepper',
-                                  amount: '10g',
-                                  isChecked: false,
-                                ),
-                                const IngredientItem(
-                                  name: 'Flour',
-                                  amount: '250g',
-                                  isChecked: false,
+                                SizedBox(
+                                  height: _calcContainerHeight(
+                                    recipe.ingredients.length,
+                                  ),
+                                  child: PageView(
+                                    scrollDirection: Axis.horizontal,
+                                    children: [
+                                      MySliverList(
+                                        shrinkWrap: true,
+                                        itemBuilder: (context, index) =>
+                                            IngredientItem(
+                                              ingredient:
+                                                  recipe.ingredients[index],
+                                            ).listAnimate(index),
+                                        itemCount: recipe.ingredients.length,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
                           ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                         ],
                       ),
                     ),
@@ -338,5 +279,13 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
         },
       ),
     );
+  }
+
+  double _calcContainerHeight(int length) {
+    int containerHeight = 48;
+
+    double paddingHeight = (length - 1) * 20;
+
+    return (containerHeight * length) + paddingHeight;
   }
 }
