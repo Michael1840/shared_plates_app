@@ -14,29 +14,30 @@ import 'nav_shell.dart';
 
 class Routes {
   // MAIN ROUTES
-  static const String onboarding = '/onboarding';
+  static const String onboarding = 'onboarding';
 
-  static const String authCheck = '/auth-check';
-  static const String auth = '/auth';
+  static const String authCheck = 'authentication-check';
+  static const String auth = 'authentication';
 
-  static const String dashboard = '/';
+  static const String dashboard = 'dashboard';
+  static const String dashRecipeDetail = 'dash-recipe-detail';
 
-  static const String recipes = '/recipes';
-  static const String recipeDetail = '/recipeDetail';
+  static const String recipes = 'recipes';
+  static const String recipeDetail = 'recipe-detail';
 
-  static const String discover = '/discover';
+  static const String discover = 'discover';
 
-  static const String friends = '/friends';
+  static const String friends = 'friends';
 
   // SUB ROUTES
 }
 
 class NavigationRouter {
-  static final key = GlobalKey<NavigatorState>();
+  static final GlobalKey<NavigatorState> _key = GlobalKey<NavigatorState>();
 
   static final GoRouter router = GoRouter(
     initialLocation: Routes.onboarding,
-    navigatorKey: key,
+    navigatorKey: _key,
     redirect: (context, state) {
       final String? path = state.fullPath;
 
@@ -49,16 +50,17 @@ class NavigationRouter {
       }
       return null;
     },
+
     routes: [
       GoRoute(
-        path: Routes.onboarding,
+        path: '/onboarding',
         name: Routes.onboarding,
         pageBuilder: (context, state) =>
             buildSlideTransition(const OnboardingPage(), state.pageKey),
         routes: [],
       ),
       GoRoute(
-        path: Routes.auth,
+        path: '/authentication',
         name: Routes.auth,
         pageBuilder: (context, state) =>
             buildSlideTransition(const AuthPage(), state.pageKey),
@@ -72,37 +74,24 @@ class NavigationRouter {
               GoRouterState state,
               StatefulNavigationShell navigationShell,
             ) {
-              // Return the widget that implements the custom shell (in this case
-              // using a BottomNavigationBar). The StatefulNavigationShell is passed
-              // to be able access the state of the shell and to navigate to other
-              // branches in a stateful way.
+              debugPrint('Route: ${state.fullPath}');
+
               return NavigationShell(navigationShell: navigationShell);
             },
         branches: [
           StatefulShellBranch(
             routes: [
               GoRoute(
-                path: Routes.dashboard,
+                path: '/',
                 name: Routes.dashboard,
                 pageBuilder: (context, state) =>
                     buildSlideTransition(const HomePage(), state.pageKey),
-                routes: [],
-              ),
-            ],
-          ),
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: Routes.recipes,
-                name: Routes.recipes,
-                pageBuilder: (context, state) =>
-                    buildSlideTransition(const RecipesPage(), state.pageKey),
                 routes: [
                   GoRoute(
-                    path: Routes.recipeDetail,
-                    name: Routes.recipeDetail,
+                    path: '${Routes.dashRecipeDetail}/:id',
+                    name: Routes.dashRecipeDetail,
                     pageBuilder: (context, state) {
-                      int? id = state.extra as int?;
+                      final id = int.tryParse(state.pathParameters['id'] ?? '');
 
                       return buildSlideTransition(
                         BlocProvider(
@@ -116,6 +105,57 @@ class NavigationRouter {
                     },
                   ),
                 ],
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/recipes',
+                name: Routes.recipes,
+                pageBuilder: (context, state) =>
+                    buildSlideTransition(const RecipesPage(), state.pageKey),
+                routes: [
+                  GoRoute(
+                    path: '${Routes.recipeDetail}/:id',
+                    name: Routes.recipeDetail,
+                    pageBuilder: (context, state) {
+                      final id = int.tryParse(state.pathParameters['id'] ?? '');
+
+                      return buildSlideTransition(
+                        BlocProvider(
+                          create: (context) => RecipeDetailCubit(
+                            context.read<RecipesRepository>(),
+                          ),
+                          child: RecipeDetailView(id: id),
+                        ),
+                        state.pageKey,
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/discover',
+                name: Routes.discover,
+                pageBuilder: (context, state) =>
+                    buildSlideTransition(const RecipesPage(), state.pageKey),
+                routes: [],
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/friends',
+                name: Routes.friends,
+                pageBuilder: (context, state) =>
+                    buildSlideTransition(const RecipesPage(), state.pageKey),
+                routes: [],
               ),
             ],
           ),

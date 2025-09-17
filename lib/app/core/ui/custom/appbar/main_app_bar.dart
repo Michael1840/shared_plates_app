@@ -17,15 +17,9 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
       toolbarHeight: 75,
       leadingWidth: 100,
       leading: Row(
-        children: [
-          const SizedBox(width: 20),
-          SvgPicture.asset(sharedPlatesSvg, height: 48, width: 48),
-        ],
+        children: [SvgPicture.asset(sharedPlatesSvg, height: 48, width: 48)],
       ),
-      actions: [
-        const MyIconButton(icon: MyIcons.bell),
-        const SizedBox(width: 20),
-      ],
+      actions: [const MyIconButton(icon: MyIcons.bell)],
     );
   }
 }

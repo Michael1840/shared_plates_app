@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../theme/theme.dart';
+import '../../../utils/extensions.dart';
 import '../appbar/main_app_bar.dart';
 import '../buttons/my_icon_button.dart';
 import '../fields/search_field.dart';
@@ -14,6 +15,9 @@ class MySliverList extends StatelessWidget {
   final Widget? separator;
   final Widget? customPinnedWidget;
   final bool shrinkWrap;
+  final bool hasAppBar;
+  final bool hasTitleSearch;
+  final List<Widget> slivers;
 
   const MySliverList({
     super.key,
@@ -22,6 +26,9 @@ class MySliverList extends StatelessWidget {
     this.gap = 20,
     this.customPinnedWidget,
     this.shrinkWrap = false,
+    this.hasAppBar = false,
+    this.hasTitleSearch = false,
+    this.slivers = const [],
   }) : scrollDirection = Axis.vertical,
        separator = null;
 
@@ -32,6 +39,9 @@ class MySliverList extends StatelessWidget {
     this.gap = 20,
     this.customPinnedWidget,
     this.shrinkWrap = false,
+    this.hasAppBar = false,
+    this.hasTitleSearch = false,
+    this.slivers = const [],
   }) : scrollDirection = Axis.horizontal,
        separator = null;
 
@@ -42,7 +52,10 @@ class MySliverList extends StatelessWidget {
     required this.separator,
     this.scrollDirection = Axis.vertical,
     this.customPinnedWidget,
+    this.hasAppBar = false,
+    this.hasTitleSearch = false,
     this.shrinkWrap = false,
+    this.slivers = const [],
   }) : gap = 0;
 
   @override
@@ -54,36 +67,7 @@ class MySliverList extends StatelessWidget {
       shrinkWrap: shrinkWrap,
 
       slivers: [
-        const SliverAppBar(
-          pinned: true,
-          automaticallyImplyLeading: false,
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          toolbarHeight: 0,
-          collapsedHeight: 0,
-          expandedHeight: 75,
-          flexibleSpace: MainAppBar(),
-        ),
-        const PinnedHeaderSliver(
-          child: Column(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AppText.primary(text: 'Your'),
-                  AppText.heading(text: 'Recipe Book'),
-                ],
-              ),
-              Row(
-                spacing: 10,
-                children: [
-                  Expanded(child: SearchField()),
-                  MyIconButton(icon: MyIcons.heart_02, padding: 14),
-                ],
-              ),
-            ],
-          ),
-        ),
+        ...slivers,
         SliverList.separated(
           itemBuilder: itemBuilder,
           separatorBuilder: (context, index) =>

@@ -75,22 +75,8 @@ class _NavigationShellState extends State<NavigationShell> {
                 type: BottomNavigationBarType.fixed,
                 unselectedItemColor: context.textSecondary,
                 currentIndex: widget.navigationShell.currentIndex,
-                onTap: (value) {
-                  switch (value) {
-                    case 0:
-                      context.goNamed(Routes.dashboard);
-                      break;
-                    case 1:
-                      context.goNamed(Routes.recipes);
-                      break;
-                    case 2:
-                      context.goNamed(Routes.discover);
-                      break;
-                    case 3:
-                      context.goNamed(Routes.friends);
-                      break;
-                  }
-                },
+
+                onTap: widget.navigationShell.goBranch,
                 items: [
                   BottomNavigationBarItem(
                     icon: const Icon(MyIcons.house_02).paddingBottom(4),
