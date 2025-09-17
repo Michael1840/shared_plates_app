@@ -11,10 +11,7 @@ final class UserLogin extends UserEvent {
   final String email;
   final String password;
 
-  const UserLogin({
-    required this.email,
-    required this.password,
-  });
+  const UserLogin({required this.email, required this.password});
 }
 
 final class UserRegister extends UserEvent {
@@ -31,6 +28,12 @@ final class UserRegister extends UserEvent {
     required this.password,
     required this.password2,
   });
+}
+
+final class UserFromRefresh extends UserEvent {
+  final String refreshToken;
+
+  const UserFromRefresh({required this.refreshToken});
 }
 
 final class UserLogout extends UserEvent {}

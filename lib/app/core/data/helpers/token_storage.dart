@@ -5,9 +5,14 @@ class TokenStorage {
 
   static const String _accessTokenKey = 'access_token';
   static const String _refreshTokenKey = 'refresh_token';
+  static const String _onboardingKey = 'onboarding_key';
 
   Future<void> init() async {
     prefs = await SharedPreferences.getInstance();
+  }
+
+  Future<void> setOnboardingCompleted() async {
+    await prefs.setBool(_onboardingKey, true);
   }
 
   Future<void> saveTokens(String accessToken, String refreshToken) async {
@@ -21,6 +26,10 @@ class TokenStorage {
 
   Future<String?> getRefreshToken() async {
     return prefs.getString(_refreshTokenKey);
+  }
+
+  Future<bool?> getOnboarding() async {
+    return prefs.getBool(_onboardingKey);
   }
 
   Future<void> clearTokens() async {

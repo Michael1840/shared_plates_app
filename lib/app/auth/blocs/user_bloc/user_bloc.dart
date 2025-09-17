@@ -18,6 +18,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<UserLogin>(_handleLoginEvent);
     on<UserRegister>(_handleRegisterEvent);
     on<UserLogout>(_handleLogoutEvent);
+    on<UserFromRefresh>(_handleLoginFromRefresh);
   }
 
   Future<void> _handleLoginEvent(
@@ -61,6 +62,30 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         password: event.password,
         password2: event.password2,
       );
+
+      switch (result) {
+        case Error<UserModel>():
+          throw result.error;
+        case CastError<UserModel>():
+          throw result.error;
+        case Ok<UserModel>():
+      }
+
+      emit(UserAuthenticated(user: result.value, message: 'Register success'));
+    } catch (e) {
+      debugPrint(e.toString());
+      emit(UserUnauthenticated(error: e.toString()));
+    }
+  }
+
+  Future<void> _handleLoginFromRefresh(
+    UserFromRefresh event,
+    Emitter<UserState> emit,
+  ) async {
+    emit(UserLoading());
+
+    try {
+      final result = await _userRepo.getUser();
 
       switch (result) {
         case Error<UserModel>():

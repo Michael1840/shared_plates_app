@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../auth/blocs/user_bloc/user_bloc.dart';
+import '../../auth/ui/auth_check.dart';
 import '../../auth/ui/auth_page.dart';
 import '../../home/ui/home_page.dart';
 import '../../onboarding/ui/onboarding_page.dart';
@@ -36,7 +37,7 @@ class NavigationRouter {
   static final GlobalKey<NavigatorState> _key = GlobalKey<NavigatorState>();
 
   static final GoRouter router = GoRouter(
-    initialLocation: Routes.onboarding,
+    initialLocation: '/authentication-check',
     navigatorKey: _key,
     redirect: (context, state) {
       final String? path = state.fullPath;
@@ -52,6 +53,13 @@ class NavigationRouter {
     },
 
     routes: [
+      GoRoute(
+        path: '/authentication-check',
+        name: Routes.authCheck,
+        pageBuilder: (context, state) =>
+            buildSlideTransition(const AuthCheck(), state.pageKey),
+        routes: [],
+      ),
       GoRoute(
         path: '/onboarding',
         name: Routes.onboarding,
