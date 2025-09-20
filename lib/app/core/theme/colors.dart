@@ -23,9 +23,9 @@ class AccentColors {
 
   static const Color green = Color(0xFF89AC46);
 
-  static const Color purple = Color.fromARGB(255, 121, 70, 172);
+  static const Color purple = Color(0xFF7946AC);
 
-  static const Color red = Color.fromARGB(255, 172, 70, 70);
+  static const Color red = Color(0xFFAC4646);
 }
 
 class LoadingColors {
