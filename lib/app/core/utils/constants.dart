@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../../recipe/data/models/recipe_model.dart';
 
 const String sharedPlatesSvg = 'assets/svgs/shared-plates-logo.svg';
+const String createRecipe1 = 'assets/images/create-recipe-1.png';
+const String createRecipe2 = 'assets/images/create-recipe-2.png';
 const String appleSvg = 'assets/svgs/apple.svg';
 const String googleSvg = 'assets/svgs/google.svg';
 const String onboarding1Dark = 'assets/svgs/onboard-1-dark.svg';
@@ -15,6 +17,15 @@ const String onboarding3Light = 'assets/svgs/onboard-3-dark.svg';
 const String onboarding1 = 'assets/svgs/onboarding-1.svg';
 const String onboarding2 = 'assets/svgs/onboarding-2.svg';
 const String onboarding3 = 'assets/svgs/onboarding-3.svg';
+
+class Animations {
+  static const String cooking = 'assets/animations/cooking.json';
+  static const String eatingSushi = 'assets/animations/eating-sushi.json';
+  static const String friedEgg = 'assets/animations/fried-egg.json';
+  static const String lunchPost = 'assets/animations/lunch-post.json';
+  static const String mixing = 'assets/animations/mixing.json';
+  static const String shoppingBasket = 'assets/animations/shopping-basket.json';
+}
 
 String onboardingAsset(BuildContext context, int index) {
   bool isDark = Theme.of(context).brightness == Brightness.dark;

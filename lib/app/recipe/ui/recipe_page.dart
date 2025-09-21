@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../core/router/routes.dart';
 import '../../core/ui/custom/animations/animate_list.dart';
 import '../../core/ui/custom/appbar/sliver_app_bar.dart';
+import '../../core/ui/custom/buttons/create_recipe_button.dart';
 import '../../core/ui/custom/containers/sliver_title.dart';
 import '../../core/ui/custom/fields/pinned_sliver_search.dart';
 import '../../core/ui/layouts/page_container.dart';
@@ -59,12 +60,15 @@ class _RecipesPageState extends State<RecipesPage> {
               bottom: 0,
             ),
             child: MySliverList(
-              hasAppBar: true,
-              hasTitleSearch: true,
+              onRefresh: () async {
+                context.read<RecipeBloc>().add(RecipeFetchUserRecipes());
+              },
               slivers: [
                 const CustomSliverAppBar(),
 
                 const CustomSliverTitle(title: 'Recipe Book', subtitle: 'Your'),
+
+                CustomSliverImageButton(type: ButtonType.recipe2, onTap: () {}),
 
                 const CustomPinnedSliverSearch(hasIconButton: true),
               ],

@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../../api/models/result_model.dart';
 import '../../data/models/user_model.dart';
@@ -85,7 +86,14 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     emit(UserLoading());
 
     try {
-      final result = await _userRepo.getUser();
+      // final result = await _userRepo.getUser();
+
+      final results = await Future.wait([
+        _userRepo.getUser(),
+        Future.delayed(2.seconds),
+      ]);
+
+      final result = results[0];
 
       switch (result) {
         case Error<UserModel>():

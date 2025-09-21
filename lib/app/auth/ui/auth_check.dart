@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../main.dart';
 import '../../core/router/routes.dart';
+import '../../core/ui/splash/splash.dart';
 import '../../core/utils/extensions.dart';
 import '../blocs/user_bloc/user_bloc.dart';
 
@@ -56,7 +57,7 @@ class _AuthCheckState extends State<AuthCheck> {
           context.goNamed(Routes.auth);
         }
       },
-      child: const Scaffold(body: SizedBox()),
+      child: const Scaffold(body: SplashPage()),
     );
   }
 }

@@ -17,6 +17,7 @@ class PrimaryLoadingContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MyShimmerContainer(
+      radius: radius,
       child: Container(
         width: width,
         height: height,

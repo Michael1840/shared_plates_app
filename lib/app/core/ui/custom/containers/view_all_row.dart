@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../../theme/theme.dart';
 import '../../../utils/extensions.dart';
@@ -14,14 +15,19 @@ class ViewAllRow extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       spacing: 10,
       children: [
-        AppText.primary(text: title, weight: Weights.medium),
+        AppText.primary(text: title, weight: Weights.bold),
         AppText.primary(
           text: 'View All',
-          weight: Weights.reg,
-          color: context.textSecondary,
+          weight: Weights.semiBold,
+          color: context.green,
           size: 12,
         ).onTap(onTap),
       ],
+    ).animate().slideX(
+      begin: -1,
+      end: 0,
+      delay: 500.ms,
+      // alignment: Alignment.centerLeft,
     );
   }
 }

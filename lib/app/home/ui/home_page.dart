@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../../core/router/routes.dart';
 import '../../core/ui/custom/animations/animate_list.dart';
 import '../../core/ui/custom/appbar/sliver_app_bar.dart';
+import '../../core/ui/custom/buttons/create_recipe_button.dart';
 import '../../core/ui/custom/containers/sliver_title.dart';
 import '../../core/ui/custom/containers/view_all_row.dart';
 import '../../core/ui/custom/fields/pinned_sliver_search.dart';
@@ -59,6 +60,7 @@ class HomePage extends StatelessWidget {
               bottom: 0,
             ),
             child: MySliverList(
+              onRefresh: () async {},
               slivers: [
                 const CustomSliverAppBar(),
 
@@ -67,28 +69,39 @@ class HomePage extends StatelessWidget {
                   subtitle: 'Welcome,',
                 ),
 
+                CustomSliverImageButton(type: ButtonType.recipe1, onTap: () {}),
+
                 const CustomPinnedSliverSearch(
                   searchHint: 'What\'s cooking today?',
                 ),
 
                 ViewAllRow(title: 'Trending Recipes', onTap: () {}).toSliver(),
                 SizedBox(
-                  height: 213,
-                  child: MySliverList.horizontal(
-                    itemBuilder: (context, index) =>
-                        TrendingRecipeItem(recipe: trendingRecipes[index])
-                            .onTap(() {
-                              context.pushNamed(
-                                Routes.dashRecipeDetail,
-                                pathParameters: {
-                                  'id': friendsRecipes[index].id.toString(),
-                                },
-                              );
-                            })
-                            .listAnimate(index),
-                    itemCount: trendingLength,
-                  ),
-                ).paddingSymmetric(vertical: 20).toSliver(),
+                      height: 213,
+                      child: MySliverList.horizontal(
+                        itemBuilder: (context, index) =>
+                            TrendingRecipeItem(recipe: trendingRecipes[index])
+                                .onTap(() {
+                                  context.pushNamed(
+                                    Routes.dashRecipeDetail,
+                                    pathParameters: {
+                                      'id': friendsRecipes[index].id.toString(),
+                                    },
+                                  );
+                                })
+                                .listAnimateHorizontal(index),
+                        itemCount: trendingLength,
+                      ),
+                    )
+                    .paddingSymmetric(vertical: 20)
+                    .animate()
+                    .slideX(
+                      begin: 1,
+                      end: 0,
+                      delay: 250.ms,
+                      // alignment: Alignment.centerLeft,
+                    )
+                    .toSliver(),
                 ViewAllRow(
                   title: 'Friends Recipes',
                   onTap: () {},
@@ -110,7 +123,7 @@ class HomePage extends StatelessWidget {
             ),
           );
         },
-      ).containerAnimate(0, 250.ms),
+      ),
     );
   }
 }

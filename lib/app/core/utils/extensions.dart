@@ -9,7 +9,12 @@ extension AnimationExtensions on Widget {
 
   Widget listAnimate(int index) => animate()
       .fade(duration: 200.ms)
-      .slide(begin: const Offset(-0.1, 0), duration: 200.ms)
+      .slide(begin: const Offset(0.1, 0), duration: 200.ms)
+      .then(delay: (150 * (index % 10)).ms);
+
+  Widget listAnimateHorizontal(int index) => animate()
+      .fade(duration: 200.ms)
+      .slide(begin: const Offset(0, 0.1), duration: 200.ms)
       .then(delay: (150 * (index % 10)).ms);
 
   Widget containerAnimate(int index, [Duration? duration]) =>

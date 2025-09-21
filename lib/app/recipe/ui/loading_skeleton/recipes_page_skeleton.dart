@@ -15,6 +15,20 @@ class RecipesPageSkeleton extends StatelessWidget {
         spacing: 20,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Row(
+            spacing: 10,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              PrimaryLoadingContainer(width: 50, radius: 40, height: 50),
+              SecondaryLoadingContainer(
+                padding: EdgeInsets.all(12),
+                radius: 40,
+                child: Row(
+                  children: [PrimaryLoadingContainer(width: 16, height: 16)],
+                ),
+              ),
+            ],
+          ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             spacing: 10,
@@ -22,6 +36,21 @@ class RecipesPageSkeleton extends StatelessWidget {
               PrimaryLoadingContainer(width: 75, height: 12),
               PrimaryLoadingContainer(width: 200, height: 20),
             ],
+          ),
+
+          SecondaryLoadingContainer(
+            width: double.infinity,
+            height: 60,
+            radius: 16,
+            padding: EdgeInsets.all(16),
+            child: Row(
+              spacing: 12,
+              children: [
+                PrimaryLoadingContainer(width: 150, height: 14),
+                Expanded(child: SizedBox()),
+                PrimaryLoadingContainer(width: 14, height: 14),
+              ],
+            ),
           ),
           Row(
             spacing: 10,

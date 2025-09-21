@@ -24,11 +24,13 @@ class RecipeItem extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  AppText.heading(
+                  AppText.primary(
                     text: recipe.title,
                     size: 14,
                     overflow: TextOverflow.ellipsis,
+                    weight: Weights.medium,
                   ),
+                  const SizedBox(height: 2),
                   AppText.secondary(
                     text: 'by ${recipe.createdBy}',
                     size: 10,
@@ -41,10 +43,11 @@ class RecipeItem extends StatelessWidget {
                     spacing: 8,
                     children: [
                       Flexible(
-                        child: AppText.heading(
+                        child: AppText.primary(
                           text: 'R${recipe.cost}',
                           size: 14,
                           overflow: TextOverflow.ellipsis,
+                          weight: Weights.medium,
                         ),
                       ),
                       CircleAvatar(

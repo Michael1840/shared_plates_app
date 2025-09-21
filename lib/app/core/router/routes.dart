@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../auth/blocs/user_bloc/user_bloc.dart';
 import '../../auth/ui/auth_check.dart';
 import '../../auth/ui/auth_page.dart';
+import '../../discover/ui/discover_page.dart';
 import '../../home/ui/home_page.dart';
 import '../../onboarding/ui/onboarding_page.dart';
 import '../../recipe/bloc/recipe_detail_cubit/recipe_detail_cubit.dart';
@@ -15,20 +16,20 @@ import 'nav_shell.dart';
 
 class Routes {
   // MAIN ROUTES
-  static const String onboarding = 'onboarding';
+  static const String onboarding = '/onboarding';
 
-  static const String authCheck = 'authentication-check';
-  static const String auth = 'authentication';
+  static const String authCheck = '/authentication-check';
+  static const String auth = '/authentication';
 
-  static const String dashboard = 'dashboard';
-  static const String dashRecipeDetail = 'dash-recipe-detail';
+  static const String dashboard = '/';
+  static const String dashRecipeDetail = '/recipe-detail/:id';
 
-  static const String recipes = 'recipes';
+  static const String recipes = '/recipes';
   static const String recipeDetail = 'recipe-detail';
 
-  static const String discover = 'discover';
+  static const String discover = '/discover';
 
-  static const String friends = 'friends';
+  static const String friends = '/friends';
 
   // SUB ROUTES
 }
@@ -37,7 +38,7 @@ class NavigationRouter {
   static final GlobalKey<NavigatorState> _key = GlobalKey<NavigatorState>();
 
   static final GoRouter router = GoRouter(
-    initialLocation: '/authentication-check',
+    initialLocation: Routes.authCheck,
     navigatorKey: _key,
     redirect: (context, state) {
       final String? path = state.fullPath;
@@ -47,28 +48,28 @@ class NavigationRouter {
           (path != Routes.authCheck &&
               path != Routes.onboarding &&
               path != Routes.auth)) {
-        return Routes.auth;
+        return Routes.authCheck;
       }
       return null;
     },
 
     routes: [
       GoRoute(
-        path: '/authentication-check',
+        path: Routes.authCheck,
         name: Routes.authCheck,
         pageBuilder: (context, state) =>
             buildSlideTransition(const AuthCheck(), state.pageKey),
         routes: [],
       ),
       GoRoute(
-        path: '/onboarding',
+        path: Routes.onboarding,
         name: Routes.onboarding,
         pageBuilder: (context, state) =>
             buildSlideTransition(const OnboardingPage(), state.pageKey),
         routes: [],
       ),
       GoRoute(
-        path: '/authentication',
+        path: Routes.auth,
         name: Routes.auth,
         pageBuilder: (context, state) =>
             buildSlideTransition(const AuthPage(), state.pageKey),
@@ -90,13 +91,13 @@ class NavigationRouter {
           StatefulShellBranch(
             routes: [
               GoRoute(
-                path: '/',
+                path: Routes.dashboard,
                 name: Routes.dashboard,
                 pageBuilder: (context, state) =>
                     buildSlideTransition(const HomePage(), state.pageKey),
                 routes: [
                   GoRoute(
-                    path: '${Routes.dashRecipeDetail}/:id',
+                    path: Routes.dashRecipeDetail,
                     name: Routes.dashRecipeDetail,
                     pageBuilder: (context, state) {
                       final id = int.tryParse(state.pathParameters['id'] ?? '');
@@ -119,7 +120,7 @@ class NavigationRouter {
           StatefulShellBranch(
             routes: [
               GoRoute(
-                path: '/recipes',
+                path: Routes.recipes,
                 name: Routes.recipes,
                 pageBuilder: (context, state) =>
                     buildSlideTransition(const RecipesPage(), state.pageKey),
@@ -148,10 +149,10 @@ class NavigationRouter {
           StatefulShellBranch(
             routes: [
               GoRoute(
-                path: '/discover',
+                path: Routes.discover,
                 name: Routes.discover,
                 pageBuilder: (context, state) =>
-                    buildSlideTransition(const RecipesPage(), state.pageKey),
+                    buildSlideTransition(const DiscoverPage(), state.pageKey),
                 routes: [],
               ),
             ],
@@ -159,7 +160,7 @@ class NavigationRouter {
           StatefulShellBranch(
             routes: [
               GoRoute(
-                path: '/friends',
+                path: Routes.friends,
                 name: Routes.friends,
                 pageBuilder: (context, state) =>
                     buildSlideTransition(const RecipesPage(), state.pageKey),

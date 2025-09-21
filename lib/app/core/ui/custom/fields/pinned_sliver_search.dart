@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../../utils/extensions.dart';
 import '../buttons/my_icon_button.dart';
@@ -20,10 +21,7 @@ class CustomPinnedSliverSearch extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.only(bottom: 20),
         color: context.background,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          spacing: 20,
-          children: [
+        child:
             Row(
               spacing: 10,
               children: [
@@ -31,9 +29,12 @@ class CustomPinnedSliverSearch extends StatelessWidget {
                 if (hasIconButton)
                   const MyIconButton(icon: MyIcons.heart_02, padding: 14),
               ],
+            ).animate().slideX(
+              begin: -1,
+              end: 0,
+              delay: 250.ms,
+              // alignment: Alignment.centerLeft,
             ),
-          ],
-        ),
       ),
     );
   }
