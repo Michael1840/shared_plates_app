@@ -69,8 +69,10 @@ class _NavigationShellState extends State<NavigationShell> {
                 // showUnselectedLabels: false,
                 selectedFontSize: 8,
                 unselectedFontSize: 8,
-                iconSize: 18,
+                iconSize: 22,
                 elevation: 0,
+                showSelectedLabels: false,
+                showUnselectedLabels: false,
                 enableFeedback: true,
                 type: BottomNavigationBarType.fixed,
                 unselectedItemColor: context.textSecondary,
@@ -79,35 +81,34 @@ class _NavigationShellState extends State<NavigationShell> {
                 onTap: widget.navigationShell.goBranch,
                 items: [
                   BottomNavigationBarItem(
-                    icon: const Icon(MyIcons.house_02).paddingBottom(4),
+                    icon: const Icon(MyIcons.house_02),
                     label: 'Home',
-                    activeIcon: Icon(
-                      MyIcons.house_02,
-                      color: context.primary,
-                    ).paddingBottom(4),
+                    activeIcon: Icon(MyIcons.house_02, color: context.primary),
                   ),
                   BottomNavigationBarItem(
-                    activeIcon: Icon(
-                      MyIcons.book,
-                      color: context.primary,
-                    ).paddingBottom(4),
-                    icon: const Icon(MyIcons.book).paddingBottom(4),
+                    activeIcon: Icon(MyIcons.book, color: context.primary),
+                    icon: const Icon(MyIcons.book),
                     label: 'Recipes',
                   ),
                   BottomNavigationBarItem(
                     activeIcon: Icon(
-                      MyIcons.compass,
+                      MyIcons.add_plus_circle,
                       color: context.primary,
-                    ).paddingBottom(4),
-                    icon: const Icon(MyIcons.compass).paddingBottom(4),
+                    ),
+                    icon: const Icon(MyIcons.add_plus_circle),
+                    label: 'Discover',
+                  ),
+                  BottomNavigationBarItem(
+                    activeIcon: Icon(MyIcons.compass, color: context.primary),
+                    icon: const Icon(MyIcons.compass),
                     label: 'Discover',
                   ),
                   BottomNavigationBarItem(
                     activeIcon: Icon(
                       MyIcons.users_group,
                       color: context.primary,
-                    ).paddingBottom(4),
-                    icon: const Icon(MyIcons.users_group).paddingBottom(4),
+                    ),
+                    icon: const Icon(MyIcons.users_group),
                     label: 'Friends',
                   ),
                 ],
