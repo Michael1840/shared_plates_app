@@ -6,6 +6,7 @@ import '../../auth/blocs/user_bloc/user_bloc.dart';
 import '../../auth/ui/auth_check.dart';
 import '../../auth/ui/auth_page.dart';
 import '../../discover/ui/discover_page.dart';
+import '../../friends/ui/friends_page.dart';
 import '../../home/ui/home_page.dart';
 import '../../onboarding/ui/onboarding_page.dart';
 import '../../recipe/bloc/recipe_detail_cubit/recipe_detail_cubit.dart';
@@ -28,6 +29,8 @@ class Routes {
   static const String recipes = '/recipes';
   static const String recipeDetail = 'recipe-detail';
   static const String createRecipe = 'create-recipe';
+
+  static const String createRecipe = '/create-recipe';
 
   static const String discover = '/discover';
 
@@ -164,6 +167,17 @@ class NavigationRouter {
           StatefulShellBranch(
             routes: [
               GoRoute(
+                path: Routes.createRecipe,
+                name: Routes.createRecipe,
+                pageBuilder: (context, state) =>
+                    buildSlideTransition(const DiscoverPage(), state.pageKey),
+                routes: [],
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
                 path: Routes.discover,
                 name: Routes.discover,
                 pageBuilder: (context, state) =>
@@ -178,7 +192,7 @@ class NavigationRouter {
                 path: Routes.friends,
                 name: Routes.friends,
                 pageBuilder: (context, state) =>
-                    buildSlideTransition(const RecipesPage(), state.pageKey),
+                    buildSlideTransition(const FriendsPage(), state.pageKey),
                 routes: [],
               ),
             ],

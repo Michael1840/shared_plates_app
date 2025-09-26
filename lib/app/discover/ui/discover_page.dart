@@ -68,8 +68,8 @@ class _DiscoverPageState extends State<DiscoverPage> {
                 const CustomSliverAppBar(),
 
                 const CustomSliverTitle(
-                  title: 'Perfect Flavour',
-                  subtitle: 'Your',
+                  title: 'Your Perfect Dish',
+                  subtitle: 'Discover',
                 ),
 
                 const CustomPinnedSliverSearch(
