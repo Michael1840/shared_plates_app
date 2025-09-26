@@ -2,7 +2,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
-        android:label="shared_plates_app"
+        android:label="Shared Plates"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

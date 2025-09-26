@@ -10,6 +10,7 @@ import '../../home/ui/home_page.dart';
 import '../../onboarding/ui/onboarding_page.dart';
 import '../../recipe/bloc/recipe_detail_cubit/recipe_detail_cubit.dart';
 import '../../recipe/data/repo/recipe_repo.dart';
+import '../../recipe/ui/create_recipe/create_recipe.dart';
 import '../../recipe/ui/recipe_detail/recipe_detail_view.dart';
 import '../../recipe/ui/recipe_page.dart';
 import 'nav_shell.dart';
@@ -26,6 +27,7 @@ class Routes {
 
   static const String recipes = '/recipes';
   static const String recipeDetail = 'recipe-detail';
+  static const String createRecipe = 'create-recipe';
 
   static const String discover = '/discover';
 
@@ -125,6 +127,19 @@ class NavigationRouter {
                 pageBuilder: (context, state) =>
                     buildSlideTransition(const RecipesPage(), state.pageKey),
                 routes: [
+                  GoRoute(
+                    path: Routes.createRecipe,
+                    name: Routes.createRecipe,
+                    pageBuilder: (context, state) => buildSlideTransition(
+                      BlocProvider(
+                        create: (context) => RecipeDetailCubit(
+                          context.read<RecipesRepository>(),
+                        ),
+                        child: const CreateRecipePage(),
+                      ),
+                      state.pageKey,
+                    ),
+                  ),
                   GoRoute(
                     path: '${Routes.recipeDetail}/:id',
                     name: Routes.recipeDetail,

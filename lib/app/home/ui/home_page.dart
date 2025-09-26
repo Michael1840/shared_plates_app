@@ -69,7 +69,12 @@ class HomePage extends StatelessWidget {
                   subtitle: 'Welcome,',
                 ),
 
-                CustomSliverImageButton(type: ButtonType.recipe1, onTap: () {}),
+                CustomSliverImageButton(
+                  type: ButtonType.recipe1,
+                  onTap: () {
+                    context.goNamed(Routes.createRecipe);
+                  },
+                ),
 
                 const CustomPinnedSliverSearch(
                   searchHint: 'What\'s cooking today?',
