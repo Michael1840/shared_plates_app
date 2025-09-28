@@ -28,7 +28,6 @@ class Routes {
 
   static const String recipes = '/recipes';
   static const String recipeDetail = 'recipe-detail';
-  static const String createRecipe = 'create-recipe';
 
   static const String createRecipe = '/create-recipe';
 
@@ -131,19 +130,6 @@ class NavigationRouter {
                     buildSlideTransition(const RecipesPage(), state.pageKey),
                 routes: [
                   GoRoute(
-                    path: Routes.createRecipe,
-                    name: Routes.createRecipe,
-                    pageBuilder: (context, state) => buildSlideTransition(
-                      BlocProvider(
-                        create: (context) => RecipeDetailCubit(
-                          context.read<RecipesRepository>(),
-                        ),
-                        child: const CreateRecipePage(),
-                      ),
-                      state.pageKey,
-                    ),
-                  ),
-                  GoRoute(
                     path: '${Routes.recipeDetail}/:id',
                     name: Routes.recipeDetail,
                     pageBuilder: (context, state) {
@@ -169,8 +155,10 @@ class NavigationRouter {
               GoRoute(
                 path: Routes.createRecipe,
                 name: Routes.createRecipe,
-                pageBuilder: (context, state) =>
-                    buildSlideTransition(const DiscoverPage(), state.pageKey),
+                pageBuilder: (context, state) => buildSlideTransition(
+                  const CreateRecipePage(),
+                  state.pageKey,
+                ),
                 routes: [],
               ),
             ],
