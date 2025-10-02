@@ -10,10 +10,13 @@ import '../../../core/ui/custom/fields/my_form_field.dart';
 import '../../../core/ui/custom/icons/my_icons.dart';
 import '../../../core/ui/layouts/page_container.dart';
 import '../../../core/utils/extensions.dart';
-import '../../bloc/recipe_detail_cubit/recipe_detail_cubit.dart';
+import '../../../core/utils/methods.dart';
+import '../../bloc/create_recipe/create_recipe_cubit.dart';
 import '../../data/models/ingredient_model.dart';
-import '../recipe_detail/items/ingredient_item.dart';
 import 'items/add_ingredient_button.dart';
+import 'items/create_ingredient_item.dart';
+import 'items/create_ingredient_sheet.dart';
+import 'items/step_item.dart';
 
 class CreateRecipePage extends StatefulWidget {
   const CreateRecipePage({super.key});
@@ -23,26 +26,28 @@ class CreateRecipePage extends StatefulWidget {
 }
 
 class CreateRecipePageState extends State<CreateRecipePage> {
-  late final RecipeDetailCubit _cubit;
+  late final CreateRecipeCubit _cubit;
+
+  final PageController _pageController = PageController();
 
   @override
   void initState() {
     super.initState();
+
+    _cubit = context.read<CreateRecipeCubit>();
   }
 
   @override
   Widget build(BuildContext context) {
-    // RecipeModel recipe = kRecipes[0];\
-    List<IngredientModel> ingredients = [];
     List<String> steps = [];
 
-    return BlocListener<RecipeDetailCubit, RecipeDetailState>(
+    return BlocListener<CreateRecipeCubit, CreateRecipeState>(
       listener: (context, state) {
         if (state.isError) {
           context.showSnackBarError(state.loadingResult.error!);
         }
       },
-      child: BlocBuilder<RecipeDetailCubit, RecipeDetailState>(
+      child: BlocBuilder<CreateRecipeCubit, CreateRecipeState>(
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
@@ -59,89 +64,134 @@ class CreateRecipePageState extends State<CreateRecipePage> {
                   ).paddingLeft(20),
                 ],
               ),
-              title: AppText.heading(text: 'Create Recipe', size: 18),
+              title: const AppText.heading(text: 'Create Recipe', size: 18),
             ),
             body: PageContainer.scrollable(
-              padding: EdgeInsets.only(top: 20, left: 20, right: 20),
+              padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
               child: Column(
                 spacing: 10,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  DefaultContainer(
-                    width: double.infinity,
-                    height: 200,
-                    child: Icon(
-                      MyIcons.add_plus,
-                      size: 30,
-                      color: context.textSecondary,
-                    ),
-                  ),
+                  if (state.imageFile == null)
+                    DefaultContainer(
+                      width: double.infinity,
+                      height: 200,
+                      child: Icon(
+                        MyIcons.add_plus,
+                        size: 30,
+                        color: context.textSecondary,
+                      ),
+                    ).onTap(() {
+                      _cubit.selectImage();
+                    })
+                  else
+                    DefaultContainer(
+                      padding: EdgeInsets.zero,
+                      width: double.infinity,
+                      height: 200,
+                      child: Image.file(
+                        state.imageFile!,
+                        width: double.infinity,
+                        height: 200,
+                        fit: BoxFit.cover,
+                      ),
+                    ).onTap(() {
+                      _cubit.selectImage();
+                    }),
                   const SizedBox(),
-
                   MyFormField(
                     hint: 'Your recipe title',
                     title: 'Recipe Title',
-                    icon: MyIcons.label,
+                    // icon: MyIcons.label,
+                    radius: 24,
+                  ),
+                  MyFormField(
+                    hint: 'Your recipe description',
+                    title: 'Description',
+                    minLines: 5,
+                    maxLines: 8,
+                    radius: 24,
                   ),
                   const SizedBox(),
-                  DefaultContainer(
-                    radius: 30,
-                    child: Column(
-                      spacing: 20,
-                      children: [
-                        Row(
-                          children: [
-                            Expanded(
-                              child: DefaultContainer(
-                                radius: 100,
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 8,
-                                  horizontal: 8,
-                                ),
-                                color: context.background,
-                                child: Center(
-                                  child: AppText.primary(
-                                    text: 'Ingredients (${ingredients.length})',
-                                  ),
+                  Column(
+                    spacing: 10,
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: DefaultContainer(
+                              radius: 100,
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 8,
+                                horizontal: 8,
+                              ),
+                              child: Center(
+                                child: AppText.primary(
+                                  text:
+                                      'Ingredients (${state.ingredients.length})',
                                 ),
                               ),
                             ),
-                            Expanded(
-                              child: DefaultContainer(
-                                radius: 100,
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 8,
-                                  horizontal: 8,
-                                ),
-                                child: Center(
-                                  child: AppText.primary(
-                                    text: 'Steps (${steps.length})',
-                                  ),
+                          ),
+                          Expanded(
+                            child: DefaultContainer(
+                              radius: 100,
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 8,
+                                horizontal: 8,
+                              ),
+                              color: context.background,
+                              child: Center(
+                                child: AppText.primary(
+                                  text: 'Steps (${steps.length})',
                                 ),
                               ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: _calcContainerHeight(state.ingredients.length),
+                        child: PageView(
+                          controller: _pageController,
+                          scrollDirection: Axis.horizontal,
+                          children: [
+                            MySliverList(
+                              gap: 10,
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) =>
+                                  CreateIngredientItem(
+                                    ingredient: state.ingredients[index],
+                                  ).listAnimate(index),
+                              itemCount: state.ingredients.length,
+                            ),
+                            MySliverList(
+                              gap: 10,
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) => CreateStepItem(
+                                step: state.steps[index],
+                              ).listAnimate(index),
+                              itemCount: state.ingredients.length,
                             ),
                           ],
                         ),
-                        SizedBox(
-                          height: _calcContainerHeight(ingredients.length),
-                          child: PageView(
-                            scrollDirection: Axis.horizontal,
-                            children: [
-                              MySliverList(
-                                shrinkWrap: true,
-                                itemBuilder: (context, index) => IngredientItem(
-                                  ingredient: ingredients[index],
-                                ).listAnimate(index),
-                                itemCount: ingredients.length,
-                              ),
-                            ],
-                          ),
-                        ),
+                      ),
 
-                        AddIngredientButton(onTap: () {}),
-                      ],
-                    ),
+                      AddIngredientButton(
+                        onTap: () {
+                          Methods.showBottomSheet(
+                            context,
+                            CreateIngredientSheet(
+                              cubit: _cubit,
+                              onConfirm: (IngredientModel i) {
+                                _cubit.updateIngredients(i);
+                              },
+                            ),
+                          );
+                        },
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 10),
                 ],
@@ -158,9 +208,9 @@ class CreateRecipePageState extends State<CreateRecipePage> {
       return 0;
     }
 
-    int containerHeight = 48;
+    int containerHeight = 48 + 8 + 10;
 
-    double paddingHeight = (length - 1) * 20;
+    double paddingHeight = (length - 1) * 10;
 
     return (containerHeight * length) + paddingHeight;
   }

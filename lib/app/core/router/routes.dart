@@ -9,6 +9,7 @@ import '../../discover/ui/discover_page.dart';
 import '../../friends/ui/friends_page.dart';
 import '../../home/ui/home_page.dart';
 import '../../onboarding/ui/onboarding_page.dart';
+import '../../recipe/bloc/create_recipe/create_recipe_cubit.dart';
 import '../../recipe/bloc/recipe_detail_cubit/recipe_detail_cubit.dart';
 import '../../recipe/data/repo/recipe_repo.dart';
 import '../../recipe/ui/create_recipe/create_recipe.dart';
@@ -156,7 +157,10 @@ class NavigationRouter {
                 path: Routes.createRecipe,
                 name: Routes.createRecipe,
                 pageBuilder: (context, state) => buildSlideTransition(
-                  const CreateRecipePage(),
+                  BlocProvider(
+                    create: (context) => CreateRecipeCubit(),
+                    child: const CreateRecipePage(),
+                  ),
                   state.pageKey,
                 ),
                 routes: [],

@@ -61,23 +61,23 @@ class MyDropdownButton extends StatelessWidget {
       listItemStyle: context.myTextStyle(color: context.textSecondary),
       noResultFoundStyle: context.myTextStyle(color: context.textSecondary),
       overlayScrollbarDecoration: const ScrollbarThemeData().copyWith(
-        radius: const Radius.circular(8),
+        radius: const Radius.circular(100),
         trackColor: WidgetStatePropertyAll(context.onContainer),
       ),
       errorStyle: const TextStyle().copyWith(
         color: context.theme.colorScheme.error,
       ),
-      closedBorderRadius: BorderRadius.circular(8),
+      closedBorderRadius: BorderRadius.circular(100),
       closedBorder: BoxBorder.all(color: context.borderPrimary),
       expandedBorder: BoxBorder.all(color: context.borderPrimary),
-      expandedBorderRadius: BorderRadius.circular(8),
+      expandedBorderRadius: BorderRadius.circular(16),
       closedErrorBorder: BoxBorder.all(color: StatusColors.failure),
-      closedErrorBorderRadius: BorderRadius.circular(8),
+      closedErrorBorderRadius: BorderRadius.circular(100),
       expandedFillColor: context.container,
       closedFillColor: context.container,
       searchFieldDecoration: SearchFieldDecoration(
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(100),
           borderSide: BorderSide(color: context.borderSecondary),
         ),
         fillColor: context.onContainer,
@@ -119,14 +119,14 @@ class MyDropdownButton extends StatelessWidget {
                   Expanded(
                     child: AppText.primary(
                       text: item.value,
-                      // color: isSelected ? context.greenLight : null,
+                      color: isSelected ? context.green : null,
                       size: isSmall ? 10 : 14,
                     ),
                   ),
                   if (isSelected)
                     Icon(
                       Icons.check_circle_outline_rounded,
-                      // color: context.greenLight,
+                      color: context.green,
                       size: isSmall ? 14 : 18,
                     )
                   else
@@ -162,7 +162,7 @@ class MyDropdownButton extends StatelessWidget {
         hintText: hint,
         closedHeaderPadding: isSmall
             ? const EdgeInsets.symmetric(horizontal: 8, vertical: 8)
-            : const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            : const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         decoration: decoration,
       );
     }
@@ -188,14 +188,14 @@ class MyDropdownButton extends StatelessWidget {
                 Expanded(
                   child: AppText.primary(
                     text: item.value,
-                    // color: isSelected ? context.greenLight : null,
+                    color: isSelected ? context.green : null,
                     size: isSmall ? 10 : 14,
                   ),
                 ),
                 if (isSelected)
                   Icon(
                     Icons.check_circle_outline_rounded,
-                    // color: context.greenLight,
+                    color: context.green,
                     size: isSmall ? 14 : 18,
                   )
                 else

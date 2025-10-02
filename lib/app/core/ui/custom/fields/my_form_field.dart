@@ -85,7 +85,9 @@ class MyFormField extends StatelessWidget {
           cursorColor: textColor ?? context.textPrimary,
           keyboardType: keyboardType,
           textInputAction: textAction,
+          textAlign: TextAlign.start,
           decoration: InputDecoration(
+            alignLabelWithHint: true,
             labelText: hasLabel ? title : null,
             hintText: hint,
             labelStyle: context.myTextStyle(
@@ -111,6 +113,7 @@ class MyFormField extends StatelessWidget {
               borderRadius: BorderRadius.circular(radius),
               borderSide: const BorderSide(color: Colors.transparent),
             ),
+
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(radius),
               borderSide: const BorderSide(color: Colors.transparent),
@@ -138,7 +141,7 @@ class MyFormField extends StatelessWidget {
             counterText: '',
           ),
           onFieldSubmitted: onSubmit,
-          textAlignVertical: TextAlignVertical.center,
+          textAlignVertical: TextAlignVertical.top,
           minLines: minLines,
           maxLengthEnforcement: MaxLengthEnforcement.enforced,
           maxLength: maxLength,
