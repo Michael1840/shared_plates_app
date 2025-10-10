@@ -12,10 +12,12 @@ import '../../../data/models/ingredient_model.dart';
 class CreateIngredientSheet extends StatefulWidget {
   final void Function(IngredientModel i) onConfirm;
   final CreateRecipeCubit cubit;
+  final int currentIndex;
   const CreateIngredientSheet({
     super.key,
     required this.onConfirm,
     required this.cubit,
+    required this.currentIndex,
   });
 
   @override
@@ -38,6 +40,7 @@ class _CreateIngredientSheetState extends State<CreateIngredientSheet> {
     }
 
     final IngredientModel ingredient = IngredientModel(
+      id: widget.currentIndex + 1,
       name: name,
       quantity: quantity,
       quantitySymbol: symbol.value,

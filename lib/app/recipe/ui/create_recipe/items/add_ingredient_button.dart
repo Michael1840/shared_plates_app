@@ -5,8 +5,9 @@ import '../../../../core/theme/theme.dart';
 import '../../../../core/utils/extensions.dart';
 
 class AddIngredientButton extends StatelessWidget {
+  final String title;
   final void Function()? onTap;
-  const AddIngredientButton({super.key, this.onTap});
+  const AddIngredientButton({super.key, required this.title, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class AddIngredientButton extends StatelessWidget {
       ),
 
       child: Center(
-        child: AppText.primary(text: 'Add Ingredient', color: context.green),
+        child: AppText.primary(text: title, color: context.green),
       ),
     ).onTap(onTap);
   }

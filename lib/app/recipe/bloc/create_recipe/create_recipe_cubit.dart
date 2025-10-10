@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import '../../../core/data/models/delayed_result.dart';
 import '../../../core/ui/custom/fields/my_dropdown_field.dart';
 import '../../data/models/ingredient_model.dart';
+import '../../data/models/step_model.dart';
 
 part 'create_recipe_state.dart';
 
@@ -17,7 +18,26 @@ class CreateRecipeCubit extends Cubit<CreateRecipeState> {
       emit(state.copyWith(selectedQuantitySymbol: value));
 
   void updateIngredients(IngredientModel i) =>
-      emit(state.copyWith(ingredients: [i, ...state.ingredients]));
+      emit(state.copyWith(ingredients: [...state.ingredients, i]));
+
+  void deleteIngredient(IngredientModel i) {
+    final List<IngredientModel> ingredients = List.from(state.ingredients);
+
+    ingredients.removeWhere((ingredient) => ingredient.id == i.id);
+
+    emit(state.copyWith(ingredients: ingredients));
+  }
+
+  void updateSteps(StepModel s) =>
+      emit(state.copyWith(steps: [...state.steps, s]));
+
+  void deleteStep(StepModel s) {
+    final List<StepModel> steps = List.from(state.steps);
+
+    steps.removeWhere((step) => step.index == s.index);
+
+    emit(state.copyWith(steps: steps));
+  }
 
   void selectImage() async {
     ImagePicker picker = ImagePicker();

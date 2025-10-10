@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -13,9 +14,11 @@ import '../../../core/utils/extensions.dart';
 import '../../../core/utils/methods.dart';
 import '../../bloc/create_recipe/create_recipe_cubit.dart';
 import '../../data/models/ingredient_model.dart';
+import '../../data/models/step_model.dart';
 import 'items/add_ingredient_button.dart';
 import 'items/create_ingredient_item.dart';
 import 'items/create_ingredient_sheet.dart';
+import 'items/create_step_sheet.dart';
 import 'items/step_item.dart';
 
 class CreateRecipePage extends StatefulWidget {
@@ -28,7 +31,7 @@ class CreateRecipePage extends StatefulWidget {
 class CreateRecipePageState extends State<CreateRecipePage> {
   late final CreateRecipeCubit _cubit;
 
-  final PageController _pageController = PageController();
+  int _index = 0;
 
   @override
   void initState() {
@@ -37,10 +40,14 @@ class CreateRecipePageState extends State<CreateRecipePage> {
     _cubit = context.read<CreateRecipeCubit>();
   }
 
+  void _changePage(int index) {
+    setState(() {
+      _index = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    List<String> steps = [];
-
     return BlocListener<CreateRecipeCubit, CreateRecipeState>(
       listener: (context, state) {
         if (state.isError) {
@@ -55,6 +62,7 @@ class CreateRecipePageState extends State<CreateRecipePage> {
               leadingWidth: 60,
               leading: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
                 children: [
                   MyIconButton(
                     icon: MyIcons.chevron_left,
@@ -120,74 +128,97 @@ class CreateRecipePageState extends State<CreateRecipePage> {
                       Row(
                         children: [
                           Expanded(
-                            child: DefaultContainer(
-                              radius: 100,
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 8,
-                                horizontal: 8,
-                              ),
-                              child: Center(
-                                child: AppText.primary(
-                                  text:
-                                      'Ingredients (${state.ingredients.length})',
-                                ),
-                              ),
-                            ),
+                            child:
+                                DefaultContainer(
+                                  radius: 100,
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 8,
+                                    horizontal: 8,
+                                  ),
+                                  color: _index == 1
+                                      ? context.background
+                                      : null,
+                                  child: Center(
+                                    child: AppText.primary(
+                                      text:
+                                          'Ingredients (${state.ingredients.length})',
+                                    ),
+                                  ),
+                                ).onTap(() {
+                                  _changePage(0);
+                                }),
                           ),
                           Expanded(
-                            child: DefaultContainer(
-                              radius: 100,
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 8,
-                                horizontal: 8,
-                              ),
-                              color: context.background,
-                              child: Center(
-                                child: AppText.primary(
-                                  text: 'Steps (${steps.length})',
-                                ),
-                              ),
-                            ),
+                            child:
+                                DefaultContainer(
+                                  radius: 100,
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 8,
+                                    horizontal: 8,
+                                  ),
+                                  color: _index == 0
+                                      ? context.background
+                                      : null,
+                                  child: Center(
+                                    child: AppText.primary(
+                                      text: 'Steps (${state.steps.length})',
+                                    ),
+                                  ),
+                                ).onTap(() {
+                                  _changePage(1);
+                                }),
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: _calcContainerHeight(state.ingredients.length),
-                        child: PageView(
-                          controller: _pageController,
-                          scrollDirection: Axis.horizontal,
-                          children: [
-                            MySliverList(
-                              gap: 10,
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) =>
-                                  CreateIngredientItem(
-                                    ingredient: state.ingredients[index],
-                                  ).listAnimate(index),
-                              itemCount: state.ingredients.length,
-                            ),
-                            MySliverList(
-                              gap: 10,
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) => CreateStepItem(
-                                step: state.steps[index],
-                              ).listAnimate(index),
-                              itemCount: state.ingredients.length,
-                            ),
-                          ],
-                        ),
-                      ),
 
+                      if (_index == 0)
+                        MySliverList(
+                          key: ValueKey('Ingredients'),
+                          gap: 10,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) => CreateIngredientItem(
+                            ingredient: state.ingredients[index],
+                            onDelete: (i) {
+                              _cubit.deleteIngredient(i);
+                            },
+                          ).listAnimate(index),
+                          itemCount: state.ingredients.length,
+                        ).animate().slideX(begin: -1, end: 0)
+                      else
+                        MySliverList(
+                          key: ValueKey('Steps'),
+                          gap: 10,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) => CreateStepItem(
+                            step: state.steps[index],
+                            onDelete: (s) {
+                              _cubit.deleteStep(s);
+                            },
+                          ).listAnimate(index),
+                          itemCount: state.steps.length,
+                        ).animate().slideX(begin: 1, end: 0),
+
+                      const SizedBox(),
                       AddIngredientButton(
+                        title: _index == 0 ? 'Add Ingredient' : 'Add Step',
                         onTap: () {
                           Methods.showBottomSheet(
                             context,
-                            CreateIngredientSheet(
-                              cubit: _cubit,
-                              onConfirm: (IngredientModel i) {
-                                _cubit.updateIngredients(i);
-                              },
-                            ),
+                            _index == 0
+                                ? CreateIngredientSheet(
+                                    cubit: _cubit,
+                                    onConfirm: (IngredientModel i) {
+                                      _cubit.updateIngredients(i);
+                                    },
+                                    currentIndex: state.ingredients.length,
+                                  )
+                                : CreateStepSheet(
+                                    onConfirm: (StepModel s) {
+                                      _cubit.updateSteps(s);
+                                    },
+                                    cubit: _cubit,
+                                    currentIndex: state.steps.length,
+                                  ),
                           );
                         },
                       ),
