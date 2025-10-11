@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -15,6 +16,7 @@ import '../../data/models/recipe_model.dart';
 import 'items/ingredient_item.dart';
 import 'items/nutrition_container.dart';
 import 'items/servings_container.dart';
+import 'items/step_item.dart';
 import 'loading_skeleton.dart/recipe_detail_page_skeleton.dart';
 
 class RecipeDetailView extends StatefulWidget {
@@ -64,11 +66,17 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
                   child: Container(
                     height: MediaQuery.sizeOf(context).height * 0.3 + 25,
                     color: context.containerInverse,
-                    child: MyNetworkImage(
-                      url:
-                          'https://thehappypear.ie/wp-content/uploads/2021/09/IMG_4780-scaled.jpg',
-                      radius: 0,
-                    ),
+                    child: recipe.image != null
+                        ? MyNetworkImage(
+                            url:
+                                'https://sharedplatesapi-production.up.railway.app${recipe.image}',
+                            radius: 0,
+                          )
+                        : MyNetworkImage(
+                            url:
+                                'https://thehappypear.ie/wp-content/uploads/2021/09/IMG_4780-scaled.jpg',
+                            radius: 0,
+                          ),
                   ),
                 ),
                 Positioned(
@@ -128,7 +136,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
                           ),
                           const SizedBox(),
                           ServingsContainer(
-                            recipe: recipe,
+                            serves: recipe.serves,
                             increment: () {},
                             decrement: () {},
                           ),
@@ -139,11 +147,11 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
                               minHeight: 32.8,
                             ),
                             child: MySliverList.horizontal(
-                              gap: 10,
+                              gap: 8,
                               itemBuilder: (context, index) => TagContainer(
                                 title: recipe.tags[index],
                               ).listAnimate(index),
-                              itemCount: 5,
+                              itemCount: recipe.tags.length,
                             ),
                           ),
                           const SizedBox(),
@@ -193,55 +201,63 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
                                 Row(
                                   children: [
                                     Expanded(
-                                      child: DefaultContainer(
-                                        radius: 100,
-                                        padding: const EdgeInsets.symmetric(
-                                          vertical: 8,
-                                          horizontal: 8,
-                                        ),
-                                        color: context.background,
-                                        child: const Center(
-                                          child: AppText.primary(
-                                            text: 'Ingredients (5)',
-                                          ),
-                                        ),
-                                      ),
+                                      child:
+                                          DefaultContainer(
+                                            radius: 100,
+                                            padding: const EdgeInsets.symmetric(
+                                              vertical: 8,
+                                              horizontal: 8,
+                                            ),
+                                            color: context.background,
+                                            child: Center(
+                                              child: AppText.primary(
+                                                text:
+                                                    'Ingredients (${recipe.ingredients.length})',
+                                              ),
+                                            ),
+                                          ).onTap(() {
+                                            _cubit.updateIndex(0);
+                                          }),
                                     ),
-                                    const Expanded(
-                                      child: DefaultContainer(
-                                        radius: 100,
-                                        padding: EdgeInsets.symmetric(
-                                          vertical: 8,
-                                          horizontal: 8,
-                                        ),
-                                        child: Center(
-                                          child: AppText.primary(
-                                            text: 'Steps (8)',
-                                          ),
-                                        ),
-                                      ),
+                                    Expanded(
+                                      child:
+                                          DefaultContainer(
+                                            radius: 100,
+                                            padding: const EdgeInsets.symmetric(
+                                              vertical: 8,
+                                              horizontal: 8,
+                                            ),
+                                            child: Center(
+                                              child: AppText.primary(
+                                                text:
+                                                    'Steps (${recipe.steps.length})',
+                                              ),
+                                            ),
+                                          ).onTap(() {
+                                            _cubit.updateIndex(1);
+                                          }),
                                     ),
                                   ],
                                 ),
-                                SizedBox(
-                                  height: _calcContainerHeight(
-                                    recipe.ingredients.length,
-                                  ),
-                                  child: PageView(
-                                    scrollDirection: Axis.horizontal,
-                                    children: [
-                                      MySliverList(
-                                        shrinkWrap: true,
-                                        itemBuilder: (context, index) =>
-                                            IngredientItem(
-                                              ingredient:
-                                                  recipe.ingredients[index],
-                                            ).listAnimate(index),
-                                        itemCount: recipe.ingredients.length,
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                                if (state.index == 0)
+                                  MySliverList(
+                                    key: ValueKey('Ingredients'),
+                                    shrinkWrap: true,
+                                    itemBuilder: (context, index) =>
+                                        IngredientItem(
+                                          ingredient: recipe.ingredients[index],
+                                        ).listAnimate(index),
+                                    itemCount: recipe.ingredients.length,
+                                  ).animate().slideX(begin: -1, end: 0)
+                                else
+                                  MySliverList(
+                                    key: ValueKey('Steps'),
+                                    shrinkWrap: true,
+                                    itemBuilder: (context, index) => StepItem(
+                                      step: recipe.steps[index],
+                                    ).listAnimate(index),
+                                    itemCount: recipe.steps.length,
+                                  ).animate().slideX(begin: 1, end: 0),
                               ],
                             ),
                           ),
@@ -279,13 +295,5 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
         },
       ),
     );
-  }
-
-  double _calcContainerHeight(int length) {
-    int containerHeight = 48;
-
-    double paddingHeight = (length - 1) * 20;
-
-    return (containerHeight * length) + paddingHeight;
   }
 }

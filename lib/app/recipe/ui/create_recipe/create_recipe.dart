@@ -6,19 +6,26 @@ import 'package:go_router/go_router.dart';
 import '../../../core/theme/theme.dart';
 import '../../../core/ui/custom/animations/animate_list.dart';
 import '../../../core/ui/custom/buttons/my_icon_button.dart';
+import '../../../core/ui/custom/buttons/wide_text_button.dart';
 import '../../../core/ui/custom/containers/default_container.dart';
+import '../../../core/ui/custom/containers/tag_container.dart';
+import '../../../core/ui/custom/fields/my_dropdown_field.dart';
 import '../../../core/ui/custom/fields/my_form_field.dart';
 import '../../../core/ui/custom/icons/my_icons.dart';
 import '../../../core/ui/layouts/page_container.dart';
 import '../../../core/utils/extensions.dart';
 import '../../../core/utils/methods.dart';
 import '../../bloc/create_recipe/create_recipe_cubit.dart';
+import '../../bloc/recipe_bloc/recipe_bloc.dart';
+import '../../data/models/create_recipe_model.dart';
 import '../../data/models/ingredient_model.dart';
 import '../../data/models/step_model.dart';
+import '../recipe_detail/items/servings_container.dart';
 import 'items/add_ingredient_button.dart';
 import 'items/create_ingredient_item.dart';
 import 'items/create_ingredient_sheet.dart';
 import 'items/create_step_sheet.dart';
+import 'items/create_tag_sheet.dart';
 import 'items/step_item.dart';
 
 class CreateRecipePage extends StatefulWidget {
@@ -30,6 +37,9 @@ class CreateRecipePage extends StatefulWidget {
 
 class CreateRecipePageState extends State<CreateRecipePage> {
   late final CreateRecipeCubit _cubit;
+
+  final TextEditingController _titleCont = TextEditingController();
+  final TextEditingController _descriptionCont = TextEditingController();
 
   int _index = 0;
 
@@ -44,6 +54,27 @@ class CreateRecipePageState extends State<CreateRecipePage> {
     setState(() {
       _index = index;
     });
+  }
+
+  void _createRecipe(CreateRecipeState state) {
+    if (_titleCont.trimmedText.isEmpty ||
+        _descriptionCont.trimmedText.isEmpty ||
+        state.imageFile == null ||
+        state.selectedPrivacyStatus == null) {
+      return;
+    }
+
+    final CreateRecipeModel req = CreateRecipeModel(
+      title: _titleCont.trimmedText,
+      description: _descriptionCont.trimmedText,
+      serves: state.serves.toString(),
+      tags: state.tags,
+      privacyStatus: state.selectedPrivacyStatus!.id.toString(),
+      ingredients: state.ingredients.map((i) => i.toJson()).toList(),
+      image: state.imageFile!,
+    );
+
+    context.read<RecipeBloc>().add(RecipeCreate(req: req));
   }
 
   @override
@@ -108,15 +139,82 @@ class CreateRecipePageState extends State<CreateRecipePage> {
                       _cubit.selectImage();
                     }),
                   const SizedBox(),
+                  ServingsContainer(
+                    serves: state.serves,
+                    increment: _cubit.incrementServes,
+                    decrement: _cubit.decrementServes,
+                  ),
+                  const SizedBox(),
+                  ConstrainedBox(
+                    constraints: const BoxConstraints(
+                      maxHeight: 33.64,
+                      minHeight: 32.8,
+                    ),
+                    child: Row(
+                      spacing: 8,
+                      children: [
+                        Container(
+                          height: 32.8,
+                          width: 32.8,
+                          decoration: BoxDecoration(
+                            color: context.green,
+                            borderRadius: BorderRadius.circular(40),
+                          ),
+                          child: Icon(
+                            MyIcons.add_plus,
+                            color: context.white,
+                            size: 18,
+                          ),
+                        ).onTap(() {
+                          Methods.showBottomSheet(
+                            context,
+                            CreateTagSheet(
+                              cubit: _cubit,
+                              onConfirm: (String t) {
+                                _cubit.updateTags(t);
+                              },
+                              currentIndex: state.tags.length,
+                            ),
+                          );
+                        }),
+                        Expanded(
+                          child: MySliverList.horizontal(
+                            gap: 8,
+                            itemBuilder: (context, index) => TagContainer(
+                              title: state.tags[index],
+                            ).listAnimate(index),
+                            itemCount: state.tags.length,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(),
+                  MyDropdownButton(
+                    title: 'Privacy Status',
+                    value: '',
+                    hint: 'Privacy Status',
+                    onChanged: (s) {
+                      _cubit.updatePrivacy(s);
+                    },
+                    items: const [
+                      CustomDropdownValue(id: 1, value: 'Public'),
+                      CustomDropdownValue(id: 2, value: 'Friends'),
+                      CustomDropdownValue(id: 3, value: 'Private'),
+                    ],
+                  ),
+
                   MyFormField(
                     hint: 'Your recipe title',
                     title: 'Recipe Title',
                     // icon: MyIcons.label,
+                    controller: _titleCont,
                     radius: 24,
                   ),
                   MyFormField(
                     hint: 'Your recipe description',
                     title: 'Description',
+                    controller: _descriptionCont,
                     minLines: 5,
                     maxLines: 8,
                     radius: 24,
@@ -173,7 +271,7 @@ class CreateRecipePageState extends State<CreateRecipePage> {
 
                       if (_index == 0)
                         MySliverList(
-                          key: ValueKey('Ingredients'),
+                          key: const ValueKey('Ingredients'),
                           gap: 10,
                           shrinkWrap: true,
                           itemBuilder: (context, index) => CreateIngredientItem(
@@ -186,7 +284,7 @@ class CreateRecipePageState extends State<CreateRecipePage> {
                         ).animate().slideX(begin: -1, end: 0)
                       else
                         MySliverList(
-                          key: ValueKey('Steps'),
+                          key: const ValueKey('Steps'),
                           gap: 10,
                           shrinkWrap: true,
                           itemBuilder: (context, index) => CreateStepItem(
@@ -223,6 +321,18 @@ class CreateRecipePageState extends State<CreateRecipePage> {
                         },
                       ),
                     ],
+                  ),
+                  const SizedBox(height: 10),
+                  BlocBuilder<RecipeBloc, RecipeState>(
+                    builder: (context, recipeState) {
+                      return WideTextButton(
+                        text: 'Create Recipe',
+                        onTap: () {
+                          _createRecipe(state);
+                        },
+                        isLoading: recipeState.isUserLoading,
+                      );
+                    },
                   ),
                   const SizedBox(height: 10),
                 ],

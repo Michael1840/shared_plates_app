@@ -115,16 +115,43 @@ class RecipeApiService {
     }
   }
 
-  Future<Result<RecipeModel>> createRecipe(FormData form, int id) async {
+  Future<Result<RecipeModel>> createRecipe(Map<String, dynamic> req) async {
     try {
       final ApiResponseModel response = await apiHelper.request(
-        ApiRoutes.recipeWithId(id),
+        ApiRoutes.recipe,
         DioMethod.post,
         hasAuth: true,
+        data: req,
       );
 
       if (!response.isSuccess) {
         return Result.error(Exception('Failed to create recipe.'));
+      }
+
+      if (response.data['data'] == null) {
+        return const Result.castError();
+      }
+
+      final RecipeModel recipe = RecipeModel.fromJson(response.data['data']);
+
+      return Result.ok(recipe);
+    } on Exception catch (e) {
+      debugPrint(e.toString());
+      return Result.error(e);
+    }
+  }
+
+  Future<Result<RecipeModel>> uploadMealImage(FormData data, int id) async {
+    try {
+      final ApiResponseModel response = await apiHelper.request(
+        ApiRoutes.uploadMealImage(id),
+        DioMethod.post,
+        hasAuth: true,
+        formData: data,
+      );
+
+      if (!response.isSuccess) {
+        return Result.error(Exception('Failed to upload meal image.'));
       }
 
       if (response.data['data'] == null) {

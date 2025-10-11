@@ -6,8 +6,13 @@ class CreateRecipeState extends Equatable {
 
   final List<IngredientModel> ingredients;
   final List<StepModel> steps;
+  final List<String> tags;
 
   final CustomDropdownValue? selectedQuantitySymbol;
+
+  final CustomDropdownValue? selectedPrivacyStatus;
+
+  final int serves;
 
   final File? imageFile;
 
@@ -15,17 +20,22 @@ class CreateRecipeState extends Equatable {
   bool get isError => loadingResult.isError;
 
   const CreateRecipeState({
+    required this.loadingResult,
     required this.ingredients,
     required this.steps,
+    required this.serves,
+    required this.tags,
     this.selectedQuantitySymbol,
+    this.selectedPrivacyStatus,
     this.imageFile,
-    required this.loadingResult,
   });
 
   factory CreateRecipeState.initial() {
     return const CreateRecipeState(
       ingredients: [],
       steps: [],
+      tags: [],
+      serves: 1,
       loadingResult: DelayedResult.idle(),
     );
   }
@@ -35,7 +45,10 @@ class CreateRecipeState extends Equatable {
     ingredients,
     steps,
     imageFile,
+    serves,
+    tags,
     selectedQuantitySymbol,
+    selectedPrivacyStatus,
     loadingResult,
   ];
 
@@ -43,15 +56,22 @@ class CreateRecipeState extends Equatable {
     DelayedResult<void>? loadingResult,
     List<IngredientModel>? ingredients,
     List<StepModel>? steps,
+    List<String>? tags,
     CustomDropdownValue? selectedQuantitySymbol,
+    CustomDropdownValue? selectedPrivacyStatus,
+    int? serves,
     File? imageFile,
   }) {
     return CreateRecipeState(
       loadingResult: loadingResult ?? this.loadingResult,
       ingredients: ingredients ?? this.ingredients,
       steps: steps ?? this.steps,
+      tags: tags ?? this.tags,
       selectedQuantitySymbol:
           selectedQuantitySymbol ?? this.selectedQuantitySymbol,
+      selectedPrivacyStatus:
+          selectedPrivacyStatus ?? this.selectedPrivacyStatus,
+      serves: serves ?? this.serves,
       imageFile: imageFile ?? this.imageFile,
     );
   }

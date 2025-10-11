@@ -13,9 +13,11 @@ class ApiRoutes {
 
   static const String profile = '/profile';
 
-  static const String recipe = '/meals';
-  static String recipeWithId(int id) => '/meals/$id';
-  static const String userRecipes = '/meals';
-  static const String trendingRecipes = '/meals';
-  static const String friendsRecipes = '/meals';
+  static const String recipe = '/meals/';
+  static const String createRecipe = recipe;
+  static String recipeWithId(int id) => '$recipe$id';
+  static String uploadMealImage(int id) => '${recipe}upload/$id';
+  static const String userRecipes = recipe;
+  static const String trendingRecipes = recipe;
+  static const String friendsRecipes = recipe;
 }

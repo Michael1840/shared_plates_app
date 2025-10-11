@@ -14,8 +14,9 @@ abstract class RecipesRepository {
   Future<Result<List<RecipeModel>>> getTrendingRecipes();
   Future<Result<List<RecipeModel>>> getFriendsRecipes();
   Future<Result<RecipeDetailModel>> getRecipeById(int id);
-  Future<Result<RecipeModel>> createRecipe(FormData form, int id);
+  Future<Result<RecipeModel>> createRecipe(Map<String, dynamic> req);
   Future<Result<RecipeModel>> updateRecipe(Map<String, dynamic> req, int id);
+  Future<Result<RecipeModel>> uploadMealImage(FormData data, int id);
 }
 
 class RecipesDataProvider extends RecipesRepository {
@@ -74,9 +75,19 @@ class RecipesDataProvider extends RecipesRepository {
   }
 
   @override
-  Future<Result<RecipeModel>> createRecipe(FormData form, int id) async {
+  Future<Result<RecipeModel>> createRecipe(Map<String, dynamic> req) async {
     try {
-      return await _api.getRecipeById(id);
+      return await _api.createRecipe(req);
+    } on Exception catch (e) {
+      debugPrint(e.toString());
+      return Result.error(e);
+    }
+  }
+
+  @override
+  Future<Result<RecipeModel>> uploadMealImage(FormData data, int id) async {
+    try {
+      return await _api.uploadMealImage(data, id);
     } on Exception catch (e) {
       debugPrint(e.toString());
       return Result.error(e);

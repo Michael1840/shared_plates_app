@@ -34,8 +34,8 @@ class _CreateStepSheetState extends State<CreateStepSheet> {
     }
 
     final StepModel ingredient = StepModel(
-      index: widget.currentIndex + 1,
-      name: name,
+      stepIndex: widget.currentIndex + 1,
+      stepDescription: name,
     );
 
     widget.onConfirm(ingredient);

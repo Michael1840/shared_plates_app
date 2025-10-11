@@ -4,10 +4,10 @@ part 'step_model.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class StepModel {
-  final int index;
-  final String name;
+  final int stepIndex;
+  final String stepDescription;
 
-  const StepModel({required this.index, required this.name});
+  const StepModel({required this.stepIndex, required this.stepDescription});
 
   factory StepModel.fromJson(Map<String, dynamic> json) =>
       _$StepModelFromJson(json);

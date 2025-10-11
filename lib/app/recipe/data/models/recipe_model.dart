@@ -2,6 +2,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import 'ingredient_model.dart';
+import 'step_model.dart';
 
 part 'recipe_model.g.dart';
 
@@ -20,7 +21,7 @@ class RecipeModel {
   final String title;
   final double cost;
   final int serves;
-  final String? assetUrl;
+  final String? image;
   final String createdBy;
 
   const RecipeModel({
@@ -29,7 +30,7 @@ class RecipeModel {
     required this.cost,
     required this.serves,
     required this.createdBy,
-    this.assetUrl,
+    this.image,
   });
 
   factory RecipeModel.fromJson(Map<String, dynamic> json) =>
@@ -41,6 +42,7 @@ class RecipeModel {
 @JsonSerializable(fieldRename: FieldRename.snake)
 class RecipeDetailModel extends RecipeModel {
   final List<IngredientModel> ingredients;
+  final List<StepModel> steps;
   final List<String> tags;
   final PrivacyStatus privacyStatus;
 
@@ -50,9 +52,10 @@ class RecipeDetailModel extends RecipeModel {
     required super.cost,
     required super.serves,
     required super.createdBy,
-    super.assetUrl,
+    super.image,
     required this.ingredients,
     required this.tags,
+    required this.steps,
     required this.privacyStatus,
   });
 

@@ -18,6 +18,13 @@ class IngredientModel {
     required this.quantitySymbol,
   });
 
+  Map<String, dynamic> toJson() => {
+    'name': name,
+    'cost': cost,
+    'quantity': quantity,
+    'quantity_symbol': quantitySymbol,
+  };
+
   factory IngredientModel.fromJson(Map<String, dynamic> json) =>
       _$IngredientModelFromJson(json);
 }

@@ -21,12 +21,15 @@ class CreateStepItem extends StatelessWidget {
         spacing: 8,
         children: [
           AppText.primary(
-            text: '${step.index}.',
+            text: '${step.stepIndex}.',
             color: context.textPrimary,
             size: 14,
           ),
           Expanded(
-            child: AppText.primary(text: step.name, color: context.textPrimary),
+            child: AppText.primary(
+              text: step.stepDescription,
+              color: context.textPrimary,
+            ),
           ),
           Icon(
             MyIcons.add_minus_square,

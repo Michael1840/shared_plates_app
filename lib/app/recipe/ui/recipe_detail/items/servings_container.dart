@@ -4,15 +4,14 @@ import 'package:flutter/material.dart';
 import '../../../../core/theme/theme.dart';
 import '../../../../core/ui/custom/icons/my_icons.dart';
 import '../../../../core/utils/extensions.dart';
-import '../../../data/models/recipe_model.dart';
 
 class ServingsContainer extends StatelessWidget {
-  final RecipeDetailModel recipe;
+  final int serves;
   final void Function() increment;
   final void Function() decrement;
   const ServingsContainer({
     super.key,
-    required this.recipe,
+    required this.serves,
     required this.increment,
     required this.decrement,
   });
@@ -24,7 +23,7 @@ class ServingsContainer extends StatelessWidget {
         radius: const Radius.circular(100),
         color: context.green,
         dashPattern: [8, 8],
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       ),
       child: Row(
         children: [
@@ -43,10 +42,7 @@ class ServingsContainer extends StatelessWidget {
                   size: 18,
                 ),
               ).onTap(decrement),
-              AppText.primary(
-                text: recipe.serves.toString(),
-                color: context.green,
-              ),
+              AppText.primary(text: serves.toString(), color: context.green),
               CircleAvatar(
                 radius: 12,
                 backgroundColor: context.green,

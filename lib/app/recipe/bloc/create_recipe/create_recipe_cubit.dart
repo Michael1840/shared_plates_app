@@ -14,8 +14,18 @@ part 'create_recipe_state.dart';
 class CreateRecipeCubit extends Cubit<CreateRecipeState> {
   CreateRecipeCubit() : super(CreateRecipeState.initial());
 
+  void incrementServes() => emit(state.copyWith(serves: state.serves + 1));
+
+  void decrementServes() =>
+      state.serves > 0 ? emit(state.copyWith(serves: state.serves - 1)) : null;
+
   void updateSymbol(CustomDropdownValue value) =>
       emit(state.copyWith(selectedQuantitySymbol: value));
+
+  void updatePrivacy(CustomDropdownValue value) =>
+      emit(state.copyWith(selectedPrivacyStatus: value));
+
+  void updateTags(String t) => emit(state.copyWith(tags: [t, ...state.tags]));
 
   void updateIngredients(IngredientModel i) =>
       emit(state.copyWith(ingredients: [...state.ingredients, i]));
@@ -34,7 +44,7 @@ class CreateRecipeCubit extends Cubit<CreateRecipeState> {
   void deleteStep(StepModel s) {
     final List<StepModel> steps = List.from(state.steps);
 
-    steps.removeWhere((step) => step.index == s.index);
+    steps.removeWhere((step) => step.stepIndex == s.stepIndex);
 
     emit(state.copyWith(steps: steps));
   }

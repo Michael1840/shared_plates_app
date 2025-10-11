@@ -1,10 +1,12 @@
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 import '../../../api/models/result_model.dart';
 import '../../../core/data/models/delayed_result.dart';
 import '../../../core/utils/constants.dart';
+import '../../data/models/create_recipe_model.dart';
 import '../../data/models/recipe_model.dart';
 import '../../data/repo/recipe_repo.dart';
 
@@ -20,8 +22,63 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
     on<RecipeFetchUserRecipes>(_handleFetchUserProjects);
     on<RecipeFetchTrendingRecipes>(_handleFetchTrendingRecipes);
     on<RecipeFetchFriendRecipes>(_handleFetchFriendsRecipes);
+    on<RecipeCreate>(_handleRecipeCreate);
 
     add(RecipeFetchUserRecipes());
+  }
+
+  Future<void> _handleRecipeCreate(
+    RecipeCreate event,
+    Emitter<RecipeState> emit,
+  ) async {
+    List<RecipeModel> recipes = List.from(state.userRecipesResult.value ?? []);
+
+    emit(state.copyWith(userRecipesResult: const DelayedResult.inProgress()));
+
+    try {
+      final Result<RecipeModel> result = await _recipeRepo.createRecipe(
+        event.req.toJson(),
+      );
+
+      switch (result) {
+        case Error<RecipeModel>():
+          throw result.error;
+        case CastError<RecipeModel>():
+          throw result.error;
+        case Ok<RecipeModel>():
+      }
+
+      final FormData formData = FormData.fromMap({
+        'image': await MultipartFile.fromFile(
+          event.req.image.path,
+          filename: event.req.image.path.split('/').last,
+        ),
+      });
+
+      final Result<RecipeModel> imageResult = await _recipeRepo.uploadMealImage(
+        formData,
+        result.value.id,
+      );
+
+      switch (imageResult) {
+        case Error<RecipeModel>():
+          throw imageResult.error;
+        case CastError<RecipeModel>():
+          throw imageResult.error;
+        case Ok<RecipeModel>():
+      }
+
+      recipes = [imageResult.value, ...recipes];
+
+      emit(state.copyWith(userRecipesResult: DelayedResult.fromValue(recipes)));
+    } catch (e) {
+      debugPrint(e.toString());
+      emit(
+        state.copyWith(
+          userRecipesResult: DelayedResult.fromError(e.toString()),
+        ),
+      );
+    }
   }
 
   Future<void> _handleFetchUserProjects(

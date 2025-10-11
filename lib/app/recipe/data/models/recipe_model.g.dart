@@ -12,7 +12,7 @@ RecipeModel _$RecipeModelFromJson(Map<String, dynamic> json) => RecipeModel(
   cost: (json['cost'] as num).toDouble(),
   serves: (json['serves'] as num).toInt(),
   createdBy: json['created_by'] as String,
-  assetUrl: json['asset_url'] as String?,
+  image: json['image'] as String?,
 );
 
 Map<String, dynamic> _$RecipeModelToJson(RecipeModel instance) =>
@@ -21,7 +21,7 @@ Map<String, dynamic> _$RecipeModelToJson(RecipeModel instance) =>
       'title': instance.title,
       'cost': instance.cost,
       'serves': instance.serves,
-      'asset_url': instance.assetUrl,
+      'image': instance.image,
       'created_by': instance.createdBy,
     };
 
@@ -32,11 +32,14 @@ RecipeDetailModel _$RecipeDetailModelFromJson(Map<String, dynamic> json) =>
       cost: (json['cost'] as num).toDouble(),
       serves: (json['serves'] as num).toInt(),
       createdBy: json['created_by'] as String,
-      assetUrl: json['asset_url'] as String?,
+      image: json['image'] as String?,
       ingredients: (json['ingredients'] as List<dynamic>)
           .map((e) => IngredientModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       tags: (json['tags'] as List<dynamic>).map((e) => e as String).toList(),
+      steps: (json['steps'] as List<dynamic>)
+          .map((e) => StepModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
       privacyStatus: $enumDecode(
         _$PrivacyStatusEnumMap,
         json['privacy_status'],
@@ -49,9 +52,10 @@ Map<String, dynamic> _$RecipeDetailModelToJson(RecipeDetailModel instance) =>
       'title': instance.title,
       'cost': instance.cost,
       'serves': instance.serves,
-      'asset_url': instance.assetUrl,
+      'image': instance.image,
       'created_by': instance.createdBy,
       'ingredients': instance.ingredients,
+      'steps': instance.steps,
       'tags': instance.tags,
       'privacy_status': _$PrivacyStatusEnumMap[instance.privacyStatus]!,
     };

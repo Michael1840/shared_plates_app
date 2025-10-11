@@ -14,3 +14,12 @@ class RecipeFetchUserRecipes extends RecipeEvent {}
 class RecipeFetchFriendRecipes extends RecipeEvent {}
 
 class RecipeFetchTrendingRecipes extends RecipeEvent {}
+
+class RecipeCreate extends RecipeEvent {
+  final CreateRecipeModel req;
+
+  const RecipeCreate({required this.req});
+
+  @override
+  List<Object> get props => [req];
+}

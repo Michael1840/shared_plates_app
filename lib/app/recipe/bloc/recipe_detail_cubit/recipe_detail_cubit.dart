@@ -16,6 +16,8 @@ class RecipeDetailCubit extends Cubit<RecipeDetailState> {
     : _recipeRepo = recipeRepo,
       super(RecipeDetailState.initial());
 
+  void updateIndex(int i) => emit(state.copyWith(index: i));
+
   Future<void> fetchRecipe(int? id) async {
     emit(state.copyWith(loadingResult: const DelayedResult.inProgress()));
 

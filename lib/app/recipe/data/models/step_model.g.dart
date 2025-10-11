@@ -7,11 +7,11 @@ part of 'step_model.dart';
 // **************************************************************************
 
 StepModel _$StepModelFromJson(Map<String, dynamic> json) => StepModel(
-  index: (json['index'] as num).toInt(),
-  name: json['name'] as String,
+  stepIndex: (json['step_index'] as num).toInt(),
+  stepDescription: json['step_description'] as String,
 );
 
 Map<String, dynamic> _$StepModelToJson(StepModel instance) => <String, dynamic>{
-  'index': instance.index,
-  'name': instance.name,
+  'step_index': instance.stepIndex,
+  'step_description': instance.stepDescription,
 };
