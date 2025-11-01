@@ -11,4 +11,6 @@ class StepModel {
 
   factory StepModel.fromJson(Map<String, dynamic> json) =>
       _$StepModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$StepModelToJson(this);
 }

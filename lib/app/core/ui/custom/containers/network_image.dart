@@ -28,37 +28,47 @@ class MyNetworkImage extends StatelessWidget {
   Widget build(BuildContext context) {
     print('URL being passed to Image.network: $url');
 
-    return CachedNetworkImage(
-      imageUrl: url,
-      errorWidget: (context, error, stackTrace) => Container(
-        decoration: BoxDecoration(
-          color: context.textSecondary,
-          borderRadius: BorderRadius.circular(radius ?? 16),
-        ),
-        height: height,
-        width: width,
-        child: Center(
-          child: SvgPicture.asset(
-            sharedPlatesSvg,
-            width: svgHeight ?? 48,
-            height: svgWidth ?? 48,
-            colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+    return ClipRRect(
+      borderRadius: BorderRadiusGeometry.circular(radius ?? 16),
+      child: CachedNetworkImage(
+        imageUrl: url,
+
+        errorWidget: (context, error, stackTrace) => Container(
+          decoration: BoxDecoration(
+            color: context.textSecondary,
+            borderRadius: BorderRadius.circular(radius ?? 16),
+          ),
+          height: height,
+          width: width,
+
+          child: Center(
+            child: SvgPicture.asset(
+              sharedPlatesSvg,
+              width: svgHeight ?? 48,
+              height: svgWidth ?? 48,
+              colorFilter: const ColorFilter.mode(
+                Colors.white,
+                BlendMode.srcIn,
+              ),
+            ),
           ),
         ),
-      ),
 
-      progressIndicatorBuilder: (context, child, loadingProgress) => Container(
-        decoration: BoxDecoration(
-          color: context.textSecondary,
-          borderRadius: BorderRadius.circular(radius ?? 16),
-        ),
+        progressIndicatorBuilder: (context, child, loadingProgress) =>
+            Container(
+              decoration: BoxDecoration(
+                color: context.textSecondary,
+                borderRadius: BorderRadius.circular(radius ?? 16),
+              ),
+              height: height,
+              width: width,
+              child: const Center(child: BallAnimation(ballSize: 10)),
+            ),
+
         height: height,
         width: width,
-        child: const Center(child: BallAnimation(ballSize: 10)),
+        fit: BoxFit.cover,
       ),
-      height: height,
-      width: width,
-      fit: BoxFit.cover,
     );
   }
 }

@@ -19,7 +19,15 @@ class RecipeItem extends StatelessWidget {
         child: Row(
           spacing: 10,
           children: [
-            const AspectRatio(aspectRatio: 1, child: MyNetworkImage(url: '')),
+            AspectRatio(
+              aspectRatio: 1,
+              child: MyNetworkImage(
+                height: 50,
+                width: 50,
+                url:
+                    'https://sharedplatesapi-production.up.railway.app${recipe.image}',
+              ),
+            ),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

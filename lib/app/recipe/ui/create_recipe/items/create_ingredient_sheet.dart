@@ -72,6 +72,7 @@ class _CreateIngredientSheetState extends State<CreateIngredientSheet> {
                 hint: 'Your ingredient\'s quantity',
                 title: 'Quantity',
                 controller: _quantityCont,
+                keyboardType: const TextInputType.numberWithOptions(),
               ),
             ),
             Expanded(
@@ -98,6 +99,7 @@ class _CreateIngredientSheetState extends State<CreateIngredientSheet> {
           hint: 'Your ingredient\'s cost',
           title: 'Cost',
           controller: _costCont,
+          keyboardType: const TextInputType.numberWithOptions(),
         ),
         const SizedBox(),
         WideTextButton(text: 'Add Ingredient', onTap: _addIngredient),

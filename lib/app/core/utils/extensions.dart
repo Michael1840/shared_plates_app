@@ -1,8 +1,11 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../theme/theme.dart';
+import '../ui/custom/icons/my_icons.dart';
 
 extension AnimationExtensions on Widget {
   Widget toSliver() => SliverToBoxAdapter(child: this);
@@ -130,26 +133,59 @@ extension BuildContextExtension on BuildContext {
     ScaffoldMessenger.of(this).clearSnackBars();
     ScaffoldMessenger.of(this).showSnackBar(
       SnackBar(
-        duration: const Duration(seconds: 1),
+        behavior: SnackBarBehavior.fixed,
+        padding: const EdgeInsets.all(12),
+        duration: const Duration(seconds: 2),
         elevation: 0,
         backgroundColor: Colors.transparent,
-        content: Container(
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: StatusColors.redDark,
-            border: Border.all(color: StatusColors.redLight),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const AppText.primary(
-                text: 'Oops!',
-                size: 12,
-                weight: Weights.bold,
+        content: ClipRRect(
+          borderRadius: BorderRadiusGeometry.circular(24),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+            child: Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: container.withValues(alpha: 0.9),
+                boxShadow: [Shadows.dark],
+                borderRadius: BorderRadius.circular(24),
               ),
-              AppText.secondary(text: message, size: 10),
-            ],
+              child: Column(
+                spacing: 8,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(6),
+                        decoration: BoxDecoration(
+                          color: StatusColors.redDark,
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                        child: const Icon(
+                          MyIcons.circle_warning,
+                          color: StatusColors.redLight,
+                          size: 22,
+                        ),
+                      ),
+                      Icon(
+                        MyIcons.close_circle,
+                        color: textSecondary,
+                        size: 22,
+                      ).onTap(() {
+                        ScaffoldMessenger.of(this).clearSnackBars();
+                      }),
+                    ],
+                  ),
+                  AppText.primary(
+                    text: message,
+                    size: 12,
+                    weight: Weights.medium,
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
       ),
@@ -160,23 +196,41 @@ extension BuildContextExtension on BuildContext {
     ScaffoldMessenger.of(this).clearSnackBars();
     ScaffoldMessenger.of(this).showSnackBar(
       SnackBar(
-        duration: const Duration(seconds: 1),
+        behavior: SnackBarBehavior.fixed,
+        padding: const EdgeInsets.all(12),
+        duration: const Duration(seconds: 2),
         elevation: 0,
         backgroundColor: Colors.transparent,
         content: Container(
-          padding: const EdgeInsets.all(8),
+          padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: StatusColors.greenDark,
-            border: Border.all(color: StatusColors.greenLight),
-            borderRadius: BorderRadius.circular(8),
+            color: container,
+            boxShadow: [Shadows.dark],
+            borderRadius: BorderRadius.circular(24),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const AppText.primary(
-                text: 'Success!',
-                size: 12,
-                weight: Weights.bold,
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(6),
+                    decoration: BoxDecoration(
+                      color: StatusColors.greenDark,
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                    child: const Icon(
+                      MyIcons.circle_warning,
+                      color: StatusColors.greenLight,
+                      size: 22,
+                    ),
+                  ),
+                  Icon(MyIcons.check, color: textSecondary, size: 22).onTap(() {
+                    ScaffoldMessenger.of(this).clearSnackBars();
+                  }),
+                ],
               ),
               AppText.secondary(text: message, size: 10),
             ],

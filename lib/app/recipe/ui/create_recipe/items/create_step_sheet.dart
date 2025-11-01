@@ -52,7 +52,7 @@ class _CreateStepSheetState extends State<CreateStepSheet> {
         const SizedBox(),
         MyFormField(
           hint: 'Describe your step in detail',
-          title: 'Step',
+          title: 'Step ${widget.currentIndex + 1}',
           controller: _stepCont,
           minLines: 5,
           maxLines: 8,

@@ -6,7 +6,6 @@ import 'package:go_router/go_router.dart';
 import '../../../core/theme/theme.dart';
 import '../../../core/ui/custom/animations/animate_list.dart';
 import '../../../core/ui/custom/buttons/my_icon_button.dart';
-import '../../../core/ui/custom/containers/default_container.dart';
 import '../../../core/ui/custom/containers/network_image.dart';
 import '../../../core/ui/custom/containers/tag_container.dart';
 import '../../../core/ui/custom/icons/my_icons.dart';
@@ -99,48 +98,53 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
                     ),
                     child: SingleChildScrollView(
                       child: Column(
-                        spacing: 10,
+                        spacing: 24,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          Column(
                             children: [
-                              Flexible(
-                                child: AppText.heading(
-                                  text: recipe.title,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Flexible(
+                                    child: AppText.heading(
+                                      text: recipe.title,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                  const MyIconButton(icon: MyIcons.heart_02),
+                                ],
                               ),
-                              const MyIconButton(icon: MyIcons.heart_02),
+                              Row(
+                                spacing: 8,
+                                children: [
+                                  AppText.heading(
+                                    text: 'R${recipe.cost.floor()}',
+                                    size: 18,
+                                  ),
+                                  CircleAvatar(
+                                    radius: 3,
+                                    backgroundColor: context.textSecondary,
+                                  ),
+                                  Flexible(
+                                    child: AppText.secondary(
+                                      text: 'by ${recipe.createdBy}',
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ],
                           ),
-                          Row(
-                            spacing: 8,
-                            children: [
-                              AppText.heading(
-                                text: 'R${recipe.cost.floor()}',
-                                size: 18,
-                              ),
-                              CircleAvatar(
-                                radius: 3,
-                                backgroundColor: context.textSecondary,
-                              ),
-                              Flexible(
-                                child: AppText.secondary(
-                                  text: 'by ${recipe.createdBy}',
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(),
+
                           ServingsContainer(
                             serves: recipe.serves,
                             increment: () {},
                             decrement: () {},
                           ),
-                          const SizedBox(),
+
                           ConstrainedBox(
                             constraints: const BoxConstraints(
                               maxHeight: 33.64,
@@ -154,11 +158,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
                               itemCount: recipe.tags.length,
                             ),
                           ),
-                          const SizedBox(),
-                          const AppText.heading(
-                            text: 'Nutrition Facts',
-                            size: 18,
-                          ),
+
                           IntrinsicHeight(
                             child: Row(
                               spacing: 16,
@@ -192,108 +192,46 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
                             ),
                           ),
 
-                          const SizedBox(),
-                          DefaultContainer(
-                            radius: 30,
-                            child: Column(
-                              spacing: 20,
-                              mainAxisSize: MainAxisSize.min,
+                          if (recipe.ingredients.isNotEmpty)
+                            Column(
+                              spacing: 24,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                LayoutBuilder(
-                                  builder: (context, constraints) {
-                                    final parentWidth = constraints.maxWidth;
-
-                                    return Stack(
-                                      children: [
-                                        AnimatedPositioned(
-                                          duration: const Duration(
-                                            milliseconds: 300,
-                                          ),
-                                          curve: Curves.easeInOut,
-                                          left: state.index == 0
-                                              ? 0
-                                              : parentWidth * 0.5,
-                                          width: parentWidth * 0.5,
-                                          bottom: 0,
-                                          top: 0,
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              color: context.background,
-                                              borderRadius:
-                                                  BorderRadius.circular(24),
-                                            ),
-                                          ),
-                                        ),
-                                        Row(
-                                          children: [
-                                            Expanded(
-                                              child:
-                                                  DefaultContainer(
-                                                    radius: 100,
-                                                    padding:
-                                                        const EdgeInsets.symmetric(
-                                                          vertical: 8,
-                                                          horizontal: 8,
-                                                        ),
-                                                    color: Colors.transparent,
-                                                    child: Center(
-                                                      child: AppText.primary(
-                                                        text:
-                                                            'Ingredients (${recipe.ingredients.length})',
-                                                      ),
-                                                    ),
-                                                  ).onTap(() {
-                                                    _cubit.updateIndex(0);
-                                                  }),
-                                            ),
-                                            Expanded(
-                                              child:
-                                                  DefaultContainer(
-                                                    radius: 100,
-                                                    color: Colors.transparent,
-                                                    padding:
-                                                        const EdgeInsets.symmetric(
-                                                          vertical: 8,
-                                                          horizontal: 8,
-                                                        ),
-                                                    child: Center(
-                                                      child: AppText.primary(
-                                                        text:
-                                                            'Steps (${recipe.steps.length})',
-                                                      ),
-                                                    ),
-                                                  ).onTap(() {
-                                                    _cubit.updateIndex(1);
-                                                  }),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    );
-                                  },
+                                const AppText.heading(
+                                  text: 'Ingredients',
+                                  size: 16,
                                 ),
-                                if (state.index == 0)
-                                  MySliverList(
-                                    key: ValueKey('Ingredients'),
-                                    shrinkWrap: true,
-                                    itemBuilder: (context, index) =>
-                                        IngredientItem(
-                                          ingredient: recipe.ingredients[index],
-                                        ).listAnimate(index),
-                                    itemCount: recipe.ingredients.length,
-                                  ).animate().slideX(begin: -1, end: 0)
-                                else
-                                  MySliverList(
-                                    key: ValueKey('Steps'),
-                                    shrinkWrap: true,
-                                    itemBuilder: (context, index) => StepItem(
-                                      step: recipe.steps[index],
-                                    ).listAnimate(index),
-                                    itemCount: recipe.steps.length,
-                                  ).animate().slideX(begin: 1, end: 0),
+                                MySliverList(
+                                  shrinkWrap: true,
+                                  itemBuilder: (context, index) =>
+                                      IngredientItem(
+                                        ingredient: recipe.ingredients[index],
+                                      ).listAnimate(index),
+                                  itemCount: recipe.ingredients.length,
+                                ).animate().slideX(begin: -1, end: 0),
                               ],
                             ),
-                          ),
+
+                          if (recipe.steps.isNotEmpty)
+                            Column(
+                              spacing: 24,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const AppText.heading(
+                                  text: 'Instructions',
+                                  size: 16,
+                                ),
+                                MySliverList(
+                                  shrinkWrap: true,
+                                  itemBuilder: (context, index) => StepItem(
+                                    step: recipe.steps[index],
+                                    totalCount: recipe.steps.length,
+                                  ).listAnimate(index),
+                                  itemCount: recipe.steps.length,
+                                ).animate().slideX(begin: 1, end: 0),
+                              ],
+                            ),
+
                           const SizedBox(height: 10),
                         ],
                       ),

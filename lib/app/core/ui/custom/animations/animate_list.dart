@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../../../theme/theme.dart';
 import '../../../utils/extensions.dart';
+import '../containers/default_container.dart';
+import '../icons/my_icons.dart';
 
 class MySliverList extends StatelessWidget {
   final int itemCount;
@@ -12,6 +15,7 @@ class MySliverList extends StatelessWidget {
   final bool shrinkWrap;
   final List<Widget> slivers;
   final RefreshCallback? onRefresh;
+  final String? emptyText;
 
   const MySliverList({
     super.key,
@@ -20,6 +24,7 @@ class MySliverList extends StatelessWidget {
     this.gap = 20,
     this.customPinnedWidget,
     this.shrinkWrap = false,
+    this.emptyText,
     this.slivers = const [],
     this.onRefresh,
   }) : scrollDirection = Axis.vertical,
@@ -32,6 +37,7 @@ class MySliverList extends StatelessWidget {
     this.gap = 20,
     this.customPinnedWidget,
     this.shrinkWrap = false,
+    this.emptyText,
     this.slivers = const [],
     this.onRefresh,
   }) : scrollDirection = Axis.horizontal,
@@ -45,14 +51,15 @@ class MySliverList extends StatelessWidget {
     this.scrollDirection = Axis.vertical,
     this.customPinnedWidget,
     this.shrinkWrap = false,
+    this.emptyText,
     this.slivers = const [],
     this.onRefresh,
   }) : gap = 0;
 
   @override
   Widget build(BuildContext context) {
-    final Widget body = CustomScrollView(
-      physics: const ClampingScrollPhysics(),
+    Widget body = CustomScrollView(
+      // physics: const ClampingScrollPhysics(),
       clipBehavior: Clip.hardEdge,
       scrollDirection: scrollDirection,
       shrinkWrap: shrinkWrap,
@@ -72,6 +79,27 @@ class MySliverList extends StatelessWidget {
           ),
       ],
     );
+
+    if (emptyText != null && itemCount < 1) {
+      body = DefaultContainer(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          spacing: 16,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              MyIcons.magnifying_glass_minus,
+              color: context.textSecondary,
+              size: 28,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [AppText.secondary(text: emptyText!)],
+            ),
+          ],
+        ),
+      );
+    }
 
     if (onRefresh != null) {
       return RefreshIndicator(

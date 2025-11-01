@@ -7,6 +7,7 @@ class CreateRecipeModel {
   final List<String> tags;
   final String privacyStatus;
   final List<Map<String, dynamic>> ingredients;
+  final List<Map<String, dynamic>> steps;
   final File image;
 
   const CreateRecipeModel({
@@ -16,6 +17,7 @@ class CreateRecipeModel {
     required this.tags,
     required this.privacyStatus,
     required this.ingredients,
+    required this.steps,
     required this.image,
   });
 
@@ -27,6 +29,7 @@ class CreateRecipeModel {
       'tags': tags,
       'privacy_status': privacyStatus,
       'ingredients': ingredients,
+      'steps': steps,
     };
   }
 }

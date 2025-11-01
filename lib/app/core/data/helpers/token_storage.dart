@@ -15,9 +15,14 @@ class TokenStorage {
     await prefs.setBool(_onboardingKey, true);
   }
 
-  Future<void> saveTokens(String accessToken, String refreshToken) async {
-    await prefs.setString(_accessTokenKey, accessToken);
-    await prefs.setString(_refreshTokenKey, refreshToken);
+  Future<void> saveTokens(String? accessToken, String? refreshToken) async {
+    if (accessToken != null) {
+      await prefs.setString(_accessTokenKey, accessToken);
+    }
+
+    if (refreshToken != null) {
+      await prefs.setString(_refreshTokenKey, refreshToken);
+    }
   }
 
   Future<String?> getAccessToken() async {

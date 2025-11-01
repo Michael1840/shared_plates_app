@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -111,6 +112,7 @@ class ApiHelper {
 class ApiInterceptors extends Interceptor {
   bool _isRefreshing = false;
   late Dio _tokenDio;
+  Completer<void>? _refreshCompleter;
 
   ApiInterceptors() {
     _tokenDio = Dio(
@@ -130,6 +132,7 @@ class ApiInterceptors extends Interceptor {
     final baseUrl = err.requestOptions.baseUrl;
     final endpoint = err.requestOptions.path;
     final statusCode = err.response?.statusCode;
+    final options = err.requestOptions;
 
     debugPrint(
       '────────────────────────── API ERROR ──────────────────────────',
@@ -157,53 +160,55 @@ class ApiInterceptors extends Interceptor {
       '─────────────────────────────────────────────────────────────────',
     );
 
-    if (err.response?.statusCode == 502 || err.response?.statusCode == 500) {
-      _isRefreshing = true;
-
+    if (statusCode == 500 || statusCode == 502) {
       try {
-        final options = err.requestOptions;
-
-        final retryResponse = await Dio().fetch(options);
-        _isRefreshing = false;
+        final retryResponse = await _tokenDio.fetch(options);
         return handler.resolve(retryResponse);
-      } catch (e) {
-        _isRefreshing = false;
+      } catch (_) {
         return handler.reject(err);
       }
-    } else if (err.response?.statusCode == 401 && !_isRefreshing) {
-      _isRefreshing = true;
+    }
 
-      final refreshToken = await tokenStorage.getRefreshToken();
-
-      if (refreshToken == null) {
-        // Optionally redirect to login
-        handler.reject(err);
-        return;
+    // Handle 401 unauthorized
+    if (statusCode == 401) {
+      if (_isRefreshing) {
+        await _refreshCompleter?.future;
+        final token = await tokenStorage.getAccessToken();
+        options.headers[HttpHeaders.authorizationHeader] = 'Bearer $token';
+        final retryResponse = await _tokenDio.fetch(options);
+        return handler.resolve(retryResponse);
       }
 
+      _isRefreshing = true;
+      _refreshCompleter = Completer();
+
       try {
+        final refreshToken = await tokenStorage.getRefreshToken();
+        if (refreshToken == null) {
+          _isRefreshing = false;
+          _refreshCompleter?.complete();
+          await tokenStorage.clearTokens();
+          return handler.reject(err);
+        }
+
         final response = await _tokenDio.post(
           ApiRoutes.tokenRefresh,
           data: {'refresh': refreshToken},
         );
 
-        final newAccessToken = response.data['access_token'];
-        final newRefreshToken = response.data['refresh_token'];
+        final newAccess = response.data['access'];
+        await tokenStorage.saveTokens(newAccess, null);
 
-        // Store new tokens
-        await tokenStorage.saveTokens(newAccessToken, newRefreshToken);
-
-        // Retry original request
-        final options = err.requestOptions;
-        options.headers[HttpHeaders.authorizationHeader] =
-            'Bearer $newAccessToken';
-
-        final retryResponse = await Dio().fetch(options);
         _isRefreshing = false;
+        _refreshCompleter?.complete();
+
+        options.headers[HttpHeaders.authorizationHeader] = 'Bearer $newAccess';
+        final retryResponse = await _tokenDio.fetch(options);
         return handler.resolve(retryResponse);
       } catch (e) {
-        await tokenStorage.clearTokens();
         _isRefreshing = false;
+        _refreshCompleter?.complete();
+        await tokenStorage.clearTokens();
         return handler.reject(err);
       }
     }
