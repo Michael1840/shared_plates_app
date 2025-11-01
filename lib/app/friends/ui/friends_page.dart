@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
-import '../../core/router/routes.dart';
 import '../../core/theme/theme.dart';
 import '../../core/ui/custom/animations/animate_list.dart';
 import '../../core/ui/custom/appbar/sliver_app_bar.dart';
@@ -16,6 +14,8 @@ import '../../recipe/data/models/recipe_model.dart';
 import '../../recipe/ui/loading_skeleton/recipes_page_skeleton.dart';
 import 'items/friend_item.dart';
 
+enum _FriendPage { friends, requests }
+
 class FriendsPage extends StatefulWidget {
   const FriendsPage({super.key});
 
@@ -24,6 +24,14 @@ class FriendsPage extends StatefulWidget {
 }
 
 class _FriendsPageState extends State<FriendsPage> {
+  _FriendPage _page = _FriendPage.friends;
+
+  void _changePage(_FriendPage p) {
+    setState(() {
+      _page = p;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -69,43 +77,72 @@ class _FriendsPageState extends State<FriendsPage> {
 
                 const CustomSliverTitle(title: 'Friends', subtitle: 'Your'),
 
-                Row(
-                  children: [
-                    const Expanded(
-                      child: DefaultContainer(
-                        radius: 100,
-                        padding: EdgeInsets.symmetric(
-                          vertical: 8,
-                          horizontal: 8,
+                LayoutBuilder(
+                  builder: (context, constraints) {
+                    return Stack(
+                      children: [
+                        AnimatedPositioned(
+                          top: 0,
+                          bottom: 0,
+                          left: _page == _FriendPage.requests
+                              ? constraints.maxWidth / 2
+                              : 0,
+                          right: _page == _FriendPage.friends
+                              ? constraints.maxWidth / 2
+                              : 0,
+                          duration: const Duration(milliseconds: 150),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: context.container,
+                              borderRadius: BorderRadius.circular(24),
+                            ),
+                          ),
                         ),
-                        child: Center(child: AppText.primary(text: 'Friends')),
-                      ),
-                    ),
-                    Expanded(
-                      child: DefaultContainer(
-                        radius: 100,
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 8,
-                          horizontal: 8,
+                        Row(
+                          children: [
+                            Expanded(
+                              child:
+                                  const DefaultContainer(
+                                    radius: 100,
+                                    padding: EdgeInsets.symmetric(
+                                      vertical: 8,
+                                      horizontal: 8,
+                                    ),
+                                    color: Colors.transparent,
+                                    child: Center(
+                                      child: AppText.primary(text: 'Friends'),
+                                    ),
+                                  ).onTap(() {
+                                    _changePage(_FriendPage.friends);
+                                  }),
+                            ),
+                            Expanded(
+                              child:
+                                  const DefaultContainer(
+                                    radius: 100,
+                                    padding: EdgeInsets.symmetric(
+                                      vertical: 8,
+                                      horizontal: 8,
+                                    ),
+                                    color: Colors.transparent,
+                                    child: Center(
+                                      child: AppText.primary(text: 'Requests'),
+                                    ),
+                                  ).onTap(() {
+                                    _changePage(_FriendPage.requests);
+                                  }),
+                            ),
+                          ],
                         ),
-                        color: context.background,
-                        child: const Center(
-                          child: AppText.primary(text: 'Requests'),
-                        ),
-                      ),
-                    ),
-                  ],
+                      ],
+                    );
+                  },
                 ).paddingBottom(20).toSliver(),
 
                 const CustomPinnedSliverSearch(),
               ],
               itemBuilder: (context, index) => const FriendItem()
-                  .onTap(() {
-                    context.goNamed(
-                      Routes.recipeDetail,
-                      pathParameters: {'id': recipes[index].id.toString()},
-                    );
-                  })
+                  .onTap(() {})
                   .paddingBottom((index + 1) == recipes.length ? 20 : 0)
                   .listAnimate(index),
               itemCount: recipes.length,

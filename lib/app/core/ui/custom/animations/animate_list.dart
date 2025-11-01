@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../../theme/theme.dart';
 import '../../../utils/extensions.dart';
@@ -14,6 +15,7 @@ class MySliverList extends StatelessWidget {
   final Widget? customPinnedWidget;
   final bool shrinkWrap;
   final List<Widget> slivers;
+  final ScrollPhysics? physics;
   final RefreshCallback? onRefresh;
   final String? emptyText;
 
@@ -22,6 +24,7 @@ class MySliverList extends StatelessWidget {
     required this.itemBuilder,
     required this.itemCount,
     this.gap = 20,
+    this.physics,
     this.customPinnedWidget,
     this.shrinkWrap = false,
     this.emptyText,
@@ -35,6 +38,7 @@ class MySliverList extends StatelessWidget {
     required this.itemBuilder,
     required this.itemCount,
     this.gap = 20,
+    this.physics,
     this.customPinnedWidget,
     this.shrinkWrap = false,
     this.emptyText,
@@ -52,33 +56,40 @@ class MySliverList extends StatelessWidget {
     this.customPinnedWidget,
     this.shrinkWrap = false,
     this.emptyText,
+    this.physics,
     this.slivers = const [],
     this.onRefresh,
   }) : gap = 0;
 
   @override
   Widget build(BuildContext context) {
-    Widget body = CustomScrollView(
-      // physics: const ClampingScrollPhysics(),
-      clipBehavior: Clip.hardEdge,
-      scrollDirection: scrollDirection,
-      shrinkWrap: shrinkWrap,
+    Widget body =
+        CustomScrollView(
+          physics: physics,
+          clipBehavior: Clip.hardEdge,
+          scrollDirection: scrollDirection,
+          shrinkWrap: shrinkWrap,
 
-      slivers: [
-        ...slivers,
-        if (itemBuilder != null)
-          SliverList.separated(
-            itemBuilder: itemBuilder!,
-            separatorBuilder: (context, index) =>
-                separator ??
-                SizedBox(
-                  height: scrollDirection == Axis.vertical ? gap : 0,
-                  width: scrollDirection == Axis.vertical ? 0 : gap,
-                ),
-            itemCount: itemCount,
-          ),
-      ],
-    );
+          slivers: [
+            ...slivers,
+            if (itemBuilder != null)
+              SliverList.separated(
+                itemBuilder: itemBuilder!,
+                separatorBuilder: (context, index) =>
+                    separator ??
+                    SizedBox(
+                      height: scrollDirection == Axis.vertical ? gap : 0,
+                      width: scrollDirection == Axis.vertical ? 0 : gap,
+                    ),
+                itemCount: itemCount,
+              ),
+          ],
+        ).animate().slideX(
+          begin: 1,
+          end: 0,
+          delay: 0.ms,
+          // alignment: Alignment.centerLeft,
+        );
 
     if (emptyText != null && itemCount < 1) {
       body = DefaultContainer(

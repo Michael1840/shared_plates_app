@@ -202,6 +202,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
                                   size: 16,
                                 ),
                                 MySliverList(
+                                  physics: const NeverScrollableScrollPhysics(),
                                   shrinkWrap: true,
                                   itemBuilder: (context, index) =>
                                       IngredientItem(
@@ -222,13 +223,14 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
                                   size: 16,
                                 ),
                                 MySliverList(
+                                  physics: const NeverScrollableScrollPhysics(),
                                   shrinkWrap: true,
                                   itemBuilder: (context, index) => StepItem(
                                     step: recipe.steps[index],
                                     totalCount: recipe.steps.length,
                                   ).listAnimate(index),
                                   itemCount: recipe.steps.length,
-                                ).animate().slideX(begin: 1, end: 0),
+                                ).animate().slideX(begin: -1, end: 0),
                               ],
                             ),
 

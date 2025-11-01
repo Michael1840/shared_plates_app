@@ -68,7 +68,12 @@ class _RecipesPageState extends State<RecipesPage> {
 
                 const CustomSliverTitle(title: 'Recipe Book', subtitle: 'Your'),
 
-                CustomSliverImageButton(type: ButtonType.recipe2, onTap: () {}),
+                CustomSliverImageButton(
+                  type: ButtonType.recipe2,
+                  onTap: () {
+                    context.goNamed(Routes.createRecipe);
+                  },
+                ),
 
                 const CustomPinnedSliverSearch(hasIconButton: true),
               ],
