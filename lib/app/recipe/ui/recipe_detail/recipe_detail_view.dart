@@ -197,47 +197,80 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
                             radius: 30,
                             child: Column(
                               spacing: 20,
+                              mainAxisSize: MainAxisSize.min,
                               children: [
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child:
-                                          DefaultContainer(
-                                            radius: 100,
-                                            padding: const EdgeInsets.symmetric(
-                                              vertical: 8,
-                                              horizontal: 8,
+                                LayoutBuilder(
+                                  builder: (context, constraints) {
+                                    final parentWidth = constraints.maxWidth;
+
+                                    return Stack(
+                                      children: [
+                                        AnimatedPositioned(
+                                          duration: const Duration(
+                                            milliseconds: 300,
+                                          ),
+                                          curve: Curves.easeInOut,
+                                          left: state.index == 0
+                                              ? 0
+                                              : parentWidth * 0.5,
+                                          width: parentWidth * 0.5,
+                                          bottom: 0,
+                                          top: 0,
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: context.background,
+                                              borderRadius:
+                                                  BorderRadius.circular(24),
                                             ),
-                                            color: context.background,
-                                            child: Center(
-                                              child: AppText.primary(
-                                                text:
-                                                    'Ingredients (${recipe.ingredients.length})',
-                                              ),
+                                          ),
+                                        ),
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                              child:
+                                                  DefaultContainer(
+                                                    radius: 100,
+                                                    padding:
+                                                        const EdgeInsets.symmetric(
+                                                          vertical: 8,
+                                                          horizontal: 8,
+                                                        ),
+                                                    color: Colors.transparent,
+                                                    child: Center(
+                                                      child: AppText.primary(
+                                                        text:
+                                                            'Ingredients (${recipe.ingredients.length})',
+                                                      ),
+                                                    ),
+                                                  ).onTap(() {
+                                                    _cubit.updateIndex(0);
+                                                  }),
                                             ),
-                                          ).onTap(() {
-                                            _cubit.updateIndex(0);
-                                          }),
-                                    ),
-                                    Expanded(
-                                      child:
-                                          DefaultContainer(
-                                            radius: 100,
-                                            padding: const EdgeInsets.symmetric(
-                                              vertical: 8,
-                                              horizontal: 8,
+                                            Expanded(
+                                              child:
+                                                  DefaultContainer(
+                                                    radius: 100,
+                                                    color: Colors.transparent,
+                                                    padding:
+                                                        const EdgeInsets.symmetric(
+                                                          vertical: 8,
+                                                          horizontal: 8,
+                                                        ),
+                                                    child: Center(
+                                                      child: AppText.primary(
+                                                        text:
+                                                            'Steps (${recipe.steps.length})',
+                                                      ),
+                                                    ),
+                                                  ).onTap(() {
+                                                    _cubit.updateIndex(1);
+                                                  }),
                                             ),
-                                            child: Center(
-                                              child: AppText.primary(
-                                                text:
-                                                    'Steps (${recipe.steps.length})',
-                                              ),
-                                            ),
-                                          ).onTap(() {
-                                            _cubit.updateIndex(1);
-                                          }),
-                                    ),
-                                  ],
+                                          ],
+                                        ),
+                                      ],
+                                    );
+                                  },
                                 ),
                                 if (state.index == 0)
                                   MySliverList(
