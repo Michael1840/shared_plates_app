@@ -15,6 +15,7 @@ class CustomDropdownValue {
 class MyDropdownButton extends StatelessWidget {
   final String title;
   final dynamic value;
+  final CustomDropdownValue? initialValue;
   final String hint;
   final IconData? icon;
   final void Function(dynamic)? onChanged;
@@ -30,6 +31,7 @@ class MyDropdownButton extends StatelessWidget {
     required this.value,
     required this.hint,
     this.icon,
+    this.initialValue,
     required this.onChanged,
     required this.items,
     this.validator,
@@ -43,6 +45,7 @@ class MyDropdownButton extends StatelessWidget {
     required this.value,
     required this.hint,
     this.icon,
+    this.initialValue,
     required this.onChanged,
     required this.items,
     this.validator,
@@ -100,6 +103,7 @@ class MyDropdownButton extends StatelessWidget {
     if (!hasSearch) {
       return CustomDropdown<CustomDropdownValue>(
         controller: controller,
+        initialItem: initialValue,
         validator:
             validator ??
             (s) {
@@ -169,6 +173,7 @@ class MyDropdownButton extends StatelessWidget {
 
     return CustomDropdown<CustomDropdownValue>.search(
       controller: controller,
+      initialItem: initialValue,
       validator:
           validator ??
           (s) {

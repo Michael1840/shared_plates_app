@@ -82,7 +82,7 @@ class HomePage extends StatelessWidget {
 
                 ViewAllRow(title: 'Trending Recipes', onTap: () {}).toSliver(),
                 SizedBox(
-                      height: 213,
+                      height: 230,
                       child: MySliverList.horizontal(
                         itemBuilder: (context, index) =>
                             TrendingRecipeItem(recipe: trendingRecipes[index])

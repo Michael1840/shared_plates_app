@@ -6,7 +6,24 @@ import 'package:intl/intl.dart';
 import '../ui/layouts/page_container.dart';
 import 'extensions.dart';
 
-class Formatter {}
+class Formatter {
+  static String formatCreatedAt(DateTime createdAt) {
+    final now = DateTime.now();
+    final difference = now.difference(createdAt);
+
+    if (difference.inSeconds < 60) {
+      return '${difference.inSeconds}s ago';
+    } else if (difference.inMinutes < 60) {
+      return '${difference.inMinutes}m ago';
+    } else if (difference.inHours < 24) {
+      return '${difference.inHours}h ago';
+    } else if (difference.inDays == 1) {
+      return 'Yesterday';
+    } else {
+      return DateFormat('d MMM').format(createdAt);
+    }
+  }
+}
 
 class Methods {
   static void showBottomSheet(BuildContext context, Widget child) =>

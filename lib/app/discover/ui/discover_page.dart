@@ -77,7 +77,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
                 ),
                 ViewAllRow(title: 'Hot This Week', onTap: () {}).toSliver(),
                 SizedBox(
-                      height: 213,
+                      height: 230,
                       child: MySliverList.horizontal(
                         itemBuilder: (context, index) =>
                             TrendingRecipeItem(recipe: recipes[index])
@@ -104,7 +104,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
                     .toSliver(),
                 ViewAllRow(title: 'Under R100', onTap: () {}).toSliver(),
                 SizedBox(
-                      height: 213,
+                      height: 230,
                       child: MySliverList.horizontal(
                         itemBuilder: (context, index) =>
                             TrendingRecipeItem(recipe: recipes[index])

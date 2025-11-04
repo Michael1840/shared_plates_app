@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../core/data/models/delayed_result.dart';
 import '../../../core/ui/custom/fields/my_dropdown_field.dart';
+import '../../../core/utils/extensions.dart';
 import '../../data/models/ingredient_model.dart';
 import '../../data/models/step_model.dart';
 
@@ -24,6 +25,17 @@ class CreateRecipeCubit extends Cubit<CreateRecipeState> {
 
   void updatePrivacy(CustomDropdownValue value) =>
       emit(state.copyWith(selectedPrivacyStatus: value));
+
+  void updateTitle(String value) => emit(state.copyWith(title: value));
+
+  void updateDescription(String value) =>
+      emit(state.copyWith(description: value));
+
+  void updateCategory(String value) => emit(state.copyWith(category: value));
+
+  void updateDiet(String value) => emit(state.copyWith(diet: value));
+
+  void updateCuisine(String value) => emit(state.copyWith(cuisine: value));
 
   void updateTags(String t) => emit(state.copyWith(tags: [t, ...state.tags]));
 

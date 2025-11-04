@@ -65,17 +65,11 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
                   child: Container(
                     height: MediaQuery.sizeOf(context).height * 0.3 + 25,
                     color: context.containerInverse,
-                    child: recipe.image != null
-                        ? MyNetworkImage(
-                            url:
-                                'https://sharedplatesapi-production.up.railway.app${recipe.image}',
-                            radius: 0,
-                          )
-                        : MyNetworkImage(
-                            url:
-                                'https://thehappypear.ie/wp-content/uploads/2021/09/IMG_4780-scaled.jpg',
-                            radius: 0,
-                          ),
+                    child: MyNetworkImage(
+                      url:
+                          'https://sharedplatesapi-production.up.railway.app${recipe.image}',
+                      radius: 0,
+                    ),
                   ),
                 ),
                 Positioned(

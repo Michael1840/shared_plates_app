@@ -93,7 +93,7 @@ class WideTextButton extends StatelessWidget {
         hasBorder: isReversed,
         color:
             color?.withValues(alpha: 0.4) ??
-            context.primary.withValues(alpha: 0.4),
+            context.green.withValues(alpha: 0.4),
         child: Center(
           child: AppText.heading(
             text: text,

@@ -19,7 +19,7 @@ class CustomPinnedSliverSearch extends StatelessWidget {
   Widget build(BuildContext context) {
     return PinnedHeaderSliver(
       child: Container(
-        padding: const EdgeInsets.only(bottom: 20),
+        padding: const EdgeInsets.only(bottom: 24),
         color: context.background,
         child:
             Row(

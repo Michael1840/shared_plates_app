@@ -7,18 +7,26 @@ import 'default_container.dart';
 class TagContainer extends StatelessWidget {
   final String title;
   final bool isActive;
-  const TagContainer({super.key, required this.title, this.isActive = false});
+  final Color? activeColor;
+  final void Function()? onTap;
+  const TagContainer({
+    super.key,
+    required this.title,
+    this.isActive = false,
+    this.activeColor,
+    this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
     return DefaultContainer(
-      color: isActive ? context.green : null,
+      color: isActive ? activeColor ?? context.primary : null,
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
       child: AppText.secondary(
         text: title,
         color: isActive ? context.white : null,
-        weight: isActive ? Weights.bold : Weights.reg,
+        weight: Weights.reg,
       ),
-    );
+    ).onTap(onTap);
   }
 }

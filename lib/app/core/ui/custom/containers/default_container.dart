@@ -47,3 +47,42 @@ class DefaultContainer extends StatelessWidget {
     );
   }
 }
+
+class OutlineContainer extends StatelessWidget {
+  final Widget child;
+  final Color? color;
+  final double? height;
+  final double? width;
+  final double radius;
+  final EdgeInsets? padding;
+  final EdgeInsets? margin;
+  final bool expanded;
+  const OutlineContainer({
+    super.key,
+    this.height,
+    this.width,
+    this.color,
+    this.margin,
+    this.padding = const EdgeInsets.all(16),
+    this.expanded = false,
+    this.radius = Rounding.reg,
+    required this.child,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: height,
+      width: expanded ? double.infinity : width,
+      clipBehavior: Clip.hardEdge,
+      padding: padding,
+      margin: margin,
+      decoration: BoxDecoration(
+        color: Colors.transparent,
+        borderRadius: BorderRadius.circular(radius),
+        border: Border.all(color: color ?? context.container, width: 2),
+      ),
+      child: child,
+    );
+  }
+}

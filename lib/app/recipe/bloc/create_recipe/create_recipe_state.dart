@@ -7,6 +7,12 @@ class CreateRecipeState extends Equatable {
   final List<IngredientModel> ingredients;
   final List<StepModel> steps;
   final List<String> tags;
+  final String? title;
+  final String? description;
+
+  final String? category;
+  final String? diet;
+  final String? cuisine;
 
   final CustomDropdownValue? selectedQuantitySymbol;
 
@@ -25,6 +31,11 @@ class CreateRecipeState extends Equatable {
     required this.steps,
     required this.serves,
     required this.tags,
+    this.title,
+    this.description,
+    this.category,
+    this.diet,
+    this.cuisine,
     this.selectedQuantitySymbol,
     this.selectedPrivacyStatus,
     this.imageFile,
@@ -47,6 +58,11 @@ class CreateRecipeState extends Equatable {
     imageFile,
     serves,
     tags,
+    title,
+    description,
+    category,
+    diet,
+    cuisine,
     selectedQuantitySymbol,
     selectedPrivacyStatus,
     loadingResult,
@@ -57,6 +73,11 @@ class CreateRecipeState extends Equatable {
     List<IngredientModel>? ingredients,
     List<StepModel>? steps,
     List<String>? tags,
+    String? title,
+    String? description,
+    String? category,
+    String? diet,
+    String? cuisine,
     CustomDropdownValue? selectedQuantitySymbol,
     CustomDropdownValue? selectedPrivacyStatus,
     int? serves,
@@ -67,6 +88,11 @@ class CreateRecipeState extends Equatable {
       ingredients: ingredients ?? this.ingredients,
       steps: steps ?? this.steps,
       tags: tags ?? this.tags,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      category: category ?? this.category,
+      diet: diet ?? this.diet,
+      cuisine: cuisine ?? this.cuisine,
       selectedQuantitySymbol:
           selectedQuantitySymbol ?? this.selectedQuantitySymbol,
       selectedPrivacyStatus:
@@ -74,5 +100,16 @@ class CreateRecipeState extends Equatable {
       serves: serves ?? this.serves,
       imageFile: imageFile ?? this.imageFile,
     );
+  }
+
+  bool get canCreate {
+    return ingredients.isNotEmpty &&
+        steps.isNotEmpty &&
+        !category.isNull &&
+        !diet.isNull &&
+        !cuisine.isNull &&
+        selectedPrivacyStatus != null &&
+        !title.isNull &&
+        !description.isNull;
   }
 }

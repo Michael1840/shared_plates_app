@@ -121,3 +121,32 @@ List<RecipeModel> kRecipes = [
     createdBy: '@spicy_thai',
   ),
 ];
+
+const List<String> kCategories = [
+  'Main',
+  'Breakfast',
+  'Dessert',
+  'Drink',
+  'Soup',
+];
+
+const List<String> kDiets = [
+  'Vegan',
+  'Kosher',
+  'Low Carb',
+  'Vegetarian',
+  'Halal',
+  'Sugar-Free',
+];
+
+const List<String> kCuisines = [
+  'Italian',
+  'Asian',
+  'Indian',
+  'American',
+  'Chinese',
+  'Spanish',
+  'French',
+  'Polish',
+  'Greek',
+];

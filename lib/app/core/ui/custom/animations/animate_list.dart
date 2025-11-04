@@ -93,7 +93,8 @@ class MySliverList extends StatelessWidget {
 
     if (emptyText != null && itemCount < 1) {
       body = DefaultContainer(
-        padding: const EdgeInsets.all(16),
+        radius: 20,
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 40),
         child: Column(
           spacing: 16,
           mainAxisAlignment: MainAxisAlignment.center,

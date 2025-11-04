@@ -13,78 +13,108 @@ class TrendingRecipeItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      // height: MediaQuery.sizeOf(context).width * 0.5,
+    return OutlineContainer(
       width: MediaQuery.sizeOf(context).width * 0.6,
-      clipBehavior: Clip.hardEdge,
-      padding: EdgeInsets.zero,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        color: context.container,
-      ),
+      radius: 20,
+      padding: const EdgeInsets.all(12),
       child: Column(
+        spacing: 8,
+        mainAxisSize: MainAxisSize.max,
         children: [
-          MyNetworkImage(url: '', height: 125, radius: 0),
-          DefaultContainer(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-            radius: 0,
-            child: IntrinsicHeight(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        AppText.heading(
-                          text: recipe.title,
-                          size: 14,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        AppText.secondary(
-                          text: 'by ${recipe.createdBy}',
-                          size: 10,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        const SizedBox(height: 10),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          spacing: 8,
-                          children: [
-                            Flexible(
-                              child: AppText.heading(
-                                text: 'R${recipe.cost}',
-                                size: 14,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                            CircleAvatar(
-                              backgroundColor: context.green,
-                              maxRadius: 2,
-                            ),
-                            AppText.primary(
-                              text: '${recipe.serves} Servings',
-                              size: 12,
-                              color: context.green,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.end,
+          ClipRRect(
+            borderRadius: BorderRadiusGeometry.circular(16),
+            child: MyNetworkImage(
+              url:
+                  'https://sharedplatesapi-production.up.railway.app${recipe.image}',
+              height: 125,
+              width: double.infinity,
+              radius: 0,
+            ),
+          ),
+          Expanded(
+            child: Row(
+              spacing: 16,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Column(
+                    spacing: 16,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Icon(
-                        MyIcons.chevron_right,
-                        color: context.textSecondary,
-                        size: 20,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          AppText.heading(
+                            text: recipe.title,
+                            size: 14,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          AppText.secondary(
+                            text: 'by ${recipe.createdBy}',
+                            size: 10,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      ),
+
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        spacing: 8,
+                        children: [
+                          Flexible(
+                            child: AppText.heading(
+                              text: 'R${recipe.cost}',
+                              size: 14,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          CircleAvatar(
+                            backgroundColor: context.green,
+                            maxRadius: 2,
+                          ),
+                          Row(
+                            spacing: 2,
+                            crossAxisAlignment: CrossAxisAlignment.baseline,
+                            textBaseline: TextBaseline.alphabetic,
+                            children: [
+                              Icon(
+                                MyIcons.users,
+                                color: context.green,
+                                size: 16,
+                              ),
+                              Align(
+                                alignment: Alignment.center,
+                                child: AppText.primary(
+                                  text: '${recipe.serves}',
+                                  size: 14,
+                                  color: context.green,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                ],
-              ),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Icon(
+                      MyIcons.heart_02,
+                      color: context.textSecondary,
+                      size: 20,
+                    ),
+                    Icon(
+                      MyIcons.chevron_right,
+                      color: context.textSecondary,
+                      size: 20,
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
         ],

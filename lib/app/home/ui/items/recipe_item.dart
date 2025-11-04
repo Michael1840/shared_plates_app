@@ -13,8 +13,9 @@ class RecipeItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultContainer(
+    return OutlineContainer(
       radius: 24,
+      padding: EdgeInsets.all(12),
       child: IntrinsicHeight(
         child: Row(
           spacing: 10,

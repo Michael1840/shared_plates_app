@@ -77,7 +77,6 @@ class _NavigationShellState extends State<NavigationShell> {
                 type: BottomNavigationBarType.fixed,
                 unselectedItemColor: context.textSecondary,
                 currentIndex: widget.navigationShell.currentIndex,
-
                 onTap: widget.navigationShell.goBranch,
                 items: [
                   BottomNavigationBarItem(
