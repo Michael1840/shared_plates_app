@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../core/theme/theme.dart';
 import '../../../core/utils/extensions.dart';
 import '../../bloc/create_recipe/create_recipe_cubit.dart';
 import '../../bloc/recipe_bloc/recipe_bloc.dart';
 import '../../data/models/create_recipe_model.dart';
+import 'pages/create_success.dart';
 import 'pages/details_page.dart';
 import 'pages/ingredients_page.dart';
 import 'pages/instructions_page.dart';
@@ -56,10 +58,12 @@ class CreateRecipePageState extends State<CreateRecipePage>
       title: _titleCont.trimmedText,
       description: _descriptionCont.trimmedText,
       serves: state.serves.toString(),
-      tags: state.tags,
+      cuisine: state.cuisine,
+      categories: state.category,
+      diet: state.diet,
       privacyStatus: state.selectedPrivacyStatus!.id.toString(),
-      ingredients: state.ingredients.map((i) => i.toJson()).toList(),
-      steps: state.steps.map((i) => i.toJson()).toList(),
+      ingredients: state.ingredients,
+      steps: state.steps,
       image: state.imageFile!,
     );
 
@@ -78,109 +82,113 @@ class CreateRecipePageState extends State<CreateRecipePage>
       },
       child: BlocBuilder<CreateRecipeCubit, CreateRecipeState>(
         builder: (context, state) {
-          return Scaffold(
-            resizeToAvoidBottomInset: false,
-            appBar: AppBar(
-              toolbarHeight: 40,
-              leadingWidth: 6,
-              leading: const Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // MyIconButton(
-                  //   icon: MyIcons.chevron_left,
-                  //   onTap: () {
-                  //     context.pop();
-                  //   },
-                  // ).paddingLeft(20),
-                ],
+          return BlocListener<RecipeBloc, RecipeState>(
+            listener: (context, state) {
+              if (state.recipeCreated) {
+                showModalBottomSheet(
+                  context: context,
+                  // useRootNavigator: true,
+                  isScrollControlled: true,
+                  builder: (context) => CreateSuccessPage(
+                    onDone: () {
+                      context.read<RecipeBloc>().add(ResetCreateRecipe());
+                      _cubit.reset();
+                      context.pop();
+                    },
+                  ),
+                );
+              }
+            },
+            child: Scaffold(
+              resizeToAvoidBottomInset: false,
+              appBar: AppBar(
+                toolbarHeight: 40,
+                leadingWidth: 6,
+                leading: const Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [],
+                ),
+                title: const AppText.heading(text: 'Create Recipe', size: 18),
+                bottom: TabBar(
+                  controller: _tabCont,
+                  isScrollable: true,
+                  tabAlignment: TabAlignment.center,
+                  indicatorAnimation: TabIndicatorAnimation.elastic,
+                  indicatorColor: context.green,
+                  indicatorPadding: EdgeInsetsGeometry.zero,
+                  indicatorSize: TabBarIndicatorSize.tab,
+                  labelStyle: context.myTextStyle(color: context.green),
+                  splashFactory: NoSplash.splashFactory,
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  tabs: const [
+                    Tab(text: 'Details'),
+                    Tab(text: 'Ingredients'),
+                    Tab(text: 'Instructions'),
+                    Tab(text: 'Publish'),
+                  ],
+                  unselectedLabelColor: context.textSecondary,
+                ),
               ),
-              title: const AppText.heading(text: 'Create Recipe', size: 18),
-              bottom: TabBar(
-                controller: _tabCont,
-                isScrollable: true,
-                tabAlignment: TabAlignment.center,
-                indicatorAnimation: TabIndicatorAnimation.elastic,
-                indicatorColor: context.green,
-                indicatorPadding: EdgeInsetsGeometry.zero,
-                indicatorSize: TabBarIndicatorSize.tab,
-                labelStyle: context.myTextStyle(color: context.green),
-                splashFactory: NoSplash.splashFactory,
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                tabs: const [
-                  Tab(text: 'Details'),
-                  Tab(text: 'Ingredients'),
-                  Tab(text: 'Instructions'),
-                  Tab(text: 'Publish'),
-                ],
-                unselectedLabelColor: context.textSecondary,
-              ),
-            ),
-            body: Padding(
-              padding: EdgeInsets.only(
-                bottom:
-                    MediaQuery.of(context).viewInsets.bottom >
-                        kBottomNavigationBarHeight
-                    ? MediaQuery.of(context).viewInsets.bottom -
+              body: Padding(
+                padding: EdgeInsets.only(
+                  bottom:
+                      MediaQuery.of(context).viewInsets.bottom >
                           kBottomNavigationBarHeight
-                    : MediaQuery.of(context).viewInsets.bottom,
-              ),
-              child: TabBarView(
-                controller: _tabCont,
-                physics: const NeverScrollableScrollPhysics(),
-                children: [
-                  DetailsPage(
-                    cubit: _cubit,
-                    state: state,
-                    titleCont: _titleCont,
-                    descriptionCont: _descriptionCont,
-                    changePage: () {
-                      _goToTab(1);
-                    },
-                  ),
-                  IngredientsPage(
-                    cubit: _cubit,
-                    state: state,
-                    changePage: () {
-                      _goToTab(2);
-                    },
-                  ),
-                  InstructionsPage(
-                    cubit: _cubit,
-                    state: state,
-                    changePage: () {
-                      _goToTab(3);
-                    },
-                  ),
-                  PublishPage(
-                    cubit: _cubit,
-                    state: state,
-                    changePage: () {
-                      _createRecipe(state);
-                    },
-                    canCreate:
-                        _titleCont.trimmedText.isNotEmpty &&
-                        _descriptionCont.trimmedText.isNotEmpty,
-                  ),
-                ],
+                      ? MediaQuery.of(context).viewInsets.bottom -
+                            kBottomNavigationBarHeight
+                      : MediaQuery.of(context).viewInsets.bottom,
+                ),
+                child: TabBarView(
+                  controller: _tabCont,
+                  physics: const NeverScrollableScrollPhysics(),
+                  children: [
+                    DetailsPage(
+                      cubit: _cubit,
+                      state: state,
+                      titleCont: _titleCont,
+                      descriptionCont: _descriptionCont,
+                      changePage: () {
+                        _goToTab(1);
+                      },
+                    ),
+                    IngredientsPage(
+                      cubit: _cubit,
+                      state: state,
+                      changePage: () {
+                        _goToTab(2);
+                      },
+                    ),
+                    InstructionsPage(
+                      cubit: _cubit,
+                      state: state,
+                      changePage: () {
+                        _goToTab(3);
+                      },
+                    ),
+                    BlocBuilder<RecipeBloc, RecipeState>(
+                      builder: (context, recipeState) {
+                        return PublishPage(
+                          cubit: _cubit,
+                          state: state,
+                          recipeState: recipeState,
+                          create: () {
+                            _createRecipe(state);
+                          },
+                          canCreate:
+                              _titleCont.trimmedText.isNotEmpty &&
+                              _descriptionCont.trimmedText.isNotEmpty,
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           );
         },
       ),
     );
-  }
-
-  double _calcContainerHeight(int length) {
-    if (length <= 0) {
-      return 0;
-    }
-
-    int containerHeight = 48 + 8 + 10;
-
-    double paddingHeight = (length - 1) * 10;
-
-    return (containerHeight * length) + paddingHeight;
   }
 }

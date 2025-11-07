@@ -15,6 +15,8 @@ part 'create_recipe_state.dart';
 class CreateRecipeCubit extends Cubit<CreateRecipeState> {
   CreateRecipeCubit() : super(CreateRecipeState.initial());
 
+  void reset() => emit(CreateRecipeState.initial());
+
   void incrementServes() => emit(state.copyWith(serves: state.serves + 1));
 
   void decrementServes() =>
@@ -31,11 +33,47 @@ class CreateRecipeCubit extends Cubit<CreateRecipeState> {
   void updateDescription(String value) =>
       emit(state.copyWith(description: value));
 
-  void updateCategory(String value) => emit(state.copyWith(category: value));
+  void updateCategory(String value) {
+    List<String> categories = List.from(state.category);
 
-  void updateDiet(String value) => emit(state.copyWith(diet: value));
+    int index = categories.indexWhere((e) => e == value);
 
-  void updateCuisine(String value) => emit(state.copyWith(cuisine: value));
+    if (index >= 0) {
+      categories.removeAt(index);
+    } else {
+      categories.add(value);
+    }
+
+    emit(state.copyWith(category: categories));
+  }
+
+  void updateDiet(String value) {
+    List<String> diet = List.from(state.diet);
+
+    int index = diet.indexWhere((e) => e == value);
+
+    if (index >= 0) {
+      diet.removeAt(index);
+    } else {
+      diet.add(value);
+    }
+
+    emit(state.copyWith(diet: diet));
+  }
+
+  void updateCuisine(String value) {
+    List<String> cuisine = List.from(state.cuisine);
+
+    int index = cuisine.indexWhere((e) => e == value);
+
+    if (index >= 0) {
+      cuisine.removeAt(index);
+    } else {
+      cuisine.add(value);
+    }
+
+    emit(state.copyWith(cuisine: cuisine));
+  }
 
   void updateTags(String t) => emit(state.copyWith(tags: [t, ...state.tags]));
 

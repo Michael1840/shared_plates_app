@@ -15,6 +15,8 @@ class RecipeFetchFriendRecipes extends RecipeEvent {}
 
 class RecipeFetchTrendingRecipes extends RecipeEvent {}
 
+class ResetCreateRecipe extends RecipeEvent {}
+
 class RecipeCreate extends RecipeEvent {
   final CreateRecipeModel req;
 

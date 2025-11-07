@@ -10,9 +10,9 @@ class CreateRecipeState extends Equatable {
   final String? title;
   final String? description;
 
-  final String? category;
-  final String? diet;
-  final String? cuisine;
+  final List<String> category;
+  final List<String> diet;
+  final List<String> cuisine;
 
   final CustomDropdownValue? selectedQuantitySymbol;
 
@@ -33,9 +33,9 @@ class CreateRecipeState extends Equatable {
     required this.tags,
     this.title,
     this.description,
-    this.category,
-    this.diet,
-    this.cuisine,
+    required this.category,
+    required this.diet,
+    required this.cuisine,
     this.selectedQuantitySymbol,
     this.selectedPrivacyStatus,
     this.imageFile,
@@ -48,6 +48,9 @@ class CreateRecipeState extends Equatable {
       tags: [],
       serves: 1,
       loadingResult: DelayedResult.idle(),
+      category: [],
+      diet: [],
+      cuisine: [],
     );
   }
 
@@ -75,9 +78,9 @@ class CreateRecipeState extends Equatable {
     List<String>? tags,
     String? title,
     String? description,
-    String? category,
-    String? diet,
-    String? cuisine,
+    List<String>? category,
+    List<String>? diet,
+    List<String>? cuisine,
     CustomDropdownValue? selectedQuantitySymbol,
     CustomDropdownValue? selectedPrivacyStatus,
     int? serves,
@@ -105,9 +108,9 @@ class CreateRecipeState extends Equatable {
   bool get canCreate {
     return ingredients.isNotEmpty &&
         steps.isNotEmpty &&
-        !category.isNull &&
-        !diet.isNull &&
-        !cuisine.isNull &&
+        category.isNotEmpty &&
+        diet.isNotEmpty &&
+        cuisine.isNotEmpty &&
         selectedPrivacyStatus != null &&
         !title.isNull &&
         !description.isNull;

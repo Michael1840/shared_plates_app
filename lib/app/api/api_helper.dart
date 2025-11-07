@@ -7,9 +7,10 @@ import 'package:flutter/foundation.dart';
 import '../../main.dart';
 import '../core/data/helpers/network_helper.dart';
 import 'models/api_response_model.dart';
+import 'models/model_converter.dart';
+import 'models/result_model.dart';
 
 part 'api_routes.dart';
-part 'api_service.dart';
 
 enum DioMethod { post, get, put, delete }
 
@@ -32,13 +33,9 @@ class DioClient {
 }
 
 class ApiHelper {
-  ApiHelper._singleton();
+  static final Dio _dio = DioClient.dio;
 
-  static final ApiHelper instance = ApiHelper._singleton();
-
-  final Dio _dio = DioClient.dio;
-
-  Future<ApiResponseModel> request(
+  static Future<ApiResponseModel> request(
     String endpoint,
     DioMethod method, {
     Map<String, dynamic>? data,
@@ -105,6 +102,90 @@ class ApiHelper {
     } catch (e) {
       print(e.toString());
       return const ApiResponseModel(statusCode: -1);
+    }
+  }
+
+  static Future<Result<T>> requestModel<T>(
+    String endpoint,
+    DioMethod method, {
+    required ModelConverter<T> converter,
+    Map<String, dynamic>? req,
+    String? contentType,
+    FormData? formData,
+  }) async {
+    try {
+      final ApiResponseModel response = await request(
+        endpoint,
+        method,
+        data: req,
+        contentType: contentType,
+        formData: formData,
+      );
+
+      final errorResult = _handleError<T>(response);
+      if (errorResult != null) return errorResult;
+
+      if (response.data is! Map<String, dynamic>) {
+        throw ArgumentError(
+          'Expected Map<String, dynamic>, got ${response.data.runtimeType}',
+        );
+      }
+
+      final model = converter.fromJson(response.data);
+      return Result.ok(model);
+    } on Exception catch (e) {
+      return Result.error(e);
+    }
+  }
+
+  static Future<Result<List<T>>> requestModelList<T>(
+    String endpoint,
+    DioMethod method, {
+    required ModelConverter<T> converter,
+    Map<String, dynamic>? req,
+    String? contentType,
+    FormData? formData,
+  }) async {
+    try {
+      final ApiResponseModel response = await request(
+        endpoint,
+        method,
+        data: req,
+        contentType: contentType,
+        formData: formData,
+      );
+
+      final errorResult = _handleError<List<T>>(response);
+      if (errorResult != null) return errorResult;
+
+      if (response.data is! Iterable) {
+        throw ArgumentError(
+          'Expected Iterable, got ${response.data.runtimeType}',
+        );
+      }
+
+      final list = converter.fromList(response.data);
+      return Result.ok(list);
+    } on Exception catch (e) {
+      return Result.error(e);
+    }
+  }
+
+  static Result<T>? _handleError<T>(ApiResponseModel response) {
+    if (response.data == null) {
+      return Result<T>.error(
+        Exception('Request failed with status code ${response.statusCode}'),
+      );
+    } else if (!response.isSuccess) {
+      final String? err = response.error;
+
+      return Result<T>.error(
+        Exception(
+          err ?? 'Request failed with status code ${response.statusCode}',
+        ),
+      );
+    } else {
+      return null;
     }
   }
 }

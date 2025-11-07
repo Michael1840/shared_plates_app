@@ -9,7 +9,7 @@ import '../models/result_model.dart';
 class RecipeApiService {
   Future<Result<List<RecipeModel>>> getUserRecipes() async {
     try {
-      final ApiResponseModel response = await apiHelper.request(
+      final ApiResponseModel response = await ApiHelper.request(
         ApiRoutes.userRecipes,
         DioMethod.get,
         hasAuth: true,
@@ -36,7 +36,7 @@ class RecipeApiService {
 
   Future<Result<List<RecipeModel>>> getTrendingRecipes() async {
     try {
-      final ApiResponseModel response = await apiHelper.request(
+      final ApiResponseModel response = await ApiHelper.request(
         ApiRoutes.trendingRecipes,
         DioMethod.get,
         hasAuth: true,
@@ -63,7 +63,7 @@ class RecipeApiService {
 
   Future<Result<List<RecipeModel>>> getFriendsRecipes() async {
     try {
-      final ApiResponseModel response = await apiHelper.request(
+      final ApiResponseModel response = await ApiHelper.request(
         ApiRoutes.friendsRecipes,
         DioMethod.get,
         hasAuth: true,
@@ -90,7 +90,7 @@ class RecipeApiService {
 
   Future<Result<RecipeDetailModel>> getRecipeById(int id) async {
     try {
-      final ApiResponseModel response = await apiHelper.request(
+      final ApiResponseModel response = await ApiHelper.request(
         ApiRoutes.recipeWithId(id),
         DioMethod.get,
         hasAuth: true,
@@ -117,7 +117,7 @@ class RecipeApiService {
 
   Future<Result<RecipeModel>> createRecipe(Map<String, dynamic> req) async {
     try {
-      final ApiResponseModel response = await apiHelper.request(
+      final ApiResponseModel response = await ApiHelper.request(
         ApiRoutes.recipe,
         DioMethod.post,
         hasAuth: true,
@@ -143,7 +143,7 @@ class RecipeApiService {
 
   Future<Result<RecipeModel>> uploadMealImage(FormData data, int id) async {
     try {
-      final ApiResponseModel response = await apiHelper.request(
+      final ApiResponseModel response = await ApiHelper.request(
         ApiRoutes.uploadMealImage(id),
         DioMethod.post,
         hasAuth: true,
@@ -172,7 +172,7 @@ class RecipeApiService {
     int id,
   ) async {
     try {
-      final ApiResponseModel response = await apiHelper.request(
+      final ApiResponseModel response = await ApiHelper.request(
         ApiRoutes.recipeWithId(id),
         DioMethod.put,
         hasAuth: true,

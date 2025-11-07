@@ -92,7 +92,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
                     ),
                     child: SingleChildScrollView(
                       child: Column(
-                        spacing: 24,
+                        spacing: 20,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -188,7 +188,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
 
                           if (recipe.ingredients.isNotEmpty)
                             Column(
-                              spacing: 24,
+                              spacing: 20,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 const AppText.heading(
@@ -209,7 +209,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
 
                           if (recipe.steps.isNotEmpty)
                             Column(
-                              spacing: 24,
+                              spacing: 20,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 const AppText.heading(

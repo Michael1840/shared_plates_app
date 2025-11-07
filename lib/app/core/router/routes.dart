@@ -31,6 +31,7 @@ class Routes {
   static const String recipeDetail = 'recipe-detail';
 
   static const String createRecipe = '/create-recipe';
+  static const String recipeSuccess = '/recipe-success';
 
   static const String discover = '/discover';
 
@@ -163,7 +164,6 @@ class NavigationRouter {
                   ),
                   state.pageKey,
                 ),
-                routes: [],
               ),
             ],
           ),

@@ -9,14 +9,17 @@ import '../../core/ui/custom/buttons/wide_text_button.dart';
 import '../../core/ui/custom/containers/default_container.dart';
 import '../../core/ui/custom/containers/sliver_title.dart';
 import '../../core/ui/custom/fields/pinned_sliver_search.dart';
+import '../../core/ui/custom/icons/my_icons.dart';
 import '../../core/ui/layouts/page_container.dart';
 import '../../core/utils/extensions.dart';
+import '../../core/utils/methods.dart';
 import '../../recipe/bloc/recipe_bloc/recipe_bloc.dart';
 import '../../recipe/data/models/recipe_model.dart';
 import '../../recipe/ui/loading_skeleton/recipes_page_skeleton.dart';
 import '../data/models/friendship_model.dart';
 import 'items/friend_item.dart';
 import 'items/friend_request_item.dart';
+import 'search/search_page.dart';
 
 enum _FriendPage { friends, requests }
 
@@ -164,9 +167,20 @@ class _FriendsPageState extends State<FriendsPage> {
                       ],
                     );
                   },
-                ).paddingBottom(24).toSliver(),
+                ).paddingBottom(20).toSliver(),
 
-                const CustomPinnedSliverSearch(),
+                CustomPinnedSliverSearch(
+                  hasIconButton: true,
+                  icon: MyIcons.user_add,
+                  searchHint: 'Search friends',
+                  onTap: () {
+                    Methods.showBottomSheet(
+                      context,
+                      const FriendSearchPage(),
+                      isFull: true,
+                    );
+                  },
+                ),
 
                 if (statusMap.isNotEmpty && _page == _FriendPage.requests)
                   Row(
@@ -194,7 +208,7 @@ class _FriendsPageState extends State<FriendsPage> {
                         curve: Curves.linear,
                       )
                       .fadeIn()
-                      .paddingBottom(24)
+                      .paddingBottom(20)
                       .toSliver(),
               ],
               itemBuilder: (context, index) => _page == _FriendPage.friends

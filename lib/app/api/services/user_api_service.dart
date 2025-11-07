@@ -9,7 +9,7 @@ import '../models/result_model.dart';
 class UserApiService {
   Future<Result<void>> login(Map<String, dynamic> req) async {
     try {
-      final ApiResponseModel response = await apiHelper.request(
+      final ApiResponseModel response = await ApiHelper.request(
         ApiRoutes.login,
         DioMethod.post,
         hasAuth: false,
@@ -38,7 +38,7 @@ class UserApiService {
 
   Future<Result<void>> register(Map<String, dynamic> req) async {
     try {
-      final ApiResponseModel response = await apiHelper.request(
+      final ApiResponseModel response = await ApiHelper.request(
         ApiRoutes.register,
         DioMethod.post,
         hasAuth: false,
@@ -58,7 +58,7 @@ class UserApiService {
 
   Future<Result<void>> logout() async {
     try {
-      final ApiResponseModel response = await apiHelper.request(
+      final ApiResponseModel response = await ApiHelper.request(
         ApiRoutes.logout,
         DioMethod.get,
         hasAuth: false,
@@ -77,7 +77,7 @@ class UserApiService {
 
   Future<Result<UserModel>> profile() async {
     try {
-      final ApiResponseModel response = await apiHelper.request(
+      final ApiResponseModel response = await ApiHelper.request(
         ApiRoutes.profile,
         DioMethod.get,
         hasAuth: true,

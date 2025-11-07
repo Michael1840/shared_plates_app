@@ -6,7 +6,8 @@ class NetworkHelper {
   static Future<bool> isConnectedToNetwork() async {
     final connectivityResult = await Connectivity().checkConnectivity();
     if (!(connectivityResult.contains(ConnectivityResult.mobile) ||
-        connectivityResult.contains(ConnectivityResult.wifi))) {
+            connectivityResult.contains(ConnectivityResult.wifi)) ||
+        connectivityResult.contains(ConnectivityResult.ethernet)) {
       return false;
     } else {
       return true;

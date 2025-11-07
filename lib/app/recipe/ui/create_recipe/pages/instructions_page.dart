@@ -28,7 +28,7 @@ class InstructionsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return PageContainer.scrollable(
       child: Column(
-        spacing: 24,
+        spacing: 20,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(

@@ -4,7 +4,8 @@ import '../../../theme/theme.dart';
 import '../../../utils/extensions.dart';
 
 class EmptyContainer extends StatelessWidget {
-  const EmptyContainer({super.key});
+  final IconData? icon;
+  const EmptyContainer({super.key, this.icon});
 
   @override
   Widget build(BuildContext context) {
@@ -12,17 +13,25 @@ class EmptyContainer extends StatelessWidget {
       padding: const EdgeInsets.all(20),
       width: double.infinity,
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           CircleAvatar(
-            backgroundColor: context.onContainer,
+            backgroundColor: context.container,
+            radius: 40,
             child: Icon(
-              Icons.search_off_rounded,
+              icon ?? Icons.search_off_rounded,
               color: context.textSecondary,
+              size: 40,
             ),
           ),
-          const SizedBox(height: 10),
-          const AppText.secondary(text: 'No items found'),
+          const SizedBox(height: 20),
+          const AppText.primary(text: 'We couldn\'t find any items'),
+          const SizedBox(height: 8),
+          const AppText.secondary(
+            text: 'Start typing to search for the items you want.',
+            size: 10,
+          ),
         ],
       ),
     );

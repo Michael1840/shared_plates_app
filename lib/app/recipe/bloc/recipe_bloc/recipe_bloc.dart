@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 
 import '../../../api/models/result_model.dart';
 import '../../../core/data/models/delayed_result.dart';
-import '../../../core/utils/constants.dart';
 import '../../data/models/create_recipe_model.dart';
 import '../../data/models/recipe_model.dart';
 import '../../data/repo/recipe_repo.dart';
@@ -23,8 +22,16 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
     on<RecipeFetchTrendingRecipes>(_handleFetchTrendingRecipes);
     on<RecipeFetchFriendRecipes>(_handleFetchFriendsRecipes);
     on<RecipeCreate>(_handleRecipeCreate);
+    on<ResetCreateRecipe>(_handleResetCreate);
 
     add(RecipeFetchUserRecipes());
+  }
+
+  Future<void> _handleResetCreate(
+    ResetCreateRecipe event,
+    Emitter<RecipeState> emit,
+  ) async {
+    emit(state.copyWith(recipeCreated: false));
   }
 
   Future<void> _handleRecipeCreate(
@@ -70,7 +77,12 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
 
       recipes = [imageResult.value, ...recipes];
 
-      emit(state.copyWith(userRecipesResult: DelayedResult.fromValue(recipes)));
+      emit(
+        state.copyWith(
+          userRecipesResult: DelayedResult.fromValue(recipes),
+          recipeCreated: true,
+        ),
+      );
     } catch (e) {
       debugPrint(e.toString());
       emit(

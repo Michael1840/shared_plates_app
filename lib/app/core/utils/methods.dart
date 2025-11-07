@@ -26,50 +26,57 @@ class Formatter {
 }
 
 class Methods {
-  static void showBottomSheet(BuildContext context, Widget child) =>
-      showModalBottomSheet(
-        barrierColor: Colors.black.withValues(alpha: 0.6),
-        backgroundColor: context.background,
-        isDismissible: true,
-        isScrollControlled: true,
-        useSafeArea: true,
-        context: context,
-        sheetAnimationStyle: AnimationStyle(
-          duration: 500.ms,
-          curve: Curves.easeIn,
+  static void showBottomSheet(
+    BuildContext context,
+    Widget child, {
+    bool isFull = false,
+  }) => showModalBottomSheet(
+    barrierColor: Colors.black.withValues(alpha: 0.6),
+    backgroundColor: context.background,
+    isDismissible: true,
+    isScrollControlled: true,
+    useSafeArea: true,
+    context: context,
+    sheetAnimationStyle: AnimationStyle(duration: 250.ms, curve: Curves.easeIn),
+    clipBehavior: Clip.hardEdge,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
+    ),
+    builder: (context) {
+      final bottomInset = MediaQuery.of(context).viewInsets.bottom;
+      final content = Padding(
+        padding: EdgeInsets.only(
+          bottom: bottomInset,
+          left: 20,
+          right: 20,
+          top: 20,
         ),
-        clipBehavior: Clip.hardEdge,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
-        ),
-        builder: (context) => PageContainer.scrollable(
-          child: Padding(
-            padding: EdgeInsets.only(
-              bottom: MediaQuery.of(context).viewInsets.bottom,
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
+        child: Column(
+          mainAxisSize: isFull ? MainAxisSize.max : MainAxisSize.min,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: 40,
-                      height: 5,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: context.primaryLoadingContainer,
-                      ),
-                    ),
-                  ],
+                Container(
+                  width: 40,
+                  height: 5,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: context.primaryLoadingContainer,
+                  ),
                 ),
-                const SizedBox(height: 20),
-                child,
               ],
             ),
-          ),
+            const SizedBox(height: 20),
+            if (isFull) Expanded(child: child) else child,
+          ],
         ),
       );
+
+      // Only make it scrollable if it's not full
+      return isFull ? content : PageContainer.scrollable(child: content);
+    },
+  );
 }
 
 class DOBInputFormatter extends TextInputFormatter {

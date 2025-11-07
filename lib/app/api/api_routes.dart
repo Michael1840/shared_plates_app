@@ -5,13 +5,17 @@ class ApiRoutes {
       'https://sharedplatesapi-production.up.railway.app/api/v1';
   static const String debugUrl = '';
 
-  static const String tokenRefresh = '/token/refresh';
+  static const String tokenRefresh = '/token/refresh/';
 
-  static const String login = '/login';
-  static const String register = '/register';
-  static const String logout = '/logout';
+  // AUTH
 
-  static const String profile = '/profile';
+  static const String login = '/login/';
+  static const String register = '/register/';
+  static const String logout = '/logout/';
+
+  static const String profile = '/profile/';
+
+  // MEALS
 
   static const String recipe = '/meals/';
   static const String createRecipe = recipe;
@@ -20,4 +24,9 @@ class ApiRoutes {
   static const String userRecipes = recipe;
   static const String trendingRecipes = recipe;
   static const String friendsRecipes = recipe;
+
+  // FRIENDS
+
+  static String searchUsers(String q) => '/users/?query=$q';
+  static const String addUser = '/friendships/';
 }

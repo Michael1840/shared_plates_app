@@ -9,17 +9,21 @@ import 'search_field.dart';
 class CustomPinnedSliverSearch extends StatelessWidget {
   final String? searchHint;
   final bool hasIconButton;
+  final IconData? icon;
+  final void Function()? onTap;
   const CustomPinnedSliverSearch({
     super.key,
     this.hasIconButton = false,
     this.searchHint,
+    this.icon,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return PinnedHeaderSliver(
       child: Container(
-        padding: const EdgeInsets.only(bottom: 24),
+        padding: const EdgeInsets.only(bottom: 20),
         color: context.background,
         child:
             Row(
@@ -27,7 +31,11 @@ class CustomPinnedSliverSearch extends StatelessWidget {
               children: [
                 Expanded(child: SearchField(hint: searchHint)),
                 if (hasIconButton)
-                  const MyIconButton(icon: MyIcons.heart_02, padding: 14),
+                  MyIconButton(
+                    icon: icon ?? MyIcons.heart_02,
+                    padding: 14,
+                    onTap: onTap,
+                  ),
               ],
             ).animate().slideX(
               begin: -1,

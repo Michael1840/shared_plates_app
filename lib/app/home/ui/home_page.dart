@@ -14,6 +14,7 @@ import '../../core/ui/layouts/page_container.dart';
 import '../../core/utils/extensions.dart';
 import '../../recipe/bloc/recipe_bloc/recipe_bloc.dart';
 import '../../recipe/data/models/recipe_model.dart';
+import '../../recipe/ui/loading_skeleton/recipes_page_skeleton.dart';
 import 'items/recipe_item.dart';
 import 'items/trending_recipe_item.dart';
 
@@ -28,7 +29,7 @@ class HomePage extends StatelessWidget {
       body: BlocBuilder<RecipeBloc, RecipeState>(
         builder: (context, state) {
           if (state.isFriendsLoading || state.isTrendingLoading) {
-            return SizedBox();
+            return const RecipesPageSkeleton();
           }
 
           if (state.friendsRecipesResult.value == null ||
