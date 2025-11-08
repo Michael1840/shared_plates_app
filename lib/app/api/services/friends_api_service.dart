@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 
+import '../../friends/data/models/friendship_model.dart';
 import '../../friends/data/models/search_user_model.dart';
 import '../api_helper.dart';
 import '../models/api_response_model.dart';
 import '../models/result_model.dart';
 
 class FriendsApiService {
+  final FriendRequestModelConverter _friendRequestModelConverter =
+      FriendRequestModelConverter();
+
   final SearchUserModelConverter _searchUserModelConverter =
       SearchUserModelConverter();
 
@@ -13,6 +17,7 @@ class FriendsApiService {
     return ApiHelper.requestModelList<SearchUserModel>(
       ApiRoutes.searchUsers(query),
       DioMethod.get,
+      hasAuth: true,
       converter: _searchUserModelConverter,
     );
   }
@@ -37,5 +42,14 @@ class FriendsApiService {
       debugPrint(e.toString());
       return Result.error(e);
     }
+  }
+
+  Future<Result<List<FriendRequestModel>>> fetchFriends() async {
+    return ApiHelper.requestModelList<FriendRequestModel>(
+      ApiRoutes.friendships,
+      DioMethod.get,
+      hasAuth: true,
+      converter: _friendRequestModelConverter,
+    );
   }
 }

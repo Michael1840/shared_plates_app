@@ -112,12 +112,14 @@ class ApiHelper {
     Map<String, dynamic>? req,
     String? contentType,
     FormData? formData,
+    bool hasAuth = false,
   }) async {
     try {
       final ApiResponseModel response = await request(
         endpoint,
         method,
         data: req,
+        hasAuth: hasAuth,
         contentType: contentType,
         formData: formData,
       );
@@ -145,12 +147,14 @@ class ApiHelper {
     Map<String, dynamic>? req,
     String? contentType,
     FormData? formData,
+    bool hasAuth = false,
   }) async {
     try {
       final ApiResponseModel response = await request(
         endpoint,
         method,
         data: req,
+        hasAuth: hasAuth,
         contentType: contentType,
         formData: formData,
       );
@@ -158,13 +162,11 @@ class ApiHelper {
       final errorResult = _handleError<List<T>>(response);
       if (errorResult != null) return errorResult;
 
-      if (response.data is! Iterable) {
-        throw ArgumentError(
-          'Expected Iterable, got ${response.data.runtimeType}',
-        );
+      if (response.data['data'] is! Iterable) {
+        throw ArgumentError('Expected Map, got ${response.data.runtimeType}');
       }
 
-      final list = converter.fromList(response.data);
+      final list = converter.fromList(response.data['data']);
       return Result.ok(list);
     } on Exception catch (e) {
       return Result.error(e);

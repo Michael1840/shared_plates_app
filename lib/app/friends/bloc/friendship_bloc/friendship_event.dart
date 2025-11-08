@@ -6,3 +6,5 @@ sealed class FriendshipEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class FriendshipsFetch extends FriendshipEvent {}

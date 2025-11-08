@@ -3,15 +3,16 @@ import 'package:flutter/material.dart';
 import '../../../core/theme/theme.dart';
 import '../../../core/ui/custom/containers/default_container.dart';
 import '../../../core/utils/extensions.dart';
+import '../../data/models/friendship_model.dart';
 
 class FriendItem extends StatelessWidget {
-  final bool isOnline;
-  const FriendItem({super.key, this.isOnline = false});
+  final FriendRequestModel friend;
+  const FriendItem({super.key, required this.friend});
 
   @override
   Widget build(BuildContext context) {
     return DefaultContainer(
-      radius: 16,
+      radius: 24,
       child: IntrinsicHeight(
         child: Row(
           spacing: 8,
@@ -20,18 +21,18 @@ class FriendItem extends StatelessWidget {
               children: [
                 CircleAvatar(backgroundColor: context.onContainer),
                 Positioned(
+                  bottom: 0,
+                  right: 0,
                   child: CircleAvatar(
                     maxRadius: 8,
                     backgroundColor: context.container,
                     child: CircleAvatar(
                       maxRadius: 5,
-                      backgroundColor: isOnline
+                      backgroundColor: friend.fromUser.isOnline
                           ? context.green
                           : context.textSecondary,
                     ),
                   ),
-                  bottom: 0,
-                  right: 0,
                 ),
               ],
             ),
@@ -40,8 +41,8 @@ class FriendItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 spacing: 8,
                 children: [
-                  AppText.primary(text: 'Friend Name'),
-                  AppText.secondary(text: '@test_name'),
+                  AppText.primary(text: friend.fromUser.displayName),
+                  AppText.secondary(text: friend.fromUser.username),
                 ],
               ),
             ),

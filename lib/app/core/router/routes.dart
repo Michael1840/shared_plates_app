@@ -6,6 +6,8 @@ import '../../auth/blocs/user_bloc/user_bloc.dart';
 import '../../auth/ui/auth_check.dart';
 import '../../auth/ui/auth_page.dart';
 import '../../discover/ui/discover_page.dart';
+import '../../friends/bloc/friendship_bloc/friendship_bloc.dart';
+import '../../friends/data/repo/friends_repo.dart';
 import '../../friends/ui/friends_page.dart';
 import '../../home/ui/home_page.dart';
 import '../../onboarding/ui/onboarding_page.dart';
@@ -183,8 +185,14 @@ class NavigationRouter {
               GoRoute(
                 path: Routes.friends,
                 name: Routes.friends,
-                pageBuilder: (context, state) =>
-                    buildSlideTransition(const FriendsPage(), state.pageKey),
+                pageBuilder: (context, state) => buildSlideTransition(
+                  BlocProvider(
+                    create: (context) =>
+                        FriendshipBloc(context.read<FriendsRepository>()),
+                    child: const FriendsPage(),
+                  ),
+                  state.pageKey,
+                ),
                 routes: [],
               ),
             ],

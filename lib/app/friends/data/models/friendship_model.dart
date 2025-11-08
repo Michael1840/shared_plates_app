@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../../api/models/model_converter.dart';
+
 part 'friendship_model.g.dart';
 
 enum FriendshipStatus {
@@ -12,28 +14,33 @@ enum FriendshipStatus {
   blocked,
 }
 
+class FriendRequestModelConverter extends ModelConverter<FriendRequestModel> {
+  @override
+  FriendRequestModel fromJson(Map<String, dynamic> json) =>
+      FriendRequestModel.fromJson(json);
+}
+
 @JsonSerializable(fieldRename: FieldRename.snake)
 class FriendshopModel {
-  final int id;
   final String displayName;
   final String username;
-  final bool isOnline;
 
-  const FriendshopModel({
-    required this.id,
-    required this.displayName,
-    required this.username,
-    required this.isOnline,
-  });
+  const FriendshopModel({required this.displayName, required this.username});
+
+  bool get isOnline => true;
+
+  factory FriendshopModel.fromJson(Map<String, dynamic> json) =>
+      _$FriendshopModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$FriendshopModelToJson(this);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class FriendRequestModel {
   final int id;
-  final String toUser;
-  final String fromDisplayName;
-  final String fromUsername;
-  final String? blockedBy;
+  final FriendshopModel toUser;
+  final FriendshopModel fromUser;
+  final FriendshopModel? blockedBy;
   final FriendshipStatus connectionStatus;
 
   @JsonKey(fromJson: _createdAtFromString)
@@ -42,8 +49,7 @@ class FriendRequestModel {
   const FriendRequestModel({
     required this.id,
     required this.toUser,
-    required this.fromDisplayName,
-    required this.fromUsername,
+    required this.fromUser,
     required this.blockedBy,
     required this.connectionStatus,
     required this.createdAt,
@@ -58,4 +64,9 @@ class FriendRequestModel {
 
     return date;
   }
+
+  factory FriendRequestModel.fromJson(Map<String, dynamic> json) =>
+      _$FriendRequestModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$FriendRequestModelToJson(this);
 }

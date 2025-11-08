@@ -14,8 +14,8 @@ import '../../core/ui/layouts/page_container.dart';
 import '../../core/utils/extensions.dart';
 import '../../core/utils/methods.dart';
 import '../../recipe/bloc/recipe_bloc/recipe_bloc.dart';
-import '../../recipe/data/models/recipe_model.dart';
 import '../../recipe/ui/loading_skeleton/recipes_page_skeleton.dart';
+import '../bloc/friendship_bloc/friendship_bloc.dart';
 import '../data/models/friendship_model.dart';
 import 'items/friend_item.dart';
 import 'items/friend_request_item.dart';
@@ -50,45 +50,16 @@ class _FriendsPageState extends State<FriendsPage> {
 
   @override
   Widget build(BuildContext context) {
-    List<FriendRequestModel> requests = [
-      FriendRequestModel(
-        id: 1,
-        toUser: 'Test',
-        fromDisplayName: 'Test User',
-        fromUsername: '@test_user',
-        blockedBy: null,
-        connectionStatus: FriendshipStatus.pending,
-        createdAt: DateTime.now().subtract(Duration(hours: 4)),
-      ),
-      FriendRequestModel(
-        id: 2,
-        toUser: 'Test',
-        fromDisplayName: 'Test User',
-        fromUsername: '@test_user',
-        blockedBy: null,
-        connectionStatus: FriendshipStatus.pending,
-        createdAt: DateTime.now().subtract(Duration(hours: 4)),
-      ),
-    ];
-
     return Scaffold(
       // appBar: const MainAppBar(),
-      body: BlocBuilder<RecipeBloc, RecipeState>(
+      body: BlocBuilder<FriendshipBloc, FriendshipState>(
         builder: (context, state) {
-          if (state.isUserLoading) {
+          if (state.isLoading) {
             return const RecipesPageSkeleton();
           }
 
-          if (state.userRecipesResult.value == null) {
-            return const RecipesPageSkeleton();
-          }
-
-          int length = 5;
-          final List<RecipeModel> recipes = state.userRecipesResult.value!;
-
-          if (recipes.length < length) {
-            length = recipes.length;
-          }
+          final List<FriendRequestModel> friends = state.friends;
+          final List<FriendRequestModel> requests = state.requests;
 
           return PageContainer(
             padding: const EdgeInsets.only(
@@ -100,7 +71,7 @@ class _FriendsPageState extends State<FriendsPage> {
             ),
             child: MySliverList(
               onRefresh: () async {
-                context.read<RecipeBloc>().add(RecipeFetchUserRecipes());
+                context.read<FriendshipBloc>().add(FriendshipsFetch());
               },
               slivers: [
                 const CustomSliverAppBar(),
@@ -212,9 +183,9 @@ class _FriendsPageState extends State<FriendsPage> {
                       .toSliver(),
               ],
               itemBuilder: (context, index) => _page == _FriendPage.friends
-                  ? const FriendItem(key: ValueKey('Friends'))
+                  ? FriendItem(friend: friends[index])
                         .onTap(() {})
-                        .paddingBottom((index + 1) == recipes.length ? 20 : 0)
+                        .paddingBottom((index + 1) == friends.length ? 20 : 0)
                         .listAnimate(index)
                   : FriendRequestItem(
                           request: requests[index],
@@ -243,9 +214,11 @@ class _FriendsPageState extends State<FriendsPage> {
                           },
                         )
                         .onTap(() {})
-                        .paddingBottom((index + 1) == recipes.length ? 20 : 0)
+                        .paddingBottom((index + 1) == requests.length ? 20 : 0)
                         .listAnimate(index),
-              itemCount: requests.length,
+              itemCount: _page == _FriendPage.friends
+                  ? friends.length
+                  : requests.length,
               gap: 12,
             ),
           );

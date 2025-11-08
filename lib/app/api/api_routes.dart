@@ -27,6 +27,7 @@ class ApiRoutes {
 
   // FRIENDS
 
+  static const String friendships = '/friendships/';
   static String searchUsers(String q) => '/users/?query=$q';
-  static const String addUser = '/friendships/';
+  static const String addUser = friendships;
 }
