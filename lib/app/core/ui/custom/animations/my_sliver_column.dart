@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
-import '../../../theme/theme.dart';
 import '../../../utils/extensions.dart';
-import '../containers/default_container.dart';
-import '../icons/my_icons.dart';
 
-class MySliverList extends StatelessWidget {
-  final int itemCount;
-  final Widget? Function(BuildContext context, int index)? itemBuilder;
+class MySliverColumn extends StatelessWidget {
   final double gap;
   final Axis scrollDirection;
   final Widget? separator;
@@ -19,10 +14,9 @@ class MySliverList extends StatelessWidget {
   final RefreshCallback? onRefresh;
   final String? emptyText;
 
-  const MySliverList({
+  const MySliverColumn({
     super.key,
-    required this.itemBuilder,
-    required this.itemCount,
+
     this.gap = 20,
     this.physics,
     this.customPinnedWidget,
@@ -33,24 +27,8 @@ class MySliverList extends StatelessWidget {
   }) : scrollDirection = Axis.vertical,
        separator = null;
 
-  const MySliverList.horizontal({
+  const MySliverColumn.customSeparator({
     super.key,
-    required this.itemBuilder,
-    required this.itemCount,
-    this.gap = 20,
-    this.physics,
-    this.customPinnedWidget,
-    this.shrinkWrap = false,
-    this.emptyText,
-    this.slivers = const [],
-    this.onRefresh,
-  }) : scrollDirection = Axis.horizontal,
-       separator = null;
-
-  const MySliverList.customSeparator({
-    super.key,
-    required this.itemBuilder,
-    required this.itemCount,
     required this.separator,
     this.scrollDirection = Axis.vertical,
     this.customPinnedWidget,
@@ -69,49 +47,13 @@ class MySliverList extends StatelessWidget {
           clipBehavior: Clip.hardEdge,
           scrollDirection: scrollDirection,
           shrinkWrap: shrinkWrap,
-
-          slivers: [
-            ...slivers,
-            if (itemBuilder != null)
-              SliverList.separated(
-                itemBuilder: itemBuilder!,
-                separatorBuilder: (context, index) =>
-                    separator ??
-                    SizedBox(
-                      height: scrollDirection == Axis.vertical ? gap : 0,
-                      width: scrollDirection == Axis.vertical ? 0 : gap,
-                    ),
-                itemCount: itemCount,
-              ),
-          ],
+          slivers: slivers,
         ).animate().slideX(
           begin: 1,
           end: 0,
           delay: 0.ms,
           // alignment: Alignment.centerLeft,
         );
-
-    if (emptyText != null && itemCount < 1) {
-      body = OutlineContainer(
-        radius: 20,
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 40),
-        child: Column(
-          spacing: 16,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              MyIcons.magnifying_glass_minus,
-              color: context.textSecondary,
-              size: 28,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [AppText.secondary(text: emptyText!)],
-            ),
-          ],
-        ),
-      );
-    }
 
     if (onRefresh != null) {
       return RefreshIndicator(

@@ -22,8 +22,33 @@ class ApiRoutes {
   static String recipeWithId(int id) => '$recipe$id';
   static String uploadMealImage(int id) => '${recipe}upload/$id';
   static const String userRecipes = recipe;
-  static const String trendingRecipes = recipe;
-  static const String friendsRecipes = recipe;
+  static String trendingRecipes({int? length, int? page}) {
+    String endPoint = '${recipe}trending/';
+
+    if (page != null) {
+      endPoint = '$endPoint?page=$page';
+    }
+
+    if (length != null) {
+      endPoint = '$endPoint?page_size=$length';
+    }
+
+    return endPoint;
+  }
+
+  static String friendsRecipes({int? length, int? page}) {
+    String endPoint = '${recipe}friends/';
+
+    if (page != null) {
+      endPoint = '$endPoint?page=$page';
+    }
+
+    if (length != null) {
+      endPoint = '$endPoint?page_size=$length';
+    }
+
+    return endPoint;
+  }
 
   // FRIENDS
 

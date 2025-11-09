@@ -11,8 +11,8 @@ abstract class RecipesRepository {
   RecipesRepository(this._api);
 
   Future<Result<List<RecipeModel>>> getUserRecipes();
-  Future<Result<List<RecipeModel>>> getTrendingRecipes();
-  Future<Result<List<RecipeModel>>> getFriendsRecipes();
+  Future<Result<List<RecipeModel>>> getTrendingRecipes(int? length, int? page);
+  Future<Result<List<RecipeModel>>> getFriendsRecipes(int? length, int? page);
   Future<Result<RecipeDetailModel>> getRecipeById(int id);
   Future<Result<RecipeModel>> createRecipe(Map<String, dynamic> req);
   Future<Result<RecipeModel>> updateRecipe(Map<String, dynamic> req, int id);
@@ -36,9 +36,12 @@ class RecipesDataProvider extends RecipesRepository {
   }
 
   @override
-  Future<Result<List<RecipeModel>>> getTrendingRecipes() async {
+  Future<Result<List<RecipeModel>>> getTrendingRecipes(
+    int? length,
+    int? page,
+  ) async {
     try {
-      return await _api.getTrendingRecipes();
+      return await _api.getTrendingRecipes(length, page);
     } on Exception catch (e) {
       debugPrint(e.toString());
       return Result.error(e);
@@ -49,9 +52,12 @@ class RecipesDataProvider extends RecipesRepository {
   }
 
   @override
-  Future<Result<List<RecipeModel>>> getFriendsRecipes() async {
+  Future<Result<List<RecipeModel>>> getFriendsRecipes(
+    int? length,
+    int? page,
+  ) async {
     try {
-      return await _api.getFriendsRecipes();
+      return await _api.getFriendsRecipes(length, page);
     } on Exception catch (e) {
       debugPrint(e.toString());
       return Result.error(e);

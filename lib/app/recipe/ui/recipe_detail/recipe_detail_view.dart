@@ -7,13 +7,13 @@ import '../../../core/theme/theme.dart';
 import '../../../core/ui/custom/animations/animate_list.dart';
 import '../../../core/ui/custom/buttons/my_icon_button.dart';
 import '../../../core/ui/custom/containers/network_image.dart';
-import '../../../core/ui/custom/containers/tag_container.dart';
 import '../../../core/ui/custom/icons/my_icons.dart';
 import '../../../core/utils/extensions.dart';
 import '../../bloc/recipe_detail_cubit/recipe_detail_cubit.dart';
 import '../../data/models/recipe_model.dart';
 import 'items/ingredient_item.dart';
 import 'items/nutrition_container.dart';
+import 'items/recipe_tag.dart';
 import 'items/servings_container.dart';
 import 'items/step_item.dart';
 import 'loading_skeleton.dart/recipe_detail_page_skeleton.dart';
@@ -146,8 +146,8 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
                             ),
                             child: MySliverList.horizontal(
                               gap: 8,
-                              itemBuilder: (context, index) => TagContainer(
-                                title: recipe.tags[index],
+                              itemBuilder: (context, index) => RecipeTag(
+                                tag: recipe.tags[index],
                               ).listAnimate(index),
                               itemCount: recipe.tags.length,
                             ),

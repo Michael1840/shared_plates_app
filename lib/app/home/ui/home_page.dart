@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../core/router/routes.dart';
 import '../../core/ui/custom/animations/animate_list.dart';
+import '../../core/ui/custom/animations/my_sliver_column.dart';
 import '../../core/ui/custom/appbar/sliver_app_bar.dart';
 import '../../core/ui/custom/buttons/create_recipe_button.dart';
 import '../../core/ui/custom/containers/sliver_title.dart';
@@ -32,26 +33,8 @@ class HomePage extends StatelessWidget {
             return const RecipesPageSkeleton();
           }
 
-          if (state.friendsRecipesResult.value == null ||
-              state.trendingRecipesResult.value == null) {
-            return SizedBox();
-          }
-
-          int friendsLength = 5;
-          int trendingLength = 5;
-
-          final List<RecipeModel> friendsRecipes =
-              state.friendsRecipesResult.value!;
-          final List<RecipeModel> trendingRecipes =
-              state.trendingRecipesResult.value!;
-
-          if (friendsRecipes.length < friendsLength) {
-            friendsLength = friendsRecipes.length;
-          }
-
-          if (trendingRecipes.length < trendingLength) {
-            trendingLength = trendingRecipes.length;
-          }
+          final List<RecipeModel> friendsRecipes = state.friendsRecipes;
+          final List<RecipeModel> trendingRecipes = state.trendingRecipes;
 
           return PageContainer(
             padding: const EdgeInsets.only(
@@ -60,8 +43,10 @@ class HomePage extends StatelessWidget {
               right: 20,
               bottom: 0,
             ),
-            child: MySliverList(
-              onRefresh: () async {},
+            child: MySliverColumn(
+              onRefresh: () async {
+                context.read<RecipeBloc>().add(RecipeFetchDashboardRecipes());
+              },
               slivers: [
                 const CustomSliverAppBar(),
 
@@ -85,18 +70,20 @@ class HomePage extends StatelessWidget {
                 SizedBox(
                       height: 230,
                       child: MySliverList.horizontal(
+                        emptyText: 'No recipes found',
                         itemBuilder: (context, index) =>
                             TrendingRecipeItem(recipe: trendingRecipes[index])
                                 .onTap(() {
                                   context.pushNamed(
                                     Routes.dashRecipeDetail,
                                     pathParameters: {
-                                      'id': friendsRecipes[index].id.toString(),
+                                      'id': trendingRecipes[index].id
+                                          .toString(),
                                     },
                                   );
                                 })
                                 .listAnimateHorizontal(index),
-                        itemCount: trendingLength,
+                        itemCount: trendingRecipes.length,
                       ),
                     )
                     .paddingSymmetric(vertical: 20)
@@ -112,20 +99,25 @@ class HomePage extends StatelessWidget {
                   title: 'Friends Recipes',
                   onTap: () {},
                 ).paddingBottom(20).toSliver(),
+                MySliverList(
+                  emptyText: 'No recipes found',
+                  itemBuilder: (context, index) =>
+                      RecipeItem(recipe: friendsRecipes[index])
+                          .onTap(() {
+                            context.pushNamed(
+                              Routes.dashRecipeDetail,
+                              pathParameters: {
+                                'id': friendsRecipes[index].id.toString(),
+                              },
+                            );
+                          })
+                          .paddingBottom(
+                            (index + 1) == friendsRecipes.length ? 20 : 0,
+                          )
+                          .listAnimate(index),
+                  itemCount: friendsRecipes.length,
+                ).paddingBottom(20).toSliver(),
               ],
-              itemBuilder: (context, index) =>
-                  RecipeItem(recipe: friendsRecipes[index])
-                      .onTap(() {
-                        context.pushNamed(
-                          Routes.dashRecipeDetail,
-                          pathParameters: {
-                            'id': friendsRecipes[index].id.toString(),
-                          },
-                        );
-                      })
-                      .paddingBottom((index + 1) == friendsLength ? 20 : 0)
-                      .listAnimate(index),
-              itemCount: friendsLength,
             ),
           );
         },

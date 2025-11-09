@@ -127,13 +127,13 @@ class ApiHelper {
       final errorResult = _handleError<T>(response);
       if (errorResult != null) return errorResult;
 
-      if (response.data is! Map<String, dynamic>) {
+      if (response.data['data'] is! Map<String, dynamic>) {
         throw ArgumentError(
           'Expected Map<String, dynamic>, got ${response.data.runtimeType}',
         );
       }
 
-      final model = converter.fromJson(response.data);
+      final model = converter.fromJson(response.data['data']);
       return Result.ok(model);
     } on Exception catch (e) {
       return Result.error(e);

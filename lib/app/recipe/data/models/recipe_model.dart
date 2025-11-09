@@ -1,8 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../../api/models/model_converter.dart';
 import 'ingredient_model.dart';
 import 'step_model.dart';
+import 'tag_model.dart';
 
 part 'recipe_model.g.dart';
 
@@ -13,6 +15,17 @@ enum PrivacyStatus {
   friends,
   @JsonValue('3')
   private,
+}
+
+class RecipeModelConverter extends ModelConverter<RecipeModel> {
+  @override
+  RecipeModel fromJson(Map<String, dynamic> json) => RecipeModel.fromJson(json);
+}
+
+class RecipeDetailModelConverter extends ModelConverter<RecipeDetailModel> {
+  @override
+  RecipeDetailModel fromJson(Map<String, dynamic> json) =>
+      RecipeDetailModel.fromJson(json);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
@@ -43,7 +56,9 @@ class RecipeModel {
 class RecipeDetailModel extends RecipeModel {
   final List<IngredientModel> ingredients;
   final List<StepModel> steps;
-  final List<String> tags;
+  final List<TagModel> tags;
+
+  @JsonKey(defaultValue: PrivacyStatus.public)
   final PrivacyStatus privacyStatus;
 
   const RecipeDetailModel({

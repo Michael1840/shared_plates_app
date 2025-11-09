@@ -18,13 +18,13 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
   RecipeBloc(RecipesRepository recipeRepo)
     : _recipeRepo = recipeRepo,
       super(RecipeState.initial()) {
-    on<RecipeFetchUserRecipes>(_handleFetchUserProjects);
-    on<RecipeFetchTrendingRecipes>(_handleFetchTrendingRecipes);
-    on<RecipeFetchFriendRecipes>(_handleFetchFriendsRecipes);
+    on<RecipeFetchUserRecipes>(_handleFetchUserRecipes);
+    on<RecipeFetchDashboardRecipes>(_handleFetchDashboardRecipes);
     on<RecipeCreate>(_handleRecipeCreate);
     on<ResetCreateRecipe>(_handleResetCreate);
 
     add(RecipeFetchUserRecipes());
+    add(RecipeFetchDashboardRecipes());
   }
 
   Future<void> _handleResetCreate(
@@ -93,7 +93,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
     }
   }
 
-  Future<void> _handleFetchUserProjects(
+  Future<void> _handleFetchUserRecipes(
     RecipeFetchUserRecipes event,
     Emitter<RecipeState> emit,
   ) async {
@@ -125,65 +125,71 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
     }
   }
 
-  Future<void> _handleFetchTrendingRecipes(
-    RecipeFetchTrendingRecipes event,
+  Future<void> _handleFetchDashboardRecipes(
+    RecipeFetchDashboardRecipes event,
     Emitter<RecipeState> emit,
   ) async {
-    emit(state.copyWith(userRecipesResult: const DelayedResult.inProgress()));
+    emit(
+      state.copyWith(
+        trendingRecipesResult: const DelayedResult.inProgress(),
+        friendsRecipesResult: const DelayedResult.inProgress(),
+      ),
+    );
 
     try {
-      final result = await _recipeRepo.getTrendingRecipes();
+      final List<Result<List<RecipeModel>>> results = await Future.wait([
+        _recipeRepo.getTrendingRecipes(5, null),
+        _recipeRepo.getFriendsRecipes(5, null),
+      ]);
 
-      switch (result) {
+      final trendingResult = results[0];
+      final friendsResult = results[1];
+
+      List<RecipeModel>? trendingRecipes;
+      List<RecipeModel>? friendsRecipes;
+
+      Exception? trendingError;
+      Exception? friendsError;
+
+      switch (trendingResult) {
         case Error<List<RecipeModel>>():
-          throw result.error;
+          trendingError = trendingResult.error;
         case CastError<List<RecipeModel>>():
-          throw result.error;
+          trendingError = trendingResult.error;
         case Ok<List<RecipeModel>>():
+          trendingRecipes = trendingResult.value;
+      }
+
+      switch (friendsResult) {
+        case Error<List<RecipeModel>>():
+          friendsError = friendsResult.error;
+        case CastError<List<RecipeModel>>():
+          friendsError = friendsResult.error;
+        case Ok<List<RecipeModel>>():
+          friendsRecipes = friendsResult.value;
+      }
+
+      DelayedResult<List<RecipeModel>> resolveResult(
+        List<RecipeModel>? data,
+        Exception? error,
+      ) {
+        if (data != null) return DelayedResult.fromValue(data);
+        if (error != null) return DelayedResult.fromError(error.toString());
+        return const DelayedResult.fromError('Unknown error occurred');
       }
 
       emit(
         state.copyWith(
-          userRecipesResult: DelayedResult.fromValue(result.value),
+          trendingRecipesResult: resolveResult(trendingRecipes, trendingError),
+          friendsRecipesResult: resolveResult(friendsRecipes, friendsError),
         ),
       );
     } catch (e) {
       debugPrint(e.toString());
       emit(
         state.copyWith(
-          userRecipesResult: DelayedResult.fromError(e.toString()),
-        ),
-      );
-    }
-  }
-
-  Future<void> _handleFetchFriendsRecipes(
-    RecipeFetchFriendRecipes event,
-    Emitter<RecipeState> emit,
-  ) async {
-    emit(state.copyWith(userRecipesResult: const DelayedResult.inProgress()));
-
-    try {
-      final result = await _recipeRepo.getFriendsRecipes();
-
-      switch (result) {
-        case Error<List<RecipeModel>>():
-          throw result.error;
-        case CastError<List<RecipeModel>>():
-          throw result.error;
-        case Ok<List<RecipeModel>>():
-      }
-
-      emit(
-        state.copyWith(
-          userRecipesResult: DelayedResult.fromValue(result.value),
-        ),
-      );
-    } catch (e) {
-      debugPrint(e.toString());
-      emit(
-        state.copyWith(
-          userRecipesResult: DelayedResult.fromError(e.toString()),
+          trendingRecipesResult: DelayedResult.fromError(e.toString()),
+          friendsRecipesResult: DelayedResult.fromError(e.toString()),
         ),
       );
     }

@@ -36,14 +36,15 @@ RecipeDetailModel _$RecipeDetailModelFromJson(Map<String, dynamic> json) =>
       ingredients: (json['ingredients'] as List<dynamic>)
           .map((e) => IngredientModel.fromJson(e as Map<String, dynamic>))
           .toList(),
-      tags: (json['tags'] as List<dynamic>).map((e) => e as String).toList(),
+      tags: (json['tags'] as List<dynamic>)
+          .map((e) => TagModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
       steps: (json['steps'] as List<dynamic>)
           .map((e) => StepModel.fromJson(e as Map<String, dynamic>))
           .toList(),
-      privacyStatus: $enumDecode(
-        _$PrivacyStatusEnumMap,
-        json['privacy_status'],
-      ),
+      privacyStatus:
+          $enumDecodeNullable(_$PrivacyStatusEnumMap, json['privacy_status']) ??
+          PrivacyStatus.public,
     );
 
 Map<String, dynamic> _$RecipeDetailModelToJson(RecipeDetailModel instance) =>
