@@ -12,6 +12,7 @@ RecipeModel _$RecipeModelFromJson(Map<String, dynamic> json) => RecipeModel(
   cost: (json['cost'] as num).toDouble(),
   serves: (json['serves'] as num).toInt(),
   createdBy: json['created_by'] as String,
+  isLiked: json['is_liked'] as bool? ?? false,
   image: json['image'] as String?,
 );
 
@@ -22,6 +23,7 @@ Map<String, dynamic> _$RecipeModelToJson(RecipeModel instance) =>
       'cost': instance.cost,
       'serves': instance.serves,
       'image': instance.image,
+      'is_liked': instance.isLiked,
       'created_by': instance.createdBy,
     };
 
@@ -32,6 +34,7 @@ RecipeDetailModel _$RecipeDetailModelFromJson(Map<String, dynamic> json) =>
       cost: (json['cost'] as num).toDouble(),
       serves: (json['serves'] as num).toInt(),
       createdBy: json['created_by'] as String,
+      isLiked: json['is_liked'] as bool? ?? false,
       image: json['image'] as String?,
       ingredients: (json['ingredients'] as List<dynamic>)
           .map((e) => IngredientModel.fromJson(e as Map<String, dynamic>))
@@ -54,6 +57,7 @@ Map<String, dynamic> _$RecipeDetailModelToJson(RecipeDetailModel instance) =>
       'cost': instance.cost,
       'serves': instance.serves,
       'image': instance.image,
+      'is_liked': instance.isLiked,
       'created_by': instance.createdBy,
       'ingredients': instance.ingredients,
       'steps': instance.steps,

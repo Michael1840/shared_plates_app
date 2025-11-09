@@ -18,6 +18,7 @@ class MySliverList extends StatelessWidget {
   final ScrollPhysics? physics;
   final RefreshCallback? onRefresh;
   final String? emptyText;
+  final bool scrollable;
 
   const MySliverList({
     super.key,
@@ -30,6 +31,7 @@ class MySliverList extends StatelessWidget {
     this.emptyText,
     this.slivers = const [],
     this.onRefresh,
+    this.scrollable = true,
   }) : scrollDirection = Axis.vertical,
        separator = null;
 
@@ -44,6 +46,7 @@ class MySliverList extends StatelessWidget {
     this.emptyText,
     this.slivers = const [],
     this.onRefresh,
+    this.scrollable = true,
   }) : scrollDirection = Axis.horizontal,
        separator = null;
 
@@ -59,6 +62,7 @@ class MySliverList extends StatelessWidget {
     this.physics,
     this.slivers = const [],
     this.onRefresh,
+    this.scrollable = true,
   }) : gap = 0;
 
   @override
@@ -90,6 +94,19 @@ class MySliverList extends StatelessWidget {
           delay: 0.ms,
           // alignment: Alignment.centerLeft,
         );
+
+    if (!scrollable && itemBuilder != null) {
+      body = SliverList.separated(
+        itemBuilder: itemBuilder!,
+        separatorBuilder: (context, index) =>
+            separator ??
+            SizedBox(
+              height: scrollDirection == Axis.vertical ? gap : 0,
+              width: scrollDirection == Axis.vertical ? 0 : gap,
+            ),
+        itemCount: itemCount,
+      );
+    }
 
     if (emptyText != null && itemCount < 1) {
       body = OutlineContainer(

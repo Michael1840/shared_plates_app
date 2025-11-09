@@ -8,10 +8,17 @@ final class RecipeState extends Equatable {
   final DelayedResult<List<RecipeModel>> trendingRecipesResult;
   final DelayedResult<List<RecipeModel>> friendsRecipesResult;
 
+  List<RecipeModel> get userRecipes => userRecipesResult.value ?? [];
   List<RecipeModel> get friendsRecipes => friendsRecipesResult.value ?? [];
   List<RecipeModel> get trendingRecipes => trendingRecipesResult.value ?? [];
 
   bool get isLoading => loadingResult.isInProgress;
+
+  bool get isTrendingError => trendingRecipesResult.isError;
+  bool get isUserError => userRecipesResult.isError;
+  bool get isFriendsError => friendsRecipesResult.isError;
+
+  bool get isDashboardError => isTrendingError || isFriendsError;
 
   bool get isUserLoading => userRecipesResult.isInProgress;
   bool get isTrendingLoading => trendingRecipesResult.isInProgress;

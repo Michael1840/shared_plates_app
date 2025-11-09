@@ -12,6 +12,7 @@ class RecipeDetailPageSkeleton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       body: Stack(
         children: [
           Positioned(
@@ -172,25 +173,29 @@ class RecipeDetailPageSkeleton extends StatelessWidget {
             top: 0,
             left: 0,
             right: 0,
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                spacing: 10,
-                children: [
-                  MyIconButton(
-                    icon: MyIcons.chevron_left,
-                    onTap: () {
-                      context.pop();
-                    },
-                  ),
-                  const SecondaryLoadingContainer(
-                    padding: EdgeInsets.all(8),
-                    radius: 40,
-                    child: PrimaryLoadingContainer(width: 14, height: 14),
-                  ),
-                ],
+            child: SafeArea(
+              top: true,
+              bottom: false,
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  spacing: 10,
+                  children: [
+                    MyIconButton(
+                      icon: MyIcons.chevron_left,
+                      onTap: () {
+                        context.pop();
+                      },
+                    ),
+                    const SecondaryLoadingContainer(
+                      padding: EdgeInsets.all(8),
+                      radius: 40,
+                      child: PrimaryLoadingContainer(width: 14, height: 14),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

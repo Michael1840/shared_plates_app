@@ -56,6 +56,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
           final RecipeDetailModel recipe = state.loadingResult.value!;
 
           return Scaffold(
+            extendBodyBehindAppBar: true,
             body: Stack(
               children: [
                 Positioned(
@@ -76,160 +77,165 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
                   bottom: 0,
                   left: 0,
                   right: 0,
-                  child: Container(
-                    padding: const EdgeInsets.only(
-                      top: 20,
-                      left: 20,
-                      right: 20,
-                    ),
-                    height: MediaQuery.sizeOf(context).height * 0.6,
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(24),
-                        topRight: Radius.circular(24),
+                  child: SafeArea(
+                    child: Container(
+                      padding: const EdgeInsets.only(
+                        top: 20,
+                        left: 20,
+                        right: 20,
                       ),
-                      color: context.background,
-                    ),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        spacing: 20,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Column(
-                            children: [
-                              Row(
+                      height: MediaQuery.sizeOf(context).height * 0.6,
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(24),
+                          topRight: Radius.circular(24),
+                        ),
+                        color: context.background,
+                      ),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          spacing: 20,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Flexible(
+                                      child: AppText.heading(
+                                        text: recipe.title,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                    const MyIconButton(icon: MyIcons.heart_02),
+                                  ],
+                                ),
+                                Row(
+                                  spacing: 8,
+                                  children: [
+                                    AppText.heading(
+                                      text: 'R${recipe.cost.floor()}',
+                                      size: 18,
+                                    ),
+                                    CircleAvatar(
+                                      radius: 3,
+                                      backgroundColor: context.textSecondary,
+                                    ),
+                                    Flexible(
+                                      child: AppText.secondary(
+                                        text: 'by ${recipe.createdBy}',
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+
+                            ServingsContainer(
+                              serves: recipe.serves,
+                              increment: () {},
+                              decrement: () {},
+                            ),
+
+                            ConstrainedBox(
+                              constraints: const BoxConstraints(
+                                maxHeight: 33.64,
+                                minHeight: 32.8,
+                              ),
+                              child: MySliverList.horizontal(
+                                gap: 8,
+                                itemBuilder: (context, index) => RecipeTag(
+                                  tag: recipe.tags[index],
+                                ).listAnimate(index),
+                                itemCount: recipe.tags.length,
+                              ),
+                            ),
+
+                            IntrinsicHeight(
+                              child: Row(
+                                spacing: 16,
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Flexible(
-                                    child: AppText.heading(
-                                      text: recipe.title,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
+                                  NutritionContainer(
+                                    value: 0.8,
+                                    label: 'Protein',
+                                    amount: '25g',
+                                    color: context.green,
                                   ),
-                                  const MyIconButton(icon: MyIcons.heart_02),
+                                  NutritionContainer(
+                                    value: 0.2,
+                                    label: 'Fat',
+                                    amount: '90g',
+                                    color: context.primary,
+                                  ),
+                                  const NutritionContainer(
+                                    value: 0.4,
+                                    label: 'Protein',
+                                    amount: '25g',
+                                    color: AccentColors.purple,
+                                  ),
+                                  const NutritionContainer(
+                                    value: 0.8,
+                                    label: 'Calories',
+                                    amount: '256kcal',
+                                    color: AccentColors.red,
+                                  ),
                                 ],
                               ),
-                              Row(
-                                spacing: 8,
+                            ),
+
+                            if (recipe.ingredients.isNotEmpty)
+                              Column(
+                                spacing: 20,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  AppText.heading(
-                                    text: 'R${recipe.cost.floor()}',
-                                    size: 18,
+                                  const AppText.heading(
+                                    text: 'Ingredients',
+                                    size: 16,
                                   ),
-                                  CircleAvatar(
-                                    radius: 3,
-                                    backgroundColor: context.textSecondary,
-                                  ),
-                                  Flexible(
-                                    child: AppText.secondary(
-                                      text: 'by ${recipe.createdBy}',
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
+                                  MySliverList(
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemBuilder: (context, index) =>
+                                        IngredientItem(
+                                          ingredient: recipe.ingredients[index],
+                                        ).listAnimate(index),
+                                    itemCount: recipe.ingredients.length,
+                                  ).animate().slideX(begin: -1, end: 0),
                                 ],
                               ),
-                            ],
-                          ),
 
-                          ServingsContainer(
-                            serves: recipe.serves,
-                            increment: () {},
-                            decrement: () {},
-                          ),
+                            if (recipe.steps.isNotEmpty)
+                              Column(
+                                spacing: 20,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const AppText.heading(
+                                    text: 'Instructions',
+                                    size: 16,
+                                  ),
+                                  MySliverList(
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemBuilder: (context, index) => StepItem(
+                                      step: recipe.steps[index],
+                                      totalCount: recipe.steps.length,
+                                    ).listAnimate(index),
+                                    itemCount: recipe.steps.length,
+                                  ).animate().slideX(begin: -1, end: 0),
+                                ],
+                              ),
 
-                          ConstrainedBox(
-                            constraints: const BoxConstraints(
-                              maxHeight: 33.64,
-                              minHeight: 32.8,
-                            ),
-                            child: MySliverList.horizontal(
-                              gap: 8,
-                              itemBuilder: (context, index) => RecipeTag(
-                                tag: recipe.tags[index],
-                              ).listAnimate(index),
-                              itemCount: recipe.tags.length,
-                            ),
-                          ),
-
-                          IntrinsicHeight(
-                            child: Row(
-                              spacing: 16,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                NutritionContainer(
-                                  value: 0.8,
-                                  label: 'Protein',
-                                  amount: '25g',
-                                  color: context.green,
-                                ),
-                                NutritionContainer(
-                                  value: 0.2,
-                                  label: 'Fat',
-                                  amount: '90g',
-                                  color: context.primary,
-                                ),
-                                const NutritionContainer(
-                                  value: 0.4,
-                                  label: 'Protein',
-                                  amount: '25g',
-                                  color: AccentColors.purple,
-                                ),
-                                const NutritionContainer(
-                                  value: 0.8,
-                                  label: 'Calories',
-                                  amount: '256kcal',
-                                  color: AccentColors.red,
-                                ),
-                              ],
-                            ),
-                          ),
-
-                          if (recipe.ingredients.isNotEmpty)
-                            Column(
-                              spacing: 20,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const AppText.heading(
-                                  text: 'Ingredients',
-                                  size: 16,
-                                ),
-                                MySliverList(
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemBuilder: (context, index) =>
-                                      IngredientItem(
-                                        ingredient: recipe.ingredients[index],
-                                      ).listAnimate(index),
-                                  itemCount: recipe.ingredients.length,
-                                ).animate().slideX(begin: -1, end: 0),
-                              ],
-                            ),
-
-                          if (recipe.steps.isNotEmpty)
-                            Column(
-                              spacing: 20,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const AppText.heading(
-                                  text: 'Instructions',
-                                  size: 16,
-                                ),
-                                MySliverList(
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemBuilder: (context, index) => StepItem(
-                                    step: recipe.steps[index],
-                                    totalCount: recipe.steps.length,
-                                  ).listAnimate(index),
-                                  itemCount: recipe.steps.length,
-                                ).animate().slideX(begin: -1, end: 0),
-                              ],
-                            ),
-
-                          const SizedBox(height: 10),
-                        ],
+                            const SizedBox(height: 10),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -238,21 +244,25 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
                   top: 0,
                   left: 0,
                   right: 0,
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      spacing: 10,
-                      children: [
-                        MyIconButton(
-                          icon: MyIcons.chevron_left,
-                          onTap: () {
-                            context.pop();
-                          },
-                        ),
-                        const MyIconButton(icon: MyIcons.more_vertical),
-                      ],
+                  child: SafeArea(
+                    top: true,
+                    bottom: false,
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        spacing: 10,
+                        children: [
+                          MyIconButton(
+                            icon: MyIcons.chevron_left,
+                            onTap: () {
+                              context.pop();
+                            },
+                          ),
+                          const MyIconButton(icon: MyIcons.more_vertical),
+                        ],
+                      ),
                     ),
                   ),
                 ),

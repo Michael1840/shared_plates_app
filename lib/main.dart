@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -50,7 +52,8 @@ class MyApp extends StatelessWidget {
         routerConfig: NavigationRouter.router,
         builder: (context, child) {
           return SafeArea(
-            top: true,
+            top: !Platform.isIOS,
+            // top: true,
             bottom: false,
             // bottom: true,
             child: MediaQuery(

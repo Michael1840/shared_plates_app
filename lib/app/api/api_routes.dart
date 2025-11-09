@@ -20,6 +20,7 @@ class ApiRoutes {
   static const String recipe = '/meals/';
   static const String createRecipe = recipe;
   static String recipeWithId(int id) => '$recipe$id';
+  static String likeRecipe(int id) => '${recipe}like/$id';
   static String uploadMealImage(int id) => '${recipe}upload/$id';
   static const String userRecipes = recipe;
   static String trendingRecipes({int? length, int? page}) {

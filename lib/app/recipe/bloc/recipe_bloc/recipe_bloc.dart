@@ -22,6 +22,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
     on<RecipeFetchDashboardRecipes>(_handleFetchDashboardRecipes);
     on<RecipeCreate>(_handleRecipeCreate);
     on<ResetCreateRecipe>(_handleResetCreate);
+    on<LikeRecipe>(_handleLikeRecipe);
 
     add(RecipeFetchUserRecipes());
     add(RecipeFetchDashboardRecipes());
@@ -32,6 +33,66 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
     Emitter<RecipeState> emit,
   ) async {
     emit(state.copyWith(recipeCreated: false));
+  }
+
+  Future<void> _handleLikeRecipe(
+    LikeRecipe event,
+    Emitter<RecipeState> emit,
+  ) async {
+    final copiedState = state.copyWith();
+
+    final RecipeType type = event.type;
+
+    final int id = event.recipeId;
+
+    final List<RecipeModel> recipes;
+
+    switch (type) {
+      case RecipeType.trending:
+        recipes = List.from(state.trendingRecipes);
+        break;
+      case RecipeType.friends:
+        recipes = List.from(state.friendsRecipes);
+        break;
+      case RecipeType.user:
+        recipes = List.from(state.userRecipes);
+        break;
+    }
+
+    final int index = recipes.indexWhere((r) => r.id == id);
+
+    if (index == -1) return;
+
+    recipes[index] = recipes[index].copyWith(isLiked: !recipes[index].isLiked);
+
+    emit(
+      state.copyWith(
+        trendingRecipesResult: type == RecipeType.trending
+            ? DelayedResult.fromValue(recipes)
+            : null,
+        userRecipesResult: type == RecipeType.user
+            ? DelayedResult.fromValue(recipes)
+            : null,
+        friendsRecipesResult: type == RecipeType.friends
+            ? DelayedResult.fromValue(recipes)
+            : null,
+      ),
+    );
+
+    try {
+      final result = await _recipeRepo.likeRecipe(id);
+
+      switch (result) {
+        case Error<void>():
+          throw result.error;
+        case CastError<void>():
+          throw result.error;
+        case Ok<void>():
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+      emit(copiedState);
+    }
   }
 
   Future<void> _handleRecipeCreate(

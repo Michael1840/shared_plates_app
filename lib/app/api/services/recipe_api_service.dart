@@ -175,4 +175,23 @@ class RecipeApiService {
       return Result.error(e);
     }
   }
+
+  Future<Result<void>> likeRecipe(int id) async {
+    try {
+      final ApiResponseModel response = await ApiHelper.request(
+        ApiRoutes.likeRecipe(id),
+        DioMethod.post,
+        hasAuth: true,
+      );
+
+      if (!response.isSuccess) {
+        return Result.error(Exception('Failed to update recipe like status'));
+      }
+
+      return const Result.ok(null);
+    } on Exception catch (e) {
+      debugPrint(e.toString());
+      return Result.error(e);
+    }
+  }
 }

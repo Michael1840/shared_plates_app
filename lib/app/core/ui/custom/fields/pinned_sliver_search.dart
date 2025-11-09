@@ -33,7 +33,7 @@ class CustomPinnedSliverSearch extends StatelessWidget {
                 if (hasIconButton)
                   MyIconButton(
                     icon: icon ?? MyIcons.heart_02,
-                    padding: 14,
+                    padding: 16,
                     onTap: onTap,
                   ),
               ],

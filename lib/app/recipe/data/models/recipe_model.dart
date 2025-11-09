@@ -35,6 +35,8 @@ class RecipeModel {
   final double cost;
   final int serves;
   final String? image;
+  @JsonKey(defaultValue: false)
+  final bool isLiked;
   final String createdBy;
 
   const RecipeModel({
@@ -43,6 +45,7 @@ class RecipeModel {
     required this.cost,
     required this.serves,
     required this.createdBy,
+    required this.isLiked,
     this.image,
   });
 
@@ -50,6 +53,26 @@ class RecipeModel {
       _$RecipeModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$RecipeModelToJson(this);
+
+  RecipeModel copyWith({
+    int? id,
+    String? title,
+    double? cost,
+    int? serves,
+    String? image,
+    bool? isLiked,
+    String? createdBy,
+  }) {
+    return RecipeModel(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      cost: cost ?? this.cost,
+      serves: serves ?? this.serves,
+      image: image ?? this.image,
+      isLiked: isLiked ?? this.isLiked,
+      createdBy: createdBy ?? this.createdBy,
+    );
+  }
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
@@ -67,6 +90,7 @@ class RecipeDetailModel extends RecipeModel {
     required super.cost,
     required super.serves,
     required super.createdBy,
+    required super.isLiked,
     super.image,
     required this.ingredients,
     required this.tags,

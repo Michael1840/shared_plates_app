@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../../../core/ui/custom/animations/loading_containers.dart';
 import '../../../core/ui/layouts/page_container.dart';
-import 'recipe_item_skeleton.dart';
+import 'trending_recipe_skeleton.dart';
 
-class RecipesPageSkeleton extends StatelessWidget {
-  const RecipesPageSkeleton({super.key});
+class HomeSkeletonPage extends StatelessWidget {
+  const HomeSkeletonPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -85,11 +85,19 @@ class RecipesPageSkeleton extends StatelessWidget {
                 ),
               ],
             ),
-            RecipeItemSkeleton(),
-            RecipeItemSkeleton(),
-            RecipeItemSkeleton(),
-            RecipeItemSkeleton(),
-            RecipeItemSkeleton(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                PrimaryLoadingContainer(width: 150, height: 14),
+                PrimaryLoadingContainer(width: 75, height: 14),
+              ],
+            ),
+            TrendingRecipeSkeleton(),
+            TrendingRecipeSkeleton(),
+            TrendingRecipeSkeleton(),
+            TrendingRecipeSkeleton(),
+            TrendingRecipeSkeleton(),
+            TrendingRecipeSkeleton(),
           ],
         ),
       ),
