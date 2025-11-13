@@ -14,8 +14,8 @@ class RecipeItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OutlineContainer(
-      radius: 24,
-      padding: EdgeInsets.all(12),
+      radius: 20,
+      padding: const EdgeInsets.all(12),
       child: IntrinsicHeight(
         child: Row(
           spacing: 10,
@@ -25,8 +25,7 @@ class RecipeItem extends StatelessWidget {
               child: MyNetworkImage(
                 height: 50,
                 width: 50,
-                url:
-                    'https://sharedplatesapi-production.up.railway.app${recipe.image}',
+                url: '${recipe.image}',
               ),
             ),
             Expanded(
@@ -77,7 +76,13 @@ class RecipeItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Icon(MyIcons.heart_02, color: context.textSecondary, size: 20),
+                Icon(
+                  MyIcons.heart_02,
+                  color: recipe.isLiked
+                      ? StatusColors.redLight
+                      : context.textSecondary,
+                  size: 20,
+                ),
                 Icon(
                   MyIcons.chevron_right,
                   color: context.textSecondary,

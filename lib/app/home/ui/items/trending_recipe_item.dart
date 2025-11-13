@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../core/theme/theme.dart';
 import '../../../core/ui/custom/containers/default_container.dart';
+import '../../../core/ui/custom/containers/glass_container.dart';
 import '../../../core/ui/custom/containers/network_image.dart';
 import '../../../core/ui/custom/icons/my_icons.dart';
 import '../../../core/utils/extensions.dart';
@@ -23,12 +24,46 @@ class TrendingRecipeItem extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadiusGeometry.circular(16),
-            child: MyNetworkImage(
-              url:
-                  'https://sharedplatesapi-production.up.railway.app${recipe.image}',
-              height: 125,
-              width: double.infinity,
-              radius: 0,
+            child: Stack(
+              children: [
+                MyNetworkImage(
+                  url: '${recipe.image}',
+                  height: 125,
+                  width: double.infinity,
+                  radius: 0,
+                ),
+                Positioned(
+                  bottom: 8,
+                  left: 8,
+                  right: 8,
+                  child: Row(
+                    spacing: 4,
+                    children: [
+                      GlassContainer(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 4,
+                        ),
+                        child: AppText.heading(
+                          text: recipe.tagGroup.tags.first.name,
+                          size: 10,
+                        ),
+                      ),
+                      if ((recipe.tagGroup.count - 1) > 0)
+                        GlassContainer(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 6,
+                            vertical: 4,
+                          ),
+                          child: AppText.heading(
+                            text: '+${recipe.tagGroup.count - 1}',
+                            size: 10,
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
           Expanded(

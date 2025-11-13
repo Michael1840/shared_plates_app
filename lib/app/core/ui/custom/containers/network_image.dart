@@ -33,26 +33,30 @@ class MyNetworkImage extends StatelessWidget {
       child: CachedNetworkImage(
         imageUrl: url,
 
-        errorWidget: (context, error, stackTrace) => Container(
-          decoration: BoxDecoration(
-            color: context.textSecondary,
-            borderRadius: BorderRadius.circular(radius ?? 16),
-          ),
-          height: height,
-          width: width,
+        errorWidget: (context, error, stackTrace) {
+          debugPrint('$error $stackTrace');
 
-          child: Center(
-            child: SvgPicture.asset(
-              sharedPlatesSvg,
-              width: svgHeight ?? 48,
-              height: svgWidth ?? 48,
-              colorFilter: const ColorFilter.mode(
-                Colors.white,
-                BlendMode.srcIn,
+          return Container(
+            decoration: BoxDecoration(
+              color: context.textSecondary,
+              borderRadius: BorderRadius.circular(radius ?? 16),
+            ),
+            height: height,
+            width: width,
+
+            child: Center(
+              child: SvgPicture.asset(
+                sharedPlatesSvg,
+                width: svgHeight ?? 48,
+                height: svgWidth ?? 48,
+                colorFilter: const ColorFilter.mode(
+                  Colors.white,
+                  BlendMode.srcIn,
+                ),
               ),
             ),
-          ),
-        ),
+          );
+        },
 
         progressIndicatorBuilder: (context, child, loadingProgress) =>
             Container(

@@ -11,7 +11,6 @@ import '../../core/ui/custom/buttons/create_recipe_button.dart';
 import '../../core/ui/custom/containers/sliver_title.dart';
 import '../../core/ui/custom/containers/view_all_row.dart';
 import '../../core/ui/custom/fields/pinned_sliver_search.dart';
-import '../../core/ui/custom/icons/my_icons.dart';
 import '../../core/ui/layouts/page_container.dart';
 import '../../core/utils/extensions.dart';
 import '../../core/utils/methods.dart';
@@ -91,11 +90,9 @@ class HomePage extends StatelessWidget {
                     },
                   ),
 
-                  CustomPinnedSliverSearch(
+                  CustomPinnedSliverSearchContainer(
                     searchHint: 'What\'s cooking today?',
-                    hasIconButton: true,
-                    icon: MyIcons.filter,
-                    onTap: () {
+                    onSearchTap: () {
                       Methods.showBottomSheet(
                         context,
                         const FilterHomePage(),
@@ -108,34 +105,7 @@ class HomePage extends StatelessWidget {
                     title: 'Trending Recipes',
                     onTap: () {},
                   ).paddingBottom(20).toSliver(),
-                  // SizedBox(
-                  //       height: 230,
-                  //       child: MySliverList.horizontal(
-                  //         emptyText: 'No recipes found',
-                  //         itemBuilder: (context, index) =>
-                  //             TrendingRecipeItem(recipe: trendingRecipes[index])
-                  //                 .onTap(() {
-                  //                   context.pushNamed(
-                  //                     Routes.dashRecipeDetail,
-                  //                     pathParameters: {
-                  //                       'id': trendingRecipes[index].id
-                  //                           .toString(),
-                  //                     },
-                  //                   );
-                  //                 })
-                  //                 .listAnimateHorizontal(index),
-                  //         itemCount: trendingRecipes.length,
-                  //       ),
-                  //     )
-                  //     .paddingSymmetric(vertical: 20)
-                  //     .animate()
-                  //     .slideX(
-                  //       begin: 1,
-                  //       end: 0,
-                  //       delay: 250.ms,
-                  //       // alignment: Alignment.centerLeft,
-                  //     )
-                  //     .toSliver(),
+
                   MySliverList(
                     scrollable: false,
                     emptyText: 'No recipes found',
@@ -163,10 +133,12 @@ class HomePage extends StatelessWidget {
                             .listAnimate(index),
                     itemCount: trendingRecipes.length,
                   ),
+
                   ViewAllRow(
                     title: 'Friends Recipes',
                     onTap: () {},
                   ).paddingBottom(20).toSliver(),
+
                   MySliverList(
                     emptyText: 'No recipes found',
                     itemBuilder: (context, index) =>

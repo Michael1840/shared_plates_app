@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../core/theme/theme.dart';
 import '../../../core/ui/custom/containers/default_container.dart';
+import '../../../core/ui/custom/containers/glass_container.dart';
 import '../../../core/ui/custom/containers/network_image.dart';
 import '../../../core/ui/custom/icons/my_icons.dart';
 import '../../../core/utils/extensions.dart';
@@ -25,10 +26,41 @@ class FullWidthCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(16),
             child: AspectRatio(
               aspectRatio: 5 / 3,
-              child: MyNetworkImage(
-                url:
-                    'https://sharedplatesapi-production.up.railway.app${recipe.image}',
-                radius: 0,
+              child: Stack(
+                children: [
+                  Positioned.fill(
+                    child: MyNetworkImage(url: '${recipe.image}', radius: 0),
+                  ),
+                  Positioned(
+                    bottom: 8,
+                    left: 8,
+                    right: 8,
+                    child: Row(
+                      spacing: 4,
+                      children: [
+                        for (final tag in recipe.tagGroup.tags)
+                          GlassContainer(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 4,
+                            ),
+                            child: AppText.heading(text: tag.name, size: 10),
+                          ),
+                        if ((recipe.tagGroup.count - 3) > 0)
+                          GlassContainer(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 6,
+                              vertical: 4,
+                            ),
+                            child: AppText.heading(
+                              text: '+${recipe.tagGroup.count - 3}',
+                              size: 10,
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
           ),

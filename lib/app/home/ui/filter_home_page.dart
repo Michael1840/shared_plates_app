@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_debouncer/flutter_debouncer.dart';
 
 import '../../core/theme/theme.dart';
-import '../../core/ui/custom/buttons/wide_text_button.dart';
+import '../../core/ui/custom/buttons/my_icon_button.dart';
 import '../../core/ui/custom/containers/tag_container.dart';
+import '../../core/ui/custom/fields/search_field.dart';
+import '../../core/ui/custom/icons/my_icons.dart';
 import '../../core/ui/layouts/page_container.dart';
 import '../../core/utils/constants.dart';
+import '../../core/utils/extensions.dart';
 
 class FilterHomePage extends StatefulWidget {
   const FilterHomePage({super.key});
@@ -22,11 +25,22 @@ class _FilterHomePageState extends State<FilterHomePage> {
   @override
   Widget build(BuildContext context) {
     return PageContainer(
-      padding: EdgeInsets.symmetric(vertical: 20),
+      padding: const EdgeInsets.symmetric(vertical: 20),
       child: Column(
         spacing: 20,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Row(
+            spacing: 8,
+            children: [
+              const Expanded(child: SearchField(hint: 'Search recipes')),
+              MyIconButton.colored(
+                icon: MyIcons.chevron_right,
+                padding: 14,
+                color: context.green,
+              ),
+            ],
+          ),
           Expanded(
             child: SingleChildScrollView(
               child: Column(
@@ -89,12 +103,12 @@ class _FilterHomePageState extends State<FilterHomePage> {
             ),
           ),
 
-          WideTextButton(
-            text: 'Apply Filters',
-            // onTap: create,
-            // disabled: !canCreate || !state.canCreate,
-            // isLoading: recipeState.isUserLoading,
-          ),
+          // const WideTextButton(
+          //   text: 'Explore',
+          //   // onTap: create,
+          //   // disabled: !canCreate || !state.canCreate,
+          //   // isLoading: recipeState.isUserLoading,
+          // ),
         ],
       ),
     );

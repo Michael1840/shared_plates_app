@@ -121,20 +121,24 @@ String onboardingAsset(BuildContext context, int index) {
 // ];
 
 const List<String> kCategories = [
-  'Main',
+  'Lunch',
   'Breakfast',
-  'Dessert',
-  'Drink',
+  'Dinner',
+  'Snack',
   'Soup',
+  'Drink',
+  'Main Course',
 ];
 
 const List<String> kDiets = [
   'Vegan',
-  'Kosher',
-  'Low Carb',
   'Vegetarian',
-  'Halal',
+  'Gluten-Free',
+  'Dairy-Free',
+  'Low Carb',
   'Sugar-Free',
+  'Halal',
+  'Kosher',
 ];
 
 const List<String> kCuisines = [
@@ -143,8 +147,25 @@ const List<String> kCuisines = [
   'Indian',
   'American',
   'Chinese',
+  'Mexican',
   'Spanish',
   'French',
   'Polish',
   'Greek',
+  'Thai',
+];
+
+const List<String> kTime = [
+  'Under 15 min',
+  'Under 30 min',
+  'Under 1 hour',
+  'Slow Cook',
+];
+
+const List<String> kMethod = [
+  'Oven',
+  'Stove Top',
+  'Air Fryer',
+  'Grill',
+  'One-Pot',
 ];

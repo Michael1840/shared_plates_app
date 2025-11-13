@@ -66,11 +66,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
                   child: Container(
                     height: MediaQuery.sizeOf(context).height * 0.3 + 25,
                     color: context.containerInverse,
-                    child: MyNetworkImage(
-                      url:
-                          'https://sharedplatesapi-production.up.railway.app${recipe.image}',
-                      radius: 0,
-                    ),
+                    child: MyNetworkImage(url: '${recipe.image}', radius: 0),
                   ),
                 ),
                 Positioned(

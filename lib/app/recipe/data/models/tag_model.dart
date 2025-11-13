@@ -13,3 +13,18 @@ class TagModel {
   factory TagModel.fromJson(Map<String, dynamic> json) =>
       _$TagModelFromJson(json);
 }
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class TagGroup {
+  @JsonKey(name: 'total')
+  final int count;
+  @JsonKey(name: 'latest')
+  final List<TagModel> tags;
+
+  const TagGroup({required this.count, required this.tags});
+
+  factory TagGroup.empty() => const TagGroup(count: 0, tags: []);
+
+  factory TagGroup.fromJson(Map<String, dynamic> json) =>
+      _$TagGroupFromJson(json);
+}

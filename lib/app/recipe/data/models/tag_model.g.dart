@@ -13,3 +13,15 @@ Map<String, dynamic> _$TagModelToJson(TagModel instance) => <String, dynamic>{
   'name': instance.name,
   'tag_type': instance.tagType,
 };
+
+TagGroup _$TagGroupFromJson(Map<String, dynamic> json) => TagGroup(
+  count: (json['total'] as num).toInt(),
+  tags: (json['latest'] as List<dynamic>)
+      .map((e) => TagModel.fromJson(e as Map<String, dynamic>))
+      .toList(),
+);
+
+Map<String, dynamic> _$TagGroupToJson(TagGroup instance) => <String, dynamic>{
+  'total': instance.count,
+  'latest': instance.tags,
+};

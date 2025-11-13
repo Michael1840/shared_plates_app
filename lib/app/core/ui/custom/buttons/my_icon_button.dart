@@ -9,6 +9,7 @@ class MyIconButton extends StatelessWidget {
   final bool isLoading;
   final bool disabled;
   final bool _isColored;
+  final Color? color;
 
   const MyIconButton({
     super.key,
@@ -17,7 +18,8 @@ class MyIconButton extends StatelessWidget {
     this.padding,
     this.disabled = false,
     this.isLoading = false,
-  }) : _isColored = false;
+  }) : _isColored = false,
+       color = null;
 
   const MyIconButton.colored({
     super.key,
@@ -26,6 +28,7 @@ class MyIconButton extends StatelessWidget {
     this.padding,
     this.disabled = false,
     this.isLoading = false,
+    this.color,
   }) : _isColored = true;
 
   @override
@@ -55,11 +58,15 @@ class MyIconButton extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(padding ?? 8),
       decoration: BoxDecoration(
-        color: !_isColored ? context.container : context.primary,
+        color: !_isColored ? context.container : color ?? context.primary,
         borderRadius: BorderRadius.circular(100),
       ),
       child: !isLoading
-          ? Icon(icon, color: context.textSecondary, size: 18)
+          ? Icon(
+              icon,
+              color: _isColored ? context.white : context.textSecondary,
+              size: 18,
+            )
           : ConstrainedBox(
               constraints: const BoxConstraints(maxHeight: 16, maxWidth: 16),
               child: CircularProgressIndicator(

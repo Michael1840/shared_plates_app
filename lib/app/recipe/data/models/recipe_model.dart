@@ -34,6 +34,8 @@ class RecipeModel {
   final String title;
   final double cost;
   final int serves;
+  @JsonKey(defaultValue: TagGroup.empty)
+  final TagGroup tagGroup;
   final String? image;
   @JsonKey(defaultValue: false)
   final bool isLiked;
@@ -46,6 +48,7 @@ class RecipeModel {
     required this.serves,
     required this.createdBy,
     required this.isLiked,
+    required this.tagGroup,
     this.image,
   });
 
@@ -59,6 +62,7 @@ class RecipeModel {
     String? title,
     double? cost,
     int? serves,
+    TagGroup? tagGroup,
     String? image,
     bool? isLiked,
     String? createdBy,
@@ -68,6 +72,7 @@ class RecipeModel {
       title: title ?? this.title,
       cost: cost ?? this.cost,
       serves: serves ?? this.serves,
+      tagGroup: tagGroup ?? this.tagGroup,
       image: image ?? this.image,
       isLiked: isLiked ?? this.isLiked,
       createdBy: createdBy ?? this.createdBy,
@@ -77,10 +82,12 @@ class RecipeModel {
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class RecipeDetailModel extends RecipeModel {
+  @JsonKey(defaultValue: [])
   final List<IngredientModel> ingredients;
+  @JsonKey(defaultValue: [])
   final List<StepModel> steps;
+  @JsonKey(defaultValue: [])
   final List<TagModel> tags;
-
   @JsonKey(defaultValue: PrivacyStatus.public)
   final PrivacyStatus privacyStatus;
 
@@ -91,6 +98,7 @@ class RecipeDetailModel extends RecipeModel {
     required super.serves,
     required super.createdBy,
     required super.isLiked,
+    required super.tagGroup,
     super.image,
     required this.ingredients,
     required this.tags,

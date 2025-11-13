@@ -13,6 +13,9 @@ RecipeModel _$RecipeModelFromJson(Map<String, dynamic> json) => RecipeModel(
   serves: (json['serves'] as num).toInt(),
   createdBy: json['created_by'] as String,
   isLiked: json['is_liked'] as bool? ?? false,
+  tagGroup: json['tag_group'] == null
+      ? TagGroup.empty()
+      : TagGroup.fromJson(json['tag_group'] as Map<String, dynamic>),
   image: json['image'] as String?,
 );
 
@@ -22,6 +25,7 @@ Map<String, dynamic> _$RecipeModelToJson(RecipeModel instance) =>
       'title': instance.title,
       'cost': instance.cost,
       'serves': instance.serves,
+      'tag_group': instance.tagGroup,
       'image': instance.image,
       'is_liked': instance.isLiked,
       'created_by': instance.createdBy,
@@ -35,16 +39,25 @@ RecipeDetailModel _$RecipeDetailModelFromJson(Map<String, dynamic> json) =>
       serves: (json['serves'] as num).toInt(),
       createdBy: json['created_by'] as String,
       isLiked: json['is_liked'] as bool? ?? false,
+      tagGroup: json['tag_group'] == null
+          ? TagGroup.empty()
+          : TagGroup.fromJson(json['tag_group'] as Map<String, dynamic>),
       image: json['image'] as String?,
-      ingredients: (json['ingredients'] as List<dynamic>)
-          .map((e) => IngredientModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      tags: (json['tags'] as List<dynamic>)
-          .map((e) => TagModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      steps: (json['steps'] as List<dynamic>)
-          .map((e) => StepModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      ingredients:
+          (json['ingredients'] as List<dynamic>?)
+              ?.map((e) => IngredientModel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+      tags:
+          (json['tags'] as List<dynamic>?)
+              ?.map((e) => TagModel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+      steps:
+          (json['steps'] as List<dynamic>?)
+              ?.map((e) => StepModel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
       privacyStatus:
           $enumDecodeNullable(_$PrivacyStatusEnumMap, json['privacy_status']) ??
           PrivacyStatus.public,
@@ -56,6 +69,7 @@ Map<String, dynamic> _$RecipeDetailModelToJson(RecipeDetailModel instance) =>
       'title': instance.title,
       'cost': instance.cost,
       'serves': instance.serves,
+      'tag_group': instance.tagGroup,
       'image': instance.image,
       'is_liked': instance.isLiked,
       'created_by': instance.createdBy,
