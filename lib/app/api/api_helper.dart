@@ -8,6 +8,7 @@ import '../../main.dart';
 import '../core/data/helpers/network_helper.dart';
 import 'models/api_response_model.dart';
 import 'models/model_converter.dart';
+import 'models/pagination_model.dart';
 import 'models/result_model.dart';
 
 part 'api_routes.dart';
@@ -26,6 +27,14 @@ class DioClient {
   static final Dio dio = Dio(
     BaseOptions(
       baseUrl: baseUrl,
+      connectTimeout: const Duration(seconds: 15),
+      receiveTimeout: const Duration(seconds: 15),
+    ),
+  )..interceptors.add(ApiInterceptors());
+
+  static final Dio dioNoBase = Dio(
+    BaseOptions(
+      baseUrl: '',
       connectTimeout: const Duration(seconds: 15),
       receiveTimeout: const Duration(seconds: 15),
     ),
@@ -168,6 +177,46 @@ class ApiHelper {
 
       final list = converter.fromList(response.data['data']);
       return Result.ok(list);
+    } on Exception catch (e) {
+      return Result.error(e);
+    }
+  }
+
+  static Future<Result<PaginationModel<T>>> requestPaginatedList<T>(
+    String endpoint,
+    DioMethod method, {
+    required ModelConverter<T> converter,
+    Map<String, dynamic>? req,
+    String? contentType,
+    FormData? formData,
+    bool hasAuth = false,
+  }) async {
+    try {
+      final ApiResponseModel response = await request(
+        endpoint,
+        method,
+        data: req,
+        hasAuth: hasAuth,
+        contentType: contentType,
+        formData: formData,
+      );
+
+      final errorResult = _handleError<PaginationModel<T>>(response);
+      if (errorResult != null) return errorResult;
+
+      if (response.data['data'] is! Iterable) {
+        throw ArgumentError('Expected Map, got ${response.data.runtimeType}');
+      }
+
+      final list = converter.fromList(response.data['data']);
+
+      final PaginationModel<T> pagination = PaginationModel(
+        items: list,
+        nextUrl: response.data['next'],
+        previousUrl: response.data['previous'],
+      );
+
+      return Result.ok(pagination);
     } on Exception catch (e) {
       return Result.error(e);
     }

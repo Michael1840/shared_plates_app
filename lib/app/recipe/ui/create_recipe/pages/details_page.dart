@@ -30,7 +30,7 @@ class DetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PageContainer.scrollable(
-      padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+      padding: const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 20),
       child: Column(
         spacing: 16,
         crossAxisAlignment: CrossAxisAlignment.start,

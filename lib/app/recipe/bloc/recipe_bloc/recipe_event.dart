@@ -15,6 +15,8 @@ class RecipeFetchUserRecipes extends RecipeEvent {}
 
 class RecipeFetchDashboardRecipes extends RecipeEvent {}
 
+class RecipeFetchTrendingMore extends RecipeEvent {}
+
 class ResetCreateRecipe extends RecipeEvent {}
 
 class LikeRecipe extends RecipeEvent {

@@ -121,13 +121,13 @@ String onboardingAsset(BuildContext context, int index) {
 // ];
 
 const List<String> kCategories = [
-  'Lunch',
   'Breakfast',
+  'Lunch',
   'Dinner',
+  'Main Course',
   'Snack',
   'Soup',
   'Drink',
-  'Main Course',
 ];
 
 const List<String> kDiets = [

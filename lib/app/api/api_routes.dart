@@ -20,17 +20,17 @@ class ApiRoutes {
   static const String recipe = '/meals/';
   static const String createRecipe = recipe;
   static String recipeWithId(int id) => '$recipe$id';
-  static String likeRecipe(int id) => '${recipe}like/$id';
-  static String uploadMealImage(int id) => '${recipe}upload/$id';
+  static String likeRecipe(int id) => '$recipe$id/like/';
+  static String uploadMealImage(int id) => '$recipe$id/upload-image/';
   static const String userRecipes = recipe;
   static String trendingRecipes({int? length, int? page}) {
     String endPoint = '${recipe}trending/';
 
-    if (page != null) {
+    if (page != null && length != null) {
+      endPoint = '$endPoint?page=$page&page_size=$length';
+    } else if (page != null) {
       endPoint = '$endPoint?page=$page';
-    }
-
-    if (length != null) {
+    } else if (length != null) {
       endPoint = '$endPoint?page_size=$length';
     }
 
@@ -38,13 +38,13 @@ class ApiRoutes {
   }
 
   static String friendsRecipes({int? length, int? page}) {
-    String endPoint = '${recipe}friends/';
+    String endPoint = '${recipe}friends-feed/';
 
-    if (page != null) {
+    if (page != null && length != null) {
+      endPoint = '$endPoint?page=$page&page_size=$length';
+    } else if (page != null) {
       endPoint = '$endPoint?page=$page';
-    }
-
-    if (length != null) {
+    } else if (length != null) {
       endPoint = '$endPoint?page_size=$length';
     }
 

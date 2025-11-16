@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../recipe/data/models/recipe_model.dart';
 import '../api_helper.dart';
 import '../models/api_response_model.dart';
+import '../models/pagination_model.dart';
 import '../models/result_model.dart';
 
 class RecipeApiService {
@@ -14,41 +15,63 @@ class RecipeApiService {
 
   Future<Result<List<RecipeModel>>> getUserRecipes() async {
     try {
-      final ApiResponseModel response = await ApiHelper.request(
+      return await ApiHelper.requestModelList<RecipeModel>(
         ApiRoutes.userRecipes,
         DioMethod.get,
         hasAuth: true,
+        converter: _recipeModelConverter,
       );
 
-      if (!response.isSuccess) {
-        return Result.error(Exception('Failed to get your recipes.'));
-      }
+      // if (!response.isSuccess) {
+      //   return Result.error(Exception('Failed to get your recipes.'));
+      // }
 
-      if (response.data['data'] is! Iterable) {
-        return const Result.castError();
-      }
+      // if (response.data['data'] is! Iterable) {
+      //   return const Result.castError();
+      // }
 
-      List<RecipeModel> recipes = (response.data['data'] as Iterable)
-          .map((e) => RecipeModel.fromJson(e))
-          .toList();
+      // List<RecipeModel> recipes = (response.data['data'] as Iterable)
+      //     .map((e) => RecipeModel.fromJson(e))
+      //     .toList();
 
-      return Result.ok(recipes);
+      // return Result.ok(recipes);
     } on Exception catch (e) {
       debugPrint(e.toString());
       return Result.error(e);
     }
   }
 
-  Future<Result<List<RecipeModel>>> getTrendingRecipes(
+  Future<Result<PaginationModel<RecipeModel>>> getMoreRecipes(
+    String nextUrl,
+  ) async {
+    try {
+      return await ApiHelper.requestPaginatedList<RecipeModel>(
+        nextUrl,
+        DioMethod.get,
+        hasAuth: true,
+        converter: _recipeModelConverter,
+      );
+    } on Exception catch (e) {
+      debugPrint(e.toString());
+      return Result.error(e);
+    }
+  }
+
+  Future<Result<PaginationModel<RecipeModel>>> getTrendingRecipes(
     int? length,
     int? page,
   ) async {
-    return ApiHelper.requestModelList<RecipeModel>(
-      ApiRoutes.trendingRecipes(length: length, page: page),
-      DioMethod.get,
-      hasAuth: true,
-      converter: _recipeModelConverter,
-    );
+    try {
+      return ApiHelper.requestPaginatedList<RecipeModel>(
+        ApiRoutes.trendingRecipes(length: length, page: page),
+        DioMethod.get,
+        hasAuth: true,
+        converter: _recipeModelConverter,
+      );
+    } on Exception catch (e) {
+      debugPrint(e.toString());
+      return Result.error(e);
+    }
   }
 
   Future<Result<List<RecipeModel>>> getFriendsRecipes(

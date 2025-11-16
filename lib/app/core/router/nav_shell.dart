@@ -85,9 +85,9 @@ class _NavigationShellState extends State<NavigationShell> {
                     activeIcon: Icon(MyIcons.house_02, color: context.primary),
                   ),
                   BottomNavigationBarItem(
-                    activeIcon: Icon(MyIcons.book, color: context.primary),
-                    icon: const Icon(MyIcons.book),
-                    label: 'Recipes',
+                    activeIcon: Icon(MyIcons.compass, color: context.primary),
+                    icon: const Icon(MyIcons.compass),
+                    label: 'Discover',
                   ),
                   BottomNavigationBarItem(
                     activeIcon: Icon(
@@ -95,12 +95,12 @@ class _NavigationShellState extends State<NavigationShell> {
                       color: context.primary,
                     ),
                     icon: const Icon(MyIcons.add_plus_circle),
-                    label: 'Discover',
+                    label: 'Add',
                   ),
                   BottomNavigationBarItem(
-                    activeIcon: Icon(MyIcons.compass, color: context.primary),
-                    icon: const Icon(MyIcons.compass),
-                    label: 'Discover',
+                    activeIcon: Icon(MyIcons.book, color: context.primary),
+                    icon: const Icon(MyIcons.book),
+                    label: 'Recipes',
                   ),
                   BottomNavigationBarItem(
                     activeIcon: Icon(

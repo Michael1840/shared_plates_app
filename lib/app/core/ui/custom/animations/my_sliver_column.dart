@@ -6,6 +6,7 @@ import '../../../utils/extensions.dart';
 class MySliverColumn extends StatelessWidget {
   final double gap;
   final Axis scrollDirection;
+  final ScrollController? scrollController;
   final Widget? separator;
   final Widget? customPinnedWidget;
   final bool shrinkWrap;
@@ -16,7 +17,7 @@ class MySliverColumn extends StatelessWidget {
 
   const MySliverColumn({
     super.key,
-
+    this.scrollController,
     this.gap = 20,
     this.physics,
     this.customPinnedWidget,
@@ -30,6 +31,7 @@ class MySliverColumn extends StatelessWidget {
   const MySliverColumn.customSeparator({
     super.key,
     required this.separator,
+    this.scrollController,
     this.scrollDirection = Axis.vertical,
     this.customPinnedWidget,
     this.shrinkWrap = false,
@@ -43,6 +45,7 @@ class MySliverColumn extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget body =
         CustomScrollView(
+          controller: scrollController,
           physics: physics,
           clipBehavior: Clip.hardEdge,
           scrollDirection: scrollDirection,

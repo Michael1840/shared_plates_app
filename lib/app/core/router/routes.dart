@@ -128,6 +128,32 @@ class NavigationRouter {
           StatefulShellBranch(
             routes: [
               GoRoute(
+                path: Routes.discover,
+                name: Routes.discover,
+                pageBuilder: (context, state) =>
+                    buildSlideTransition(const DiscoverPage(), state.pageKey),
+                routes: [],
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: Routes.createRecipe,
+                name: Routes.createRecipe,
+                pageBuilder: (context, state) => buildSlideTransition(
+                  BlocProvider(
+                    create: (context) => CreateRecipeCubit(),
+                    child: const CreateRecipePage(),
+                  ),
+                  state.pageKey,
+                ),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
                 path: Routes.recipes,
                 name: Routes.recipes,
                 pageBuilder: (context, state) =>
@@ -151,32 +177,6 @@ class NavigationRouter {
                     },
                   ),
                 ],
-              ),
-            ],
-          ),
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: Routes.createRecipe,
-                name: Routes.createRecipe,
-                pageBuilder: (context, state) => buildSlideTransition(
-                  BlocProvider(
-                    create: (context) => CreateRecipeCubit(),
-                    child: const CreateRecipePage(),
-                  ),
-                  state.pageKey,
-                ),
-              ),
-            ],
-          ),
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: Routes.discover,
-                name: Routes.discover,
-                pageBuilder: (context, state) =>
-                    buildSlideTransition(const DiscoverPage(), state.pageKey),
-                routes: [],
               ),
             ],
           ),

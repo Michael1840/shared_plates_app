@@ -14,6 +14,7 @@ class MyNetworkImage extends StatelessWidget {
   final double? svgHeight;
   final double? svgWidth;
   final double? radius;
+  final String? errorAsset;
   const MyNetworkImage({
     super.key,
     required this.url,
@@ -22,6 +23,7 @@ class MyNetworkImage extends StatelessWidget {
     this.width,
     this.svgHeight,
     this.svgWidth,
+    this.errorAsset,
   });
 
   @override
@@ -46,7 +48,7 @@ class MyNetworkImage extends StatelessWidget {
 
             child: Center(
               child: SvgPicture.asset(
-                sharedPlatesSvg,
+                errorAsset ?? sharedPlatesSvg,
                 width: svgHeight ?? 48,
                 height: svgWidth ?? 48,
                 colorFilter: const ColorFilter.mode(

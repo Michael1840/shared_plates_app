@@ -8,6 +8,7 @@ import '../icons/my_icons.dart';
 
 class MySliverList extends StatelessWidget {
   final int itemCount;
+  final ScrollController? scrollController;
   final Widget? Function(BuildContext context, int index)? itemBuilder;
   final double gap;
   final Axis scrollDirection;
@@ -24,6 +25,7 @@ class MySliverList extends StatelessWidget {
     super.key,
     required this.itemBuilder,
     required this.itemCount,
+    this.scrollController,
     this.gap = 20,
     this.physics,
     this.customPinnedWidget,
@@ -39,6 +41,7 @@ class MySliverList extends StatelessWidget {
     super.key,
     required this.itemBuilder,
     required this.itemCount,
+    this.scrollController,
     this.gap = 20,
     this.physics,
     this.customPinnedWidget,
@@ -55,6 +58,7 @@ class MySliverList extends StatelessWidget {
     required this.itemBuilder,
     required this.itemCount,
     required this.separator,
+    this.scrollController,
     this.scrollDirection = Axis.vertical,
     this.customPinnedWidget,
     this.shrinkWrap = false,
@@ -69,6 +73,7 @@ class MySliverList extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget body =
         CustomScrollView(
+          controller: scrollController,
           physics: physics,
           clipBehavior: Clip.hardEdge,
           scrollDirection: scrollDirection,

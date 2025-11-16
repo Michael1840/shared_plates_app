@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
+import '../../../api/models/pagination_model.dart';
 import '../../../api/models/result_model.dart';
 import '../../../core/data/models/delayed_result.dart';
 import '../../data/models/create_recipe_model.dart';
@@ -20,6 +21,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
       super(RecipeState.initial()) {
     on<RecipeFetchUserRecipes>(_handleFetchUserRecipes);
     on<RecipeFetchDashboardRecipes>(_handleFetchDashboardRecipes);
+    on<RecipeFetchTrendingMore>(_handleFetchTrendingMore);
     on<RecipeCreate>(_handleRecipeCreate);
     on<ResetCreateRecipe>(_handleResetCreate);
     on<LikeRecipe>(_handleLikeRecipe);
@@ -33,6 +35,54 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
     Emitter<RecipeState> emit,
   ) async {
     emit(state.copyWith(recipeCreated: false));
+  }
+
+  Future<void> _handleFetchTrendingMore(
+    RecipeFetchTrendingMore event,
+    Emitter<RecipeState> emit,
+  ) async {
+    if (state.isMoreLoading) return;
+
+    if (state.trendingRecipesResult.value == null ||
+        state.trendingRecipesResult.value!.nextUrl == null) {
+      return;
+    }
+
+    final List<RecipeModel> currentRecipes = List.from(state.trendingRecipes);
+
+    emit(state.copyWith(moreLoadingResult: const DelayedResult.inProgress()));
+
+    try {
+      final result = await _recipeRepo.getMoreRecipes(
+        state.trendingRecipesResult.value!.nextUrl!,
+      );
+
+      switch (result) {
+        case Error<PaginationModel<RecipeModel>>():
+          throw result.error;
+        case CastError<PaginationModel<RecipeModel>>():
+          throw result.error;
+        case Ok<PaginationModel<RecipeModel>>():
+      }
+
+      currentRecipes.addAll(result.value.items);
+
+      emit(
+        state.copyWith(
+          trendingRecipesResult: DelayedResult.fromValue(
+            result.value.copyWith(items: currentRecipes),
+          ),
+          moreLoadingResult: DelayedResult.fromValue(null),
+        ),
+      );
+    } catch (e) {
+      debugPrint(e.toString());
+      emit(
+        state.copyWith(
+          moreLoadingResult: DelayedResult.fromError(e.toString()),
+        ),
+      );
+    }
   }
 
   Future<void> _handleLikeRecipe(
@@ -67,8 +117,12 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
 
     emit(
       state.copyWith(
-        trendingRecipesResult: type == RecipeType.trending
-            ? DelayedResult.fromValue(recipes)
+        trendingRecipesResult:
+            type == RecipeType.trending &&
+                state.trendingRecipesResult.value != null
+            ? DelayedResult.fromValue(
+                state.trendingRecipesResult.value!.copyWith(items: recipes),
+              )
             : null,
         userRecipesResult: type == RecipeType.user
             ? DelayedResult.fromValue(recipes)
@@ -198,40 +252,41 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
     );
 
     try {
-      final List<Result<List<RecipeModel>>> results = await Future.wait([
-        _recipeRepo.getTrendingRecipes(5, null),
-        _recipeRepo.getFriendsRecipes(5, null),
-      ]);
+      final List<Result<PaginationModel<RecipeModel>>> results =
+          await Future.wait([
+            _recipeRepo.getTrendingRecipes(10, 1),
+            // _recipeRepo.getFriendsRecipes(5, null),
+          ]);
 
       final trendingResult = results[0];
-      final friendsResult = results[1];
+      // final <> friendsResult = results[1];
 
-      List<RecipeModel>? trendingRecipes;
+      PaginationModel<RecipeModel>? trendingRecipes;
       List<RecipeModel>? friendsRecipes;
 
       Exception? trendingError;
       Exception? friendsError;
 
       switch (trendingResult) {
-        case Error<List<RecipeModel>>():
+        case Error<PaginationModel<RecipeModel>>():
           trendingError = trendingResult.error;
-        case CastError<List<RecipeModel>>():
+        case CastError<PaginationModel<RecipeModel>>():
           trendingError = trendingResult.error;
-        case Ok<List<RecipeModel>>():
+        case Ok<PaginationModel<RecipeModel>>():
           trendingRecipes = trendingResult.value;
       }
 
-      switch (friendsResult) {
-        case Error<List<RecipeModel>>():
-          friendsError = friendsResult.error;
-        case CastError<List<RecipeModel>>():
-          friendsError = friendsResult.error;
-        case Ok<List<RecipeModel>>():
-          friendsRecipes = friendsResult.value;
-      }
+      // switch (friendsResult) {
+      //   case Error<List<RecipeModel>>():
+      //     friendsError = friendsResult.error;
+      //   case CastError<List<RecipeModel>>():
+      //     friendsError = friendsResult.error;
+      //   case Ok<List<RecipeModel>>():
+      //     friendsRecipes = friendsResult.value;
+      // }
 
-      DelayedResult<List<RecipeModel>> resolveResult(
-        List<RecipeModel>? data,
+      DelayedResult<PaginationModel<RecipeModel>> resolveResult(
+        PaginationModel<RecipeModel>? data,
         Exception? error,
       ) {
         if (data != null) return DelayedResult.fromValue(data);
@@ -242,7 +297,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
       emit(
         state.copyWith(
           trendingRecipesResult: resolveResult(trendingRecipes, trendingError),
-          friendsRecipesResult: resolveResult(friendsRecipes, friendsError),
+          friendsRecipesResult: DelayedResult.fromValue([]),
         ),
       );
     } catch (e) {

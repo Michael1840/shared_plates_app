@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
+import '../../../api/models/pagination_model.dart';
 import '../../../api/models/result_model.dart';
 import '../../../api/services/recipe_api_service.dart';
 import '../models/recipe_model.dart';
@@ -11,12 +12,24 @@ abstract class RecipesRepository {
   RecipesRepository(this._api);
 
   Future<Result<List<RecipeModel>>> getUserRecipes();
-  Future<Result<List<RecipeModel>>> getTrendingRecipes(int? length, int? page);
+
+  Future<Result<PaginationModel<RecipeModel>>> getTrendingRecipes(
+    int? length,
+    int? page,
+  );
+
+  Future<Result<PaginationModel<RecipeModel>>> getMoreRecipes(String url);
+
   Future<Result<List<RecipeModel>>> getFriendsRecipes(int? length, int? page);
+
   Future<Result<RecipeDetailModel>> getRecipeById(int id);
+
   Future<Result<void>> likeRecipe(int id);
+
   Future<Result<RecipeModel>> createRecipe(Map<String, dynamic> req);
+
   Future<Result<RecipeModel>> updateRecipe(Map<String, dynamic> req, int id);
+
   Future<Result<RecipeModel>> uploadMealImage(FormData data, int id);
 }
 
@@ -37,7 +50,22 @@ class RecipesDataProvider extends RecipesRepository {
   }
 
   @override
-  Future<Result<List<RecipeModel>>> getTrendingRecipes(
+  Future<Result<PaginationModel<RecipeModel>>> getMoreRecipes(
+    String url,
+  ) async {
+    try {
+      return await _api.getMoreRecipes(url);
+    } on Exception catch (e) {
+      debugPrint(e.toString());
+      return Result.error(e);
+    } catch (e) {
+      debugPrint(e.toString());
+      return Result.error(Exception(e));
+    }
+  }
+
+  @override
+  Future<Result<PaginationModel<RecipeModel>>> getTrendingRecipes(
     int? length,
     int? page,
   ) async {

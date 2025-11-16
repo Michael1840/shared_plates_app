@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_debouncer/flutter_debouncer.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../auth/blocs/user_bloc/user_bloc.dart';
 import '../../core/router/routes.dart';
 import '../../core/ui/custom/animations/animate_list.dart';
+import '../../core/ui/custom/animations/ball_animation.dart';
 import '../../core/ui/custom/animations/my_sliver_column.dart';
 import '../../core/ui/custom/appbar/sliver_app_bar.dart';
 import '../../core/ui/custom/buttons/create_recipe_button.dart';
@@ -18,11 +20,44 @@ import '../../recipe/bloc/recipe_bloc/recipe_bloc.dart';
 import '../../recipe/data/models/recipe_model.dart';
 import 'filter_home_page.dart';
 import 'items/full_width_card.dart';
-import 'items/recipe_item.dart';
 import 'skeleton/home_skeleton_page.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final Throttler _throttler = Throttler();
+
+  late ScrollController _scrollController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _scrollController = ScrollController()..addListener(_scrollListener);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_scrollListener);
+    super.dispose();
+  }
+
+  void _scrollListener() {
+    _throttler.throttle(
+      duration: const Duration(seconds: 1),
+      onThrottle: () {
+        if (_scrollController.position.extentAfter < 150) {
+          print('Fetching more trending recipes...');
+          context.read<RecipeBloc>().add(RecipeFetchTrendingMore());
+        }
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +95,7 @@ class HomePage extends StatelessWidget {
                 bottom: 0,
               ),
               child: MySliverColumn(
+                scrollController: _scrollController,
                 onRefresh: () async {
                   context.read<RecipeBloc>().add(RecipeFetchDashboardRecipes());
                 },
@@ -102,7 +138,7 @@ class HomePage extends StatelessWidget {
                   ),
 
                   ViewAllRow(
-                    title: 'Trending Recipes',
+                    title: 'Hot This Week',
                     onTap: () {},
                   ).paddingBottom(20).toSliver(),
 
@@ -110,6 +146,7 @@ class HomePage extends StatelessWidget {
                     scrollable: false,
                     emptyText: 'No recipes found',
                     gap: 40,
+
                     itemBuilder: (context, index) =>
                         FullWidthCard(
                               recipe: trendingRecipes[index],
@@ -134,29 +171,34 @@ class HomePage extends StatelessWidget {
                     itemCount: trendingRecipes.length,
                   ),
 
-                  ViewAllRow(
-                    title: 'Friends Recipes',
-                    onTap: () {},
-                  ).paddingBottom(20).toSliver(),
+                  if (state.isMoreLoading)
+                    const BallAnimation(
+                      ballSize: 15,
+                    ).paddingSymmetric(vertical: 32).toSliver(),
 
-                  MySliverList(
-                    emptyText: 'No recipes found',
-                    itemBuilder: (context, index) =>
-                        RecipeItem(recipe: friendsRecipes[index])
-                            .onTap(() {
-                              context.pushNamed(
-                                Routes.dashRecipeDetail,
-                                pathParameters: {
-                                  'id': friendsRecipes[index].id.toString(),
-                                },
-                              );
-                            })
-                            .paddingBottom(
-                              (index + 1) == friendsRecipes.length ? 20 : 0,
-                            )
-                            .listAnimate(index),
-                    itemCount: friendsRecipes.length,
-                  ).paddingBottom(20).toSliver(),
+                  // ViewAllRow(
+                  //   title: 'Friends Recipes',
+                  //   onTap: () {},
+                  // ).paddingBottom(20).toSliver(),
+
+                  // MySliverList(
+                  //   emptyText: 'No recipes found',
+                  //   itemBuilder: (context, index) =>
+                  //       RecipeItem(recipe: friendsRecipes[index])
+                  //           .onTap(() {
+                  //             context.pushNamed(
+                  //               Routes.dashRecipeDetail,
+                  //               pathParameters: {
+                  //                 'id': friendsRecipes[index].id.toString(),
+                  //               },
+                  //             );
+                  //           })
+                  //           .paddingBottom(
+                  //             (index + 1) == friendsRecipes.length ? 20 : 0,
+                  //           )
+                  //           .listAnimate(index),
+                  //   itemCount: friendsRecipes.length,
+                  // ).paddingBottom(20).toSliver(),
                 ],
               ),
             );
