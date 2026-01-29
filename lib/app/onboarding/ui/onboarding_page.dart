@@ -110,8 +110,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   ),
                 )
                 .animate(delay: 1250.ms)
-                .fadeIn(duration: 500.ms)
-                .slideY(begin: 1, end: 0, duration: 500.ms),
+                .fadeIn(duration: 1000.ms)
+                .slideY(begin: 1, end: 0, duration: 1000.ms),
             const SizedBox(height: 40),
             if (_currentIndex == 2)
               WideTextButton(
@@ -134,8 +134,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     },
                   )
                   .animate(delay: 1000.ms)
-                  .fadeIn(duration: 500.ms)
-                  .slideY(begin: 1, end: 0, duration: 500.ms),
+                  .fadeIn(duration: 1000.ms)
+                  .slideY(begin: 1, end: 0, duration: 1000.ms),
           ],
         ),
       ),
