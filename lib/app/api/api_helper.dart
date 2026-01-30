@@ -17,11 +17,7 @@ enum DioMethod { post, get, put, delete }
 
 class DioClient {
   static String get baseUrl {
-    // if (kDebugMode) {
-    //   return ApiRoutes.debugUrl;
-    // }
-
-    return ApiRoutes.releaseUrl;
+    return ApiRoutes.apiUrl;
   }
 
   static final Dio dio = Dio(

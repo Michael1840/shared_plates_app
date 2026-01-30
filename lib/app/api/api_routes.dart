@@ -1,9 +1,13 @@
 part of 'api_helper.dart';
 
 class ApiRoutes {
-  static const String releaseUrl =
-      'https://sharedplatesapi-production.up.railway.app/api/v1';
-  static const String debugUrl = '';
+  static const String stagingUrl =
+      'https://sharedplatesapi-staging.up.railway.app/api/v1';
+
+  static const String apiUrl = String.fromEnvironment(
+    'API_URL',
+    defaultValue: stagingUrl,
+  );
 
   static const String tokenRefresh = '/token/refresh/';
 
