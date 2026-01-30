@@ -19,6 +19,8 @@ final TokenStorage tokenStorage = TokenStorage();
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  // Added random comment for testing git
+
   await tokenStorage.init();
 
   runApp(const MyApp());
