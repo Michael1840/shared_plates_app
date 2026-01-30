@@ -21,7 +21,8 @@ class LightAppColors {
 class AccentColors {
   static const Color primary = Color(0xFFDE6109);
 
-  static const Color green = Color(0xFF89AC46);
+  // static const Color green = Color(0xFF89AC46);
+  static const Color green = Color(0xFF7CC02F);
 
   static const Color purple = Color(0xFF7946AC);
 
@@ -39,7 +40,7 @@ class LoadingColors {
 }
 
 class TextColors {
-  static const Color accent = Color(0xFF89AC46);
+  static const Color accent = Color(0xFF7CC02F);
 
   static const Color primaryDark = Color(0xFFFFFFFF);
   static const Color primaryLight = Color(0xFF222222);
@@ -48,9 +49,9 @@ class TextColors {
 }
 
 class BorderColors {
-  static const Color primary = Color(0xFF212121);
+  static const Color primary = Color.fromARGB(255, 102, 102, 102);
 
-  static const Color secondary = Color(0xFF282828);
+  static const Color secondary = Color.fromARGB(255, 116, 116, 116);
 }
 
 class Gradients {}

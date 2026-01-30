@@ -16,6 +16,7 @@ class WideTextButton extends StatelessWidget {
   final double? radius;
   final Color? color;
   final Color? textColor;
+  final Color? borderColor;
 
   const WideTextButton({
     super.key,
@@ -28,6 +29,7 @@ class WideTextButton extends StatelessWidget {
     this.radius,
     this.color,
     this.textColor,
+    this.borderColor,
   });
 
   const WideTextButton.action({
@@ -41,6 +43,7 @@ class WideTextButton extends StatelessWidget {
     this.radius,
     this.color,
     this.textColor,
+    this.borderColor,
   });
 
   @override
@@ -51,7 +54,8 @@ class WideTextButton extends StatelessWidget {
         padding: padding
             .subtract(const EdgeInsets.all(6))
             .resolve(TextDirection.ltr),
-        hasBorder: false,
+        hasBorder: borderColor != null,
+        borderColor: borderColor,
         radius: radius ?? Rounding.reg,
         color: isReversed ? context.onContainer : color ?? context.green,
         child: const Center(child: BallAnimation(ballSize: 15)),
@@ -109,7 +113,8 @@ class WideTextButton extends StatelessWidget {
     return DefaultContainer(
       expanded: true,
       padding: padding,
-      hasBorder: false,
+      hasBorder: borderColor != null,
+      borderColor: borderColor,
       radius: radius ?? Rounding.reg,
       color: color ?? context.green,
       child: Center(

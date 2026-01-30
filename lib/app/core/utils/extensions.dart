@@ -282,12 +282,13 @@ extension ThemeExtensions on BuildContext {
     double? size,
     FontStyle? style,
     TextDecoration? decoration,
-  }) => GoogleFonts.poppins(
+    double? height,
+  }) => GoogleFonts.montserrat(
     color: color,
     fontWeight: weight,
     fontStyle: style,
     fontSize: size,
     decoration: decoration,
-    height: 1.2,
+    height: height ?? 1.2,
   );
 }

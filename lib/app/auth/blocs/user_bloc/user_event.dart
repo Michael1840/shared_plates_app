@@ -37,3 +37,5 @@ final class UserFromRefresh extends UserEvent {
 }
 
 final class UserLogout extends UserEvent {}
+
+final class ClearUserError extends UserEvent {}

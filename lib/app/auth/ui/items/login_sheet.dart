@@ -11,7 +11,8 @@ import '../../../core/utils/extensions.dart';
 import '../../blocs/user_bloc/user_bloc.dart';
 
 class LoginSheet extends StatefulWidget {
-  const LoginSheet({super.key});
+  final void Function() onTap;
+  const LoginSheet({super.key, required this.onTap});
 
   @override
   State<LoginSheet> createState() => _LoginSheetState();
@@ -63,6 +64,7 @@ class _LoginSheetState extends State<LoginSheet> {
               icon: MyIcons.mail,
               isRequired: true,
               textAction: TextInputAction.next,
+              keyboardType: TextInputType.emailAddress,
             ),
             MyFormField(
               controller: _passCont,
@@ -87,12 +89,13 @@ class _LoginSheetState extends State<LoginSheet> {
             BlocBuilder<UserBloc, UserState>(
               builder: (context, state) {
                 return WideTextButton(
-                  text: 'Login',
+                  text: 'Log In',
                   onTap: _login,
                   isLoading: state is UserLoading,
                 );
               },
             ),
+            // const SizedBox(),
             Row(
               spacing: 20,
               children: [
@@ -113,6 +116,7 @@ class _LoginSheetState extends State<LoginSheet> {
                 ),
               ],
             ),
+            // const SizedBox(),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               spacing: 12,
@@ -121,10 +125,29 @@ class _LoginSheetState extends State<LoginSheet> {
                 CircleSvgButton(asset: appleSvg, onTap: () {}),
               ],
             ),
-            const SizedBox(height: 20),
+            const SizedBox(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                AppText.primary(
+                  text: 'Need an account? ',
+                  alignment: TextAlign.center,
+                  color: context.white,
+                  size: 12,
+                ),
+                AppText.heading(
+                  text: 'Sign Up',
+                  alignment: TextAlign.center,
+                  color: context.green,
+                  size: 12,
+                ).onTap(widget.onTap),
+              ],
+            ),
           ],
         ),
       ),
-    );
+    ).onTap(() {
+      FocusScope.of(context).unfocus();
+    });
   }
 }

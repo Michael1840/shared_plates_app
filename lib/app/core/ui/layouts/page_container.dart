@@ -9,6 +9,7 @@ class PageContainer extends StatelessWidget {
   final Color? color;
   final bool isScrollable;
   final ScrollPhysics? physics;
+  final LinearGradient? gradient;
 
   const PageContainer({
     super.key,
@@ -16,6 +17,7 @@ class PageContainer extends StatelessWidget {
     this.padding,
     this.color,
     this.isScrollable = false,
+    this.gradient,
     required this.child,
   }) : physics = null;
 
@@ -26,6 +28,7 @@ class PageContainer extends StatelessWidget {
     this.color,
     this.isScrollable = true,
     this.physics,
+    this.gradient,
     required this.child,
   });
 
@@ -36,7 +39,10 @@ class PageContainer extends StatelessWidget {
           height: height,
           width: double.infinity,
           padding: padding ?? const EdgeInsets.all(20),
-          color: color ?? context.background,
+          decoration: BoxDecoration(
+            color: color ?? context.background,
+            gradient: gradient,
+          ),
           child: child,
         ).onTap(() {
           FocusScope.of(context).unfocus();

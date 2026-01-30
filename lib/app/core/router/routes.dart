@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../auth/blocs/user_bloc/user_bloc.dart';
 import '../../auth/ui/auth_check.dart';
 import '../../auth/ui/auth_page.dart';
+import '../../auth/ui/auth_sheet_page.dart';
 import '../../discover/ui/discover_page.dart';
 import '../../friends/bloc/friendship_bloc/friendship_bloc.dart';
 import '../../friends/data/repo/friends_repo.dart';
@@ -40,6 +41,7 @@ class Routes {
   static const String friends = '/friends';
 
   // SUB ROUTES
+  static const String authSheet = 'sheet';
 }
 
 class NavigationRouter {
@@ -55,12 +57,13 @@ class NavigationRouter {
       if (userState is UserUnauthenticated &&
           (path != Routes.authCheck &&
               path != Routes.onboarding &&
-              path != Routes.auth)) {
+              path != Routes.auth &&
+              path != '${Routes.auth}/${Routes.authSheet}')) {
         return Routes.authCheck;
       }
       return null;
     },
-
+    debugLogDiagnostics: true,
     routes: [
       GoRoute(
         path: Routes.authCheck,
@@ -81,7 +84,16 @@ class NavigationRouter {
         name: Routes.auth,
         pageBuilder: (context, state) =>
             buildSlideTransition(const AuthPage(), state.pageKey),
-        routes: [],
+        routes: [
+          GoRoute(
+            path: Routes.authSheet,
+            name: Routes.authSheet,
+            pageBuilder: (context, state) => buildSlideTransparentTransition(
+              const AuthSheetPage(),
+              state.pageKey,
+            ),
+          ),
+        ],
       ),
 
       StatefulShellRoute.indexedStack(
@@ -228,6 +240,26 @@ class NavigationRouter {
   ) => CustomTransitionPage(
     key: key,
     child: child,
+    transitionDuration: const Duration(milliseconds: 250),
+    reverseTransitionDuration: const Duration(milliseconds: 250),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      return SlideTransition(
+        position: Tween<Offset>(
+          begin: const Offset(0, 1),
+          end: Offset.zero,
+        ).animate(animation),
+        child: child,
+      );
+    },
+  );
+
+  static CustomTransitionPage buildSlideTransparentTransition(
+    Widget child,
+    LocalKey? key,
+  ) => CustomTransitionPage(
+    key: key,
+    child: child,
+    opaque: false,
     transitionDuration: const Duration(milliseconds: 250),
     reverseTransitionDuration: const Duration(milliseconds: 250),
     transitionsBuilder: (context, animation, secondaryAnimation, child) {

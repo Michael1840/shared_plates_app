@@ -20,6 +20,14 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<UserRegister>(_handleRegisterEvent);
     on<UserLogout>(_handleLogoutEvent);
     on<UserFromRefresh>(_handleLoginFromRefresh);
+    on<ClearUserError>(_handleClearError);
+  }
+
+  Future<void> _handleClearError(
+    ClearUserError event,
+    Emitter<UserState> emit,
+  ) async {
+    emit(const UserUnauthenticated());
   }
 
   Future<void> _handleLoginEvent(

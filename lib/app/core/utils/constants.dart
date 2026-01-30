@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 const String sharedPlatesSvg = 'assets/svgs/shared-plates-logo.svg';
+const String sharedPlatesWhiteSvg = 'assets/svgs/shared-plates-logo-white.svg';
 const String createRecipe1 = 'assets/images/create-recipe-1.png';
 const String createRecipe2 = 'assets/images/create-recipe-2.png';
 const String appleSvg = 'assets/svgs/apple.svg';
@@ -11,6 +12,8 @@ const String onboarding3Dark = 'assets/svgs/onboard-3-dark.svg';
 const String onboarding1Light = 'assets/svgs/onboard-1-dark.svg';
 const String onboarding2Light = 'assets/svgs/onboard-2-dark.svg';
 const String onboarding3Light = 'assets/svgs/onboard-3-dark.svg';
+
+const String foodTableBgPng = 'assets/images/food_table_bg.png';
 
 const String onboarding1 = 'assets/svgs/onboarding-1.svg';
 const String onboarding2 = 'assets/svgs/onboarding-2.svg';
