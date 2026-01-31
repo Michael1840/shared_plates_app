@@ -71,8 +71,8 @@ class MyDropdownButton extends StatelessWidget {
         color: context.theme.colorScheme.error,
       ),
       closedBorderRadius: BorderRadius.circular(100),
-      closedBorder: BoxBorder.all(color: context.borderPrimary),
-      expandedBorder: BoxBorder.all(color: context.borderPrimary),
+      closedBorder: BoxBorder.all(color: Colors.transparent),
+      expandedBorder: BoxBorder.all(color: Colors.transparent),
       expandedBorderRadius: BorderRadius.circular(16),
       closedErrorBorder: BoxBorder.all(color: StatusColors.failure),
       closedErrorBorderRadius: BorderRadius.circular(100),
@@ -81,7 +81,7 @@ class MyDropdownButton extends StatelessWidget {
       searchFieldDecoration: SearchFieldDecoration(
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(100),
-          borderSide: BorderSide(color: context.borderSecondary),
+          borderSide: BorderSide(color: Colors.transparent),
         ),
         fillColor: context.onContainer,
       ),

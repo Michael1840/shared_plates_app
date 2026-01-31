@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
-import '../../../theme/theme.dart';
 import '../../../utils/extensions.dart';
-import '../containers/default_container.dart';
-import '../icons/my_icons.dart';
+import 'my_sliver_list.dart';
 
 class MySliverList extends StatelessWidget {
   final int itemCount;
@@ -82,14 +80,9 @@ class MySliverList extends StatelessWidget {
           slivers: [
             ...slivers,
             if (itemBuilder != null)
-              SliverList.separated(
+              CustomSliverList(
+                emptyText: emptyText ?? 'No items found',
                 itemBuilder: itemBuilder!,
-                separatorBuilder: (context, index) =>
-                    separator ??
-                    SizedBox(
-                      height: scrollDirection == Axis.vertical ? gap : 0,
-                      width: scrollDirection == Axis.vertical ? 0 : gap,
-                    ),
                 itemCount: itemCount,
               ),
           ],
@@ -101,37 +94,10 @@ class MySliverList extends StatelessWidget {
         );
 
     if (!scrollable && itemBuilder != null) {
-      body = SliverList.separated(
+      body = CustomSliverList(
+        emptyText: emptyText ?? 'No items found',
         itemBuilder: itemBuilder!,
-        separatorBuilder: (context, index) =>
-            separator ??
-            SizedBox(
-              height: scrollDirection == Axis.vertical ? gap : 0,
-              width: scrollDirection == Axis.vertical ? 0 : gap,
-            ),
         itemCount: itemCount,
-      );
-    }
-
-    if (emptyText != null && itemCount < 1) {
-      body = OutlineContainer(
-        radius: 20,
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 40),
-        child: Column(
-          spacing: 16,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              MyIcons.magnifying_glass_minus,
-              color: context.textSecondary,
-              size: 28,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [AppText.secondary(text: emptyText!)],
-            ),
-          ],
-        ),
       );
     }
 

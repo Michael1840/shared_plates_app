@@ -107,7 +107,7 @@ class MyFormField extends StatelessWidget {
                 ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(radius),
-              borderSide: const BorderSide(color: Colors.transparent),
+              borderSide: BorderSide(color: Colors.transparent),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(radius),
@@ -116,7 +116,7 @@ class MyFormField extends StatelessWidget {
 
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(radius),
-              borderSide: const BorderSide(color: Colors.transparent),
+              borderSide: BorderSide(color: Colors.transparent),
             ),
             focusedErrorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(radius),

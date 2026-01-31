@@ -72,6 +72,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
               bottom: 0,
             ),
             child: MySliverList(
+              emptyText: 'No recipes found',
               onRefresh: () async {
                 context.read<RecipeBloc>().add(RecipeFetchUserRecipes());
               },
@@ -139,7 +140,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
                       ],
                     ),
                     DefaultContainer(
-                      padding: EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                         horizontal: 16,
                         vertical: 8,
                       ),
@@ -151,67 +152,12 @@ class _DiscoverPageState extends State<DiscoverPage> {
                             color: context.textSecondary,
                             size: 16,
                           ),
-                          AppText.secondary(text: 'Filter', size: 14),
+                          const AppText.secondary(text: 'Filter', size: 14),
                         ],
                       ),
                     ),
                   ],
                 ).paddingBottom(20).toSliver(),
-
-                // ViewAllRow(title: 'Hot This Week', onTap: () {}).toSliver(),
-                // SizedBox(
-                //       height: 230,
-                //       child: MySliverList.horizontal(
-                //         itemBuilder: (context, index) =>
-                //             TrendingRecipeItem(recipe: recipes[index])
-                //                 .onTap(() {
-                //                   context.pushNamed(
-                //                     Routes.dashRecipeDetail,
-                //                     pathParameters: {
-                //                       'id': recipes[index].id.toString(),
-                //                     },
-                //                   );
-                //                 })
-                //                 .listAnimateHorizontal(index),
-                //         itemCount: length,
-                //       ),
-                //     )
-                //     .paddingSymmetric(vertical: 20)
-                //     .animate()
-                //     .slideX(
-                //       begin: 1,
-                //       end: 0,
-                //       delay: 250.ms,
-                //       // alignment: Alignment.centerLeft,
-                //     )
-                //     .toSliver(),
-                // ViewAllRow(title: 'Under R100', onTap: () {}).toSliver(),
-                // SizedBox(
-                //       height: 230,
-                //       child: MySliverList.horizontal(
-                //         itemBuilder: (context, index) =>
-                //             TrendingRecipeItem(recipe: recipes[index])
-                //                 .onTap(() {
-                //                   context.pushNamed(
-                //                     Routes.dashRecipeDetail,
-                //                     pathParameters: {
-                //                       'id': recipes[index].id.toString(),
-                //                     },
-                //                   );
-                //                 })
-                //                 .listAnimateHorizontal(index),
-                //         itemCount: length,
-                //       ),
-                //     )
-                //     .paddingSymmetric(vertical: 20)
-                //     .animate()
-                //     .slideX(
-                //       begin: 1,
-                //       end: 0,
-                //       delay: 250.ms,
-                //       // alignment: Alignment.centerLeft,
-                //     )
-                //     .toSliver(),
               ],
               itemBuilder: (context, index) => _filter == _Filter.card
                   ? FullWidthCard(recipe: recipes[index], onLike: () {})

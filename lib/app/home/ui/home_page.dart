@@ -5,14 +5,16 @@ import 'package:go_router/go_router.dart';
 
 import '../../auth/blocs/user_bloc/user_bloc.dart';
 import '../../core/router/routes.dart';
-import '../../core/ui/custom/animations/animate_list.dart';
+import '../../core/theme/theme.dart';
 import '../../core/ui/custom/animations/ball_animation.dart';
 import '../../core/ui/custom/animations/my_sliver_column.dart';
+import '../../core/ui/custom/animations/my_sliver_list.dart';
 import '../../core/ui/custom/appbar/sliver_app_bar.dart';
 import '../../core/ui/custom/buttons/create_recipe_button.dart';
+import '../../core/ui/custom/buttons/my_icon_button.dart';
 import '../../core/ui/custom/containers/sliver_title.dart';
-import '../../core/ui/custom/containers/view_all_row.dart';
 import '../../core/ui/custom/fields/pinned_sliver_search.dart';
+import '../../core/ui/custom/icons/my_icons.dart';
 import '../../core/ui/layouts/page_container.dart';
 import '../../core/utils/extensions.dart';
 import '../../core/utils/methods.dart';
@@ -20,7 +22,10 @@ import '../../recipe/bloc/recipe_bloc/recipe_bloc.dart';
 import '../../recipe/data/models/recipe_model.dart';
 import 'filter_home_page.dart';
 import 'items/full_width_card.dart';
+import 'items/recipe_item.dart';
 import 'skeleton/home_skeleton_page.dart';
+
+enum _Filter { card, items }
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -31,6 +36,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final Throttler _throttler = Throttler();
+
+  _Filter _filter = _Filter.card;
 
   late ScrollController _scrollController;
 
@@ -95,6 +102,7 @@ class _HomePageState extends State<HomePage> {
                 bottom: 0,
               ),
               child: MySliverColumn(
+                physics: const AlwaysScrollableScrollPhysics(),
                 scrollController: _scrollController,
                 onRefresh: () async {
                   context.read<RecipeBloc>().add(RecipeFetchDashboardRecipes());
@@ -137,68 +145,104 @@ class _HomePageState extends State<HomePage> {
                     },
                   ),
 
-                  ViewAllRow(
-                    title: 'Hot This Week',
-                    onTap: () {},
+                  // ViewAllRow(
+                  //   title: 'Hot This Week',
+                  //   onTap: () {},
+                  // ).paddingBottom(20).toSliver(),
+                  Row(
+                    spacing: 8,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        spacing: 8,
+                        children: [
+                          _filter == _Filter.card
+                              ? const MyIconButton.colored(
+                                  icon: Icons.view_agenda_outlined,
+                                )
+                              : MyIconButton(
+                                  icon: Icons.view_agenda_outlined,
+                                  onTap: () {
+                                    setState(() {
+                                      _filter = _Filter.card;
+                                    });
+                                  },
+                                ),
+                          _filter == _Filter.items
+                              ? const MyIconButton.colored(
+                                  icon: MyIcons.menu_alt_04,
+                                )
+                              : MyIconButton(
+                                  icon: MyIcons.menu_alt_04,
+                                  onTap: () {
+                                    setState(() {
+                                      _filter = _Filter.items;
+                                    });
+                                  },
+                                ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          const AppText.secondary(text: 'Sort: ', size: 12),
+                          AppText.heading(
+                            text: 'Default ',
+                            size: 12,
+                            color: context.textSecondary,
+                          ),
+                          Icon(
+                            MyIcons.arrow_down_up,
+                            color: context.textSecondary,
+                            size: 18,
+                          ),
+                        ],
+                      ),
+                    ],
                   ).paddingBottom(20).toSliver(),
 
-                  MySliverList(
-                    scrollable: false,
+                  CustomSliverList(
                     emptyText: 'No recipes found',
-                    gap: 40,
-
-                    itemBuilder: (context, index) =>
-                        FullWidthCard(
-                              recipe: trendingRecipes[index],
-                              onLike: () {
-                                context.read<RecipeBloc>().add(
-                                  LikeRecipe(
-                                    RecipeType.trending,
-                                    trendingRecipes[index].id,
-                                  ),
-                                );
-                              },
-                            )
-                            .onTap(() {
-                              context.pushNamed(
-                                Routes.dashRecipeDetail,
-                                pathParameters: {
-                                  'id': trendingRecipes[index].id.toString(),
+                    itemBuilder: (context, index) => _filter == _Filter.card
+                        ? FullWidthCard(
+                                recipe: trendingRecipes[index],
+                                onLike: () {
+                                  context.read<RecipeBloc>().add(
+                                    LikeRecipe(
+                                      RecipeType.trending,
+                                      trendingRecipes[index].id,
+                                    ),
+                                  );
                                 },
-                              );
-                            })
-                            .listAnimate(index),
+                              )
+                              .onTap(() {
+                                context.pushNamed(
+                                  Routes.dashRecipeDetail,
+                                  pathParameters: {
+                                    'id': trendingRecipes[index].id.toString(),
+                                  },
+                                );
+                              })
+                              .listAnimate(index)
+                        : RecipeItem(recipe: trendingRecipes[index])
+                              .onTap(() {
+                                context.pushNamed(
+                                  Routes.dashRecipeDetail,
+                                  pathParameters: {
+                                    'id': trendingRecipes[index].id.toString(),
+                                  },
+                                );
+                              })
+                              .listAnimate(index),
                     itemCount: trendingRecipes.length,
+                    gap: 20,
                   ),
+
+                  const SizedBox(height: 20).toSliver(),
 
                   if (state.isMoreLoading)
                     const BallAnimation(
                       ballSize: 15,
                     ).paddingSymmetric(vertical: 32).toSliver(),
-
-                  // ViewAllRow(
-                  //   title: 'Friends Recipes',
-                  //   onTap: () {},
-                  // ).paddingBottom(20).toSliver(),
-
-                  // MySliverList(
-                  //   emptyText: 'No recipes found',
-                  //   itemBuilder: (context, index) =>
-                  //       RecipeItem(recipe: friendsRecipes[index])
-                  //           .onTap(() {
-                  //             context.pushNamed(
-                  //               Routes.dashRecipeDetail,
-                  //               pathParameters: {
-                  //                 'id': friendsRecipes[index].id.toString(),
-                  //               },
-                  //             );
-                  //           })
-                  //           .paddingBottom(
-                  //             (index + 1) == friendsRecipes.length ? 20 : 0,
-                  //           )
-                  //           .listAnimate(index),
-                  //   itemCount: friendsRecipes.length,
-                  // ).paddingBottom(20).toSliver(),
                 ],
               ),
             );

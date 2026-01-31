@@ -68,50 +68,23 @@ class DetailsPage extends StatelessWidget {
             increment: cubit.incrementServes,
             decrement: cubit.decrementServes,
           ),
-
-          // ConstrainedBox(
-          //   constraints: const BoxConstraints(
-          //     maxHeight: 33.64,
-          //     minHeight: 32.8,
-          //   ),
-          //   child: Row(
-          //     spacing: 8,
-          //     children: [
-          //       Container(
-          //         height: 32.8,
-          //         width: 32.8,
-          //         decoration: BoxDecoration(
-          //           color: context.green,
-          //           borderRadius: BorderRadius.circular(40),
-          //         ),
-          //         child: Icon(MyIcons.add_plus, color: context.white, size: 18),
-          //       ).onTap(() {
-          //         Methods.showBottomSheet(
-          //           context,
-          //           CreateTagSheet(
-          //             cubit: cubit,
-          //             onConfirm: (String t) {
-          //               cubit.updateTags(t);
-          //             },
-          //             currentIndex: state.tags.length,
-          //           ),
-          //         );
-          //       }),
-          //       Expanded(
-          //         child: MySliverList.horizontal(
-          //           gap: 8,
-          //           itemBuilder: (context, index) => TagContainer(
-          //             title: state.tags[index],
-          //           ).listAnimate(index),
-          //           itemCount: state.tags.length,
-          //         ),
-          //       ),
-          //     ],
-          //   ),
-          // ),
           Column(
             spacing: 16,
             children: [
+              MyDropdownButton(
+                title: 'Privacy Status',
+                value: '',
+                initialValue: state.selectedPrivacyStatus,
+                hint: 'Privacy Status',
+                onChanged: (s) {
+                  cubit.updatePrivacy(s);
+                },
+                items: const [
+                  CustomDropdownValue(id: 1, value: 'Public'),
+                  CustomDropdownValue(id: 2, value: 'Friends'),
+                  CustomDropdownValue(id: 3, value: 'Private'),
+                ],
+              ),
               MyFormField(
                 hint: 'Your recipe title',
                 title: 'Recipe Title',
@@ -132,20 +105,6 @@ class DetailsPage extends StatelessWidget {
                 minLines: 5,
                 maxLines: 8,
                 radius: 20,
-              ),
-              MyDropdownButton(
-                title: 'Privacy Status',
-                value: '',
-                initialValue: state.selectedPrivacyStatus,
-                hint: 'Privacy Status',
-                onChanged: (s) {
-                  cubit.updatePrivacy(s);
-                },
-                items: const [
-                  CustomDropdownValue(id: 1, value: 'Public'),
-                  CustomDropdownValue(id: 2, value: 'Friends'),
-                  CustomDropdownValue(id: 3, value: 'Private'),
-                ],
               ),
             ],
           ),

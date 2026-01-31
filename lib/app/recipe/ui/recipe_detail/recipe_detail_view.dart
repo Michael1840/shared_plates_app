@@ -43,7 +43,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
 
     return BlocListener<RecipeDetailCubit, RecipeDetailState>(
       listener: (context, state) {
-        if (state.isError) {
+        if (state.isError && state.loadingResult.error != null) {
           context.showSnackBarError(state.loadingResult.error!);
         }
       },
@@ -53,7 +53,11 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
             return const RecipeDetailPageSkeleton();
           }
 
-          final RecipeDetailModel recipe = state.loadingResult.value!;
+          final RecipeDetailModel? recipe = state.loadingResult.value;
+
+          if (recipe == null) {
+            return Scaffold();
+          }
 
           return Scaffold(
             extendBodyBehindAppBar: true,
@@ -142,8 +146,9 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
                                 maxHeight: 33.64,
                                 minHeight: 32.8,
                               ),
-                              child: MySliverList.horizontal(
-                                gap: 8,
+                              child: ListView.separated(
+                                separatorBuilder: (context, index) =>
+                                    const SizedBox(width: 8),
                                 itemBuilder: (context, index) => RecipeTag(
                                   tag: recipe.tags[index],
                                 ).listAnimate(index),
