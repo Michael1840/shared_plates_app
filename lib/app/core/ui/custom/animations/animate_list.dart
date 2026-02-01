@@ -18,6 +18,7 @@ class MySliverList extends StatelessWidget {
   final RefreshCallback? onRefresh;
   final String? emptyText;
   final bool scrollable;
+  final bool bottomSpacer;
 
   const MySliverList({
     super.key,
@@ -32,6 +33,7 @@ class MySliverList extends StatelessWidget {
     this.slivers = const [],
     this.onRefresh,
     this.scrollable = true,
+    this.bottomSpacer = false,
   }) : scrollDirection = Axis.vertical,
        separator = null;
 
@@ -48,6 +50,7 @@ class MySliverList extends StatelessWidget {
     this.slivers = const [],
     this.onRefresh,
     this.scrollable = true,
+    this.bottomSpacer = false,
   }) : scrollDirection = Axis.horizontal,
        separator = null;
 
@@ -65,6 +68,7 @@ class MySliverList extends StatelessWidget {
     this.slivers = const [],
     this.onRefresh,
     this.scrollable = true,
+    this.bottomSpacer = false,
   }) : gap = 0;
 
   @override
@@ -85,6 +89,7 @@ class MySliverList extends StatelessWidget {
                 itemBuilder: itemBuilder!,
                 itemCount: itemCount,
               ),
+            if (bottomSpacer) const SizedBox(height: 20).toSliver(),
           ],
         ).animate().slideX(
           begin: 1,

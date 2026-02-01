@@ -27,6 +27,8 @@ class AccentColors {
   static const Color purple = Color(0xFF7946AC);
 
   static const Color red = Color(0xFFAC4646);
+
+  static const Color star = Color(0xFFFFCA28);
 }
 
 class LoadingColors {
@@ -95,5 +97,13 @@ class Shadows {
     spreadRadius: 1,
     blurRadius: 5,
     offset: const Offset(0, 2),
+  );
+
+  static final green = BoxShadow(
+    color: AccentColors.green.withValues(alpha: 0.2),
+    spreadRadius: -5,
+    blurRadius: 5,
+    offset: const Offset(0, 0),
+    blurStyle: BlurStyle.inner,
   );
 }

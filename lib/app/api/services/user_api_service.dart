@@ -58,10 +58,13 @@ class UserApiService {
 
   Future<Result<void>> logout() async {
     try {
+      final refreshToken = await tokenStorage.getRefreshToken();
+
       final ApiResponseModel response = await ApiHelper.request(
         ApiRoutes.logout,
-        DioMethod.get,
+        DioMethod.post,
         hasAuth: false,
+        data: {'refresh_token': refreshToken},
       );
 
       if (!response.isSuccess) {

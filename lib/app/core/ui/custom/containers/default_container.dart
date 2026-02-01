@@ -14,6 +14,7 @@ class DefaultContainer extends StatelessWidget {
   final EdgeInsets? margin;
   final bool expanded;
   final bool hasBorder;
+  final List<BoxShadow>? shadow;
   const DefaultContainer({
     super.key,
     this.height,
@@ -25,6 +26,7 @@ class DefaultContainer extends StatelessWidget {
     this.expanded = false,
     this.hasBorder = false,
     this.radius = Rounding.reg,
+    this.shadow = const <BoxShadow>[],
     required this.child,
   });
 
@@ -39,6 +41,7 @@ class DefaultContainer extends StatelessWidget {
       decoration: BoxDecoration(
         color: color ?? context.container,
         borderRadius: BorderRadius.circular(radius),
+        boxShadow: shadow,
         border: hasBorder
             ? Border.all(color: borderColor ?? context.borderPrimary)
             : null,

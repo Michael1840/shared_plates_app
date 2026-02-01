@@ -112,6 +112,7 @@ class CreateRecipePageState extends State<CreateRecipePage>
                 ),
                 title: const AppText.heading(text: 'Create Recipe', size: 18),
                 bottom: TabBar(
+                  dividerColor: Colors.transparent,
                   controller: _tabCont,
                   isScrollable: true,
                   tabAlignment: TabAlignment.center,

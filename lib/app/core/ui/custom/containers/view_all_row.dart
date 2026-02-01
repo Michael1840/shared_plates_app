@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../../theme/theme.dart';
-import '../../../utils/extensions.dart';
 
 class ViewAllRow extends StatelessWidget {
   final String title;
@@ -15,13 +14,13 @@ class ViewAllRow extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       spacing: 10,
       children: [
-        AppText.primary(text: title, weight: Weights.bold),
-        AppText.primary(
-          text: 'View All',
-          weight: Weights.semiBold,
-          color: context.green,
-          size: 12,
-        ).onTap(onTap),
+        AppText.heading(text: title, size: 16),
+        // AppText.primary(
+        //   text: 'Discover More',
+        //   weight: Weights.medium,
+        //   color: context.green,
+        //   size: 12,
+        // ).onTap(onTap),
       ],
     ).animate().slideX(
       begin: -1,

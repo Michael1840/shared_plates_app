@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../theme/theme.dart';
 import '../../../utils/extensions.dart';
 
 class MyIconButton extends StatelessWidget {
@@ -10,6 +11,9 @@ class MyIconButton extends StatelessWidget {
   final bool disabled;
   final bool _isColored;
   final Color? color;
+  final double? iconSize;
+  final bool hasGlow;
+  final String? text;
 
   const MyIconButton({
     super.key,
@@ -18,6 +22,9 @@ class MyIconButton extends StatelessWidget {
     this.padding,
     this.disabled = false,
     this.isLoading = false,
+    this.iconSize,
+    this.hasGlow = false,
+    this.text,
   }) : _isColored = false,
        color = null;
 
@@ -29,6 +36,9 @@ class MyIconButton extends StatelessWidget {
     this.disabled = false,
     this.isLoading = false,
     this.color,
+    this.iconSize,
+    this.hasGlow = false,
+    this.text,
   }) : _isColored = true;
 
   @override
@@ -39,18 +49,30 @@ class MyIconButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: !_isColored
               ? context.onContainer.withValues(alpha: 0.4)
-              : context.primary.withValues(alpha: 0.4),
-          borderRadius: BorderRadius.circular(8),
+              : color?.withValues(alpha: 0.4) ??
+                    context.primary.withValues(alpha: 0.4),
+          borderRadius: BorderRadius.circular(100),
           border: !_isColored
               ? Border.all(
                   color: context.borderSecondary.withValues(alpha: 0.4),
                 )
               : null,
         ),
-        child: Icon(
-          icon,
-          color: context.textPrimary.withValues(alpha: 0.4),
-          size: 16,
+        child: Row(
+          spacing: 4,
+          children: [
+            Icon(
+              icon,
+              color: context.textPrimary.withValues(alpha: 0.4),
+              size: iconSize ?? 18,
+            ),
+            if (text != null)
+              AppText.primary(
+                text: text!,
+                weight: Weights.medium,
+                size: iconSize != null ? (iconSize! - 4) : 13,
+              ).paddingRight(8),
+          ],
         ),
       );
     }
@@ -60,12 +82,34 @@ class MyIconButton extends StatelessWidget {
       decoration: BoxDecoration(
         color: !_isColored ? context.container : color ?? context.primary,
         borderRadius: BorderRadius.circular(100),
+        boxShadow: hasGlow
+            ? [
+                BoxShadow(
+                  blurRadius: 8,
+                  color: !_isColored
+                      ? context.onContainer.withValues(alpha: 0.3)
+                      : color?.withValues(alpha: 0.3) ??
+                            context.primary.withValues(alpha: 0.3),
+                ),
+              ]
+            : [],
       ),
       child: !isLoading
-          ? Icon(
-              icon,
-              color: _isColored ? context.white : context.textSecondary,
-              size: 18,
+          ? Row(
+              spacing: 4,
+              children: [
+                Icon(
+                  icon,
+                  color: _isColored ? context.white : context.textSecondary,
+                  size: iconSize ?? 18,
+                ),
+                if (text != null)
+                  AppText.primary(
+                    text: text!,
+                    weight: Weights.medium,
+                    size: iconSize != null ? (iconSize! - 4) : 13,
+                  ).paddingRight(8),
+              ],
             )
           : ConstrainedBox(
               constraints: const BoxConstraints(maxHeight: 16, maxWidth: 16),

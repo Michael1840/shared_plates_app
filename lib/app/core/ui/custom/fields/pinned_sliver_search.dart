@@ -67,8 +67,8 @@ class CustomPinnedSliverSearchContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return PinnedHeaderSliver(
       child: Container(
+        decoration: BoxDecoration(color: context.background),
         padding: const EdgeInsets.only(bottom: 20),
-        color: context.background,
         child:
             Row(
               spacing: 10,
@@ -76,6 +76,7 @@ class CustomPinnedSliverSearchContainer extends StatelessWidget {
                 Expanded(
                   child: DefaultContainer(
                     radius: 100,
+                    borderColor: context.borderSecondary,
                     child: Row(
                       spacing: 16,
                       children: [

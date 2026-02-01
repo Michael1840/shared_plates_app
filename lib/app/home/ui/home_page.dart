@@ -8,11 +8,11 @@ import '../../core/router/routes.dart';
 import '../../core/theme/theme.dart';
 import '../../core/ui/custom/animations/ball_animation.dart';
 import '../../core/ui/custom/animations/my_sliver_column.dart';
-import '../../core/ui/custom/animations/my_sliver_list.dart';
 import '../../core/ui/custom/appbar/sliver_app_bar.dart';
 import '../../core/ui/custom/buttons/create_recipe_button.dart';
-import '../../core/ui/custom/buttons/my_icon_button.dart';
+import '../../core/ui/custom/buttons/image_button.dart';
 import '../../core/ui/custom/containers/sliver_title.dart';
+import '../../core/ui/custom/containers/view_all_row.dart';
 import '../../core/ui/custom/fields/pinned_sliver_search.dart';
 import '../../core/ui/custom/icons/my_icons.dart';
 import '../../core/ui/layouts/page_container.dart';
@@ -21,8 +21,7 @@ import '../../core/utils/methods.dart';
 import '../../recipe/bloc/recipe_bloc/recipe_bloc.dart';
 import '../../recipe/data/models/recipe_model.dart';
 import 'filter_home_page.dart';
-import 'items/full_width_card.dart';
-import 'items/recipe_item.dart';
+import 'items/dashboard_button.dart';
 import 'skeleton/home_skeleton_page.dart';
 
 enum _Filter { card, items }
@@ -93,6 +92,9 @@ class _HomePageState extends State<HomePage> {
 
             final List<RecipeModel> friendsRecipes = state.friendsRecipes;
             final List<RecipeModel> trendingRecipes = state.trendingRecipes;
+            final List<RecipeModel> recipes = state.userRecipes;
+
+            final recipe = trendingRecipes[1];
 
             return PageContainer(
               padding: const EdgeInsets.only(
@@ -127,13 +129,6 @@ class _HomePageState extends State<HomePage> {
                     },
                   ),
 
-                  CustomSliverImageButton(
-                    type: ButtonType.recipe1,
-                    onTap: () {
-                      context.goNamed(Routes.createRecipe);
-                    },
-                  ),
-
                   CustomPinnedSliverSearchContainer(
                     searchHint: 'What\'s cooking today?',
                     onSearchTap: () {
@@ -145,97 +140,108 @@ class _HomePageState extends State<HomePage> {
                     },
                   ),
 
-                  // ViewAllRow(
-                  //   title: 'Hot This Week',
-                  //   onTap: () {},
-                  // ).paddingBottom(20).toSliver(),
-                  Row(
-                    spacing: 8,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        spacing: 8,
-                        children: [
-                          _filter == _Filter.card
-                              ? const MyIconButton.colored(
-                                  icon: Icons.view_agenda_outlined,
-                                )
-                              : MyIconButton(
-                                  icon: Icons.view_agenda_outlined,
-                                  onTap: () {
-                                    setState(() {
-                                      _filter = _Filter.card;
-                                    });
-                                  },
-                                ),
-                          _filter == _Filter.items
-                              ? const MyIconButton.colored(
-                                  icon: MyIcons.menu_alt_04,
-                                )
-                              : MyIconButton(
-                                  icon: MyIcons.menu_alt_04,
-                                  onTap: () {
-                                    setState(() {
-                                      _filter = _Filter.items;
-                                    });
-                                  },
-                                ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          const AppText.secondary(text: 'Sort: ', size: 12),
-                          AppText.heading(
-                            text: 'Default ',
-                            size: 12,
-                            color: context.textSecondary,
-                          ),
-                          Icon(
-                            MyIcons.arrow_down_up,
-                            color: context.textSecondary,
-                            size: 18,
-                          ),
-                        ],
-                      ),
-                    ],
+                  CustomSliverImageButton(
+                    type: ButtonType.recipe1,
+                    onTap: () {
+                      context.goNamed(Routes.createRecipe);
+                    },
+                  ),
+
+                  ViewAllRow(
+                    title: 'Featured Today',
+                    onTap: () {},
                   ).paddingBottom(20).toSliver(),
 
-                  CustomSliverList(
-                    emptyText: 'No recipes found',
-                    itemBuilder: (context, index) => _filter == _Filter.card
-                        ? FullWidthCard(
-                                recipe: trendingRecipes[index],
-                                onLike: () {
-                                  context.read<RecipeBloc>().add(
-                                    LikeRecipe(
-                                      RecipeType.trending,
-                                      trendingRecipes[index].id,
-                                    ),
-                                  );
-                                },
-                              )
-                              .onTap(() {
-                                context.pushNamed(
-                                  Routes.dashRecipeDetail,
-                                  pathParameters: {
-                                    'id': trendingRecipes[index].id.toString(),
-                                  },
-                                );
-                              })
-                              .listAnimate(index)
-                        : RecipeItem(recipe: trendingRecipes[index])
-                              .onTap(() {
-                                context.pushNamed(
-                                  Routes.dashRecipeDetail,
-                                  pathParameters: {
-                                    'id': trendingRecipes[index].id.toString(),
-                                  },
-                                );
-                              })
-                              .listAnimate(index),
-                    itemCount: trendingRecipes.length,
-                    gap: 20,
-                  ),
+                  ImageButton(
+                    onTap: () {
+                      context.pushNamed(
+                        Routes.recipeDetail,
+                        pathParameters: {'id': recipe.id.toString()},
+                      );
+                    },
+                    customAsset: recipe.image,
+                    child: Column(
+                      spacing: 30,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CircleAvatar(
+                          backgroundColor: AccentColors.star.withValues(
+                            alpha: 0.15,
+                          ),
+                          child: const Icon(
+                            Icons.emoji_events_outlined,
+                            color: AccentColors.star,
+                            size: 22,
+                          ),
+                        ),
+                        Column(
+                          spacing: 4,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            AppText.primary(
+                              text: recipe.title,
+                              size: 18,
+                              weight: Weights.semiBold,
+                            ),
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.remove_red_eye_outlined,
+                                  color: context.textPrimary.withValues(
+                                    alpha: 0.8,
+                                  ),
+                                  size: 12,
+                                ),
+                                const SizedBox(width: 4),
+                                AppText.primary(
+                                  text: '324 ',
+                                  size: 12,
+                                  color: context.textPrimary,
+                                ),
+                                AppText.secondary(
+                                  text: 'people viewed today',
+                                  size: 12,
+                                  color: context.textPrimary.withValues(
+                                    alpha: 0.8,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ).paddingBottom(20).toSliver(),
+
+                  IntrinsicHeight(
+                    child: Row(
+                      spacing: 20,
+                      children: [
+                        Expanded(
+                          child: DashboardButton(
+                            title: 'Discover Recipes',
+                            subtitle: 'Find your perfect meal',
+                            icon: MyIcons.compass,
+                            iconColor: context.green,
+                            onTap: () {
+                              context.goNamed(Routes.discover);
+                            },
+                          ),
+                        ),
+                        Expanded(
+                          child: DashboardButton(
+                            title: 'Meal Planner',
+                            subtitle: 'Organise your menu',
+                            icon: MyIcons.calendar_check,
+                            iconColor: context.primary,
+                            onTap: () {
+                              context.goNamed(Routes.menuPlanner);
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ).paddingBottom(20).toSliver(),
 
                   const SizedBox(height: 20).toSliver(),
 

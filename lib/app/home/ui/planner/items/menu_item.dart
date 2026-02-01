@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/theme/theme.dart';
-import '../../../core/ui/custom/containers/default_container.dart';
-import '../../../core/ui/custom/containers/network_image.dart';
-import '../../../core/ui/custom/icons/my_icons.dart';
-import '../../../core/utils/extensions.dart';
-import '../../../recipe/data/models/recipe_model.dart';
+import '../../../../core/theme/theme.dart';
+import '../../../../core/ui/custom/containers/default_container.dart';
+import '../../../../core/ui/custom/containers/network_image.dart';
+import '../../../../core/ui/custom/icons/my_icons.dart';
+import '../../../../core/utils/extensions.dart';
+import '../../../../recipe/data/models/recipe_model.dart';
 
-class RecipeItem extends StatelessWidget {
+class MenuItem extends StatelessWidget {
   final RecipeModel recipe;
-  final void Function()? onLike;
-  const RecipeItem({super.key, required this.recipe, this.onLike});
+  const MenuItem({super.key, required this.recipe});
 
   @override
   Widget build(BuildContext context) {
@@ -39,12 +38,6 @@ class RecipeItem extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     weight: Weights.medium,
                   ),
-                  const SizedBox(height: 2),
-                  AppText.secondary(
-                    text: 'by ${recipe.createdBy}',
-                    size: 10,
-                    overflow: TextOverflow.ellipsis,
-                  ),
                   const SizedBox(height: 20),
                   const Spacer(),
                   Row(
@@ -63,10 +56,21 @@ class RecipeItem extends StatelessWidget {
                         backgroundColor: context.green,
                         maxRadius: 2,
                       ),
-                      AppText.primary(
-                        text: '${recipe.serves} Servings',
-                        size: 12,
-                        color: context.green,
+                      Row(
+                        spacing: 2,
+                        // crossAxisAlignment: CrossAxisAlignment.baseline,
+                        // textBaseline: TextBaseline.alphabetic,
+                        children: [
+                          Icon(MyIcons.users, color: context.green, size: 16),
+                          Align(
+                            alignment: Alignment.center,
+                            child: AppText.primary(
+                              text: '${recipe.serves}',
+                              size: 12,
+                              color: context.green,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -77,13 +81,7 @@ class RecipeItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Icon(
-                  MyIcons.heart_02,
-                  color: recipe.isLiked
-                      ? StatusColors.redLight
-                      : context.textSecondary,
-                  size: 20,
-                ).onTap(onLike),
+                const SizedBox(),
                 Icon(
                   MyIcons.chevron_right,
                   color: context.textSecondary,

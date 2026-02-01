@@ -11,6 +11,7 @@ import '../../friends/bloc/friendship_bloc/friendship_bloc.dart';
 import '../../friends/data/repo/friends_repo.dart';
 import '../../friends/ui/friends_page.dart';
 import '../../home/ui/home_page.dart';
+import '../../home/ui/planner/menu_planner.dart';
 import '../../onboarding/ui/onboarding_page.dart';
 import '../../recipe/bloc/create_recipe/create_recipe_cubit.dart';
 import '../../recipe/bloc/recipe_detail_cubit/recipe_detail_cubit.dart';
@@ -42,6 +43,8 @@ class Routes {
 
   // SUB ROUTES
   static const String authSheet = 'sheet';
+
+  static const String menuPlanner = 'menu-planner';
 }
 
 class NavigationRouter {
@@ -83,7 +86,7 @@ class NavigationRouter {
         path: Routes.auth,
         name: Routes.auth,
         pageBuilder: (context, state) =>
-            buildSlideTransition(const AuthPage(), state.pageKey),
+            buildFadeTransition(const AuthPage(), state.pageKey),
         routes: [
           GoRoute(
             path: Routes.authSheet,
@@ -116,6 +119,16 @@ class NavigationRouter {
                 pageBuilder: (context, state) =>
                     buildSlideTransition(const HomePage(), state.pageKey),
                 routes: [
+                  GoRoute(
+                    path: Routes.menuPlanner,
+                    name: Routes.menuPlanner,
+                    pageBuilder: (context, state) {
+                      return buildSlideTransition(
+                        const MenuPlanner(),
+                        state.pageKey,
+                      );
+                    },
+                  ),
                   GoRoute(
                     path: Routes.dashRecipeDetail,
                     name: Routes.dashRecipeDetail,
@@ -154,8 +167,10 @@ class NavigationRouter {
                 path: Routes.createRecipe,
                 name: Routes.createRecipe,
                 pageBuilder: (context, state) => buildSlideTransition(
-                  BlocProvider(
-                    create: (context) => CreateRecipeCubit(),
+                  MultiBlocProvider(
+                    providers: [
+                      BlocProvider(create: (context) => CreateRecipeCubit()),
+                    ],
                     child: const CreateRecipePage(),
                   ),
                   state.pageKey,

@@ -2235,4 +2235,6 @@ class MyIcons {
     fontFamily: _kFontFam,
     fontPackage: _kFontPkg,
   );
+
+  static IconData? get view => null;
 }

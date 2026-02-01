@@ -30,7 +30,7 @@ class _AuthCheckState extends State<AuthCheck> {
     if (refreshToken.isNull) {
       if (!mounted) return;
 
-      if (!onboardingComplete) {
+      if (onboardingComplete) {
         context.goNamed(Routes.onboarding);
       } else {
         context.goNamed(Routes.auth);

@@ -80,4 +80,37 @@ final class RecipeState extends Equatable {
       searchFilter: searchFilter ?? this.searchFilter,
     );
   }
+
+  List<RecipeModel> sortRecipes(SortingFilter filter) {
+    if (userRecipes.isEmpty) return [];
+
+    final List<RecipeModel> sortedList = List.from(userRecipes);
+
+    switch (filter) {
+      case SortingFilter.priceHighToLow:
+        // Sorts from highest cost to lowest
+        sortedList.sort((a, b) => b.cost.compareTo(a.cost));
+        break;
+
+      case SortingFilter.priceLowToHigh:
+        // Sorts from lowest cost to highest
+        sortedList.sort((a, b) => a.cost.compareTo(b.cost));
+        break;
+
+      case SortingFilter.mostServings:
+        // Sort by most servings first
+        sortedList.sort((a, b) => b.serves.compareTo(a.serves));
+        break;
+
+      case SortingFilter.leastServings:
+        // Sort by least servings first
+        sortedList.sort((a, b) => a.serves.compareTo(b.serves));
+        break;
+
+      case SortingFilter.def:
+        break;
+    }
+
+    return sortedList;
+  }
 }

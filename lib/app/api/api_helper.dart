@@ -300,15 +300,24 @@ class ApiInterceptors extends Interceptor {
     // Handle 401 unauthorized
     if (statusCode == 401) {
       if (_isRefreshing) {
-        await _refreshCompleter?.future;
-        final token = await tokenStorage.getAccessToken();
-        options.headers[HttpHeaders.authorizationHeader] = 'Bearer $token';
-        final retryResponse = await _tokenDio.fetch(options);
-        return handler.resolve(retryResponse);
+        try {
+          await _refreshCompleter?.future;
+          // After waiting, retry with the NEW token
+          final newToken = await tokenStorage.getAccessToken();
+          if (newToken != null) {
+            options.headers[HttpHeaders.authorizationHeader] =
+                'Bearer $newToken';
+            final retryResponse = await _tokenDio.fetch(options);
+            return handler.resolve(retryResponse);
+          }
+        } catch (_) {
+          // If waiting failed, or token is null, reject
+          return handler.reject(err);
+        }
       }
 
       _isRefreshing = true;
-      _refreshCompleter = Completer();
+      _refreshCompleter = Completer<void>();
 
       try {
         final refreshToken = await tokenStorage.getRefreshToken();

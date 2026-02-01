@@ -38,6 +38,7 @@ class _FilterHomePageState extends State<FilterHomePage> {
                 icon: MyIcons.chevron_right,
                 padding: 14,
                 color: context.green,
+                disabled: true,
               ),
             ],
           ),
