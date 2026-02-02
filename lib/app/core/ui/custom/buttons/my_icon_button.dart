@@ -59,6 +59,7 @@ class MyIconButton extends StatelessWidget {
               : null,
         ),
         child: Row(
+          mainAxisSize: MainAxisSize.min,
           spacing: 4,
           children: [
             Icon(
@@ -96,6 +97,7 @@ class MyIconButton extends StatelessWidget {
       ),
       child: !isLoading
           ? Row(
+              mainAxisSize: MainAxisSize.min,
               spacing: 4,
               children: [
                 Icon(

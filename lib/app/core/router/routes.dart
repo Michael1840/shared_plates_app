@@ -19,6 +19,8 @@ import '../../recipe/data/repo/recipe_repo.dart';
 import '../../recipe/ui/create_recipe/create_recipe.dart';
 import '../../recipe/ui/recipe_detail/recipe_detail_view.dart';
 import '../../recipe/ui/recipe_page.dart';
+import '../../search/bloc/search_cubit/search_cubit.dart';
+import '../../search/ui/search_page.dart';
 import 'nav_shell.dart';
 
 class Routes {
@@ -45,6 +47,8 @@ class Routes {
   static const String authSheet = 'sheet';
 
   static const String menuPlanner = 'menu-planner';
+
+  static const String search = 'search';
 }
 
 class NavigationRouter {
@@ -157,7 +161,20 @@ class NavigationRouter {
                 name: Routes.discover,
                 pageBuilder: (context, state) =>
                     buildSlideTransition(const DiscoverPage(), state.pageKey),
-                routes: [],
+                routes: [
+                  GoRoute(
+                    path: Routes.search,
+                    name: Routes.search,
+                    pageBuilder: (context, state) {
+                      SearchCubit s = state.extra as SearchCubit;
+
+                      return buildSlideTransition(
+                        SearchPage(cubit: s),
+                        state.pageKey,
+                      );
+                    },
+                  ),
+                ],
               ),
             ],
           ),

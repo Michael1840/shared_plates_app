@@ -20,7 +20,7 @@ import '../../core/utils/extensions.dart';
 import '../../core/utils/methods.dart';
 import '../../recipe/bloc/recipe_bloc/recipe_bloc.dart';
 import '../../recipe/data/models/recipe_model.dart';
-import 'filter_home_page.dart';
+import '../../search/ui/filter_page.dart';
 import 'items/dashboard_button.dart';
 import 'skeleton/home_skeleton_page.dart';
 

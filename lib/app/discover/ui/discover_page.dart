@@ -13,7 +13,7 @@ import '../../core/ui/custom/icons/my_icons.dart';
 import '../../core/ui/layouts/page_container.dart';
 import '../../core/utils/extensions.dart';
 import '../../core/utils/methods.dart';
-import '../../home/ui/filter_home_page.dart';
+import '../../search/ui/filter_page.dart';
 import '../../home/ui/items/full_width_card.dart';
 import '../../home/ui/items/recipe_item.dart';
 import '../../recipe/bloc/recipe_bloc/recipe_bloc.dart';

@@ -13,6 +13,15 @@ abstract class RecipesRepository {
 
   Future<Result<List<RecipeModel>>> getUserRecipes();
 
+  Future<Result<List<RecipeModel>>> getSearchResults(
+    int? length,
+    int? page,
+    String? query,
+    String? sorting,
+    List<String>? tags,
+    bool? matchAllTags,
+  );
+
   Future<Result<PaginationModel<RecipeModel>>> getTrendingRecipes(
     int? length,
     int? page,
@@ -35,6 +44,33 @@ abstract class RecipesRepository {
 
 class RecipesDataProvider extends RecipesRepository {
   RecipesDataProvider(super._api);
+
+  @override
+  Future<Result<List<RecipeModel>>> getSearchResults(
+    int? length,
+    int? page,
+    String? query,
+    String? sorting,
+    List<String>? tags,
+    bool? matchAllTags,
+  ) async {
+    try {
+      return await _api.searchResults(
+        length,
+        page,
+        query,
+        sorting,
+        tags,
+        matchAllTags,
+      );
+    } on Exception catch (e) {
+      debugPrint(e.toString());
+      return Result.error(e);
+    } catch (e) {
+      debugPrint(e.toString());
+      return Result.error(Exception(e));
+    }
+  }
 
   @override
   Future<Result<List<RecipeModel>>> getUserRecipes() async {

@@ -41,6 +41,54 @@ class ApiRoutes {
     return endPoint;
   }
 
+  static String searchMeals({
+    int? length,
+    int? page,
+    String? query,
+    String? sorting,
+    List<String>? tags,
+    bool? matchAllTags,
+  }) {
+    String endPoint = '${recipe}search/';
+    List<String> params = [];
+
+    // Add pagination params
+    if (page != null) {
+      params.add('page=$page');
+    }
+    if (length != null) {
+      params.add('page_size=$length');
+    }
+
+    // Add search query
+    if (query != null && query.isNotEmpty) {
+      params.add('q=${Uri.encodeComponent(query)}');
+    }
+
+    // Add tags as comma-separated
+    if (tags != null && tags.isNotEmpty) {
+      final tagsString = tags.join(',');
+      params.add('tags=${Uri.encodeComponent(tagsString)}');
+    }
+
+    // Add match_all_tags param
+    if (matchAllTags != null && matchAllTags) {
+      params.add('match_all_tags=true');
+    }
+
+    // Add sorting
+    if (sorting != null && sorting.isNotEmpty) {
+      params.add('sort=$sorting');
+    }
+
+    // Combine all params
+    if (params.isNotEmpty) {
+      endPoint = '$endPoint?${params.join('&')}';
+    }
+
+    return endPoint;
+  }
+
   static String friendsRecipes({int? length, int? page}) {
     String endPoint = '${recipe}friends-feed/';
 

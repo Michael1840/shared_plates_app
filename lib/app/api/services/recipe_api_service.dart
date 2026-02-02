@@ -41,6 +41,48 @@ class RecipeApiService {
     }
   }
 
+  Future<Result<List<RecipeModel>>> searchResults(
+    int? length,
+    int? page,
+    String? query,
+    String? sorting,
+    List<String>? tags,
+    bool? matchAllTags,
+  ) async {
+    try {
+      return await ApiHelper.requestModelList<RecipeModel>(
+        ApiRoutes.searchMeals(
+          length: length,
+          page: page,
+          query: query,
+          sorting: sorting,
+          tags: tags,
+          matchAllTags: matchAllTags,
+        ),
+        DioMethod.get,
+        hasAuth: true,
+        converter: _recipeModelConverter,
+      );
+
+      // if (!response.isSuccess) {
+      //   return Result.error(Exception('Failed to get your recipes.'));
+      // }
+
+      // if (response.data['data'] is! Iterable) {
+      //   return const Result.castError();
+      // }
+
+      // List<RecipeModel> recipes = (response.data['data'] as Iterable)
+      //     .map((e) => RecipeModel.fromJson(e))
+      //     .toList();
+
+      // return Result.ok(recipes);
+    } on Exception catch (e) {
+      debugPrint(e.toString());
+      return Result.error(e);
+    }
+  }
+
   Future<Result<PaginationModel<RecipeModel>>> getMoreRecipes(
     String nextUrl,
   ) async {

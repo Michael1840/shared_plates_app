@@ -91,13 +91,14 @@ class BallAnimationState extends State<BallAnimation>
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       children: _colors.asMap().entries.map((entry) {
         final idx = entry.key;
         return FadeTransition(
           opacity: _animations[idx],
           child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 8),
+            margin: const EdgeInsets.symmetric(horizontal: 2.0, vertical: 8),
             width: widget.ballSize,
             height: widget.ballSize,
             decoration: BoxDecoration(
