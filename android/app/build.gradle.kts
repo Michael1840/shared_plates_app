@@ -14,6 +14,9 @@ if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 }
 
+val flutterVersionCode = localProperties.getProperty("flutter.versionCode")?.toIntOrNull() ?: 1
+val flutterVersionName = localProperties.getProperty("flutter.versionName") ?: "1.0"
+
 android {
     namespace = "com.appage.shared_plates_app"
     compileSdk = 36
@@ -34,8 +37,8 @@ android {
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
         targetSdk = 36
-        versionCode = 10
-        versionName = "v0.1.0"
+        versionCode = flutterVersionCode
+        versionName = flutterVersionName
     }
 
     signingConfigs {
