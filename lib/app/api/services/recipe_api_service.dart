@@ -48,6 +48,8 @@ class RecipeApiService {
     String? sorting,
     List<String>? tags,
     bool? matchAllTags,
+    int? maxPrice,
+    bool? isLiked,
   ) async {
     try {
       return await ApiHelper.requestModelList<RecipeModel>(
@@ -58,6 +60,8 @@ class RecipeApiService {
           sorting: sorting,
           tags: tags,
           matchAllTags: matchAllTags,
+          maxPrice: maxPrice,
+          isLiked: isLiked,
         ),
         DioMethod.get,
         hasAuth: true,

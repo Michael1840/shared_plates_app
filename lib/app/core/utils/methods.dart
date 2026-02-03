@@ -23,6 +23,20 @@ class Formatter {
       return DateFormat('d MMM').format(createdAt);
     }
   }
+
+  static String currencyFormat(String? amount, [bool hasCents = false]) {
+    double? a = double.tryParse(amount ?? '0');
+
+    if (a == null) return 'R0';
+
+    final formatter = NumberFormat.currency(
+      locale: 'en_ZA',
+      symbol: 'R',
+      decimalDigits: hasCents ? 2 : 0,
+    );
+
+    return formatter.format(a);
+  }
 }
 
 class Methods {

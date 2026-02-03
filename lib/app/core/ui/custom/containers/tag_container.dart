@@ -21,10 +21,11 @@ class TagContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return DefaultContainer(
       color: isActive ? activeColor ?? context.primary : null,
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
       child: AppText.secondary(
         text: title,
         color: isActive ? context.white : null,
+        size: 12,
         weight: Weights.reg,
       ),
     ).onTap(onTap);

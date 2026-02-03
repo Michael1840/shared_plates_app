@@ -123,6 +123,8 @@ String onboardingAsset(BuildContext context, int index) {
 //   ),
 // ];
 
+const List<String> kFilters = ['Recent', 'Popular', 'Trending'];
+
 const List<String> kCategories = [
   'Breakfast',
   'Lunch',

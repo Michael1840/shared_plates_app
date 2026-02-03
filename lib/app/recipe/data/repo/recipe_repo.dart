@@ -20,6 +20,8 @@ abstract class RecipesRepository {
     String? sorting,
     List<String>? tags,
     bool? matchAllTags,
+    int? maxPrice,
+    bool? isLiked,
   );
 
   Future<Result<PaginationModel<RecipeModel>>> getTrendingRecipes(
@@ -53,6 +55,8 @@ class RecipesDataProvider extends RecipesRepository {
     String? sorting,
     List<String>? tags,
     bool? matchAllTags,
+    int? maxPrice,
+    bool? isLiked,
   ) async {
     try {
       return await _api.searchResults(
@@ -62,6 +66,8 @@ class RecipesDataProvider extends RecipesRepository {
         sorting,
         tags,
         matchAllTags,
+        maxPrice,
+        isLiked,
       );
     } on Exception catch (e) {
       debugPrint(e.toString());

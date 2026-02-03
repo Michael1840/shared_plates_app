@@ -9,7 +9,7 @@ import '../../../recipe/data/repo/recipe_repo.dart';
 part 'search_state.dart';
 
 class SearchCubit extends Cubit<SearchState> {
-  RecipesRepository _recipesRepository;
+  final RecipesRepository _recipesRepository;
 
   SearchCubit(RecipesRepository recipesRepository)
     : _recipesRepository = recipesRepository,
@@ -27,8 +27,28 @@ class SearchCubit extends Cubit<SearchState> {
     emit(state.copyWith(tags: tags));
   }
 
+  void reset() {
+    emit(SearchState.initial());
+  }
+
+  void updateLikedOnly(bool b) {
+    emit(state.copyWith(likedOnly: b));
+  }
+
+  void updateMatchAllTags(bool b) {
+    emit(state.copyWith(matchAllTags: b));
+  }
+
   void searchFilter(String? s) {
     emit(state.copyWith(searchFilter: s));
+  }
+
+  void updatePopularityFilter(String s) {
+    emit(state.copyWith(popularityFilter: s));
+  }
+
+  void updateMaxPrice(double v, int m) {
+    emit(state.copyWith(maxPrice: v, actualMaxPrice: m));
   }
 
   Future<void> search() async {
@@ -40,9 +60,11 @@ class SearchCubit extends Cubit<SearchState> {
             20,
             1,
             state.searchFilter,
-            null, // TODO: IMPLEMENT SORTING
+            state.popularityFilter,
             state.tags,
-            null, // TODO: IMPLEMENT MATCH TAGS
+            state.matchAllTags,
+            state.actualMaxPrice,
+            state.likedOnly,
           );
 
       switch (result) {

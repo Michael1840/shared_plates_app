@@ -38,8 +38,6 @@ class _SearchPageState extends State<SearchPage> {
   @override
   void initState() {
     super.initState();
-
-    context.read<RecipeBloc>().add(RecipeFetchUserRecipes());
   }
 
   @override
@@ -115,7 +113,7 @@ class _SearchPageState extends State<SearchPage> {
                     onSearchTap: () {
                       Methods.showBottomSheet(
                         context,
-                        const FilterHomePage(),
+                        FilterHomePage(cubit: widget.cubit),
                         isFull: true,
                       );
                     },

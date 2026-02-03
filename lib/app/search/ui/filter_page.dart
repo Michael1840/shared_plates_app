@@ -6,7 +6,6 @@ import 'package:go_router/go_router.dart';
 import '../../core/router/routes.dart';
 import '../../core/theme/theme.dart';
 import '../../core/ui/custom/buttons/my_icon_button.dart';
-import '../../core/ui/custom/containers/tag_container.dart';
 import '../../core/ui/custom/fields/search_field.dart';
 import '../../core/ui/custom/icons/my_icons.dart';
 import '../../core/ui/layouts/page_container.dart';
@@ -14,9 +13,13 @@ import '../../core/utils/constants.dart';
 import '../../core/utils/extensions.dart';
 import '../../recipe/data/repo/recipe_repo.dart';
 import '../bloc/search_cubit/search_cubit.dart';
+import 'items/smart_slider.dart';
+import 'items/switch_row.dart';
+import 'items/wrapping_tag_container.dart';
 
 class FilterHomePage extends StatefulWidget {
-  const FilterHomePage({super.key});
+  final SearchCubit? cubit;
+  const FilterHomePage({super.key, this.cubit});
 
   @override
   State<FilterHomePage> createState() => _FilterHomePageState();
@@ -24,6 +27,7 @@ class FilterHomePage extends StatefulWidget {
 
 class _FilterHomePageState extends State<FilterHomePage> {
   final Debouncer _debouncer = Debouncer();
+  final Debouncer _sliderDebouncer = Debouncer();
 
   final TextEditingController _searchCont = TextEditingController();
 
@@ -33,7 +37,13 @@ class _FilterHomePageState extends State<FilterHomePage> {
   void initState() {
     super.initState();
 
-    _cubit = SearchCubit(context.read<RecipesRepository>());
+    _initCubit();
+  }
+
+  void _initCubit() {
+    _cubit = widget.cubit ?? SearchCubit(context.read<RecipesRepository>());
+
+    _searchCont.text = _cubit.state.searchFilter ?? '';
   }
 
   @override
@@ -49,6 +59,22 @@ class _FilterHomePageState extends State<FilterHomePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
+                  children: [
+                    Icon(
+                      Icons.refresh_rounded,
+                      color: context.primary,
+                      size: 14,
+                    ),
+                    AppText.heading(
+                      text: ' Reset All',
+                      size: 12,
+                      color: context.primary,
+                    ),
+                  ],
+                ).onTap(() {
+                  _cubit.reset();
+                }),
+                Row(
                   spacing: 8,
                   children: [
                     Expanded(
@@ -56,7 +82,11 @@ class _FilterHomePageState extends State<FilterHomePage> {
                         hint: 'Search recipes',
                         controller: _searchCont,
                         onChanged: (s) {
-                          context.read<SearchCubit>().searchFilter(s);
+                          _debouncer.debounce(
+                            duration: const Duration(milliseconds: 250),
+                            onDebounce: () =>
+                                context.read<SearchCubit>().searchFilter(s),
+                          );
                         },
                       ),
                     ),
@@ -64,10 +94,7 @@ class _FilterHomePageState extends State<FilterHomePage> {
                       icon: MyIcons.chevron_right,
                       padding: 14,
                       color: context.green,
-                      disabled:
-                          (state.searchFilter.isNull ||
-                              state.searchFilter!.isEmpty) &&
-                          state.tags.isEmpty,
+                      disabled: !state.isEnabled,
                       onTap: () {
                         final searchCubit = context.read<SearchCubit>();
                         context.pop();
@@ -87,62 +114,65 @@ class _FilterHomePageState extends State<FilterHomePage> {
                   child: SingleChildScrollView(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      spacing: 20,
+                      spacing: 32,
                       children: [
-                        const AppText.primary(text: 'Category', size: 16),
-                        Wrap(
-                          direction: Axis.horizontal,
-                          runSpacing: 12,
-                          spacing: 12,
-                          alignment: WrapAlignment.start,
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          spacing: 8,
                           children: [
-                            for (final category in kCategories)
-                              TagContainer(
-                                title: category,
-                                isActive: state.tags.contains(category),
-                                onTap: () {
-                                  context.read<SearchCubit>().toggleTag(
-                                    category,
-                                  );
-                                },
-                              ),
+                            SwitchRow(
+                              title: 'Match all tags',
+                              onChanged: (b) {
+                                _cubit.updateMatchAllTags(b);
+                              },
+                              value: state.matchAllTags ?? false,
+                            ),
+                            SwitchRow(
+                              title: 'Only liked recipes',
+                              onChanged: (b) {
+                                _cubit.updateLikedOnly(b);
+                              },
+                              value: state.likedOnly ?? false,
+                            ),
                           ],
                         ),
-                        const AppText.primary(text: 'Diet', size: 16),
-                        Wrap(
-                          direction: Axis.horizontal,
-                          runSpacing: 12,
-                          spacing: 12,
-                          alignment: WrapAlignment.start,
+
+                        WrappingTagContainer(
+                          title: 'Filter',
+                          tags: kFilters,
+                          cubit: _cubit,
+                          isFilter: true,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          spacing: 8,
                           children: [
-                            for (final diet in kDiets)
-                              TagContainer(
-                                title: diet,
-                                isActive: state.tags.contains(diet),
-                                onTap: () {
-                                  context.read<SearchCubit>().toggleTag(diet);
-                                },
-                              ),
+                            const AppText.primary(text: 'Max Price', size: 16),
+                            SmartPriceSlider(
+                              maxPrice: 3000,
+                              step: 10,
+                              sliderValue: state.maxPrice.toDouble(),
+                              onChanged: (value, maxPrice) {
+                                _cubit.updateMaxPrice(value, maxPrice);
+                              },
+                            ),
                           ],
                         ),
-                        const AppText.primary(text: 'Cuisine', size: 16),
-                        Wrap(
-                          direction: Axis.horizontal,
-                          runSpacing: 12,
-                          spacing: 12,
-                          alignment: WrapAlignment.start,
-                          children: [
-                            for (final cuisine in kCuisines)
-                              TagContainer(
-                                title: cuisine,
-                                isActive: state.tags.contains(cuisine),
-                                onTap: () {
-                                  context.read<SearchCubit>().toggleTag(
-                                    cuisine,
-                                  );
-                                },
-                              ),
-                          ],
+
+                        WrappingTagContainer(
+                          title: 'Category',
+                          tags: kCategories,
+                          cubit: _cubit,
+                        ),
+                        WrappingTagContainer(
+                          title: 'Diet',
+                          tags: kDiets,
+                          cubit: _cubit,
+                        ),
+                        WrappingTagContainer(
+                          title: 'Cuisine',
+                          tags: kCuisines,
+                          cubit: _cubit,
                         ),
                       ],
                     ),

@@ -110,7 +110,19 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
                                         overflow: TextOverflow.ellipsis,
                                       ),
                                     ),
-                                    const MyIconButton(icon: MyIcons.heart_02),
+                                    MyIconButton(
+                                      icon: MyIcons.heart_02,
+
+                                      onTap: () {
+                                        // TODO: Implement liking
+                                        // context.read<RecipeBloc>().add(
+                                        //   LikeRecipe(
+                                        //     RecipeType.user,
+                                        //     recipe.id,
+                                        //   ),
+                                        // );
+                                      },
+                                    ),
                                   ],
                                 ),
                                 Row(
@@ -135,18 +147,13 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
                               ],
                             ),
 
-                            ServingsContainer(
-                              serves: recipe.serves,
-                              increment: () {},
-                              decrement: () {},
-                            ),
-
                             ConstrainedBox(
                               constraints: const BoxConstraints(
                                 maxHeight: 33.64,
                                 minHeight: 32.8,
                               ),
                               child: ListView.separated(
+                                scrollDirection: Axis.horizontal,
                                 separatorBuilder: (context, index) =>
                                     const SizedBox(width: 8),
                                 itemBuilder: (context, index) => RecipeTag(
@@ -154,6 +161,12 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
                                 ).listAnimate(index),
                                 itemCount: recipe.tags.length,
                               ),
+                            ),
+
+                            ServingsContainer(
+                              serves: recipe.serves,
+                              increment: () {},
+                              decrement: () {},
                             ),
 
                             IntrinsicHeight(

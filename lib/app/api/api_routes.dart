@@ -48,6 +48,8 @@ class ApiRoutes {
     String? sorting,
     List<String>? tags,
     bool? matchAllTags,
+    int? maxPrice,
+    bool? isLiked,
   }) {
     String endPoint = '${recipe}search/';
     List<String> params = [];
@@ -79,6 +81,16 @@ class ApiRoutes {
     // Add sorting
     if (sorting != null && sorting.isNotEmpty) {
       params.add('sort=$sorting');
+    }
+
+    // Add max_price
+    if (maxPrice != null && (maxPrice < 3000 && maxPrice > 0)) {
+      params.add('max_price=$maxPrice');
+    }
+
+    // Add is_liked param
+    if (isLiked != null && isLiked) {
+      params.add('is_liked=true');
     }
 
     // Combine all params
