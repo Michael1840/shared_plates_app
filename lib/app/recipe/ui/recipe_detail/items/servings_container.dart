@@ -2,7 +2,6 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/theme/theme.dart';
-import '../../../../core/ui/custom/icons/my_icons.dart';
 import '../../../../core/utils/extensions.dart';
 
 class ServingsContainer extends StatelessWidget {
@@ -33,21 +32,21 @@ class ServingsContainer extends StatelessWidget {
           Row(
             spacing: 16,
             children: [
-              CircleAvatar(
-                radius: 12,
-                backgroundColor: context.green,
-                child: Icon(
-                  MyIcons.remove_minus,
-                  color: context.white,
-                  size: 18,
-                ),
-              ).onTap(decrement),
+              // CircleAvatar(
+              //   radius: 12,
+              //   backgroundColor: context.green,
+              //   child: Icon(
+              //     MyIcons.remove_minus,
+              //     color: context.white,
+              //     size: 18,
+              //   ),
+              // ).onTap(decrement),
               AppText.primary(text: serves.toString(), color: context.green),
-              CircleAvatar(
-                radius: 12,
-                backgroundColor: context.green,
-                child: Icon(MyIcons.add_plus, color: context.white, size: 18),
-              ).onTap(increment),
+              // CircleAvatar(
+              //   radius: 12,
+              //   backgroundColor: context.green,
+              //   child: Icon(MyIcons.add_plus, color: context.white, size: 18),
+              // ).onTap(increment),
             ],
           ),
         ],

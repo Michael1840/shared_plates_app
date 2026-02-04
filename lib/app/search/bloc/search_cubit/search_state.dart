@@ -10,7 +10,7 @@ class SearchState extends Equatable {
 
   final DelayedResult<List<RecipeModel>> loadingResult;
 
-  final bool friendsOnly;
+  final bool? friendsOnly;
   final bool? matchAllTags;
   final bool? likedOnly;
 
@@ -31,7 +31,7 @@ class SearchState extends Equatable {
   const SearchState({
     this.searchFilter,
     this.popularityFilter = 'recent',
-    this.friendsOnly = false,
+    this.friendsOnly,
     this.matchAllTags,
     this.likedOnly,
     this.maxPrice = 1,

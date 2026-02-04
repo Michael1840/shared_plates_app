@@ -35,6 +35,10 @@ class SearchCubit extends Cubit<SearchState> {
     emit(state.copyWith(likedOnly: b));
   }
 
+  void updateFriendsOnly(bool b) {
+    emit(state.copyWith(friendsOnly: b));
+  }
+
   void updateMatchAllTags(bool b) {
     emit(state.copyWith(matchAllTags: b));
   }
@@ -65,6 +69,7 @@ class SearchCubit extends Cubit<SearchState> {
             state.matchAllTags,
             state.actualMaxPrice,
             state.likedOnly,
+            state.friendsOnly,
           );
 
       switch (result) {

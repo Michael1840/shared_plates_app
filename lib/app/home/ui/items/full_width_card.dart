@@ -6,6 +6,7 @@ import '../../../core/ui/custom/containers/glass_container.dart';
 import '../../../core/ui/custom/containers/network_image.dart';
 import '../../../core/ui/custom/icons/my_icons.dart';
 import '../../../core/utils/extensions.dart';
+import '../../../core/utils/methods.dart';
 import '../../../recipe/data/models/recipe_model.dart';
 
 class FullWidthCard extends StatelessWidget {
@@ -70,7 +71,7 @@ class FullWidthCard extends StatelessWidget {
             children: [
               Expanded(
                 child: Column(
-                  spacing: 40,
+                  spacing: 30,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -96,8 +97,11 @@ class FullWidthCard extends StatelessWidget {
                       children: [
                         Flexible(
                           child: AppText.heading(
-                            text: 'R${recipe.cost}',
+                            text: Formatter.currencyFormat(
+                              recipe.cost.toString(),
+                            ),
                             size: 14,
+                            color: context.textPrimary,
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
@@ -127,16 +131,40 @@ class FullWidthCard extends StatelessWidget {
                 ),
               ),
               Column(
-                spacing: 40,
+                spacing: 30,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Icon(
-                    MyIcons.heart_02,
+                  DefaultContainer(
+                    padding: const EdgeInsets.only(
+                      left: 14,
+                      right: 12,
+                      top: 6,
+                      bottom: 6,
+                    ),
                     color: recipe.isLiked
-                        ? StatusColors.redLight
-                        : context.textSecondary,
-                    size: 20,
+                        ? StatusColors.redLight.withValues(alpha: 0.2)
+                        : null,
+                    child: Row(
+                      spacing: 8,
+                      children: [
+                        AppText.primary(
+                          text: recipe.likeCount.toString(),
+                          size: 14,
+                          weight: Weights.medium,
+                          color: recipe.isLiked
+                              ? StatusColors.redLight
+                              : context.textSecondary,
+                        ),
+                        Icon(
+                          MyIcons.heart_02,
+                          color: recipe.isLiked
+                              ? StatusColors.redLight
+                              : context.textSecondary,
+                          size: 18,
+                        ),
+                      ],
+                    ),
                   ).onTap(onLike),
                   Icon(
                     MyIcons.chevron_right,

@@ -34,6 +34,14 @@ class RecipeModel {
   final String title;
   final double cost;
   final int serves;
+  @JsonKey(defaultValue: 0, disallowNullValue: false)
+  final int trendingScore;
+  @JsonKey(defaultValue: 0, disallowNullValue: false)
+  final int likesThisWeek;
+  @JsonKey(defaultValue: 0, disallowNullValue: false)
+  final int viewsThisWeek;
+  @JsonKey(defaultValue: 0, disallowNullValue: false)
+  final int likeCount;
   @JsonKey(defaultValue: TagGroup.empty)
   final TagGroup tagGroup;
   final String? image;
@@ -46,6 +54,10 @@ class RecipeModel {
     required this.title,
     required this.cost,
     required this.serves,
+    required this.trendingScore,
+    required this.likesThisWeek,
+    required this.viewsThisWeek,
+    required this.likeCount,
     required this.createdBy,
     required this.isLiked,
     required this.tagGroup,
@@ -62,6 +74,10 @@ class RecipeModel {
     String? title,
     double? cost,
     int? serves,
+    int? trendingScore,
+    int? likesThisWeek,
+    int? viewsThisWeek,
+    int? likeCount,
     TagGroup? tagGroup,
     String? image,
     bool? isLiked,
@@ -72,6 +88,10 @@ class RecipeModel {
       title: title ?? this.title,
       cost: cost ?? this.cost,
       serves: serves ?? this.serves,
+      trendingScore: trendingScore ?? this.trendingScore,
+      likesThisWeek: likesThisWeek ?? this.likesThisWeek,
+      viewsThisWeek: viewsThisWeek ?? this.viewsThisWeek,
+      likeCount: likeCount ?? this.likeCount,
       tagGroup: tagGroup ?? this.tagGroup,
       image: image ?? this.image,
       isLiked: isLiked ?? this.isLiked,
@@ -96,6 +116,10 @@ class RecipeDetailModel extends RecipeModel {
     required super.title,
     required super.cost,
     required super.serves,
+    required super.trendingScore,
+    required super.likesThisWeek,
+    required super.viewsThisWeek,
+    required super.likeCount,
     required super.createdBy,
     required super.isLiked,
     required super.tagGroup,

@@ -27,7 +27,6 @@ class FilterHomePage extends StatefulWidget {
 
 class _FilterHomePageState extends State<FilterHomePage> {
   final Debouncer _debouncer = Debouncer();
-  final Debouncer _sliderDebouncer = Debouncer();
 
   final TextEditingController _searchCont = TextEditingController();
 
@@ -94,7 +93,7 @@ class _FilterHomePageState extends State<FilterHomePage> {
                       icon: MyIcons.chevron_right,
                       padding: 14,
                       color: context.green,
-                      disabled: !state.isEnabled,
+                      // disabled: !state.isEnabled,
                       onTap: () {
                         final searchCubit = context.read<SearchCubit>();
                         context.pop();
@@ -120,6 +119,13 @@ class _FilterHomePageState extends State<FilterHomePage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           spacing: 8,
                           children: [
+                            SwitchRow(
+                              title: 'Friends only',
+                              onChanged: (b) {
+                                _cubit.updateFriendsOnly(b);
+                              },
+                              value: state.friendsOnly ?? false,
+                            ),
                             SwitchRow(
                               title: 'Match all tags',
                               onChanged: (b) {

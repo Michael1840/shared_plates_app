@@ -11,6 +11,7 @@ class MyIconButton extends StatelessWidget {
   final bool disabled;
   final bool _isColored;
   final Color? color;
+  final Color? iconColor;
   final double? iconSize;
   final bool hasGlow;
   final String? text;
@@ -26,7 +27,8 @@ class MyIconButton extends StatelessWidget {
     this.hasGlow = false,
     this.text,
   }) : _isColored = false,
-       color = null;
+       color = null,
+       iconColor = null;
 
   const MyIconButton.colored({
     super.key,
@@ -36,6 +38,7 @@ class MyIconButton extends StatelessWidget {
     this.disabled = false,
     this.isLoading = false,
     this.color,
+    this.iconColor,
     this.iconSize,
     this.hasGlow = false,
     this.text,
@@ -102,7 +105,9 @@ class MyIconButton extends StatelessWidget {
               children: [
                 Icon(
                   icon,
-                  color: _isColored ? context.white : context.textSecondary,
+                  color:
+                      iconColor ??
+                      (_isColored ? context.white : context.textSecondary),
                   size: iconSize ?? 18,
                 ),
                 if (text != null)

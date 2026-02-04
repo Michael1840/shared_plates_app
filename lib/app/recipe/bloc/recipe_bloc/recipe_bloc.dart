@@ -114,7 +114,13 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
 
     if (index == -1) return;
 
-    recipes[index] = recipes[index].copyWith(isLiked: !recipes[index].isLiked);
+    bool newLikeStatus = !recipes[index].isLiked;
+    int likeCount = recipes[index].likeCount;
+
+    recipes[index] = recipes[index].copyWith(
+      isLiked: newLikeStatus,
+      likeCount: newLikeStatus ? likeCount + 1 : likeCount - 1,
+    );
 
     emit(
       state.copyWith(

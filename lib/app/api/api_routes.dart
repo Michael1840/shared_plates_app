@@ -50,6 +50,7 @@ class ApiRoutes {
     bool? matchAllTags,
     int? maxPrice,
     bool? isLiked,
+    bool? friendsOnly,
   }) {
     String endPoint = '${recipe}search/';
     List<String> params = [];
@@ -93,10 +94,16 @@ class ApiRoutes {
       params.add('is_liked=true');
     }
 
+    if (friendsOnly != null && friendsOnly) {
+      params.add('friends_only=true');
+    }
+
     // Combine all params
     if (params.isNotEmpty) {
       endPoint = '$endPoint?${params.join('&')}';
     }
+
+    print(endPoint);
 
     return endPoint;
   }
