@@ -31,7 +31,7 @@ class PublishPage extends StatelessWidget {
         spacing: 20,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const AppText.primary(text: 'Category', size: 16),
+          const AppText.primary(text: 'Category*', size: 16),
           Wrap(
             direction: Axis.horizontal,
             runSpacing: 12,

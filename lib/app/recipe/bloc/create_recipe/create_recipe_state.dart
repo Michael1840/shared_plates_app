@@ -109,8 +109,6 @@ class CreateRecipeState extends Equatable {
     return ingredients.isNotEmpty &&
         steps.isNotEmpty &&
         category.isNotEmpty &&
-        diet.isNotEmpty &&
-        cuisine.isNotEmpty &&
         selectedPrivacyStatus != null &&
         !title.isNull &&
         !description.isNull;

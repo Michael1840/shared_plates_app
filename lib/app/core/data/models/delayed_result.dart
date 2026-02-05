@@ -7,25 +7,22 @@ class DelayedResult<T> extends Equatable {
   final bool isInProgress;
 
   const DelayedResult.fromError(String err)
-      : value = null,
-        error = err,
-        isInProgress = false;
+    : value = null,
+      error = err,
+      isInProgress = false;
 
   // don't change to const
-  DelayedResult.fromValue(T result)
-      : value = result,
-        error = null,
-        isInProgress = false;
+  const DelayedResult.fromValue(T result)
+    : value = result,
+      error = null,
+      isInProgress = false;
 
   const DelayedResult.inProgress()
-      : value = null,
-        error = null,
-        isInProgress = true;
+    : value = null,
+      error = null,
+      isInProgress = true;
 
-  const DelayedResult.idle()
-      : value = null,
-        error = null,
-        isInProgress = false;
+  const DelayedResult.idle() : value = null, error = null, isInProgress = false;
 
   bool get isSuccessful => value != null;
 
@@ -34,9 +31,5 @@ class DelayedResult<T> extends Equatable {
   bool get isIdle => value == null && error == null && !isInProgress;
 
   @override
-  List<Object?> get props => [
-        value,
-        error,
-        isInProgress,
-      ];
+  List<Object?> get props => [value, error, isInProgress];
 }

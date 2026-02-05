@@ -56,7 +56,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
           final RecipeDetailModel? recipe = state.loadingResult.value;
 
           if (recipe == null) {
-            return Scaffold();
+            return const Scaffold();
           }
 
           return Scaffold(
@@ -147,21 +147,22 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
                               ],
                             ),
 
-                            ConstrainedBox(
-                              constraints: const BoxConstraints(
-                                maxHeight: 33.64,
-                                minHeight: 32.8,
+                            if (recipe.tags.isNotEmpty)
+                              ConstrainedBox(
+                                constraints: const BoxConstraints(
+                                  maxHeight: 33.64,
+                                  minHeight: 32.8,
+                                ),
+                                child: ListView.separated(
+                                  scrollDirection: Axis.horizontal,
+                                  separatorBuilder: (context, index) =>
+                                      const SizedBox(width: 8),
+                                  itemBuilder: (context, index) => RecipeTag(
+                                    tag: recipe.tags[index],
+                                  ).listAnimate(index),
+                                  itemCount: recipe.tags.length,
+                                ),
                               ),
-                              child: ListView.separated(
-                                scrollDirection: Axis.horizontal,
-                                separatorBuilder: (context, index) =>
-                                    const SizedBox(width: 8),
-                                itemBuilder: (context, index) => RecipeTag(
-                                  tag: recipe.tags[index],
-                                ).listAnimate(index),
-                                itemCount: recipe.tags.length,
-                              ),
-                            ),
 
                             ServingsContainer(
                               serves: recipe.serves,

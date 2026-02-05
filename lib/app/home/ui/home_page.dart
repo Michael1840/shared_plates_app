@@ -36,7 +36,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final Throttler _throttler = Throttler();
 
-  _Filter _filter = _Filter.card;
+  final _Filter _filter = _Filter.card;
 
   late ScrollController _scrollController;
 

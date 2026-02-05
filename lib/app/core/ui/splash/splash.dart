@@ -25,7 +25,7 @@ class SplashPage extends StatelessWidget {
     }
 
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: [AccentColors.green, AccentColors.green],
         ),
@@ -33,7 +33,7 @@ class SplashPage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          SizedBox(),
+          const SizedBox(),
           Center(
             child: LottieBuilder.asset(
               animation,

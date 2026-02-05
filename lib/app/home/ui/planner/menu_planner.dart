@@ -21,7 +21,7 @@ class MenuPlanner extends StatefulWidget {
 
 class _MenuPlannerState extends State<MenuPlanner> {
   CalendarFormat _calendarFormat = CalendarFormat.week;
-  DateTime _focusedDay = DateTime.now();
+  final DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
 
   @override
@@ -192,10 +192,10 @@ class _MenuPlannerState extends State<MenuPlanner> {
                 ),
               ),
             ),
-            AppText.heading(text: 'Today\'s Meals', size: 16),
+            const AppText.heading(text: 'Today\'s Meals', size: 16),
             Expanded(
               child: MySliverList(
-                itemBuilder: (context, index) => MenuItem(
+                itemBuilder: (context, index) => const MenuItem(
                   recipe: RecipeModel(
                     id: 1,
                     title: 'Title',

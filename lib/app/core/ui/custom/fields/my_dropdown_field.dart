@@ -81,7 +81,7 @@ class MyDropdownButton extends StatelessWidget {
       searchFieldDecoration: SearchFieldDecoration(
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(100),
-          borderSide: BorderSide(color: Colors.transparent),
+          borderSide: const BorderSide(color: Colors.transparent),
         ),
         fillColor: context.onContainer,
       ),
