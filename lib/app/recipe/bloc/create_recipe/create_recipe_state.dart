@@ -14,9 +14,11 @@ class CreateRecipeState extends Equatable {
   final List<String> diet;
   final List<String> cuisine;
 
-  final CustomDropdownValue? selectedQuantitySymbol;
+  final CustomDropdownValue<LocalIngredientModel>? selectedIngredient;
 
-  final CustomDropdownValue? selectedPrivacyStatus;
+  final CustomDropdownValue<String>? selectedQuantitySymbol;
+
+  final CustomDropdownValue<String>? selectedPrivacyStatus;
 
   final int serves;
 
@@ -36,6 +38,7 @@ class CreateRecipeState extends Equatable {
     required this.category,
     required this.diet,
     required this.cuisine,
+    this.selectedIngredient,
     this.selectedQuantitySymbol,
     this.selectedPrivacyStatus,
     this.imageFile,
@@ -66,6 +69,7 @@ class CreateRecipeState extends Equatable {
     category,
     diet,
     cuisine,
+    selectedIngredient,
     selectedQuantitySymbol,
     selectedPrivacyStatus,
     loadingResult,
@@ -81,8 +85,9 @@ class CreateRecipeState extends Equatable {
     List<String>? category,
     List<String>? diet,
     List<String>? cuisine,
-    CustomDropdownValue? selectedQuantitySymbol,
-    CustomDropdownValue? selectedPrivacyStatus,
+    CustomDropdownValue<LocalIngredientModel>? selectedIngredient,
+    CustomDropdownValue<String>? selectedQuantitySymbol,
+    CustomDropdownValue<String>? selectedPrivacyStatus,
     int? serves,
     File? imageFile,
   }) {
@@ -96,12 +101,34 @@ class CreateRecipeState extends Equatable {
       category: category ?? this.category,
       diet: diet ?? this.diet,
       cuisine: cuisine ?? this.cuisine,
+      selectedIngredient: selectedIngredient ?? this.selectedIngredient,
       selectedQuantitySymbol:
           selectedQuantitySymbol ?? this.selectedQuantitySymbol,
       selectedPrivacyStatus:
           selectedPrivacyStatus ?? this.selectedPrivacyStatus,
       serves: serves ?? this.serves,
       imageFile: imageFile ?? this.imageFile,
+    );
+  }
+
+  CreateRecipeState updateSelectedSymbol({
+    CustomDropdownValue<String>? selectedQuantitySymbol,
+  }) {
+    return CreateRecipeState(
+      loadingResult: loadingResult,
+      ingredients: ingredients,
+      steps: steps,
+      tags: tags,
+      title: title,
+      description: description,
+      category: category,
+      diet: diet,
+      cuisine: cuisine,
+      selectedIngredient: selectedIngredient,
+      selectedQuantitySymbol: selectedQuantitySymbol,
+      selectedPrivacyStatus: selectedPrivacyStatus,
+      serves: serves,
+      imageFile: imageFile,
     );
   }
 

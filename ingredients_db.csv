@@ -1,0 +1,345 @@
+Ingredient_Name,Category,Calories_kcal_per_g,Protein_g_per_g,Fat_g_per_g,Carbs_g_per_g,Fiber_g_per_g,Sugar_g_per_g
+All Purpose Flour,Grains & Flours,3.64,0.10,0.01,0.76,0.03,0.00
+Whole Wheat Flour,Grains & Flours,3.39,0.14,0.02,0.72,0.11,0.00
+Bread Flour,Grains & Flours,3.61,0.12,0.01,0.73,0.03,0.00
+Almond Flour,Grains & Flours,5.71,0.21,0.50,0.22,0.12,0.04
+Cornstarch,Grains & Flours,3.81,0.00,0.00,0.91,0.00,0.00
+Rolled Oats (Raw),Grains & Flours,3.79,0.13,0.06,0.67,0.10,0.01
+White Rice (Raw),Grains & Flours,3.65,0.07,0.01,0.80,0.01,0.00
+Brown Rice (Raw),Grains & Flours,3.67,0.07,0.03,0.76,0.03,0.00
+Quinoa (Raw),Grains & Flours,3.68,0.14,0.06,0.64,0.07,0.00
+Semolina,Grains & Flours,3.60,0.13,0.01,0.73,0.04,0.00
+Granulated Sugar,Sweeteners,3.87,0.00,0.00,1.00,0.00,1.00
+Brown Sugar,Sweeteners,3.80,0.00,0.00,0.98,0.00,0.97
+Powdered Sugar,Sweeteners,3.89,0.00,0.00,0.99,0.00,0.98
+Honey,Sweeteners,3.04,0.00,0.00,0.82,0.00,0.82
+Maple Syrup,Sweeteners,2.60,0.00,0.00,0.67,0.00,0.60
+Agave Nectar,Sweeteners,3.10,0.00,0.00,0.76,0.00,0.68
+Molasses,Sweeteners,2.90,0.00,0.00,0.75,0.00,0.55
+Unsalted Butter,Fats & Oils,7.17,0.01,0.81,0.00,0.00,0.00
+Salted Butter,Fats & Oils,7.17,0.01,0.81,0.00,0.00,0.00
+Olive Oil,Fats & Oils,8.84,0.00,1.00,0.00,0.00,0.00
+Vegetable Oil,Fats & Oils,8.84,0.00,1.00,0.00,0.00,0.00
+Coconut Oil,Fats & Oils,8.92,0.00,0.99,0.00,0.00,0.00
+Shortening,Fats & Oils,8.84,0.00,1.00,0.00,0.00,0.00
+Lard,Fats & Oils,9.02,0.00,1.00,0.00,0.00,0.00
+Heavy Cream,Dairy,3.40,0.03,0.36,0.03,0.00,0.03
+Whole Milk,Dairy,0.61,0.03,0.03,0.05,0.00,0.05
+Skim Milk,Dairy,0.35,0.03,0.00,0.05,0.00,0.05
+Buttermilk,Dairy,0.40,0.03,0.01,0.05,0.00,0.05
+Sour Cream,Dairy,1.93,0.02,0.19,0.05,0.00,0.03
+Plain Yogurt (Whole),Dairy,0.61,0.03,0.03,0.05,0.00,0.05
+Greek Yogurt (Plain),Dairy,0.59,0.10,0.00,0.03,0.00,0.03
+Cream Cheese,Dairy,3.42,0.06,0.34,0.04,0.00,0.03
+Cheddar Cheese,Dairy,4.03,0.25,0.33,0.01,0.00,0.00
+Mozzarella (Whole),Dairy,3.00,0.22,0.22,0.02,0.00,0.01
+Parmesan (Grated),Dairy,4.31,0.38,0.29,0.04,0.00,0.00
+Egg (Whole Raw),Proteins,1.43,0.13,0.10,0.01,0.00,0.00
+Egg White (Raw),Proteins,0.52,0.11,0.00,0.01,0.00,0.00
+Egg Yolk (Raw),Proteins,3.22,0.16,0.27,0.04,0.00,0.00
+Chicken Breast (Raw),Proteins,1.20,0.23,0.03,0.00,0.00,0.00
+Chicken Thigh (Raw),Proteins,1.77,0.20,0.10,0.00,0.00,0.00
+Ground Beef (80/20),Proteins,2.54,0.17,0.20,0.00,0.00,0.00
+Ground Beef (90/10),Proteins,1.76,0.20,0.10,0.00,0.00,0.00
+Pork Chop (Raw),Proteins,1.43,0.21,0.06,0.00,0.00,0.00
+Bacon (Raw),Proteins,5.41,0.37,0.42,0.01,0.00,0.00
+Salmon (Raw),Proteins,2.08,0.20,0.13,0.00,0.00,0.00
+Tuna (Canned/Water),Proteins,1.16,0.26,0.01,0.00,0.00,0.00
+Tofu (Firm),Proteins,0.76,0.08,0.04,0.02,0.01,0.00
+Black Beans (Dry),Legumes,3.41,0.21,0.01,0.62,0.15,0.02
+Chickpeas (Dry),Legumes,3.78,0.20,0.06,0.63,0.12,0.11
+Lentils (Dry),Legumes,3.52,0.24,0.01,0.63,0.11,0.02
+Peanut Butter,Nut/Seed,5.88,0.25,0.50,0.20,0.06,0.09
+Almonds (Raw),Nut/Seed,5.79,0.21,0.49,0.22,0.12,0.04
+Walnuts (Raw),Nut/Seed,6.54,0.15,0.65,0.14,0.07,0.03
+Cashews (Raw),Nut/Seed,5.53,0.18,0.44,0.30,0.03,0.06
+Chia Seeds,Nut/Seed,4.86,0.17,0.31,0.42,0.34,0.00
+Flax Seeds,Nut/Seed,5.34,0.18,0.42,0.29,0.27,0.02
+Cocoa Powder (Unswt),Baking,2.28,0.20,0.14,0.58,0.37,0.02
+Dark Chocolate (70%),Baking,5.98,0.08,0.43,0.46,0.11,0.24
+Semi-Sweet Chips,Baking,4.79,0.04,0.26,0.67,0.04,0.62
+Vanilla Extract,Baking,2.88,0.00,0.00,0.13,0.00,0.13
+Baking Powder,Baking,0.53,0.00,0.00,0.28,0.00,0.00
+Baking Soda,Baking,0.00,0.00,0.00,0.00,0.00,0.00
+Yeast (Active Dry),Baking,3.25,0.40,0.07,0.41,0.27,0.00
+Salt,Seasoning,0.00,0.00,0.00,0.00,0.00,0.00
+Black Pepper,Seasoning,2.51,0.10,0.03,0.64,0.25,0.00
+Cinnamon,Seasoning,2.47,0.04,0.01,0.81,0.53,0.02
+Tomato Paste,Pantry,0.82,0.04,0.00,0.19,0.05,0.10
+Canned Tomatoes,Pantry,0.32,0.01,0.00,0.07,0.02,0.03
+Soy Sauce,Pantry,0.53,0.08,0.00,0.05,0.01,0.00
+Vinegar (Distilled),Pantry,0.18,0.00,0.00,0.00,0.00,0.00
+Onion (Raw),Produce,0.40,0.01,0.00,0.09,0.01,0.04
+Garlic (Raw),Produce,1.49,0.06,0.00,0.33,0.02,0.01
+Carrot (Raw),Produce,0.41,0.01,0.00,0.10,0.02,0.04
+Potato (Russet Raw),Produce,0.79,0.02,0.00,0.18,0.01,0.00
+Sweet Potato (Raw),Produce,0.86,0.01,0.00,0.20,0.03,0.04
+Spinach (Raw),Produce,0.23,0.02,0.00,0.03,0.02,0.00
+Broccoli (Raw),Produce,0.34,0.02,0.00,0.06,0.02,0.01
+Bell Pepper (Red),Produce,0.31,0.01,0.00,0.06,0.02,0.04
+Cucumber,Produce,0.15,0.00,0.00,0.03,0.00,0.01
+Tomato (Raw),Produce,0.18,0.00,0.00,0.03,0.01,0.02
+Apple (Raw w/ Skin),Produce,0.52,0.00,0.00,0.13,0.02,0.10
+Banana (Raw),Produce,0.89,0.01,0.00,0.22,0.02,0.12
+Lemon Juice,Produce,0.22,0.00,0.00,0.06,0.00,0.02
+Strawberry (Raw),Produce,0.32,0.00,0.00,0.07,0.02,0.04
+Blueberry (Raw),Produce,0.57,0.00,0.00,0.14,0.02,0.10
+Avocado,Produce,1.60,0.02,0.14,0.08,0.06,0.00
+Water,Liquid,0.00,0.00,0.00,0.00,0.00,0.00
+Coconut Flour,Grains & Flours,2.59,0.18,0.18,0.59,0.38,0.07
+Oat Flour,Grains & Flours,4.04,0.15,0.09,0.66,0.06,0.01
+Chickpea Flour (Besan),Grains & Flours,3.87,0.22,0.07,0.58,0.11,0.11
+Tapioca Flour,Grains & Flours,3.58,0.00,0.00,0.88,0.00,0.00
+Buckwheat Flour,Grains & Flours,3.35,0.13,0.03,0.71,0.10,0.02
+Rye Flour (Dark),Grains & Flours,3.25,0.16,0.02,0.69,0.25,0.02
+Barley (Pearled Raw),Grains & Flours,3.54,0.12,0.02,0.73,0.17,0.01
+Couscous (Dry),Grains & Flours,3.76,0.13,0.01,0.77,0.05,0.00
+Pasta (Semolina Dry),Grains & Flours,3.71,0.13,0.01,0.75,0.03,0.02
+Pasta (Whole Wheat Dry),Grains & Flours,3.48,0.15,0.02,0.72,0.11,0.02
+Panko Breadcrumbs,Pantry,3.70,0.10,0.02,0.78,0.04,0.04
+Cornmeal (Yellow),Grains & Flours,3.70,0.07,0.01,0.79,0.03,0.01
+Popcorn (Unpopped),Snacks,3.65,0.09,0.04,0.74,0.13,0.01
+Avocado Oil,Fats & Oils,8.84,0.00,1.00,0.00,0.00,0.00
+Sesame Oil,Fats & Oils,8.84,0.00,1.00,0.00,0.00,0.00
+Ghee,Fats & Oils,8.76,0.00,0.99,0.00,0.00,0.00
+Mayonnaise,Condiments,6.80,0.01,0.75,0.01,0.00,0.01
+Ketchup,Condiments,1.01,0.01,0.00,0.27,0.00,0.22
+Mustard (Yellow),Condiments,0.60,0.03,0.03,0.05,0.03,0.00
+Dijon Mustard,Condiments,1.50,0.07,0.10,0.06,0.01,0.01
+BBQ Sauce,Condiments,1.72,0.01,0.01,0.41,0.01,0.33
+Sriracha,Condiments,1.00,0.02,0.01,0.20,0.01,0.15
+Soy Sauce (Tamari),Pantry,0.60,0.10,0.00,0.05,0.01,0.01
+Worcestershire Sauce,Pantry,0.78,0.00,0.00,0.19,0.00,0.10
+Fish Sauce,Pantry,0.35,0.05,0.00,0.03,0.00,0.03
+Miso Paste,Pantry,1.98,0.12,0.06,0.25,0.05,0.06
+Tahini,Nut/Seed,5.92,0.17,0.53,0.21,0.09,0.00
+Pesto (Basil),Condiments,5.33,0.05,0.50,0.06,0.02,0.01
+Hummus,Condiments,1.66,0.08,0.09,0.14,0.06,0.00
+Almond Butter,Nut/Seed,6.14,0.21,0.55,0.18,0.10,0.04
+Cashew Butter,Nut/Seed,5.87,0.17,0.49,0.27,0.03,0.05
+Pecans (Raw),Nut/Seed,6.91,0.09,0.72,0.14,0.09,0.04
+Macadamia Nuts (Raw),Nut/Seed,7.18,0.08,0.75,0.14,0.08,0.04
+Pistachios (Raw),Nut/Seed,5.60,0.20,0.45,0.27,0.10,0.07
+Sunflower Seeds (Raw),Nut/Seed,5.84,0.20,0.51,0.20,0.08,0.02
+Pumpkin Seeds (Pepitas),Nut/Seed,5.59,0.30,0.49,0.10,0.06,0.01
+Sesame Seeds,Nut/Seed,5.73,0.17,0.49,0.23,0.11,0.00
+Pine Nuts,Nut/Seed,6.73,0.13,0.68,0.13,0.03,0.03
+Almond Milk (Unsweet),Dairy Alt,0.15,0.00,0.01,0.00,0.00,0.00
+Soy Milk (Unsweet),Dairy Alt,0.43,0.03,0.02,0.04,0.00,0.01
+Oat Milk (Unsweet),Dairy Alt,0.48,0.01,0.02,0.06,0.00,0.02
+Coconut Milk (Canned),Pantry,1.97,0.02,0.21,0.02,0.00,0.00
+Cottage Cheese (2%),Dairy,0.81,0.10,0.02,0.04,0.00,0.04
+Ricotta (Whole Milk),Dairy,1.74,0.11,0.12,0.03,0.00,0.00
+Feta Cheese,Dairy,2.64,0.14,0.21,0.04,0.00,0.04
+Goat Cheese (Soft),Dairy,2.64,0.18,0.21,0.00,0.00,0.00
+Blue Cheese,Dairy,3.53,0.21,0.28,0.02,0.00,0.00
+Brie Cheese,Dairy,3.34,0.20,0.27,0.00,0.00,0.00
+Swiss Cheese,Dairy,3.80,0.27,0.27,0.05,0.00,0.00
+Monterey Jack,Dairy,3.73,0.24,0.30,0.00,0.00,0.00
+Ground Turkey (93/7),Proteins,1.50,0.18,0.08,0.00,0.00,0.00
+Turkey Breast (Raw),Proteins,1.14,0.23,0.01,0.00,0.00,0.00
+Sirloin Steak (Trimmed),Proteins,1.70,0.22,0.08,0.00,0.00,0.00
+Ribeye Steak (Trimmed),Proteins,2.40,0.18,0.18,0.00,0.00,0.00
+Flank Steak (Raw),Proteins,1.65,0.21,0.08,0.00,0.00,0.00
+Lamb Chop (Raw),Proteins,2.50,0.16,0.20,0.00,0.00,0.00
+Shrimp (Raw),Proteins,0.85,0.20,0.00,0.00,0.00,0.00
+Cod (Raw),Proteins,0.82,0.17,0.00,0.00,0.00,0.00
+Tilapia (Raw),Proteins,0.96,0.20,0.01,0.00,0.00,0.00
+Scallops (Raw),Proteins,0.88,0.16,0.00,0.02,0.00,0.00
+Halibut (Raw),Proteins,1.10,0.20,0.02,0.00,0.00,0.00
+Tempeh,Proteins,1.92,0.20,0.10,0.07,0.00,0.00
+Seitan,Proteins,1.06,0.24,0.00,0.03,0.00,0.00
+Kidney Beans (Canned),Legumes,0.86,0.05,0.00,0.15,0.05,0.00
+Black Beans (Canned),Legumes,0.91,0.06,0.00,0.16,0.06,0.00
+Chickpeas (Canned),Legumes,1.19,0.05,0.02,0.19,0.05,0.00
+Edamame (Shelled),Legumes,1.21,0.11,0.05,0.08,0.05,0.02
+Kale (Raw),Produce,0.49,0.04,0.00,0.08,0.03,0.02
+Cauliflower (Raw),Produce,0.25,0.01,0.00,0.04,0.02,0.01
+Zucchini (Raw),Produce,0.17,0.01,0.00,0.03,0.01,0.02
+Mushrooms (White Raw),Produce,0.22,0.03,0.00,0.03,0.01,0.01
+Asparagus (Raw),Produce,0.20,0.02,0.00,0.03,0.02,0.01
+Green Beans (Raw),Produce,0.31,0.01,0.00,0.06,0.02,0.03
+Brussels Sprouts (Raw),Produce,0.43,0.03,0.00,0.08,0.03,0.02
+Cabbage (Green Raw),Produce,0.25,0.01,0.00,0.05,0.02,0.03
+Eggplant (Raw),Produce,0.25,0.00,0.00,0.05,0.03,0.03
+Celery (Raw),Produce,0.14,0.00,0.00,0.02,0.01,0.01
+Corn (Sweet Raw),Produce,0.86,0.03,0.01,0.18,0.02,0.06
+Orange (Raw),Produce,0.47,0.00,0.00,0.11,0.02,0.09
+Grapes (Green/Red),Produce,0.69,0.00,0.00,0.18,0.00,0.15
+Pineapple (Raw),Produce,0.50,0.00,0.00,0.13,0.01,0.09
+Mango (Raw),Produce,0.60,0.00,0.00,0.14,0.01,0.13
+Peach (Raw),Produce,0.39,0.00,0.00,0.09,0.01,0.08
+Pear (Raw),Produce,0.57,0.00,0.00,0.15,0.03,0.09
+Watermelon (Raw),Produce,0.30,0.00,0.00,0.07,0.00,0.06
+Raspberries (Raw),Produce,0.52,0.01,0.00,0.11,0.06,0.04
+Blackberries (Raw),Produce,0.43,0.01,0.00,0.09,0.05,0.04
+Dates (Medjool),Pantry,2.77,0.01,0.00,0.74,0.06,0.66
+Raisins,Pantry,2.99,0.03,0.00,0.79,0.03,0.59
+Cranberries (Dried),Pantry,3.08,0.00,0.01,0.82,0.05,0.65
+Ginger (Fresh Root),Produce,0.80,0.01,0.00,0.17,0.02,0.01
+Red Wine (Cooking),Liquid,0.85,0.00,0.00,0.02,0.00,0.00
+White Wine (Cooking),Liquid,0.82,0.00,0.00,0.02,0.00,0.00
+Beer (Regular),Liquid,0.43,0.00,0.00,0.03,0.00,0.00
+Vodka (80 Proof),Liquid,2.31,0.00,0.00,0.00,0.00,0.00
+Pork Shoulder (Raw),Proteins,2.36,0.17,0.18,0.00,0.00,0.00
+Pork Tenderloin (Raw),Proteins,1.09,0.21,0.02,0.00,0.00,0.00
+Ham (Cured/Roasted),Proteins,1.45,0.21,0.06,0.01,0.00,0.00
+Sausage (Italian Raw),Proteins,3.44,0.14,0.31,0.01,0.00,0.00
+Chorizo (Cured),Proteins,4.55,0.24,0.38,0.02,0.00,0.00
+Beef Liver (Raw),Proteins,1.35,0.20,0.03,0.03,0.00,0.00
+Duck Breast (Raw/Skinless),Proteins,1.40,0.20,0.06,0.00,0.00,0.00
+Lamb Leg (Roast/Raw),Proteins,1.80,0.20,0.10,0.00,0.00,0.00
+Venison (Raw),Proteins,1.20,0.23,0.02,0.00,0.00,0.00
+Bison (Ground Raw),Proteins,1.46,0.20,0.07,0.00,0.00,0.00
+Crab Meat (Cooked),Proteins,0.83,0.18,0.01,0.00,0.00,0.00
+Lobster (Cooked),Proteins,0.89,0.19,0.00,0.00,0.00,0.00
+Mussels (Raw),Proteins,0.86,0.11,0.02,0.03,0.00,0.00
+Oysters (Raw),Proteins,0.68,0.07,0.02,0.04,0.00,0.00
+Squid (Raw),Proteins,0.92,0.15,0.01,0.03,0.00,0.00
+Anchovies (Canned/Oil),Pantry,2.10,0.28,0.09,0.00,0.00,0.00
+Sardines (Canned/Oil),Pantry,2.08,0.24,0.11,0.00,0.00,0.00
+Jackfruit (Raw/Young),Produce,0.95,0.01,0.00,0.23,0.01,0.19
+Butternut Squash (Raw),Produce,0.45,0.01,0.00,0.11,0.02,0.02
+Acorn Squash (Raw),Produce,0.40,0.01,0.00,0.10,0.01,0.00
+Spaghetti Squash (Raw),Produce,0.31,0.00,0.00,0.06,0.01,0.02
+Pumpkin (Raw),Produce,0.26,0.01,0.00,0.06,0.00,0.02
+Beets (Raw),Produce,0.43,0.01,0.00,0.09,0.02,0.06
+Parsnips (Raw),Produce,0.75,0.01,0.00,0.17,0.04,0.04
+Turnips (Raw),Produce,0.28,0.00,0.00,0.06,0.01,0.03
+Radish (Raw),Produce,0.16,0.00,0.00,0.03,0.01,0.01
+Fennel (Bulb Raw),Produce,0.31,0.01,0.00,0.07,0.03,0.03
+Leeks (Raw),Produce,0.61,0.01,0.00,0.14,0.01,0.03
+Okra (Raw),Produce,0.33,0.01,0.00,0.07,0.03,0.01
+Artichoke (Hearts Raw),Produce,0.47,0.03,0.00,0.10,0.05,0.01
+Arugula (Raw),Produce,0.25,0.02,0.00,0.03,0.01,0.02
+Kiwi (Raw),Produce,0.61,0.01,0.00,0.14,0.03,0.09
+Mango (Dried),Pantry,3.19,0.02,0.01,0.78,0.02,0.66
+Apricot (Raw),Produce,0.48,0.01,0.00,0.11,0.02,0.09
+Cherries (Raw),Produce,0.63,0.01,0.00,0.16,0.02,0.12
+Plum (Raw),Produce,0.46,0.00,0.00,0.11,0.01,0.09
+Pomegranate Seeds,Produce,0.83,0.01,0.01,0.18,0.04,0.13
+Cantaloupe (Raw),Produce,0.34,0.00,0.00,0.08,0.00,0.07
+Honeydew (Raw),Produce,0.36,0.00,0.00,0.09,0.00,0.08
+Bulgur (Dry),Grains & Flours,3.42,0.12,0.01,0.75,0.12,0.00
+Farro (Dry),Grains & Flours,3.62,0.13,0.02,0.72,0.10,0.02
+Millet (Dry),Grains & Flours,3.78,0.11,0.04,0.72,0.08,0.00
+Wild Rice (Raw),Grains & Flours,3.57,0.14,0.01,0.74,0.06,0.02
+Rice Noodles (Dry),Grains & Flours,3.64,0.03,0.00,0.83,0.01,0.00
+Soba Noodles (Dry),Grains & Flours,3.36,0.14,0.00,0.71,0.00,0.00
+Rice Paper (Wrapper),Pantry,3.33,0.00,0.00,0.83,0.00,0.00
+Tortilla (Corn),Pantry,2.18,0.05,0.02,0.45,0.06,0.01
+Tortilla (Flour),Pantry,2.97,0.08,0.07,0.49,0.02,0.02
+Bread (White Sliced),Pantry,2.65,0.09,0.03,0.49,0.02,0.05
+Bread (Whole Wheat),Pantry,2.47,0.13,0.03,0.41,0.07,0.06
+Hazelnuts (Raw),Nut/Seed,6.28,0.14,0.60,0.16,0.09,0.04
+Brazil Nuts (Raw),Nut/Seed,6.56,0.14,0.66,0.12,0.07,0.02
+Hemp Seeds,Nut/Seed,5.53,0.31,0.48,0.08,0.04,0.01
+Poppy Seeds,Nut/Seed,5.25,0.17,0.41,0.28,0.19,0.03
+Brazil Nuts,Nut/Seed,6.56,0.14,0.66,0.12,0.07,0.02
+Nutritional Yeast,Pantry,3.33,0.50,0.05,0.33,0.20,0.00
+Xanthan Gum,Baking,3.52,0.00,0.00,0.82,0.82,0.00
+Agar Agar (Dry),Baking,3.06,0.06,0.00,0.80,0.07,0.00
+Gelatin (Dry Unswt),Baking,3.35,0.85,0.00,0.00,0.00,0.00
+Corn Syrup (Light),Sweeteners,2.83,0.00,0.00,0.77,0.00,0.77
+Stevia (Powder/Blend),Sweeteners,0.00,0.00,0.00,0.99,0.00,0.00
+Erythritol,Sweeteners,0.24,0.00,0.00,1.00,0.00,0.00
+White Chocolate Chips,Baking,5.39,0.05,0.32,0.59,0.00,0.59
+Milk Chocolate Chips,Baking,5.10,0.07,0.28,0.62,0.02,0.55
+Condensed Milk (Swt),Dairy,3.21,0.07,0.08,0.54,0.00,0.54
+Evaporated Milk,Dairy,1.34,0.06,0.07,0.10,0.00,0.10
+Kefir (Plain Lowfat),Dairy,0.43,0.03,0.01,0.04,0.00,0.04
+Hoisin Sauce,Condiments,2.30,0.02,0.01,0.54,0.02,0.42
+Oyster Sauce,Condiments,0.51,0.00,0.00,0.10,0.00,0.08
+Salsa (Red Jarred),Condiments,0.29,0.01,0.00,0.06,0.01,0.03
+Hot Sauce (Generic),Condiments,0.11,0.00,0.00,0.01,0.00,0.00
+Horseradish (Prepared),Condiments,0.48,0.01,0.00,0.11,0.03,0.07
+Pickle Relish (Sweet),Condiments,1.26,0.00,0.00,0.33,0.01,0.27
+Olives (Black Canned),Pantry,1.05,0.00,0.10,0.06,0.03,0.00
+Olives (Green Jarred),Pantry,1.45,0.01,0.15,0.03,0.03,0.00
+Capers (Canned),Pantry,0.23,0.02,0.00,0.04,0.03,0.00
+Sun-Dried Tomatoes (Dry),Pantry,2.58,0.14,0.02,0.55,0.12,0.37
+Hearts of Palm (Canned),Pantry,0.28,0.02,0.00,0.04,0.02,0.00
+Basil (Dried),Herb/Spice,2.33,0.22,0.04,0.47,0.37,0.01
+Oregano (Dried),Herb/Spice,2.65,0.09,0.04,0.68,0.42,0.04
+Thyme (Dried),Herb/Spice,2.76,0.09,0.07,0.63,0.37,0.01
+Rosemary (Dried),Herb/Spice,3.31,0.04,0.15,0.64,0.42,0.00
+Parsley (Dried),Herb/Spice,2.92,0.26,0.05,0.50,0.26,0.07
+Cilantro (Dried),Herb/Spice,2.79,0.21,0.04,0.52,0.10,0.07
+Dill Weed (Dried),Herb/Spice,2.53,0.19,0.04,0.55,0.13,0.00
+Sage (Ground),Herb/Spice,3.15,0.10,0.12,0.60,0.40,0.01
+Bay Leaf (Dried),Herb/Spice,3.13,0.07,0.08,0.74,0.26,0.00
+Cumin (Ground),Herb/Spice,3.75,0.17,0.22,0.44,0.10,0.02
+Paprika (Sweet),Herb/Spice,2.82,0.14,0.12,0.53,0.34,0.10
+Smoked Paprika,Herb/Spice,2.82,0.14,0.12,0.53,0.34,0.10
+Chili Powder (Pure),Herb/Spice,3.80,0.13,0.14,0.50,0.34,0.07
+Cayenne Pepper,Herb/Spice,3.18,0.12,0.17,0.56,0.27,0.10
+Red Pepper Flakes,Herb/Spice,3.18,0.12,0.17,0.56,0.27,0.10
+Turmeric (Ground),Herb/Spice,3.12,0.09,0.03,0.67,0.22,0.03
+Ginger (Ground),Herb/Spice,3.35,0.09,0.04,0.71,0.14,0.03
+Nutmeg (Ground),Herb/Spice,5.25,0.05,0.36,0.49,0.20,0.02
+Cloves (Ground),Herb/Spice,2.74,0.05,0.13,0.65,0.33,0.02
+Allspice (Ground),Herb/Spice,2.63,0.06,0.08,0.72,0.21,0.00
+Cardamom (Ground),Herb/Spice,3.11,0.10,0.06,0.68,0.28,0.00
+Coriander (Ground),Herb/Spice,2.98,0.12,0.17,0.54,0.41,0.00
+Mustard Powder,Herb/Spice,5.08,0.26,0.36,0.28,0.12,0.06
+Garlic Powder,Herb/Spice,3.31,0.16,0.00,0.72,0.09,0.24
+Onion Powder,Herb/Spice,3.41,0.10,0.01,0.79,0.15,0.33
+Poppy Seeds,Herb/Spice,5.25,0.17,0.41,0.28,0.19,0.02
+Fennel Seeds,Herb/Spice,3.45,0.15,0.14,0.52,0.39,0.00
+Taco Seasoning (Generic),Spice Blend,3.00,0.05,0.00,0.60,0.15,0.20
+Curry Powder,Spice Blend,3.25,0.14,0.14,0.55,0.53,0.02
+Italian Seasoning,Spice Blend,2.55,0.10,0.05,0.65,0.40,0.02
+Lemon Pepper,Spice Blend,1.50,0.05,0.00,0.30,0.10,0.00
+Pumpkin Pie Spice,Spice Blend,3.40,0.05,0.12,0.65,0.20,0.05
+Garam Masala,Spice Blend,3.50,0.12,0.15,0.50,0.25,0.05
+Five Spice Powder,Spice Blend,3.30,0.10,0.10,0.60,0.30,0.05
+Vanilla Bean (Whole),Herb/Spice,2.50,0.00,0.00,0.10,0.00,0.10
+Mint (Fresh),Produce,0.70,0.03,0.00,0.14,0.08,0.00
+Basil (Fresh),Produce,0.23,0.03,0.00,0.02,0.01,0.00
+Cilantro (Fresh),Produce,0.23,0.02,0.00,0.03,0.02,0.00
+Parsley (Fresh),Produce,0.36,0.02,0.00,0.06,0.03,0.00
+Dill (Fresh),Produce,0.43,0.03,0.01,0.07,0.02,0.00
+Rosemary (Fresh),Produce,1.31,0.03,0.05,0.20,0.14,0.00
+Thyme (Fresh),Produce,1.01,0.05,0.01,0.24,0.14,0.00
+Chives (Fresh),Produce,0.30,0.03,0.00,0.04,0.02,0.01
+Lemongrass (Fresh),Produce,0.99,0.01,0.00,0.25,0.00,0.00
+Ginger (Fresh),Produce,0.80,0.01,0.00,0.17,0.02,0.01
+Saffron,Herb/Spice,3.10,0.11,0.06,0.65,0.04,0.00
+Star Anise (Whole/Ground),Herb/Spice,3.37,0.18,0.16,0.50,0.15,0.00
+Caraway Seeds,Herb/Spice,3.33,0.20,0.15,0.50,0.38,0.01
+Celery Seeds,Herb/Spice,3.92,0.18,0.25,0.41,0.12,0.01
+Fenugreek Seeds (Methi),Herb/Spice,3.23,0.23,0.06,0.58,0.25,0.00
+Mustard Seeds (Whole),Herb/Spice,5.08,0.26,0.36,0.28,0.12,0.07
+White Pepper (Ground),Herb/Spice,2.96,0.10,0.02,0.69,0.26,0.00
+Sichuan Peppercorns,Herb/Spice,2.96,0.10,0.02,0.69,0.15,0.00
+Ancho Chili Powder,Herb/Spice,2.81,0.12,0.08,0.52,0.22,0.10
+Chipotle Chili Powder,Herb/Spice,2.88,0.14,0.10,0.56,0.34,0.09
+Sumac (Ground),Herb/Spice,2.45,0.03,0.10,0.35,0.00,0.02
+Amchur (Dried Mango Powder),Herb/Spice,2.80,0.02,0.01,0.70,0.15,0.50
+Galangal (Dried/Ground),Herb/Spice,3.50,0.06,0.01,0.80,0.15,0.03
+Asafoetida (Hing Powder),Herb/Spice,2.97,0.04,0.01,0.68,0.03,0.02
+Mace (Ground),Herb/Spice,4.75,0.07,0.32,0.51,0.20,0.00
+Cream of Tartar,Baking,2.58,0.00,0.00,0.62,0.00,0.00
+MSG (Monosodium Glutamate),Seasoning,0.00,0.00,0.00,0.00,0.00,0.00
+Pink Himalayan Salt,Seasoning,0.00,0.00,0.00,0.00,0.00,0.00
+Liquid Smoke,Condiments,0.11,0.00,0.00,0.03,0.00,0.00
+Vanilla Bean Paste,Baking,2.80,0.00,0.00,0.65,0.00,0.60
+Wasabi Powder,Herb/Spice,3.91,0.16,0.09,0.68,0.08,0.23
+Lavender (Dried Culinary),Herb/Spice,2.75,0.09,0.06,0.60,0.18,0.00
+Lemongrass (Dried),Herb/Spice,2.65,0.05,0.02,0.65,0.35,0.01
+Marjoram (Dried),Herb/Spice,2.71,0.13,0.07,0.61,0.40,0.04
+Tarragon (Dried),Herb/Spice,2.95,0.23,0.07,0.50,0.07,0.00
+Savory (Ground),Herb/Spice,2.72,0.07,0.06,0.69,0.46,0.00
+Chervil (Dried),Herb/Spice,2.37,0.23,0.04,0.49,0.11,0.00
+Annatto Seeds (Achiote),Herb/Spice,3.50,0.15,0.04,0.60,0.30,0.05
+Juniper Berries,Herb/Spice,3.50,0.04,0.15,0.40,0.10,0.30
+Gochugaru (Korean Chili),Herb/Spice,3.25,0.15,0.10,0.55,0.30,0.10
+Za'atar (Spice Blend),Spice Blend,3.60,0.12,0.22,0.35,0.15,0.01
+Berbere (Spice Blend),Spice Blend,3.25,0.14,0.12,0.55,0.30,0.05
+Ras el Hanout,Spice Blend,3.15,0.13,0.14,0.58,0.28,0.03
+Old Bay Seasoning,Spice Blend,0.00,0.00,0.00,0.00,0.00,0.00
+Bouillon Cube (Chicken),Pantry,2.20,0.15,0.15,0.20,0.00,0.05
+Bouillon Cube (Beef),Pantry,2.30,0.18,0.15,0.18,0.00,0.05
+Bouillon Cube (Veg),Pantry,2.10,0.12,0.12,0.25,0.00,0.05
+Gelatin (Sheet),Baking,3.40,0.86,0.00,0.00,0.00,0.00
+Pectin (Dry),Baking,3.25,0.00,0.00,0.90,0.80,0.00

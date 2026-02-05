@@ -58,6 +58,7 @@ dependencies:
   image_picker: ^1.2.0
   flutter_debouncer: ^2.1.1
   table_calendar: ^3.2.0
+  get_it: ^9.2.0
 
 dev_dependencies:
   flutter_test:
@@ -87,6 +88,7 @@ flutter:
     - assets/images/
     - assets/svgs/
     - assets/animations/
+    - assets/ingredients/ingredients.json
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

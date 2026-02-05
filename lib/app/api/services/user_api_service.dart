@@ -1,7 +1,8 @@
 import 'package:flutter/widgets.dart';
+import 'package:get_it/get_it.dart';
 
-import '../../../main.dart';
 import '../../auth/data/models/user_model.dart';
+import '../../core/data/helpers/token_storage.dart';
 import '../api_helper.dart';
 import '../models/api_response_model.dart';
 import '../models/result_model.dart';
@@ -26,6 +27,8 @@ class UserApiService {
       if (accessToken == null || refreshToken == null) {
         return Result.error(Exception('Failed to login.'));
       }
+
+      final tokenStorage = GetIt.I<TokenStorage>();
 
       tokenStorage.saveTokens(accessToken, refreshToken);
 
@@ -58,6 +61,8 @@ class UserApiService {
 
   Future<Result<void>> logout() async {
     try {
+      final tokenStorage = GetIt.I<TokenStorage>();
+
       final refreshToken = await tokenStorage.getRefreshToken();
 
       final ApiResponseModel response = await ApiHelper.request(

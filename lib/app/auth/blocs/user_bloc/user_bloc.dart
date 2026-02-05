@@ -2,9 +2,10 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:get_it/get_it.dart';
 
-import '../../../../main.dart';
 import '../../../api/models/result_model.dart';
+import '../../../core/data/helpers/token_storage.dart';
 import '../../data/models/user_model.dart';
 import '../../data/repo/user_repo.dart';
 
@@ -139,6 +140,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
           throw result.error;
         case Ok<void>():
       }
+
+      final tokenStorage = GetIt.I<TokenStorage>();
 
       tokenStorage.clearTokens();
 

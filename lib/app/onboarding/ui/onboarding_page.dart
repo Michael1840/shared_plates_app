@@ -2,10 +2,11 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import '../../../main.dart';
+import '../../core/data/helpers/token_storage.dart';
 import '../../core/router/routes.dart';
 import '../../core/ui/custom/buttons/my_icon_button.dart';
 import '../../core/ui/custom/icons/my_icons.dart';
@@ -86,6 +87,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
                           color: context.primary,
                           text: 'Dig In',
                           onTap: () {
+                            final tokenStorage = GetIt.I<TokenStorage>();
+
                             tokenStorage.setOnboardingCompleted();
                             context.goNamed(Routes.auth);
                           },

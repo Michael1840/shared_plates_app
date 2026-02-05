@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../main.dart';
+import '../../core/data/helpers/token_storage.dart';
 import '../../core/router/routes.dart';
 import '../../core/ui/splash/splash.dart';
 import '../../core/utils/extensions.dart';
@@ -24,6 +25,8 @@ class _AuthCheckState extends State<AuthCheck> {
   }
 
   Future<void> _tryRedirect() async {
+    final tokenStorage = GetIt.I<TokenStorage>();
+
     bool onboardingComplete = await tokenStorage.getOnboarding() ?? false;
     String? refreshToken = await tokenStorage.getRefreshToken();
 

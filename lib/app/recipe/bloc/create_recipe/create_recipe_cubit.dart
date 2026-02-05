@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../core/data/models/delayed_result.dart';
+import '../../../core/data/models/local_ingredient_model.dart';
 import '../../../core/ui/custom/fields/my_dropdown_field.dart';
 import '../../../core/utils/extensions.dart';
 import '../../data/models/ingredient_model.dart';
@@ -22,10 +23,31 @@ class CreateRecipeCubit extends Cubit<CreateRecipeState> {
   void decrementServes() =>
       state.serves > 0 ? emit(state.copyWith(serves: state.serves - 1)) : null;
 
-  void updateSymbol(CustomDropdownValue value) =>
-      emit(state.copyWith(selectedQuantitySymbol: value));
+  void updateSelectedIngredient(
+    CustomDropdownValue<LocalIngredientModel>? value,
+  ) {
+    final ingredient = value?.id;
 
-  void updatePrivacy(CustomDropdownValue value) =>
+    CreateRecipeState newState = state.copyWith(selectedIngredient: value);
+
+    if (newState.selectedQuantitySymbol?.id == '6') {
+      newState = ingredient?.unitDescription == null
+          ? newState.updateSelectedSymbol(selectedQuantitySymbol: null)
+          : newState.updateSelectedSymbol(
+              selectedQuantitySymbol: CustomDropdownValue<String>(
+                id: '6',
+                value: ingredient!.unitDescription!,
+              ),
+            );
+    }
+
+    emit(newState);
+  }
+
+  void updateSymbol(CustomDropdownValue<String>? value) =>
+      emit(state.updateSelectedSymbol(selectedQuantitySymbol: value));
+
+  void updatePrivacy(CustomDropdownValue<String>? value) =>
       emit(state.copyWith(selectedPrivacyStatus: value));
 
   void updateTitle(String value) => emit(state.copyWith(title: value));

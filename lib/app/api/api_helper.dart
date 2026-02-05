@@ -3,9 +3,10 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:get_it/get_it.dart';
 
-import '../../main.dart';
 import '../core/data/helpers/network_helper.dart';
+import '../core/data/helpers/token_storage.dart';
 import 'models/api_response_model.dart';
 import 'models/model_converter.dart';
 import 'models/pagination_model.dart';
@@ -48,6 +49,8 @@ class ApiHelper {
     bool hasAuth = true,
     formData,
   }) async {
+    final tokenStorage = GetIt.I<TokenStorage>();
+
     bool isOnline = await NetworkHelper.isOnline();
 
     if (!isOnline) {
@@ -296,6 +299,8 @@ class ApiInterceptors extends Interceptor {
         return handler.reject(err);
       }
     }
+
+    final tokenStorage = GetIt.I<TokenStorage>();
 
     // Handle 401 unauthorized
     if (statusCode == 401) {

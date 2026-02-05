@@ -53,7 +53,7 @@ class _FriendSearchPageState extends State<FriendSearchPage> {
               ),
               Expanded(
                 child: state.isLoading
-                    ? const BallAnimation(ballSize: 15)
+                    ? const BallAnimation(ballSize: 10)
                     : state.results.isEmpty
                     ? const Center(child: EmptyContainer(icon: MyIcons.user_03))
                     : MyList(

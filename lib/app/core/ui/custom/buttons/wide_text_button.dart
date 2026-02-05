@@ -58,7 +58,7 @@ class WideTextButton extends StatelessWidget {
         borderColor: borderColor,
         radius: radius ?? Rounding.reg,
         color: isReversed ? context.onContainer : color ?? context.green,
-        child: const Center(child: BallAnimation(ballSize: 15)),
+        child: const Center(child: BallAnimation(ballSize: 10)),
       );
     }
 

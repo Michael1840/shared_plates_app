@@ -80,9 +80,9 @@ class DetailsPage extends StatelessWidget {
                   cubit.updatePrivacy(s);
                 },
                 items: const [
-                  CustomDropdownValue(id: 1, value: 'Public'),
-                  CustomDropdownValue(id: 2, value: 'Friends'),
-                  CustomDropdownValue(id: 3, value: 'Private'),
+                  CustomDropdownValue<String>(id: '1', value: 'Public'),
+                  CustomDropdownValue<String>(id: '2', value: 'Friends'),
+                  CustomDropdownValue<String>(id: '3', value: 'Private'),
                 ],
               ),
               MyFormField(

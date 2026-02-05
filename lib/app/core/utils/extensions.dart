@@ -290,5 +290,6 @@ extension ThemeExtensions on BuildContext {
     fontSize: size,
     decoration: decoration,
     height: height ?? 1.2,
+    decorationColor: color,
   );
 }

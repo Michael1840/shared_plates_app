@@ -247,7 +247,7 @@ class _HomePageState extends State<HomePage> {
 
                   if (state.isMoreLoading)
                     const BallAnimation(
-                      ballSize: 15,
+                      ballSize: 10,
                     ).paddingSymmetric(vertical: 32).toSliver(),
                 ],
               ),
