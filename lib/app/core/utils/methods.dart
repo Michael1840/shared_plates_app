@@ -61,8 +61,8 @@ class Methods {
       final content = Padding(
         padding: EdgeInsets.only(
           bottom: bottomInset,
-          left: 20,
-          right: 20,
+          left: 0,
+          right: 0,
           top: 20,
         ),
         child: Column(

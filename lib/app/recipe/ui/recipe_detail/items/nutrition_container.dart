@@ -18,29 +18,32 @@ class NutritionContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      spacing: 16,
-      children: [
-        RotatedBox(
-          quarterTurns: -1,
-          child: LinearProgressIndicator(
-            value: value,
-            minHeight: 8,
-            borderRadius: BorderRadius.circular(10),
-            valueColor: AlwaysStoppedAnimation(color),
-            backgroundColor: context.container,
+    return IntrinsicHeight(
+      child: Row(
+        mainAxisSize: .min,
+        spacing: 8,
+        children: [
+          RotatedBox(
+            quarterTurns: -1,
+            child: LinearProgressIndicator(
+              value: value,
+              minHeight: 8,
+              borderRadius: BorderRadius.circular(10),
+              valueColor: AlwaysStoppedAnimation(color),
+              backgroundColor: context.container,
+            ),
           ),
-        ),
-        Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          spacing: 8,
-          children: [
-            AppText.heading(text: amount, size: 14),
-            AppText.secondary(text: label, size: 10),
-          ],
-        ),
-      ],
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            spacing: 8,
+            children: [
+              AppText.heading(text: amount, size: 14),
+              AppText.secondary(text: label, size: 10),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

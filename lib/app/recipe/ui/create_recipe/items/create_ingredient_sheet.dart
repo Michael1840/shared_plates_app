@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_debouncer/flutter_debouncer.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
@@ -12,6 +13,7 @@ import '../../../../core/ui/custom/fields/my_form_field.dart';
 import '../../../../core/utils/extensions.dart';
 import '../../../bloc/create_recipe/create_recipe_cubit.dart';
 import '../../../data/models/ingredient_model.dart';
+import '../../recipe_detail/items/nutrition_container.dart';
 
 class CreateIngredientSheet extends StatefulWidget {
   final void Function(IngredientModel i) onConfirm;
@@ -29,8 +31,24 @@ class CreateIngredientSheet extends StatefulWidget {
 }
 
 class _CreateIngredientSheetState extends State<CreateIngredientSheet> {
+  final Debouncer _debounce = Debouncer();
+
   final TextEditingController _quantityCont = TextEditingController();
   final TextEditingController _costCont = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    _quantityCont.addListener(_onQuantityChanged);
+  }
+
+  void _onQuantityChanged() {
+    _debounce.debounce(
+      duration: const Duration(milliseconds: 300),
+      onDebounce: () => setState(() {}),
+    );
+  }
 
   void _addIngredient() {
     final localIngredient = widget.cubit.state.selectedIngredient!.id;
@@ -58,9 +76,25 @@ class _CreateIngredientSheetState extends State<CreateIngredientSheet> {
   }
 
   @override
+  void dispose() {
+    _debounce.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     CreateRecipeState state = widget.cubit.state;
     LocalIngredients localIngredients = GetIt.I<LocalIngredients>();
+    LocalIngredientModel? selectedIngredient = state.selectedIngredient?.id;
+    NutrionalInfo? nutrionalInfo;
+
+    if (state.selectedQuantitySymbol?.value != null &&
+        _quantityCont.text.isNotEmpty) {
+      nutrionalInfo = selectedIngredient?.nutrionalInfo(
+        quantity: double.tryParse(_quantityCont.trimmedText) ?? 0.0,
+        unit: state.selectedQuantitySymbol!.id,
+      );
+    }
 
     return BlocProvider.value(
       value: widget.cubit,
@@ -68,6 +102,44 @@ class _CreateIngredientSheetState extends State<CreateIngredientSheet> {
         spacing: 10,
         children: [
           const AppText.heading(text: 'Add Ingredient', size: 18),
+          if (nutrionalInfo != null)
+            Wrap(
+              alignment: WrapAlignment.spaceBetween,
+              runSpacing: 16,
+              spacing: 16,
+              children: [
+                NutritionContainer(
+                  value: nutrionalInfo.protein / 50,
+                  label: 'Protein',
+                  amount: '${nutrionalInfo.protein.quantity}g',
+                  color: AccentColors.purple,
+                ),
+                NutritionContainer(
+                  value: nutrionalInfo.fat / 70,
+                  label: 'Fat',
+                  amount: '${nutrionalInfo.fat.quantity}g',
+                  color: AccentColors.red,
+                ),
+                NutritionContainer(
+                  value: nutrionalInfo.carbs / 260,
+                  label: 'Carbs',
+                  amount: '${nutrionalInfo.carbs.quantity}g',
+                  color: AccentColors.green,
+                ),
+                NutritionContainer(
+                  value: nutrionalInfo.fiber / 30,
+                  label: 'Fiber',
+                  amount: '${nutrionalInfo.fiber.quantity}g',
+                  color: AccentColors.star,
+                ),
+                NutritionContainer(
+                  value: nutrionalInfo.calories / 2000,
+                  label: 'kcal',
+                  amount: nutrionalInfo.calories.quantity,
+                  color: AccentColors.primary,
+                ),
+              ],
+            ),
           const SizedBox(),
           MyDropdownButton<LocalIngredientModel>.search(
             title: 'Ingredient Name',

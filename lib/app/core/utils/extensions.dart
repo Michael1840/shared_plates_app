@@ -118,6 +118,10 @@ extension WidgetExtension on Widget? {
   }
 }
 
+extension StringsExtentions on double {
+  String get quantity => toStringAsFixed(this > 0 && this < 1 ? 2 : 0);
+}
+
 extension StringExtentions on String? {
   bool get isNull => this == null;
 }
