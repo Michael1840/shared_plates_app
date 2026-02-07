@@ -40,7 +40,7 @@ class MyNetworkImage extends StatelessWidget {
 
           return Container(
             decoration: BoxDecoration(
-              color: context.textSecondary,
+              color: context.onContainer,
               borderRadius: BorderRadius.circular(radius ?? 16),
             ),
             height: height,

@@ -73,7 +73,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
           trendingRecipesResult: DelayedResult.fromValue(
             result.value.copyWith(items: currentRecipes),
           ),
-          moreLoadingResult: DelayedResult.fromValue(null),
+          moreLoadingResult: const DelayedResult.fromValue(null),
         ),
       );
     } catch (e) {
@@ -304,7 +304,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
       emit(
         state.copyWith(
           trendingRecipesResult: resolveResult(trendingRecipes, trendingError),
-          friendsRecipesResult: DelayedResult.fromValue([]),
+          friendsRecipesResult: const DelayedResult.fromValue([]),
         ),
       );
     } catch (e) {

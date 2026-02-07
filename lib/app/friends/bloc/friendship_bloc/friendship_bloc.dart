@@ -43,7 +43,7 @@ class FriendshipBloc extends Bloc<FriendshipEvent, FriendshipState> {
       if (all.isEmpty) {
         emit(
           state.copyWith(
-            loadingResult: DelayedResult.fromValue(null),
+            loadingResult: const DelayedResult.fromValue(null),
             friends: [],
             requests: [],
           ),
@@ -60,7 +60,7 @@ class FriendshipBloc extends Bloc<FriendshipEvent, FriendshipState> {
 
       emit(
         state.copyWith(
-          loadingResult: DelayedResult.fromValue(null),
+          loadingResult: const DelayedResult.fromValue(null),
           friends: friends,
           requests: requests,
         ),

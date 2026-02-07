@@ -73,6 +73,7 @@ class MyIconButton extends StatelessWidget {
             if (text != null)
               AppText.primary(
                 text: text!,
+                color: iconColor?.withValues(alpha: 0.4),
                 weight: Weights.medium,
                 size: iconSize != null ? (iconSize! - 4) : 13,
               ).paddingRight(8),
@@ -113,6 +114,7 @@ class MyIconButton extends StatelessWidget {
                 if (text != null)
                   AppText.primary(
                     text: text!,
+                    color: iconColor,
                     weight: Weights.medium,
                     size: iconSize != null ? (iconSize! - 4) : 13,
                   ).paddingRight(8),

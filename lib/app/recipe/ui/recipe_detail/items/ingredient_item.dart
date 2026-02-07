@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/theme/theme.dart';
+import '../../../../core/ui/custom/containers/default_container.dart';
 import '../../../../core/utils/extensions.dart';
 import '../../../data/models/ingredient_model.dart';
 
@@ -17,46 +18,55 @@ class _IngredientItemState extends State<IngredientItem> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Icon(
-          _isChecked ? Icons.check_circle_rounded : Icons.circle_outlined,
-          color: _isChecked ? context.green : context.textPrimary,
-          size: 24,
-        ),
-        const SizedBox(width: 8),
-        Expanded(
-          child: Column(
-            spacing: 4,
-            crossAxisAlignment: CrossAxisAlignment.start,
+    return DefaultContainer(
+      child:
+          Row(
             children: [
-              AppText.heading(
-                text: widget.ingredient.name,
-                color: _isChecked ? context.textSecondary : context.textPrimary,
-                decoration: _isChecked ? TextDecoration.lineThrough : null,
-                size: 12,
+              Icon(
+                _isChecked ? Icons.check_circle_rounded : Icons.circle_outlined,
+                color: _isChecked ? context.green : context.textPrimary,
+                size: 24,
               ),
-              AppText.primary(
-                text:
-                    '${widget.ingredient.quantity} ${widget.ingredient.quantitySymbol}',
-                color: _isChecked ? context.textSecondary : context.textPrimary,
+              const SizedBox(width: 8),
+              Expanded(
+                child: Column(
+                  spacing: 4,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AppText.heading(
+                      text: widget.ingredient.name,
+                      color: _isChecked
+                          ? context.textSecondary
+                          : context.textPrimary,
+                      decoration: _isChecked
+                          ? TextDecoration.lineThrough
+                          : null,
+                      size: 12,
+                    ),
+                    AppText.secondary(
+                      text:
+                          '${widget.ingredient.quantity} ${widget.ingredient.quantitySymbol}',
+                      color: context.textSecondary,
+                      decoration: _isChecked
+                          ? TextDecoration.lineThrough
+                          : null,
+                      size: 10,
+                    ),
+                  ],
+                ),
+              ),
+              AppText.heading(
+                text: 'R${widget.ingredient.cost}',
+                color: context.textSecondary,
+                size: 12,
                 decoration: _isChecked ? TextDecoration.lineThrough : null,
-                size: 10,
               ),
             ],
-          ),
-        ),
-        AppText.heading(
-          text: 'R${widget.ingredient.cost}',
-          color: _isChecked ? context.textSecondary : context.textPrimary,
-          size: 12,
-          decoration: _isChecked ? TextDecoration.lineThrough : null,
-        ),
-      ],
-    ).onTap(() {
-      setState(() {
-        _isChecked = !_isChecked;
-      });
-    });
+          ).onTap(() {
+            setState(() {
+              _isChecked = !_isChecked;
+            });
+          }),
+    );
   }
 }

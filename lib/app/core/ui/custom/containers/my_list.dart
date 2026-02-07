@@ -19,7 +19,7 @@ class MyList extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.separated(
       shrinkWrap: true,
-      physics: const ClampingScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       scrollDirection: isHorizontal ? Axis.horizontal : Axis.vertical,
       itemCount: count,
       itemBuilder: itemBuilder,

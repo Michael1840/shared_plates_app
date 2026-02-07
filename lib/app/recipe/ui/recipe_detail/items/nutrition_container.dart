@@ -47,3 +47,30 @@ class NutritionContainer extends StatelessWidget {
     );
   }
 }
+
+class NutritionContainer2 extends StatelessWidget {
+  final double value;
+  final String label;
+  final String amount;
+  final Color color;
+  const NutritionContainer2({
+    super.key,
+    required this.value,
+    required this.label,
+    required this.amount,
+    required this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: .min,
+      crossAxisAlignment: .center,
+      spacing: 2,
+      children: [
+        AppText.heading(text: amount, size: 12),
+        AppText.secondary(text: label.toUpperCase(), size: 8),
+      ],
+    );
+  }
+}

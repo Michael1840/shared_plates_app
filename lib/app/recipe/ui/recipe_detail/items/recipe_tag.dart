@@ -27,6 +27,7 @@ class RecipeTag extends StatelessWidget {
         text: tag.name,
         color: isActive ? context.white : null,
         weight: Weights.reg,
+        size: 10,
       ),
     ).onTap(onTap);
   }
