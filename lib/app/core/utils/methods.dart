@@ -50,6 +50,7 @@ class Methods {
     isDismissible: true,
     isScrollControlled: true,
     useSafeArea: true,
+    showDragHandle: true,
     context: context,
     sheetAnimationStyle: AnimationStyle(duration: 250.ms, curve: Curves.easeIn),
     clipBehavior: Clip.hardEdge,
@@ -59,31 +60,10 @@ class Methods {
     builder: (context) {
       final bottomInset = MediaQuery.of(context).viewInsets.bottom;
       final content = Padding(
-        padding: EdgeInsets.only(
-          bottom: bottomInset,
-          left: 0,
-          right: 0,
-          top: 20,
-        ),
+        padding: EdgeInsets.only(bottom: bottomInset),
         child: Column(
           mainAxisSize: isFull ? MainAxisSize.max : MainAxisSize.min,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  width: 40,
-                  height: 5,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: context.primaryLoadingContainer,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            if (isFull) Expanded(child: child) else child,
-          ],
+          children: [if (isFull) Expanded(child: child) else child],
         ),
       );
 
