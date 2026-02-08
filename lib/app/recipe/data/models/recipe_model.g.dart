@@ -73,6 +73,10 @@ RecipeDetailModel _$RecipeDetailModelFromJson(Map<String, dynamic> json) =>
       privacyStatus:
           $enumDecodeNullable(_$PrivacyStatusEnumMap, json['privacy_status']) ??
           PrivacyStatus.public,
+      totalCalories: (json['total_calories'] as num).toDouble(),
+      totalProtein: (json['total_protein'] as num).toDouble(),
+      totalCarbs: (json['total_carbs'] as num).toDouble(),
+      totalFat: (json['total_fat'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$RecipeDetailModelToJson(RecipeDetailModel instance) =>
@@ -93,6 +97,10 @@ Map<String, dynamic> _$RecipeDetailModelToJson(RecipeDetailModel instance) =>
       'steps': instance.steps,
       'tags': instance.tags,
       'privacy_status': _$PrivacyStatusEnumMap[instance.privacyStatus]!,
+      'total_calories': instance.totalCalories,
+      'total_protein': instance.totalProtein,
+      'total_carbs': instance.totalCarbs,
+      'total_fat': instance.totalFat,
     };
 
 const _$PrivacyStatusEnumMap = {

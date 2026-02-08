@@ -9,6 +9,10 @@ class IngredientModel {
   final String cost;
   final String quantity;
   final String quantitySymbol;
+  final String calories;
+  final String protein;
+  final String fat;
+  final String carbs;
 
   const IngredientModel({
     required this.id,
@@ -16,6 +20,10 @@ class IngredientModel {
     required this.cost,
     required this.quantity,
     required this.quantitySymbol,
+    required this.calories,
+    required this.protein,
+    required this.fat,
+    required this.carbs,
   });
 
   Map<String, dynamic> toJson() => {
@@ -23,6 +31,10 @@ class IngredientModel {
     'cost': cost,
     'quantity': quantity,
     'quantity_symbol': quantitySymbol,
+    'calories': calories,
+    'protein': protein,
+    'fat': fat,
+    'carbs': carbs,
   };
 
   factory IngredientModel.fromJson(Map<String, dynamic> json) =>

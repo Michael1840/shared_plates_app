@@ -111,6 +111,11 @@ class RecipeDetailModel extends RecipeModel {
   @JsonKey(defaultValue: PrivacyStatus.public)
   final PrivacyStatus privacyStatus;
 
+  final double totalCalories;
+  final double totalProtein;
+  final double totalCarbs;
+  final double totalFat;
+
   const RecipeDetailModel({
     required super.id,
     required super.title,
@@ -128,6 +133,10 @@ class RecipeDetailModel extends RecipeModel {
     required this.tags,
     required this.steps,
     required this.privacyStatus,
+    required this.totalCalories,
+    required this.totalProtein,
+    required this.totalCarbs,
+    required this.totalFat,
   });
 
   @override

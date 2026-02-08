@@ -62,12 +62,21 @@ class _CreateIngredientSheetState extends State<CreateIngredientSheet> {
       return;
     }
 
+    NutrionalInfo nutrionalInfo = localIngredient.nutrionalInfo(
+      quantity: double.tryParse(_quantityCont.trimmedText) ?? 0.0,
+      unit: symbol.id,
+    );
+
     final IngredientModel ingredient = IngredientModel(
       id: widget.currentIndex + 1,
       name: name,
       quantity: quantity,
       quantitySymbol: symbol.value,
       cost: cost,
+      calories: nutrionalInfo.calories.toStringAsFixed(2),
+      fat: nutrionalInfo.fat.toStringAsFixed(2),
+      protein: nutrionalInfo.protein.toStringAsFixed(2),
+      carbs: nutrionalInfo.carbs.toStringAsFixed(2),
     );
 
     widget.onConfirm(ingredient);
