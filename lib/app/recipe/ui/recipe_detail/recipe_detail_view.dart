@@ -269,7 +269,8 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
                               child: NutritionContainer2(
                                 value: 0.8,
                                 label: 'Protein',
-                                amount: '25g',
+                                amount:
+                                    '${recipe.totalProtein.toStringAsFixed(2)}g',
                                 color: context.green,
                               ),
                             ),
@@ -282,7 +283,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
                               child: NutritionContainer2(
                                 value: 0.2,
                                 label: 'Fat',
-                                amount: '90g',
+                                amount: recipe.totalFat.toStringAsFixed(2),
                                 color: context.primary,
                               ),
                             ),
@@ -291,11 +292,12 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
                               height: double.infinity,
                               color: context.onContainer.withValues(alpha: 0.3),
                             ),
-                            const Expanded(
+                            Expanded(
                               child: NutritionContainer2(
                                 value: 0.4,
                                 label: 'Carbs',
-                                amount: '5g',
+                                amount:
+                                    '${recipe.totalCarbs.toStringAsFixed(2)}g',
                                 color: AccentColors.purple,
                               ),
                             ),
@@ -304,11 +306,12 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
                               height: double.infinity,
                               color: context.onContainer.withValues(alpha: 0.3),
                             ),
-                            const Expanded(
+                            Expanded(
                               child: NutritionContainer2(
                                 value: 0.8,
                                 label: 'Calories',
-                                amount: '256kcal',
+                                amount:
+                                    '${recipe.totalCalories.toStringAsFixed(2)}kcal',
                                 color: AccentColors.red,
                               ),
                             ),
