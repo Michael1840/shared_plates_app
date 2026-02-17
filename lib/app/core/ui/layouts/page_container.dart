@@ -34,19 +34,19 @@ class PageContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget pageContainer =
-        Container(
-          height: height,
-          width: double.infinity,
-          padding: padding ?? const EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            color: color ?? context.background,
-            gradient: gradient,
-          ),
-          child: child,
-        ).onTap(() {
-          FocusScope.of(context).unfocus();
-        });
+    Widget pageContainer = GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Container(
+        height: height,
+        width: double.infinity,
+        padding: padding ?? const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: color ?? context.background,
+          gradient: gradient,
+        ),
+        child: child,
+      ),
+    );
 
     if (isScrollable) {
       return SingleChildScrollView(physics: physics, child: pageContainer);

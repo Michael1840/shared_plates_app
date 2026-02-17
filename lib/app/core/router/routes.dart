@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../auth/blocs/user_bloc/user_bloc.dart';
+import '../../auth/data/models/auth_listenable.dart';
 import '../../auth/ui/auth_check.dart';
 import '../../auth/ui/auth_page.dart';
 import '../../auth/ui/auth_sheet_page.dart';
@@ -13,6 +14,7 @@ import '../../friends/ui/friends_page.dart';
 import '../../home/ui/home_page.dart';
 import '../../home/ui/planner/menu_planner.dart';
 import '../../onboarding/ui/onboarding_page.dart';
+import '../../profile/ui/profile_page.dart';
 import '../../recipe/bloc/create_recipe/create_recipe_cubit.dart';
 import '../../recipe/bloc/recipe_detail_cubit/recipe_detail_cubit.dart';
 import '../../recipe/data/repo/recipe_repo.dart';
@@ -24,12 +26,14 @@ import '../../search/ui/search_page.dart';
 import 'nav_shell.dart';
 
 class Routes {
-  // MAIN ROUTES
+  /// MAIN ROUTES
+  // PUBLIC
   static const String onboarding = '/onboarding';
 
   static const String authCheck = '/authentication-check';
   static const String auth = '/authentication';
 
+  // AUTH BLOCKED
   static const String dashboard = '/';
   static const String dashRecipeDetail = '/recipe-detail/:id';
 
@@ -43,31 +47,69 @@ class Routes {
 
   static const String friends = '/friends';
 
-  // SUB ROUTES
+  /// SUB ROUTES
+  // PUBLIC
   static const String authSheet = 'sheet';
 
+  // AUTH BLOCKED
   static const String menuPlanner = 'menu-planner';
 
   static const String search = 'search';
+
+  static const String profile = 'profile';
 }
 
 class NavigationRouter {
   static final GlobalKey<NavigatorState> _key = GlobalKey<NavigatorState>();
 
-  static final GoRouter router = GoRouter(
+  static GoRouter router(UserBloc bloc) => GoRouter(
     initialLocation: Routes.authCheck,
     navigatorKey: _key,
+    refreshListenable: AuthRefreshListenable(bloc.stream),
     redirect: (context, state) {
-      final String? path = state.fullPath;
+      final userState = bloc.state;
+      final path = state.matchedLocation;
 
-      final userState = context.read<UserBloc>().state;
-      if (userState is UserUnauthenticated &&
-          (path != Routes.authCheck &&
-              path != Routes.onboarding &&
-              path != Routes.auth &&
-              path != '${Routes.auth}/${Routes.authSheet}')) {
+      if (userState is UserLoading) return null;
+
+      if (path == Routes.authCheck) {
+        // Only leave authCheck once we have a definitive state
+        if (userState is UserAuthenticated) return Routes.dashboard;
+        if (userState is UserUnauthenticated) {
+          return userState.onboardingComplete ? Routes.auth : Routes.onboarding;
+        }
+        return null; // stay on splash while loading
+      }
+
+      // PUBLIC ROUTES
+      final publicPaths = [
+        Routes.onboarding,
+        Routes.authCheck,
+        Routes.auth,
+        '${Routes.auth}/${Routes.authSheet}',
+      ];
+
+      final isPublic = publicPaths.any(
+        (p) => path == p || path.startsWith('$p/'),
+      );
+
+      final isAuthenticated = userState is UserAuthenticated;
+
+      // UNAUTHENTICATED on AUTH BLOCKED route: redirect to auth
+      if (!isAuthenticated && !isPublic) {
+        if (userState is UserUnauthenticated) return Routes.auth;
+
         return Routes.authCheck;
       }
+
+      // AUTHENTICATED on AUTH route: redirect to dashboard
+      if (isAuthenticated &&
+          (path == Routes.auth ||
+              path.startsWith('${Routes.auth}/') ||
+              path == Routes.authCheck)) {
+        return Routes.dashboard;
+      }
+
       return null;
     },
     debugLogDiagnostics: true,
@@ -101,6 +143,13 @@ class NavigationRouter {
             ),
           ),
         ],
+      ),
+
+      GoRoute(
+        path: '/${Routes.profile}',
+        name: Routes.profile,
+        pageBuilder: (context, state) =>
+            buildSlideTransition(const ProfilePage(), state.pageKey),
       ),
 
       StatefulShellRoute.indexedStack(

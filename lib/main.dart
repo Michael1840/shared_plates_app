@@ -23,18 +23,11 @@ Future<void> main() async {
 
   await setupLocator();
 
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MultiBlocProvider(
+  runApp(
+    MultiBlocProvider(
       providers: [
         RepositoryProvider<UserRepository>(
-          create: (context) => UserDataProvider(UserApiService()),
+          create: (context) => UserRepositoryImpl(UserApiService()),
         ),
         RepositoryProvider<RecipesRepository>(
           create: (context) => RecipesDataProvider(RecipeApiService()),
@@ -46,31 +39,40 @@ class MyApp extends StatelessWidget {
           create: (context) => UserBloc(context.read<UserRepository>()),
         ),
       ],
-      child: MaterialApp.router(
-        title: 'Shared Plates',
-        theme: MyTheme.lightTheme,
-        darkTheme: MyTheme.darkTheme,
-        themeMode: ThemeMode.system,
-        routerConfig: NavigationRouter.router,
-        builder: (context, child) {
-          return SafeArea(
-            top: !Platform.isIOS,
-            // top: true,
-            bottom: false,
-            // bottom: true,
-            child: MediaQuery(
-              data: MediaQuery.of(context).copyWith(
-                textScaler: TextScaler.linear(
-                  MediaQuery.of(context).textScaler
-                      .clamp(minScaleFactor: 1.0, maxScaleFactor: 1.05)
-                      .scale(1.0),
-                ),
+      child: const MyApp(),
+    ),
+  );
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp.router(
+      title: 'Shared Plates',
+      theme: MyTheme.lightTheme,
+      darkTheme: MyTheme.darkTheme,
+      themeMode: ThemeMode.system,
+      routerConfig: NavigationRouter.router(context.read<UserBloc>()),
+      builder: (context, child) {
+        return SafeArea(
+          top: !Platform.isIOS,
+          // top: true,
+          bottom: false,
+          // bottom: true,
+          child: MediaQuery(
+            data: MediaQuery.of(context).copyWith(
+              textScaler: TextScaler.linear(
+                MediaQuery.of(context).textScaler
+                    .clamp(minScaleFactor: 1.0, maxScaleFactor: 1.05)
+                    .scale(1.0),
               ),
-              child: child!,
             ),
-          );
-        },
-      ),
+            child: child!,
+          ),
+        );
+      },
     );
   }
 }

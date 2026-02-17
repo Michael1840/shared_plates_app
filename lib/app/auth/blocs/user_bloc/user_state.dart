@@ -13,11 +13,12 @@ final class UserInitial extends UserState {}
 
 final class UserUnauthenticated extends UserState {
   final String? error;
+  final bool onboardingComplete;
 
-  const UserUnauthenticated({this.error});
+  const UserUnauthenticated({this.error, required this.onboardingComplete});
 
   @override
-  List<Object?> get props => [error];
+  List<Object?> get props => [error, onboardingComplete];
 }
 
 final class UserAuthenticated extends UserState {
@@ -31,12 +32,12 @@ final class UserAuthenticated extends UserState {
   List<Object?> get props => [user, message, error];
 
   UserAuthenticated copyWith({
-    String? error,
-    String? message,
+    String? Function()? error,
+    String? Function()? message,
     UserModel? user,
   }) => UserAuthenticated(
     user: user ?? this.user,
-    error: error ?? this.error,
-    message: message ?? this.message,
+    error: error != null ? error() : this.error,
+    message: message != null ? message() : this.message,
   );
 }

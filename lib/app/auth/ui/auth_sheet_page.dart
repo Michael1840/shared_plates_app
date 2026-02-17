@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../core/router/routes.dart';
 import '../../core/ui/custom/buttons/my_icon_button.dart';
 import '../../core/ui/custom/icons/my_icons.dart';
 import '../../core/utils/constants.dart';
@@ -41,23 +40,19 @@ class _AuthSheetPageState extends State<AuthSheetPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: context.background.withValues(alpha: 0.7),
-      body: SafeArea(
-        top: Platform.isIOS,
-        bottom: false,
-        child: Stack(
-          children: [
-            // Backdrop blur effect
-            BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
-              child: Container(color: Colors.black.withValues(alpha: 0.6)),
-            ),
-            // Content
-            BlocListener<UserBloc, UserState>(
+      body: Stack(
+        children: [
+          // Backdrop blur effect
+          BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+            child: Container(color: Colors.black.withValues(alpha: 0.6)),
+          ),
+          // Content
+          SafeArea(
+            top: Platform.isIOS,
+            bottom: false,
+            child: BlocListener<UserBloc, UserState>(
               listener: (context, state) {
-                if (state is UserAuthenticated) {
-                  context.goNamed(Routes.dashboard);
-                }
-
                 if (state is UserUnauthenticated && state.error != null) {
                   context.showSnackBarError(state.error!);
                   context.read<UserBloc>().add(ClearUserError());
@@ -131,8 +126,8 @@ class _AuthSheetPageState extends State<AuthSheetPage> {
                 ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 
 import '../../../api/models/result_model.dart';
@@ -5,9 +7,9 @@ import '../../../api/services/user_api_service.dart';
 import '../models/user_model.dart';
 
 abstract class UserRepository {
-  final UserApiService _api;
+  Stream<UserModel?> get authStateChanges;
 
-  UserRepository(this._api);
+  UserModel? get currentUser;
 
   Future<Result<UserModel>> login({
     required String email,
@@ -22,10 +24,24 @@ abstract class UserRepository {
   });
   Future<Result<void>> logout();
   Future<Result<UserModel>> getUser();
+  void dispose();
 }
 
-class UserDataProvider extends UserRepository {
-  UserDataProvider(super._api);
+class UserRepositoryImpl implements UserRepository {
+  final UserApiService _api;
+
+  UserRepositoryImpl(this._api);
+
+  final StreamController<UserModel?> _authController =
+      StreamController<UserModel?>.broadcast();
+
+  UserModel? _currentUser;
+
+  @override
+  Stream<UserModel?> get authStateChanges => _authController.stream;
+
+  @override
+  UserModel? get currentUser => _currentUser;
 
   @override
   Future<Result<UserModel>> login({
@@ -89,7 +105,18 @@ class UserDataProvider extends UserRepository {
   @override
   Future<Result<void>> logout() async {
     try {
-      return await _api.logout();
+      final result = await _api.logout();
+
+      switch (result) {
+        case Error<void>():
+          return Result.error(result.error);
+        case CastError<void>():
+          return const Result.castError();
+        case Ok<void>():
+          _authController.add(null);
+      }
+
+      return const Result.ok(null);
     } on Exception catch (e) {
       debugPrint(e.toString());
       return Result.error(Exception(e));
@@ -107,6 +134,7 @@ class UserDataProvider extends UserRepository {
         case CastError<UserModel>():
           return const Result.castError();
         case Ok<UserModel>():
+          _authController.add(result.value);
       }
 
       return Result.ok(result.value);
@@ -114,5 +142,10 @@ class UserDataProvider extends UserRepository {
       debugPrint(e.toString());
       return Result.error(e);
     }
+  }
+
+  @override
+  void dispose() {
+    _authController.close();
   }
 }

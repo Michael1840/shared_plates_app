@@ -36,6 +36,18 @@ final class UserFromRefresh extends UserEvent {
   const UserFromRefresh({required this.refreshToken});
 }
 
+final class UserNotFound extends UserEvent {
+  final bool onboardingCompleted;
+
+  const UserNotFound({required this.onboardingCompleted});
+}
+
 final class UserLogout extends UserEvent {}
 
 final class ClearUserError extends UserEvent {}
+
+class UserAuthChanged extends UserEvent {
+  final UserModel? user;
+
+  const UserAuthChanged(this.user);
+}

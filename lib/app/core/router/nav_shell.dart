@@ -9,7 +9,6 @@ import '../theme/theme.dart';
 import '../ui/custom/buttons/my_icon_button.dart';
 import '../ui/custom/icons/my_icons.dart';
 import '../utils/extensions.dart';
-import 'routes.dart';
 
 /// Builds the "shell" for the app by building a Scaffold with a
 /// BottomNavigationBar, where [child] is placed in the body of the Scaffold.
@@ -36,10 +35,6 @@ class _NavigationShellState extends State<NavigationShell> {
       ],
       child: BlocListener<UserBloc, UserState>(
         listener: (context, state) {
-          if (state is UserUnauthenticated) {
-            NavigationRouter.router.refresh();
-          }
-
           if (state is UserAuthenticated && state.message != null) {
             context.showSnackBarMessage(state.message!);
           }

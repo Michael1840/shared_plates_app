@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
@@ -13,6 +15,8 @@ part 'user_event.dart';
 part 'user_state.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
+  StreamSubscription<UserModel?>? _userSubscription;
+
   final UserRepository _userRepo;
 
   UserBloc(UserRepository userRepo)
@@ -23,13 +27,50 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<UserLogout>(_handleLogoutEvent);
     on<UserFromRefresh>(_handleLoginFromRefresh);
     on<ClearUserError>(_handleClearError);
+    on<UserAuthChanged>(_handleAuthChange);
+    on<UserNotFound>(_handleUserNotFound);
+
+    _initialize();
+  }
+
+  TokenStorage get tokenStorage => GetIt.I<TokenStorage>();
+
+  void _initialize() {
+    _userSubscription = _userRepo.authStateChanges.listen((user) {
+      add(UserAuthChanged(user));
+    });
+
+    final user = _userRepo.currentUser;
+    add(UserAuthChanged(user));
+  }
+
+  Future<void> _handleAuthChange(
+    UserAuthChanged event,
+    Emitter<UserState> emit,
+  ) async {
+    if (event.user != null) {
+      emit(UserAuthenticated(user: event.user!));
+    } else {
+      bool onboardingComplete = await tokenStorage.getOnboarding() ?? false;
+
+      emit(UserUnauthenticated(onboardingComplete: onboardingComplete));
+    }
   }
 
   Future<void> _handleClearError(
     ClearUserError event,
     Emitter<UserState> emit,
   ) async {
-    emit(const UserUnauthenticated());
+    bool onboardingComplete = await tokenStorage.getOnboarding() ?? false;
+
+    emit(UserUnauthenticated(onboardingComplete: onboardingComplete));
+  }
+
+  Future<void> _handleUserNotFound(
+    UserNotFound event,
+    Emitter<UserState> emit,
+  ) async {
+    emit(UserUnauthenticated(onboardingComplete: event.onboardingCompleted));
   }
 
   Future<void> _handleLoginEvent(
@@ -55,7 +96,14 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       emit(UserAuthenticated(user: result.value, message: 'Login success'));
     } catch (e) {
       debugPrint(e.toString());
-      emit(UserUnauthenticated(error: e.toString()));
+      bool onboardingComplete = await tokenStorage.getOnboarding() ?? false;
+
+      emit(
+        UserUnauthenticated(
+          error: e.toString(),
+          onboardingComplete: onboardingComplete,
+        ),
+      );
     }
   }
 
@@ -85,7 +133,14 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       emit(UserAuthenticated(user: result.value, message: 'Register success'));
     } catch (e) {
       debugPrint(e.toString());
-      emit(UserUnauthenticated(error: e.toString()));
+      bool onboardingComplete = await tokenStorage.getOnboarding() ?? false;
+
+      emit(
+        UserUnauthenticated(
+          error: e.toString(),
+          onboardingComplete: onboardingComplete,
+        ),
+      );
     }
   }
 
@@ -103,7 +158,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         Future.delayed(2.seconds),
       ]);
 
-      final result = results[0];
+      final Result<UserModel> result = results[0];
 
       switch (result) {
         case Error<UserModel>():
@@ -113,10 +168,22 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         case Ok<UserModel>():
       }
 
-      emit(UserAuthenticated(user: result.value, message: 'Register success'));
+      emit(
+        UserAuthenticated(
+          user: result.value,
+          message: 'Welcome back ${result.value.displayName}',
+        ),
+      );
     } catch (e) {
       debugPrint(e.toString());
-      emit(UserUnauthenticated(error: e.toString()));
+      bool onboardingComplete = await tokenStorage.getOnboarding() ?? false;
+
+      emit(
+        UserUnauthenticated(
+          error: e.toString(),
+          onboardingComplete: onboardingComplete,
+        ),
+      );
     }
   }
 
@@ -145,10 +212,19 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
       tokenStorage.clearTokens();
 
-      emit(const UserUnauthenticated());
+      bool onboardingComplete = await tokenStorage.getOnboarding() ?? false;
+
+      emit(UserUnauthenticated(onboardingComplete: onboardingComplete));
     } catch (e) {
       debugPrint(e.toString());
-      emit(copiedState.copyWith(error: e.toString()));
+      emit(copiedState.copyWith(error: () => e.toString()));
     }
+  }
+
+  @override
+  Future<void> close() async {
+    _userSubscription?.cancel();
+    _userRepo.dispose();
+    super.close();
   }
 }

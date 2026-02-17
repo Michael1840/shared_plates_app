@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../core/data/helpers/token_storage.dart';
-import '../../core/router/routes.dart';
 import '../../core/ui/splash/splash.dart';
 import '../../core/utils/extensions.dart';
 import '../blocs/user_bloc/user_bloc.dart';
@@ -33,11 +31,9 @@ class _AuthCheckState extends State<AuthCheck> {
     if (refreshToken.isNull) {
       if (!mounted) return;
 
-      if (onboardingComplete) {
-        context.goNamed(Routes.onboarding);
-      } else {
-        context.goNamed(Routes.auth);
-      }
+      context.read<UserBloc>().add(
+        UserNotFound(onboardingCompleted: onboardingComplete),
+      );
       return;
     } else {
       if (!mounted) return;
@@ -50,17 +46,6 @@ class _AuthCheckState extends State<AuthCheck> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<UserBloc, UserState>(
-      listener: (context, state) {
-        if (state is UserAuthenticated) {
-          context.goNamed(Routes.dashboard);
-        }
-
-        if (state is UserUnauthenticated) {
-          context.goNamed(Routes.auth);
-        }
-      },
-      child: const Scaffold(body: SplashPage()),
-    );
+    return const Scaffold(body: SplashPage());
   }
 }

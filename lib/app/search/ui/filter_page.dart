@@ -52,7 +52,7 @@ class _FilterHomePageState extends State<FilterHomePage> {
       child: BlocBuilder<SearchCubit, SearchState>(
         builder: (context, state) {
           return PageContainer(
-            padding: const EdgeInsets.symmetric(vertical: 20),
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
             child: Column(
               spacing: 20,
               crossAxisAlignment: CrossAxisAlignment.start,

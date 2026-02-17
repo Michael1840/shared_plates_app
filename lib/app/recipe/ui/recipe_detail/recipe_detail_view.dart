@@ -66,10 +66,10 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
 
           return Scaffold(
             extendBodyBehindAppBar: true,
-            body: SafeArea(
-              top: Platform.isIOS,
-              bottom: false,
-              child: PageContainer.scrollable(
+            body: PageContainer.scrollable(
+              child: SafeArea(
+                top: Platform.isIOS,
+                bottom: false,
                 child: Column(
                   spacing: 12,
                   crossAxisAlignment: .start,

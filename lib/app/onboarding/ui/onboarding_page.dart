@@ -32,33 +32,33 @@ class _OnboardingPageState extends State<OnboardingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: SafeArea(
-        top: Platform.isIOS,
-        bottom: false,
-        child: Stack(
-          children: [
-            Positioned.fill(
-              child: Image.asset(foodTableBgPng, fit: BoxFit.cover),
-            ),
-            Positioned.fill(
-              child: BackdropFilter(
-                filter: ImageFilter.blur(
-                  sigmaX: 6 - (_currentIndex * 2),
-                  sigmaY: 6 - (_currentIndex * 2),
-                ),
-                child: Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: AlignmentGeometry.bottomCenter,
-                      end: AlignmentGeometry.topCenter,
-                      stops: [0.15, 1],
-                      colors: [Colors.black, Colors.black.withValues(alpha: 0)],
-                    ),
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: Image.asset(foodTableBgPng, fit: BoxFit.cover),
+          ),
+          Positioned.fill(
+            child: BackdropFilter(
+              filter: ImageFilter.blur(
+                sigmaX: 6 - (_currentIndex * 2),
+                sigmaY: 6 - (_currentIndex * 2),
+              ),
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: AlignmentGeometry.bottomCenter,
+                    end: AlignmentGeometry.topCenter,
+                    stops: [0.15, 1],
+                    colors: [Colors.black, Colors.black.withValues(alpha: 0)],
                   ),
                 ),
               ),
             ),
-            Positioned.fill(
+          ),
+          Positioned.fill(
+            child: SafeArea(
+              top: Platform.isIOS,
+              bottom: false,
               child: PageContainer(
                 color: Colors.transparent,
                 child: Column(
@@ -161,8 +161,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

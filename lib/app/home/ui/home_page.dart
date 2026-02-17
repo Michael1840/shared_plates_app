@@ -20,6 +20,7 @@ import '../../core/utils/extensions.dart';
 import '../../core/utils/methods.dart';
 import '../../recipe/bloc/recipe_bloc/recipe_bloc.dart';
 import '../../recipe/data/models/recipe_model.dart';
+import '../../recipe/data/models/tag_model.dart';
 import '../../search/ui/filter_page.dart';
 import 'items/dashboard_button.dart';
 import 'skeleton/home_skeleton_page.dart';
@@ -94,7 +95,21 @@ class _HomePageState extends State<HomePage> {
             final List<RecipeModel> trendingRecipes = state.trendingRecipes;
             final List<RecipeModel> recipes = state.userRecipes;
 
-            final recipe = trendingRecipes[1];
+            final recipe = trendingRecipes.isNotEmpty
+                ? trendingRecipes[1]
+                : const RecipeModel(
+                    id: -1,
+                    title: 'Test',
+                    cost: 124,
+                    serves: 2,
+                    trendingScore: 12456,
+                    likesThisWeek: 123,
+                    viewsThisWeek: 1525,
+                    likeCount: 289,
+                    createdBy: 'Don Julio',
+                    isLiked: false,
+                    tagGroup: TagGroup(count: 0, tags: []),
+                  );
 
             return PageContainer(
               padding: const EdgeInsets.only(
