@@ -22,6 +22,13 @@
       "flutterMode": "release",
       "program": "lib/main.dart",
       "args": ["--flavor", "prod", "--dart-define-from-file=env/prod.json"]
+    },
+    {
+      "name": "SharedPlates (dev, quick run)",
+      "request": "launch",
+      "type": "dart",
+      "templateFor": "lib",
+      "args": ["--flavor", "dev", "--dart-define-from-file=env/dev.json"]
     }
   ]
 }
