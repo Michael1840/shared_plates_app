@@ -79,7 +79,8 @@ class HeaderBlock extends StatelessWidget {
     final top = MediaQuery.paddingOf(context).top;
     return ClipRRect(
       borderRadius: BorderRadius.vertical(bottom: Radius.circular(radius)),
-      child: ColoredBox(
+      child: Container(
+        width: double.infinity,
         color: fill,
         child: Stack(
           children: [

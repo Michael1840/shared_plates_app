@@ -11,12 +11,12 @@ import 'package:shared_plates_app/core/widgets/buttons.dart';
 import 'package:shared_plates_app/core/widgets/dot_grid_background.dart';
 import 'package:shared_plates_app/core/widgets/handwritten_note.dart';
 import 'package:shared_plates_app/core/widgets/header_icon_button.dart';
-import 'package:shared_plates_app/core/widgets/info_card.dart';
 import 'package:shared_plates_app/core/widgets/motion/entrance.dart';
 import 'package:shared_plates_app/core/widgets/paprika.dart';
 import 'package:shared_plates_app/core/widgets/paprika_header.dart';
 import 'package:shared_plates_app/core/widgets/sp_icon.dart';
 import 'package:shared_plates_app/core/widgets/sp_text_field.dart';
+import 'package:shared_plates_app/core/widgets/sticky_note.dart';
 import 'package:shared_plates_app/features/auth/data/auth_repository.dart';
 import 'package:shared_plates_app/features/auth/presentation/bloc/email_sign_in_cubit.dart';
 import 'package:shared_plates_app/features/auth/presentation/widgets/code_input.dart';
@@ -122,25 +122,33 @@ class _SignInHeader extends StatelessWidget {
             ),
           ),
           Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              HeaderIconButton(
-                icon: SpIcons.chevronLeft,
-                semanticLabel: 'Back',
-                onTap: () => codeStep
-                    ? context.read<EmailSignInCubit>().changeEmail()
-                    : context.pop(),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: HeaderIconButton(
+                  icon: SpIcons.chevronLeft,
+                  semanticLabel: 'Back',
+                  onTap: () => codeStep
+                      ? context.read<EmailSignInCubit>().changeEmail()
+                      : context.pop(),
+                ),
               ),
               const SizedBox(height: 72),
               Entrance(
                 key: ValueKey('title-$step'),
                 delay: const Duration(milliseconds: 60),
-                child: SizedBox(
-                  width: 220,
-                  child: AppText(
-                    text: codeStep ? 'Check your email' : "What's your email?",
-                    config: FontConfigs.title,
-                    color: ink,
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: SizedBox(
+                    width: 220,
+                    child: AppText(
+                      text: codeStep
+                          ? 'Check your email'
+                          : "What's your email?",
+                      config: FontConfigs.title,
+                      color: ink,
+                    ),
                   ),
                 ),
               ),
@@ -219,11 +227,10 @@ class _EmailForm extends StatelessWidget {
           onChanged: cubit.emailChanged,
           onSubmitted: (_) => cubit.submitEmail(),
         ),
-        const InfoCard(
-          icon: SpIcons.shield,
-          text:
-              'No password to remember. The code signs you in, or sets up '
-              "your account if you're new.",
+        const StickyNote(
+          title: 'No password to remember.',
+          body: "The code signs you in, or sets up your account if you're new.",
+          showPaprika: false,
         ),
       ],
     );
@@ -275,11 +282,10 @@ class _CodeForm extends StatelessWidget {
             ),
           ),
         const SizedBox(height: Spacing.l),
-        const InfoCard(
-          icon: SpIcons.shield,
-          text:
-              'No password to remember. The code signs you in, or sets up '
-              "your account if you're new.",
+        const StickyNote(
+          title: 'No password to remember.',
+          body: "The code signs you in, or sets up your account if you're new.",
+          showPaprika: false,
         ),
       ],
     );

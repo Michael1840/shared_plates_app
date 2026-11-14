@@ -25,6 +25,11 @@ abstract interface class AuthRepository {
 
   Future<Result<void>> signInAnonymously();
 
+  Future<Result<void>> signInWithPassword({
+    required String email,
+    required String password,
+  });
+
   Future<Result<void>> sendEmailCode(String email);
 
   Future<Result<void>> verifyEmailCode({
@@ -68,6 +73,15 @@ class SupabaseAuthRepository implements AuthRepository {
   @override
   Future<Result<void>> signInAnonymously() =>
       _guard('signInAnonymously', _auth.signInAnonymously);
+
+  @override
+  Future<Result<void>> signInWithPassword({
+    required String email,
+    required String password,
+  }) => _guard(
+    'signInWithPassword',
+    () => _auth.signInWithPassword(email: email, password: password),
+  );
 
   @override
   Future<Result<void>> sendEmailCode(String email) => _guard(
@@ -155,6 +169,12 @@ class UnavailableAuthRepository implements AuthRepository {
 
   @override
   Future<Result<void>> signInAnonymously() async => _error;
+
+  @override
+  Future<Result<void>> signInWithPassword({
+    required String email,
+    required String password,
+  }) async => _error;
 
   @override
   Future<Result<void>> sendEmailCode(String email) async => _error;

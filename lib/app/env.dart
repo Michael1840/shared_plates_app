@@ -12,4 +12,10 @@ abstract final class Env {
 
   static bool get hasBackend =>
       supabaseUrl.isNotEmpty && supabaseKey.isNotEmpty;
+
+  static const testEmail = String.fromEnvironment('TEST_EMAIL');
+  static const testPassword = String.fromEnvironment('TEST_PASSWORD');
+
+  static bool get hasTestAccount =>
+      isDev && hasBackend && testEmail.isNotEmpty && testPassword.isNotEmpty;
 }

@@ -20,7 +20,21 @@ class SocialSignInCubit extends Cubit<SocialSignInState> {
 
   final AuthRepository _auth;
 
-  Future<void> signIn(SocialProvider provider) async {
+  Future<void> signIn(SocialProvider provider) =>
+      _run(provider, () => _auth.signInWith(provider));
+
+  Future<void> signInWithTestAccount({
+    required String email,
+    required String password,
+  }) => _run(
+    null,
+    () => _auth.signInWithPassword(email: email, password: password),
+  );
+
+  Future<void> _run(
+    SocialProvider? provider,
+    Future<Result<void>> Function() call,
+  ) async {
     if (state.launch.isInProgress) return;
     emit(
       SocialSignInState(
@@ -28,7 +42,7 @@ class SocialSignInCubit extends Cubit<SocialSignInState> {
         launch: const DelayedResult.inProgress(),
       ),
     );
-    final result = await _auth.signInWith(provider);
+    final result = await call();
     if (isClosed) return;
     switch (result) {
       case Error<void>(:final error):

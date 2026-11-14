@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_plates_app/app/di.dart';
+import 'package:shared_plates_app/app/env.dart';
 import 'package:shared_plates_app/app/router/routes.dart';
 import 'package:shared_plates_app/core/domain/enums.dart';
 import 'package:shared_plates_app/core/theme/app_text.dart';
@@ -87,15 +88,13 @@ class _WelcomeHeader extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             spacing: 10,
             children: [
-              Container(
+              SvgPicture.asset(
+                'assets/brand/logo.svg',
                 width: 36,
                 height: 36,
-                decoration: BoxDecoration(color: ink, shape: BoxShape.circle),
-                alignment: Alignment.center,
-                child: SvgPicture.asset(
-                  'assets/brand/logo.svg',
-                  width: 26,
-                  height: 26,
+                colorFilter: const ColorFilter.mode(
+                  Colors.white,
+                  BlendMode.srcIn,
                 ),
               ),
               AppText(
@@ -277,6 +276,17 @@ class _SignInOptions extends StatelessWidget {
           color: context.primaryDeep,
           onTap: () => context.read<SessionCubit>().continueAsGuest(),
         ),
+        if (Env.hasTestAccount)
+          TextLinkButton(
+            label: 'Dev: sign in as ${Env.testEmail}',
+            color: context.textMuted,
+            onTap: busy
+                ? null
+                : () => context.read<SocialSignInCubit>().signInWithTestAccount(
+                    email: Env.testEmail,
+                    password: Env.testPassword,
+                  ),
+          ),
         const AppText.secondary(
           text: 'By continuing you agree to our Terms and Privacy Policy.',
           config: FontConfigs.sublabel2,

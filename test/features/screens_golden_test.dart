@@ -17,7 +17,10 @@ import 'package:shared_plates_app/core/sync/remote_store.dart';
 import 'package:shared_plates_app/core/theme/app_theme.dart';
 import 'package:shared_plates_app/core/widgets/dot_grid_background.dart';
 import 'package:shared_plates_app/core/widgets/paprika.dart';
+import 'package:shared_plates_app/features/auth/data/auth_repository.dart';
 import 'package:shared_plates_app/features/auth/presentation/bloc/session_cubit.dart';
+import 'package:shared_plates_app/features/auth/presentation/pages/email_sign_in_page.dart';
+import 'package:shared_plates_app/features/auth/presentation/pages/welcome_page.dart';
 import 'package:shared_plates_app/features/browse/data/browse_repository.dart';
 import 'package:shared_plates_app/features/discover/presentation/pages/discover_page.dart';
 import 'package:shared_plates_app/features/home/data/checklist_repository.dart';
@@ -111,6 +114,7 @@ void main() {
         ),
       )
       ..registerSingleton<ProfileRepository>(profiles)
+      ..registerSingleton<AuthRepository>(MockAuthRepository())
       ..registerSingleton<ChecklistRepository>(
         ChecklistRepositoryImpl(db, AppSettingsStore(db)),
       );
@@ -227,6 +231,24 @@ void main() {
     await expectLater(
       find.byType(MaterialApp),
       matchesGoldenFile('goldens/home_offline.png'),
+    );
+  });
+
+  testWidgets('welcome', (tester) async {
+    await pumpScreen(tester, const WelcomePage(), height: 844, wrap: false);
+    expect(tester.takeException(), isNull);
+    await expectLater(
+      find.byType(MaterialApp),
+      matchesGoldenFile('goldens/welcome.png'),
+    );
+  });
+
+  testWidgets('email sign-in', (tester) async {
+    await pumpScreen(tester, const EmailSignInPage(), height: 844, wrap: false);
+    expect(tester.takeException(), isNull);
+    await expectLater(
+      find.byType(MaterialApp),
+      matchesGoldenFile('goldens/email_sign_in.png'),
     );
   });
 }
