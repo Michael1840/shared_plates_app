@@ -105,6 +105,7 @@ class RecipeDetailCubit extends Cubit<RecipeDetailState> {
     required this._repository,
     required this._recipeId,
     this._viewerId,
+    this._live = true,
     UnitSystem units = UnitSystem.metric,
     RecipeCard? preview,
   }) : super(RecipeDetailState(units: units, preview: preview));
@@ -112,6 +113,7 @@ class RecipeDetailCubit extends Cubit<RecipeDetailState> {
   final RecipeDetailRepository _repository;
   final String _recipeId;
   final String? _viewerId;
+  final bool _live;
   StreamSubscription<RecipeDetail?>? _sub;
   bool _refreshed = false;
 
@@ -121,6 +123,10 @@ class RecipeDetailCubit extends Cubit<RecipeDetailState> {
     if (isClosed) return;
     emit(state.copyWith(unitDefs: defs));
     _sub = _repository.watch(_recipeId, viewerId: _viewerId).listen(_onLocal);
+    if (!_live) {
+      _refreshed = true;
+      return;
+    }
     final viewer = _viewerId;
     if (viewer != null) {
       unawaited(_repository.markViewed(viewer, _recipeId));

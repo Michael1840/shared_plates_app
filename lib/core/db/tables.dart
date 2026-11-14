@@ -283,7 +283,7 @@ class RecentlyViewed extends Table {
   Set<Column<Object>> get primaryKey => {userId, recipeId};
 }
 
-enum OutboxKind { upsert, update, delete, rpc }
+enum OutboxKind { upsert, update, delete, rpc, recipe }
 
 @DataClassName('OutboxEntry')
 class Outbox extends Table {

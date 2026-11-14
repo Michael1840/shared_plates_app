@@ -15,6 +15,8 @@ import 'package:shared_plates_app/features/auth/data/auth_repository.dart';
 import 'package:shared_plates_app/features/browse/data/browse_api.dart';
 import 'package:shared_plates_app/features/browse/data/browse_repository.dart';
 import 'package:shared_plates_app/features/cook/data/cook_repository.dart';
+import 'package:shared_plates_app/features/create/data/create_repository.dart';
+import 'package:shared_plates_app/features/create/data/photo_store.dart';
 import 'package:shared_plates_app/features/home/data/checklist_repository.dart';
 import 'package:shared_plates_app/features/profile/data/profile_repository.dart';
 import 'package:shared_plates_app/features/recipe/data/cover_cache.dart';
@@ -91,7 +93,11 @@ void configureDependencies({required SupabaseClient? supabase}) {
     ..registerSingleton<CookRepository>(
       CookRepositoryImpl(db: db, outbox: outbox, sync: sync),
     )
-    ..registerSingleton<ScreenAwake>(const WakelockScreenAwake());
+    ..registerSingleton<ScreenAwake>(const WakelockScreenAwake())
+    ..registerSingleton<CreateRepository>(
+      CreateRepositoryImpl(db: db, outbox: outbox, sync: sync),
+    )
+    ..registerLazySingleton<PhotoStore>(DevicePhotoStore.new);
   void backfill() {
     final uid = remote.userId;
     if (uid != null) unawaited(covers.backfill(uid));

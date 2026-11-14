@@ -25,6 +25,13 @@ abstract final class Palette {
   static const handle = Color(0xFFD9C7B8);
   static const divider = Color(0xFFE2D6CA);
   static const chevron = Color(0xFF8A7B70);
+  static const slate = Color(0xFFDCE2EE);
+  static const slateInk = Color(0xFF2F4064);
+  static const sage = Color(0xFFE3EEDD);
+  static const sageInk = Color(0xFF24552E);
+  static const honeyDeepInk = Color(0xFF6B430B);
+  static const draftPaper = Color(0xFFFBF8F4);
+  static const dashed = Color(0xFFD9A08A);
 
   static const nightBackground = Color(0xFF1C1613);
   static const nightDot = Color(0xFF2E2520);

@@ -10,6 +10,7 @@ import 'package:shared_plates_app/core/widgets/motion/entrance.dart';
 import 'package:shared_plates_app/core/widgets/paprika.dart';
 import 'package:shared_plates_app/core/widgets/paprika_header.dart';
 import 'package:shared_plates_app/core/widgets/sp_icon.dart';
+import 'package:shared_plates_app/core/widgets/speech_bubble.dart';
 
 class OnboardingHeader extends StatelessWidget {
   const new({
@@ -79,7 +80,7 @@ class OnboardingHeader extends StatelessWidget {
               ),
               Entrance(
                 delay: const Duration(milliseconds: 120),
-                child: _SpeechBubble(text: message),
+                child: SpeechBubble(text: message),
               ).paddingOnly(bottom: 10).expand(),
             ],
           ),
@@ -111,36 +112,6 @@ class _Progress extends StatelessWidget {
             ),
           ).expand(),
       ],
-    );
-  }
-}
-
-class _SpeechBubble extends StatelessWidget {
-  const new({required this.text});
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: Spacing.m, vertical: 14),
-      decoration: BoxDecoration(
-        color: context.container,
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(22),
-          topRight: Radius.circular(22),
-          bottomRight: Radius.circular(22),
-          bottomLeft: Radius.circular(6),
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: context.sp.shadow,
-            blurRadius: 16,
-            offset: const Offset(0, 6),
-          ),
-        ],
-      ),
-      child: AppText(text: text, config: FontConfigs.body2),
     );
   }
 }

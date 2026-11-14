@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:shared_plates_app/core/sync/remote_store.dart';
 
 class RemoteCall {
@@ -54,6 +56,37 @@ class FakeRemoteStore implements RemoteStore {
     } else if (!ignoreDuplicates) {
       rows[index] = {...rows[index], ...row};
     }
+  }
+
+  final Map<String, int> uploads = {};
+
+  @override
+  Future<void> upsertMany(
+    String table,
+    List<JsonRow> rows, {
+    String? onConflict,
+    bool ignoreDuplicates = false,
+  }) async {
+    for (final row in rows) {
+      await upsert(
+        table,
+        row,
+        onConflict: onConflict,
+        ignoreDuplicates: ignoreDuplicates,
+      );
+    }
+  }
+
+  @override
+  Future<void> upload(
+    String bucket,
+    String path,
+    Uint8List bytes, {
+    required String contentType,
+  }) async {
+    calls.add(RemoteCall('upload', bucket, {'path': path}));
+    _maybeFail();
+    uploads['$bucket/$path'] = bytes.length;
   }
 
   @override

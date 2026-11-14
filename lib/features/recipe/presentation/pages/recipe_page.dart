@@ -32,10 +32,16 @@ import 'package:shared_plates_app/features/recipe/presentation/widgets/recipe_he
 import 'package:shared_plates_app/features/recipe/presentation/widgets/recipe_sections.dart';
 
 class RecipePage extends StatelessWidget {
-  const new({required this.recipeId, super.key, this.card});
+  const new({
+    required this.recipeId,
+    super.key,
+    this.card,
+    this.preview = false,
+  });
 
   final String recipeId;
   final RecipeCard? card;
+  final bool preview;
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +57,7 @@ class RecipePage extends StatelessWidget {
               : null,
           units: profile?.units ?? UnitSystem.metric,
           preview: card,
+          live: !preview,
         );
         unawaited(cubit.start());
         return cubit;

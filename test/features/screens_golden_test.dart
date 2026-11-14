@@ -31,6 +31,13 @@ import 'package:shared_plates_app/features/cook/data/cook_repository.dart';
 import 'package:shared_plates_app/features/cook/domain/cook_args.dart';
 import 'package:shared_plates_app/features/cook/presentation/pages/cook_done_page.dart';
 import 'package:shared_plates_app/features/cook/presentation/pages/cook_mode_page.dart';
+import 'package:shared_plates_app/features/create/data/create_repository.dart';
+import 'package:shared_plates_app/features/create/data/photo_store.dart';
+import 'package:shared_plates_app/features/create/domain/recipe_draft.dart';
+import 'package:shared_plates_app/features/create/presentation/pages/create_start_page.dart';
+import 'package:shared_plates_app/features/create/presentation/pages/paste_page.dart';
+import 'package:shared_plates_app/features/create/presentation/pages/recipe_editor_page.dart';
+import 'package:shared_plates_app/features/create/presentation/pages/recipe_shared_page.dart';
 import 'package:shared_plates_app/features/discover/presentation/pages/discover_page.dart';
 import 'package:shared_plates_app/features/home/data/checklist_repository.dart';
 import 'package:shared_plates_app/features/home/presentation/pages/home_page.dart';
@@ -42,6 +49,7 @@ import 'package:shared_plates_app/features/recipe/presentation/bloc/recipe_actio
 import 'package:shared_plates_app/features/recipe/presentation/pages/recipe_page.dart';
 import 'package:shared_plates_app/features/search/presentation/pages/search_page.dart';
 
+import '../helpers/create_seed.dart';
 import '../helpers/fake_browse_api.dart';
 import '../helpers/fake_remote_store.dart';
 import '../helpers/mocks.dart';
@@ -52,6 +60,26 @@ class _MockSession extends MockCubit<SessionState> implements SessionCubit;
 class _MockProfile extends MockCubit<Profile?> implements CurrentProfileCubit;
 
 class _MockCooks extends Mock implements CookRepository;
+
+const _paste = '''
+Gran's chakalaka
+serves 6 as a side
+Ingredients
+2 tbsp sunflower oil
+1 large onion, diced
+2 green peppers, diced
+3 carrots, grated
+Method
+1. Heat the oil in a big pan and fry the onion until soft, about 5 minutes.
+2. Add the peppers and carrots. Cook for 5 minutes, stirring now and then.
+3. Stir in the beans and tomatoes and simmer for 10 min.
+Mom always adds a spoon of chutney at the end''';
+
+class _NoPhotos implements PhotoStore {
+  @override
+  Future<String?> pick(PhotoSource source, {required String recipeId}) async =>
+      null;
+}
 
 class _StillScreen implements ScreenAwake {
   @override
@@ -177,7 +205,17 @@ void main() {
         ChecklistRepositoryImpl(db, AppSettingsStore(db)),
       )
       ..registerSingleton<CookRepository>(cooks)
-      ..registerSingleton<ScreenAwake>(_StillScreen());
+      ..registerSingleton<ScreenAwake>(_StillScreen())
+      ..registerSingleton<CreateRepository>(
+        CreateRepositoryImpl(
+          db: db,
+          outbox: outbox,
+          sync: SyncService(db: db, outbox: outbox, remote: recipeRemote),
+          clock: () => DateTime.utc(2026, 11, 14, 10),
+        ),
+      )
+      ..registerSingleton<PhotoStore>(_NoPhotos());
+    await seedFoodLibrary(db, tags: false);
     session = _MockSession();
     when(() => session.state)
         .thenReturn(const SessionState(status: SessionStatus.guest));
@@ -357,6 +395,149 @@ void main() {
       find.byType(MaterialApp),
       matchesGoldenFile('goldens/cook_done.png'),
     );
+  });
+
+  Future<void> seedDrafts() async {
+    final repo = sl<CreateRepository>();
+    final library = await repo.library();
+    RecipeDraft draft(String id, String title, {bool published = false}) =>
+        RecipeDraft(
+          id: id,
+          title: title,
+          servings: 6,
+          totalMinutes: 35,
+          coverStyle: CoverStyle.veg,
+          status: published ? RecipeStatus.published : RecipeStatus.draft,
+          tagIds: const {1},
+          ingredients: [
+            DraftIngredient.fromLine(
+              '$id-1',
+              '2 tbsp sunflower oil',
+              library: library,
+              costCents: 200,
+            ),
+            DraftIngredient.fromLine(
+              '$id-2',
+              '1 large onion, diced',
+              library: library,
+              costCents: 400,
+            ),
+            DraftIngredient.fromLine(
+              '$id-3',
+              '3 carrots, grated',
+              library: library,
+              costCents: 600,
+            ),
+            DraftIngredient.fromLine(
+              '$id-4',
+              '1 tsp mild curry spice',
+              library: library,
+            ),
+          ],
+          steps: [
+            DraftStep(
+              id: '$id-s1',
+              body:
+                  'Heat the oil in a big pan and fry the onion until soft, '
+                  'about 5 minutes.',
+            ),
+            DraftStep(
+              id: '$id-s2',
+              body: 'Add the carrots and spice. Simmer for 10 min.',
+            ),
+          ],
+        );
+    await repo.save('u1', draft('d1', "Gran's chakalaka"), library);
+    await repo.save(
+      'u1',
+      const RecipeDraft(id: 'd2', title: 'Malva pudding'),
+      library,
+    );
+    await repo.save(
+      'u1',
+      draft('p1', "Gran's chakalaka", published: true),
+      library,
+    );
+  }
+
+  void signIn() => when(() => session.state).thenReturn(
+    const SessionState(status: SessionStatus.signedIn, userId: 'u1'),
+  );
+
+  testWidgets('create start', (tester) async {
+    signIn();
+    await tester.runAsync(seedDrafts);
+    await pumpScreen(
+      tester,
+      const CreateStartPage(),
+      height: 1000,
+      wrap: false,
+    );
+    expect(tester.takeException(), isNull);
+    await expectLater(
+      find.byType(MaterialApp),
+      matchesGoldenFile('goldens/create_start.png'),
+    );
+    await tester.pumpWidget(const SizedBox());
+    await tester.pump(const Duration(seconds: 1));
+  });
+
+  testWidgets('paste review', (tester) async {
+    signIn();
+    await pumpScreen(tester, const PastePage(), height: 1300, wrap: false);
+    await tester.enterText(find.byType(TextField), _paste);
+    await tester.tap(find.text('Split it up'));
+    await tester.pumpAndSettle();
+    expect(tester.takeException(), isNull);
+    await expectLater(
+      find.byType(MaterialApp),
+      matchesGoldenFile('goldens/create_paste.png'),
+    );
+    await tester.pumpWidget(const SizedBox());
+    await tester.pump(const Duration(seconds: 1));
+  });
+
+  testWidgets('recipe editor', (tester) async {
+    signIn();
+    await tester.runAsync(seedDrafts);
+    await pumpScreen(
+      tester,
+      const RecipeEditorPage(recipeId: 'd1'),
+      height: 2500,
+      wrap: false,
+    );
+    await tester.runAsync(
+      () => Future<void>.delayed(const Duration(milliseconds: 100)),
+    );
+    await tester.pumpAndSettle();
+    expect(tester.takeException(), isNull);
+    await expectLater(
+      find.byType(MaterialApp),
+      matchesGoldenFile('goldens/create_editor.png'),
+    );
+    await tester.pumpWidget(const SizedBox());
+    await tester.runAsync(
+      () => Future<void>.delayed(const Duration(milliseconds: 100)),
+    );
+    await tester.pump(const Duration(seconds: 1));
+  });
+
+  testWidgets('recipe shared', (tester) async {
+    signIn();
+    await tester.runAsync(seedDrafts);
+    await pumpScreen(
+      tester,
+      const RecipeSharedPage(recipeId: 'p1'),
+      height: 844,
+      wrap: false,
+    );
+    expect(tester.takeException(), isNull);
+    await expectLater(
+      find.byType(MaterialApp),
+      matchesGoldenFile('goldens/create_shared.png'),
+    );
+    await tester.pumpWidget(const SizedBox());
+    await tester.pump(const Duration(seconds: 1));
   });
 
   testWidgets('recipe page', (tester) async {

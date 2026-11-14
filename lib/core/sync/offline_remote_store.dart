@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:shared_plates_app/core/sync/remote_store.dart';
 
 class OfflineRemoteStore implements RemoteStore {
@@ -17,6 +19,22 @@ class OfflineRemoteStore implements RemoteStore {
     JsonRow row, {
     String? onConflict,
     bool ignoreDuplicates = false,
+  }) => Future.error(_failure);
+
+  @override
+  Future<void> upsertMany(
+    String table,
+    List<JsonRow> rows, {
+    String? onConflict,
+    bool ignoreDuplicates = false,
+  }) => Future.error(_failure);
+
+  @override
+  Future<void> upload(
+    String bucket,
+    String path,
+    Uint8List bytes, {
+    required String contentType,
   }) => Future.error(_failure);
 
   @override

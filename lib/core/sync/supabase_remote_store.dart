@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:shared_plates_app/core/sync/remote_store.dart';
 import 'package:shared_plates_app/core/sync/supabase_guard.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -23,6 +25,41 @@ class SupabaseRemoteStore implements RemoteStore {
           row,
           onConflict: onConflict,
           ignoreDuplicates: ignoreDuplicates,
+        ),
+  );
+
+  @override
+  Future<void> upsertMany(
+    String table,
+    List<JsonRow> rows, {
+    String? onConflict,
+    bool ignoreDuplicates = false,
+  }) async {
+    if (rows.isEmpty) return;
+    await supabaseGuard(
+      () => _client
+          .from(table)
+          .upsert(
+            rows,
+            onConflict: onConflict,
+            ignoreDuplicates: ignoreDuplicates,
+          ),
+    );
+  }
+
+  @override
+  Future<void> upload(
+    String bucket,
+    String path,
+    Uint8List bytes, {
+    required String contentType,
+  }) => supabaseGuard(
+    () => _client.storage
+        .from(bucket)
+        .uploadBinary(
+          path,
+          bytes,
+          fileOptions: FileOptions(contentType: contentType, upsert: true),
         ),
   );
 

@@ -20,6 +20,9 @@ import 'package:shared_plates_app/features/cook/domain/cook_args.dart';
 import 'package:shared_plates_app/features/cook/presentation/pages/cook_done_page.dart';
 import 'package:shared_plates_app/features/cook/presentation/pages/cook_mode_page.dart';
 import 'package:shared_plates_app/features/create/presentation/pages/create_start_page.dart';
+import 'package:shared_plates_app/features/create/presentation/pages/paste_page.dart';
+import 'package:shared_plates_app/features/create/presentation/pages/recipe_editor_page.dart';
+import 'package:shared_plates_app/features/create/presentation/pages/recipe_shared_page.dart';
 import 'package:shared_plates_app/features/discover/presentation/pages/discover_page.dart';
 import 'package:shared_plates_app/features/friends/presentation/pages/friends_page.dart';
 import 'package:shared_plates_app/features/gallery/presentation/pages/widget_gallery_page.dart';
@@ -164,6 +167,33 @@ GoRouter buildRouter(SessionCubit session) {
         name: RouteNames.create,
         pageBuilder: (context, state) =>
             SpPages.sheet(state, const CreateStartPage()),
+        routes: [
+          GoRoute(
+            parentNavigatorKey: rootKey,
+            path: Routes.createPaste,
+            name: RouteNames.createPaste,
+            pageBuilder: (context, state) =>
+                SpPages.push(state, const PastePage()),
+          ),
+          GoRoute(
+            parentNavigatorKey: rootKey,
+            path: Routes.createEdit,
+            name: RouteNames.createEdit,
+            pageBuilder: (context, state) => SpPages.push(
+              state,
+              RecipeEditorPage(recipeId: state.pathParameters['id'] ?? ''),
+            ),
+          ),
+          GoRoute(
+            parentNavigatorKey: rootKey,
+            path: Routes.createDone,
+            name: RouteNames.createDone,
+            pageBuilder: (context, state) => SpPages.fade(
+              state,
+              RecipeSharedPage(recipeId: state.pathParameters['id'] ?? ''),
+            ),
+          ),
+        ],
       ),
       GoRoute(
         parentNavigatorKey: rootKey,
@@ -187,6 +217,7 @@ GoRouter buildRouter(SessionCubit session) {
           RecipePage(
             recipeId: state.pathParameters['id'] ?? '',
             card: state.extra is RecipeCard ? state.extra! as RecipeCard : null,
+            preview: state.uri.queryParameters['preview'] == '1',
           ),
         ),
         routes: [

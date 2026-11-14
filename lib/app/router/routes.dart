@@ -17,7 +17,19 @@ abstract final class Routes {
   static const cook = 'cook';
   static const cooked = 'cooked';
 
+  static const createPaste = 'paste';
+  static const createEdit = 'edit/:id';
+  static const createDone = 'done/:id';
+
   static String recipeFor(String id) => '/recipe/$id';
+
+  static String previewRecipe(String id) => '/recipe/$id?preview=1';
+
+  static String pasteRecipe() => '$create/$createPaste';
+
+  static String editRecipe(String id) => '$create/edit/$id';
+
+  static String recipeShared(String id) => '$create/done/$id';
 
   static String cookFor(String id) => '/recipe/$id/$cook';
 
@@ -41,4 +53,7 @@ abstract final class RouteNames {
   static const recipe = 'recipe';
   static const cook = 'cook';
   static const cooked = 'cooked';
+  static const createPaste = 'create-paste';
+  static const createEdit = 'create-edit';
+  static const createDone = 'create-done';
 }

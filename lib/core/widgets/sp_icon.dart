@@ -70,7 +70,15 @@ enum SpIcons {
     '17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4',
   ),
   timer('M12 21a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM12 9v4M10 2.5h4'),
-  pencil('M4 20h4L19 9l-4-4L4 16zM13.5 6.5l4 4');
+  pencil('M4 20h4L19 9l-4-4L4 16zM13.5 6.5l4 4'),
+  clipboard('M9 3h6v3H9zM9 4.5H6v16h12v-16h-3M9 11h6M9 15h4'),
+  phone(
+    'M8 3h8a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1V4a1 1 0 0 1 '
+    '1-1zM11 18h2',
+  ),
+  camera('M4 8h3l2-3h6l2 3h3v11H4zM12 17a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z'),
+  grip('M9 6h.01M15 6h.01M9 12h.01M15 12h.01M9 18h.01M15 18h.01'),
+  trash('M5 7h14M10 7V4h4v3M7 7l1 13h8l1-13');
 
   new(this.path);
 

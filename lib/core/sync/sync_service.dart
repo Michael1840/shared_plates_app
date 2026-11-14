@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:drift/drift.dart';
 import 'package:equatable/equatable.dart';
@@ -178,7 +179,130 @@ class SyncService {
         await _remote.delete(entry.target, payload.cast<String, Object>());
       case OutboxKind.rpc:
         await _remote.rpc(entry.target, payload);
+      case OutboxKind.recipe:
+        await _pushRecipe(payload);
     }
+  }
+
+  static const photoBucket = 'recipe-photos';
+
+  Future<void> _pushRecipe(JsonRow snapshot) async {
+    final recipe = {...snapshot['recipe'] as JsonRow};
+    final id = recipe['id'] as String;
+    final coverPath = await _uploadCover(id, snapshot['cover'] as JsonRow?);
+    if (coverPath != null) recipe['cover_path'] = coverPath;
+    final ingredients = [
+      for (final r in snapshot['ingredients'] as List<dynamic>) r as JsonRow,
+    ];
+    final steps = [
+      for (final r in snapshot['steps'] as List<dynamic>) r as JsonRow,
+    ];
+    final links = [
+      for (final r in snapshot['links'] as List<dynamic>) r as JsonRow,
+    ];
+    final tags = {
+      for (final t in snapshot['tags'] as List<dynamic>) (t as num).toInt(),
+    };
+
+    await _remote.upsert('recipes', recipe);
+
+    final stepIds = {for (final s in steps) s['id'] as String};
+    final ingredientIds = {for (final i in ingredients) i['id'] as String};
+    final remoteSteps = await _remote.fetchIn(
+      'recipe_steps',
+      column: 'recipe_id',
+      values: [id],
+    );
+    for (final s in remoteSteps) {
+      final sid = s['id'] as String;
+      if (!stepIds.contains(sid)) {
+        await _remote.delete('recipe_steps', {'id': sid});
+      }
+    }
+    final remoteIngredients = await _remote.fetchIn(
+      'recipe_ingredients',
+      column: 'recipe_id',
+      values: [id],
+    );
+    for (final i in remoteIngredients) {
+      final iid = i['id'] as String;
+      if (!ingredientIds.contains(iid)) {
+        await _remote.delete('recipe_ingredients', {'id': iid});
+      }
+    }
+    await _remote.upsertMany('recipe_ingredients', ingredients);
+    await _remote.upsertMany('recipe_steps', steps);
+
+    final remoteLinks = await _remote.fetchIn(
+      'step_ingredients',
+      column: 'step_id',
+      values: stepIds.toList(),
+    );
+    String linkKey(JsonRow r) => '${r['step_id']}|${r['ingredient_id']}';
+    final wanted = {for (final l in links) linkKey(l)};
+    final existing = {for (final l in remoteLinks) linkKey(l)};
+    for (final l in remoteLinks) {
+      if (!wanted.contains(linkKey(l))) {
+        await _remote.delete('step_ingredients', {
+          'step_id': l['step_id'] as String,
+          'ingredient_id': l['ingredient_id'] as String,
+        });
+      }
+    }
+    await _remote.upsertMany(
+      'step_ingredients',
+      [
+        for (final l in links)
+          if (!existing.contains(linkKey(l))) l,
+      ],
+      onConflict: 'step_id,ingredient_id',
+      ignoreDuplicates: true,
+    );
+
+    final remoteTags = {
+      for (final t in await _remote.fetchIn(
+        'recipe_tags',
+        column: 'recipe_id',
+        values: [id],
+      ))
+        (t['tag_id'] as num).toInt(),
+    };
+    for (final t in remoteTags.difference(tags)) {
+      await _remote.delete('recipe_tags', {'recipe_id': id, 'tag_id': t});
+    }
+    await _remote.upsertMany(
+      'recipe_tags',
+      [
+        for (final t in tags.difference(remoteTags))
+          {'recipe_id': id, 'tag_id': t},
+      ],
+      onConflict: 'recipe_id,tag_id',
+      ignoreDuplicates: true,
+    );
+  }
+
+  Future<String?> _uploadCover(String recipeId, JsonRow? cover) async {
+    if (cover == null) return null;
+    final local = cover['local'] as String;
+    final path = cover['path'] as String;
+    final file = File(local);
+    if (!file.existsSync()) return null;
+    try {
+      await _remote.upload(
+        photoBucket,
+        path,
+        await file.readAsBytes(),
+        contentType: 'image/jpeg',
+      );
+    } on RemoteFailure catch (e, s) {
+      if (e.isTransient) rethrow;
+      ErrorReporter.report('SyncService.uploadCover', e, s);
+      return null;
+    }
+    await (_db.update(_db.recipes)..where((t) => t.id.equals(recipeId))).write(
+      RecipesCompanion(coverPath: Value(path)),
+    );
+    return path;
   }
 
   Future<void> pull() async {

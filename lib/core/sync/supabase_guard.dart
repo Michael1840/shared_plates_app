@@ -15,7 +15,12 @@ Future<T> supabaseGuard<T>(Future<T> Function() call) async {
     final permanent = _permanentPrefixes.any(code.startsWith);
     throw RemoteFailure(e.message, isTransient: !permanent, code: code);
   } on StorageException catch (e) {
-    throw RemoteFailure(e.message, isTransient: true, code: e.statusCode);
+    final status = int.tryParse(e.statusCode ?? '') ?? 0;
+    final permanent =
+        status >= 400 &&
+        status < 500 &&
+        !const {401, 408, 429}.contains(status);
+    throw RemoteFailure(e.message, isTransient: !permanent, code: e.statusCode);
   } on AuthException catch (e) {
     throw RemoteFailure(e.message, isTransient: true, code: e.code);
   } on SocketException catch (e) {

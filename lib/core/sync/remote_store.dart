@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 typedef JsonRow = Map<String, dynamic>;
 
 class RemoteFailure implements Exception {
@@ -19,6 +21,20 @@ abstract interface class RemoteStore {
     JsonRow row, {
     String? onConflict,
     bool ignoreDuplicates = false,
+  });
+
+  Future<void> upsertMany(
+    String table,
+    List<JsonRow> rows, {
+    String? onConflict,
+    bool ignoreDuplicates = false,
+  });
+
+  Future<void> upload(
+    String bucket,
+    String path,
+    Uint8List bytes, {
+    required String contentType,
   });
 
   Future<void> update(

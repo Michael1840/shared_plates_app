@@ -35,6 +35,10 @@
 	</array>
 	<key>FlutterDeepLinkingEnabled</key>
 	<false/>
+	<key>NSCameraUsageDescription</key>
+	<string>Take a photo of your dish to show on your recipe.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Choose a photo of your dish to show on your recipe.</string>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>

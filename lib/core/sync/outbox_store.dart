@@ -66,6 +66,13 @@ class OutboxOperation {
         dedupeKey: dedupeKey,
       );
 
+  factory recipe(String id, JsonRow snapshot) => OutboxOperation._(
+    kind: OutboxKind.recipe,
+    target: 'recipes',
+    payload: snapshot,
+    dedupeKey: 'recipes:$id',
+  );
+
   final OutboxKind kind;
   final String target;
   final JsonRow payload;
