@@ -44,6 +44,7 @@ class Methods {
     BuildContext context,
     Widget child, {
     bool isFull = false,
+    EdgeInsets? padding,
   }) => showModalBottomSheet(
     barrierColor: Colors.black.withValues(alpha: 0.6),
     backgroundColor: context.background,
@@ -68,7 +69,9 @@ class Methods {
       );
 
       // Only make it scrollable if it's not full
-      return isFull ? content : PageContainer.scrollable(child: content);
+      return isFull
+          ? content
+          : PageContainer.scrollable(padding: padding, child: content);
     },
   );
 }

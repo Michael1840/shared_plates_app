@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../discover/ui/discover_page.dart';
+import '../ui/custom/buttons/custom_bottom_sheet_button.dart';
+
 const String sharedPlatesSvg = 'assets/svgs/shared-plates-logo.svg';
 const String sharedPlatesWhiteSvg = 'assets/svgs/shared-plates-logo-white.svg';
 const String createRecipe1 = 'assets/images/create-recipe-1.png';
@@ -173,4 +176,24 @@ const List<String> kMethod = [
   'Air Fryer',
   'Grill',
   'One-Pot',
+];
+
+const List<FilterValue<SortingFilter>> kSortingFilters = [
+  FilterValue<SortingFilter>(name: 'Default', value: SortingFilter.def),
+  FilterValue<SortingFilter>(
+    name: 'Price low to high',
+    value: SortingFilter.priceLowToHigh,
+  ),
+  FilterValue<SortingFilter>(
+    name: 'Price high to low',
+    value: SortingFilter.priceHighToLow,
+  ),
+  FilterValue<SortingFilter>(
+    name: 'Most servings',
+    value: SortingFilter.mostServings,
+  ),
+  FilterValue<SortingFilter>(
+    name: 'Least servings',
+    value: SortingFilter.leastServings,
+  ),
 ];

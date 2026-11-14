@@ -48,6 +48,8 @@ class TextColors {
   static const Color primaryLight = Color(0xFF222222);
 
   static const Color secondary = Color(0xFF8F8F8F);
+
+  static Color? get tertiary => null;
 }
 
 class BorderColors {

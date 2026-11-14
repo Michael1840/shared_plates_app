@@ -44,8 +44,22 @@ Future<void> main() async {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  late UserBloc _bloc;
+
+  @override
+  initState() {
+    super.initState();
+
+    _bloc = context.read<UserBloc>();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +68,7 @@ class MyApp extends StatelessWidget {
       theme: MyTheme.lightTheme,
       darkTheme: MyTheme.darkTheme,
       themeMode: ThemeMode.system,
-      routerConfig: NavigationRouter.router(context.read<UserBloc>()),
+      routerConfig: NavigationRouter.router(_bloc),
       builder: (context, child) {
         return SafeArea(
           top: !Platform.isIOS,

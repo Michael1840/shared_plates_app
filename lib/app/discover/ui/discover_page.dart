@@ -6,20 +6,21 @@ import '../../core/router/routes.dart';
 import '../../core/theme/theme.dart';
 import '../../core/ui/custom/animations/animate_list.dart';
 import '../../core/ui/custom/appbar/sliver_app_bar.dart';
+import '../../core/ui/custom/buttons/custom_bottom_sheet_button.dart';
 import '../../core/ui/custom/buttons/my_icon_button.dart';
 import '../../core/ui/custom/containers/sliver_title.dart';
 import '../../core/ui/custom/fields/pinned_sliver_search.dart';
 import '../../core/ui/custom/icons/my_icons.dart';
 import '../../core/ui/layouts/page_container.dart';
+import '../../core/utils/constants.dart';
 import '../../core/utils/extensions.dart';
 import '../../core/utils/methods.dart';
-import '../../search/ui/filter_page.dart';
 import '../../home/ui/items/full_width_card.dart';
 import '../../home/ui/items/recipe_item.dart';
 import '../../recipe/bloc/recipe_bloc/recipe_bloc.dart';
 import '../../recipe/data/models/recipe_model.dart';
 import '../../recipe/ui/loading_skeleton/recipes_page_skeleton.dart';
-import 'items/popup_item.dart';
+import '../../search/ui/filter_page.dart';
 
 enum _ViewFilter { card, items }
 
@@ -40,7 +41,7 @@ class DiscoverPage extends StatefulWidget {
 
 class _DiscoverPageState extends State<DiscoverPage> {
   _ViewFilter _filter = _ViewFilter.card;
-  SortingFilter _sorting = SortingFilter.def;
+  FilterValue<SortingFilter> _sorting = kSortingFilters.first;
 
   @override
   void initState() {
@@ -51,26 +52,6 @@ class _DiscoverPageState extends State<DiscoverPage> {
 
   @override
   Widget build(BuildContext context) {
-    final String sortingName;
-
-    switch (_sorting) {
-      case SortingFilter.def:
-        sortingName = 'Default ';
-        break;
-      case SortingFilter.priceHighToLow:
-        sortingName = 'Price high to low ';
-        break;
-      case SortingFilter.priceLowToHigh:
-        sortingName = 'Price low to high ';
-        break;
-      case SortingFilter.mostServings:
-        sortingName = 'Most servings ';
-        break;
-      case SortingFilter.leastServings:
-        sortingName = 'Least servings ';
-        break;
-    }
-
     return Scaffold(
       // appBar: const MainAppBar(),
       body: BlocBuilder<RecipeBloc, RecipeState>(
@@ -83,7 +64,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
             return const RecipesPageSkeleton();
           }
 
-          final List<RecipeModel> recipes = state.sortRecipes(_sorting);
+          final List<RecipeModel> recipes = state.sortRecipes(_sorting.value);
 
           return PageContainer(
             padding: const EdgeInsets.only(
@@ -161,66 +142,21 @@ class _DiscoverPageState extends State<DiscoverPage> {
                               ),
                       ],
                     ),
-                    PopupMenuButton(
-                      menuPadding: EdgeInsets.zero,
-                      color: context.container,
-                      position: PopupMenuPosition.under,
-                      offset: const Offset(0, 4),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadiusGeometry.circular(20),
-                      ),
-                      itemBuilder: (context) => [
-                        MyPopupItem(
-                          title: 'Default',
-                          isBold: _sorting == SortingFilter.def,
-                          onTap: () {
-                            setState(() {
-                              _sorting = SortingFilter.def;
-                            });
-                          },
-                        ),
-                        MyPopupItem(
-                          title: 'Price low to high',
-                          isBold: _sorting == SortingFilter.priceLowToHigh,
-                          onTap: () {
-                            setState(() {
-                              _sorting = SortingFilter.priceLowToHigh;
-                            });
-                          },
-                        ),
-                        MyPopupItem(
-                          title: 'Price high to low',
-                          isBold: _sorting == SortingFilter.priceHighToLow,
-                          onTap: () {
-                            setState(() {
-                              _sorting = SortingFilter.priceHighToLow;
-                            });
-                          },
-                        ),
-                        MyPopupItem(
-                          title: 'Most servings',
-                          isBold: _sorting == SortingFilter.mostServings,
-                          onTap: () {
-                            setState(() {
-                              _sorting = SortingFilter.mostServings;
-                            });
-                          },
-                        ),
-                        MyPopupItem(
-                          title: 'Least servings',
-                          isBold: _sorting == SortingFilter.leastServings,
-                          onTap: () {
-                            setState(() {
-                              _sorting = SortingFilter.leastServings;
-                            });
-                          },
-                        ),
-                      ],
-                      child: Row(
+                    CustomBottomSheetButton<FilterValue<SortingFilter>>(
+                      options: kSortingFilters,
+                      selected: _sorting,
+                      dropdownTitle: 'SORT BY',
+                      onChanged: (s) {
+                        setState(() {
+                          _sorting = s;
+                        });
+                      },
+                      labelBuilder: (s) => s.name,
+                      customButton: Row(
                         children: [
                           const AppText.secondary(text: 'Sort: ', size: 12),
                           AppText.heading(
-                            text: sortingName,
+                            text: _sorting.name,
                             size: 12,
                             color: context.textSecondary,
                           ),
@@ -232,21 +168,6 @@ class _DiscoverPageState extends State<DiscoverPage> {
                         ],
                       ),
                     ),
-                    // Row(
-                    //   children: [
-                    //     const AppText.secondary(text: 'Sort: ', size: 12),
-                    //     AppText.heading(
-                    //       text: 'Default ',
-                    //       size: 12,
-                    //       color: context.textSecondary,
-                    //     ),
-                    //     Icon(
-                    //       MyIcons.arrow_down_up,
-                    //       color: context.textSecondary,
-                    //       size: 18,
-                    //     ),
-                    //   ],
-                    // ),
                   ],
                 ).paddingBottom(20).toSliver(),
               ],

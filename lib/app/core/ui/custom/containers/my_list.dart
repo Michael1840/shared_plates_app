@@ -6,6 +6,7 @@ class MyList extends StatelessWidget {
   final double? gap;
   final Widget? customSeparator;
   final bool isHorizontal;
+  final ScrollPhysics? scrollPhysics;
   const MyList({
     super.key,
     required this.count,
@@ -13,13 +14,14 @@ class MyList extends StatelessWidget {
     this.gap = 16,
     this.customSeparator,
     this.isHorizontal = false,
+    this.scrollPhysics,
   });
 
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
       shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
+      physics: scrollPhysics ?? const NeverScrollableScrollPhysics(),
       scrollDirection: isHorizontal ? Axis.horizontal : Axis.vertical,
       itemCount: count,
       itemBuilder: itemBuilder,
