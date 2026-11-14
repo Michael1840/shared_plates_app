@@ -11,7 +11,6 @@ abstract final class Routes {
   static const recipes = '/recipes';
   static const friends = '/friends';
   static const create = '/create';
-  static const gallery = '/gallery';
   static const search = '/search';
   static const recipe = '/recipe/:id';
   static const cook = 'cook';
@@ -55,7 +54,6 @@ abstract final class RouteNames {
   static const recipes = 'recipes';
   static const friends = 'friends';
   static const create = 'create';
-  static const gallery = 'gallery';
   static const search = 'search';
   static const recipe = 'recipe';
   static const cook = 'cook';

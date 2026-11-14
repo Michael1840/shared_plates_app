@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_plates_app/app/di.dart';
-import 'package:shared_plates_app/app/env.dart';
 import 'package:shared_plates_app/app/router/app_shell.dart';
 import 'package:shared_plates_app/app/router/routes.dart';
 import 'package:shared_plates_app/app/router/session_listenable.dart';
@@ -27,7 +26,6 @@ import 'package:shared_plates_app/features/create/presentation/pages/recipe_shar
 import 'package:shared_plates_app/features/discover/presentation/pages/discover_page.dart';
 import 'package:shared_plates_app/features/friends/presentation/pages/friends_page.dart';
 import 'package:shared_plates_app/features/friends/presentation/pages/person_page.dart';
-import 'package:shared_plates_app/features/gallery/presentation/pages/widget_gallery_page.dart';
 import 'package:shared_plates_app/features/home/presentation/pages/home_page.dart';
 import 'package:shared_plates_app/features/onboarding/presentation/bloc/onboarding_cubit.dart';
 import 'package:shared_plates_app/features/onboarding/presentation/pages/onboarding_friends_page.dart';
@@ -44,7 +42,6 @@ String? sessionRedirect(SessionStatus status, String location) {
   final inAuth = location == Routes.welcome || location == Routes.signIn;
   final inOnboarding = location.startsWith(Routes.onboarding);
   final isSplash = location == Routes.splash;
-  if (location == Routes.gallery) return null;
   return switch (status) {
     SessionStatus.unknown => isSplash ? null : Routes.splash,
     SessionStatus.signedOut => inAuth ? null : Routes.welcome,
@@ -281,14 +278,6 @@ GoRouter buildRouter(SessionCubit session) {
           PersonPage(personId: state.pathParameters['id'] ?? ''),
         ),
       ),
-      if (Env.isDev)
-        GoRoute(
-          parentNavigatorKey: rootKey,
-          path: Routes.gallery,
-          name: RouteNames.gallery,
-          pageBuilder: (context, state) =>
-              SpPages.push(state, const WidgetGalleryPage()),
-        ),
     ],
   );
 }

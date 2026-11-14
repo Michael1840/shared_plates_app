@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_plates_app/app/di.dart';
-import 'package:shared_plates_app/app/env.dart';
 import 'package:shared_plates_app/app/router/navigation.dart';
 import 'package:shared_plates_app/app/router/routes.dart';
 import 'package:shared_plates_app/core/domain/models/profile.dart';
@@ -160,11 +159,6 @@ class _HomeView extends StatelessWidget {
           _FirstRunSection(progress: checklist, home: home)
         else
           _EverydaySection(home: home),
-        if (Env.isDev)
-          TextLinkButton(
-            label: 'Open widget gallery',
-            onTap: () => context.push(Routes.gallery),
-          ).paddingOnly(top: Spacing.l),
       ],
     );
   }
