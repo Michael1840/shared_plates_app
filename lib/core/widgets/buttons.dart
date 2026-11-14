@@ -103,9 +103,7 @@ class SecondaryButton extends StatelessWidget {
         width: double.infinity,
         decoration: BoxDecoration(
           color: fill,
-          borderRadius: BorderRadius.circular(
-            outlined || dark ? Rounding.chip + 2 : Rounding.pill,
-          ),
+          borderRadius: BorderRadius.circular(Rounding.pill),
           border: outlined
               ? Border.all(color: context.sp.fieldBorder, width: 1.5)
               : null,
