@@ -2,6 +2,7 @@ import 'package:shared_plates_app/core/domain/feed.dart';
 import 'package:shared_plates_app/core/utils/delayed_result.dart';
 import 'package:shared_plates_app/core/utils/extensions.dart';
 import 'package:shared_plates_app/core/utils/result.dart';
+import 'package:shared_plates_app/features/browse/data/browse_repository.dart';
 
 typedef FeedSlice<T> = DelayedResult<Feed<T>>;
 
@@ -19,8 +20,8 @@ FeedSlice<T> sliceFrom<T>(Result<Feed<T>> result, FeedSlice<T> previous) =>
         previous.isSuccessful
             ? previous
             : DelayedResult.fromError(error.cleanError),
-      CastError(:final error) =>
+      CastError() =>
         previous.isSuccessful
             ? previous
-            : DelayedResult.fromError(error.cleanError),
+            : const DelayedResult.fromError(BrowseMessages.generic),
     };

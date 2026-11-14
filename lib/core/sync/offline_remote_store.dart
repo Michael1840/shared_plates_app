@@ -8,6 +8,7 @@ class OfflineRemoteStore implements RemoteStore {
   static const _failure = RemoteFailure(
     'This build has no backend configured',
     isTransient: true,
+    code: RemoteFailure.noBackend,
   );
 
   @override

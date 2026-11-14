@@ -333,7 +333,7 @@ class _RecipeResults extends StatelessWidget {
         else if (error != null)
           EmptyState(
             mood: PaprikaMood.oops,
-            title: 'No signal',
+            title: BrowseMessages.titleFor(error),
             body: error,
             actions: [
               CompactButton(
@@ -569,7 +569,11 @@ class _PeopleResults extends StatelessWidget {
           for (var i = 0; i < 4; i++)
             const Skeleton(height: 68, radius: 18).paddingOnly(bottom: 8)
         else if (error != null)
-          EmptyState(mood: PaprikaMood.oops, title: 'No signal', body: error)
+          EmptyState(
+            mood: PaprikaMood.oops,
+            title: BrowseMessages.titleFor(error),
+            body: error,
+          )
         else if (list.isEmpty)
           EmptyState(
             mood: PaprikaMood.thinking,

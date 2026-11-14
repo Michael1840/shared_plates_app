@@ -153,7 +153,7 @@ class _HomeView extends StatelessWidget {
         else if (home.failedEverything)
           EmptyState(
             mood: PaprikaMood.oops,
-            title: 'No signal',
+            title: BrowseMessages.titleFor(home.error),
             body: home.error ?? '',
             actions: [
               CompactButton(

@@ -18,6 +18,15 @@ import 'package:shared_plates_app/features/profile/domain/popular_cook.dart';
 abstract final class BrowseMessages {
   static const offline = 'No signal. Pull down to try again.';
   static const generic = "Couldn't load this. Pull down to try again.";
+  static const noBackend = "This build isn't connected to SharedPlates.";
+
+  static String titleFor(String? error) =>
+      error == offline ? 'No signal' : "Couldn't load this";
+
+  static String forFailure(RemoteFailure e) {
+    if (e.code == RemoteFailure.noBackend) return noBackend;
+    return e.isTransient ? offline : generic;
+  }
 }
 
 class RecentRecipe extends Equatable {
@@ -106,11 +115,7 @@ class BrowseRepositoryImpl implements BrowseRepository {
       return Result.ok([for (final r in rows) PopularCook.fromJson(r)]);
     } on RemoteFailure catch (e, s) {
       ErrorReporter.report('BrowseRepository.people', e, s);
-      return Result.error(
-        Exception(
-          e.isTransient ? BrowseMessages.offline : BrowseMessages.generic,
-        ),
-      );
+      return Result.error(Exception(BrowseMessages.forFailure(e)));
     } on FormatException {
       return const Result.castError();
     }
@@ -257,11 +262,7 @@ class BrowseRepositoryImpl implements BrowseRepository {
       ErrorReporter.report('BrowseRepository.$key', e, s);
       final cached = key == null ? null : await _cached(key, decode);
       if (cached != null) return Result.ok(cached);
-      return Result.error(
-        Exception(
-          e.isTransient ? BrowseMessages.offline : BrowseMessages.generic,
-        ),
-      );
+      return Result.error(Exception(BrowseMessages.forFailure(e)));
     } on FormatException catch (e, s) {
       ErrorReporter.report('BrowseRepository.$key', e, s);
       return const Result.castError();

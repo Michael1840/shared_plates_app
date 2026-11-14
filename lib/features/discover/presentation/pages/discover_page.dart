@@ -125,7 +125,7 @@ class _DiscoverView extends StatelessWidget {
         else if (state.failedEverything)
           EmptyState(
             mood: PaprikaMood.oops,
-            title: 'No signal',
+            title: BrowseMessages.titleFor(state.error),
             body: state.error ?? '',
             actions: [
               CompactButton(

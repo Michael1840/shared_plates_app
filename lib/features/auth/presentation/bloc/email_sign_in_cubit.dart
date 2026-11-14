@@ -17,6 +17,7 @@ class EmailSignInState extends Equatable {
     this.sending = const DelayedResult.idle(),
     this.verifying = const DelayedResult.idle(),
     this.resendIn = 0,
+    this.resent = false,
   });
 
   static const codeLength = 6;
@@ -28,6 +29,9 @@ class EmailSignInState extends Equatable {
   final DelayedResult<bool> sending;
   final DelayedResult<bool> verifying;
   final int resendIn;
+  final bool resent;
+
+  bool get resending => step == EmailStep.code && sending.isInProgress;
 
   bool get emailValid => _emailPattern.hasMatch(email.trim());
 
@@ -42,6 +46,7 @@ class EmailSignInState extends Equatable {
     DelayedResult<bool>? sending,
     DelayedResult<bool>? verifying,
     int? resendIn,
+    bool? resent,
   }) => EmailSignInState(
     step: step ?? this.step,
     email: email ?? this.email,
@@ -49,10 +54,19 @@ class EmailSignInState extends Equatable {
     sending: sending ?? this.sending,
     verifying: verifying ?? this.verifying,
     resendIn: resendIn ?? this.resendIn,
+    resent: resent ?? this.resent,
   );
 
   @override
-  List<Object?> get props => [step, email, code, sending, verifying, resendIn];
+  List<Object?> get props => [
+    step,
+    email,
+    code,
+    sending,
+    verifying,
+    resendIn,
+    resent,
+  ];
 }
 
 class EmailSignInCubit extends Cubit<EmailSignInState> {
@@ -72,7 +86,13 @@ class EmailSignInCubit extends Cubit<EmailSignInState> {
 
   Future<void> resend() async {
     if (!state.canResend) return;
-    emit(state.copyWith(code: '', verifying: const DelayedResult.idle()));
+    emit(
+      state.copyWith(
+        code: '',
+        verifying: const DelayedResult.idle(),
+        resent: false,
+      ),
+    );
     await _send(moveToCode: false);
   }
 
@@ -95,6 +115,7 @@ class EmailSignInCubit extends Cubit<EmailSignInState> {
             sending: const DelayedResult.fromValue(true),
             step: moveToCode ? EmailStep.code : state.step,
             resendIn: resendSeconds,
+            resent: !moveToCode,
           ),
         );
         _startCountdown();

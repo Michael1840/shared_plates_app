@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_plates_app/core/domain/enums.dart';
 import 'package:shared_plates_app/core/theme/app_text.dart';
+import 'package:shared_plates_app/core/theme/motion.dart';
 import 'package:shared_plates_app/core/theme/sizing.dart';
 import 'package:shared_plates_app/core/theme/typography.dart';
 import 'package:shared_plates_app/core/utils/extensions.dart';
@@ -429,7 +430,10 @@ class _AddIngredientState extends State<_AddIngredient> {
   }
 
   void _submit(String text) {
-    if (text.trim().isEmpty) return;
+    if (text.trim().isEmpty) {
+      _focus.requestFocus();
+      return;
+    }
     context.read<RecipeEditorCubit>().addIngredients(text);
     _controller.clear();
     _focus.requestFocus();
@@ -438,9 +442,33 @@ class _AddIngredientState extends State<_AddIngredient> {
   @override
   Widget build(BuildContext context) {
     return Row(
-      spacing: Spacing.s,
+      spacing: Spacing.xxs,
       children: [
-        SpIcon(SpIcons.plus, size: 20, color: context.primary),
+        Pressable(
+          onTap: () => _submit(_controller.text),
+          semanticLabel: 'Add ingredient',
+          child: ListenableBuilder(
+            listenable: _controller,
+            builder: (context, _) {
+              final ready = _controller.text.trim().isNotEmpty;
+              return AnimatedContainer(
+                duration: context.motion(Motion.small),
+                width: Sizes.minTap,
+                height: Sizes.minTap,
+                decoration: BoxDecoration(
+                  color: ready ? context.primary : Colors.transparent,
+                  shape: BoxShape.circle,
+                ),
+                alignment: Alignment.center,
+                child: SpIcon(
+                  SpIcons.plus,
+                  size: 20,
+                  color: ready ? context.onPrimary : context.primary,
+                ),
+              );
+            },
+          ),
+        ),
         EditorTextField(
           controller: _controller,
           focusNode: _focus,
@@ -453,7 +481,7 @@ class _AddIngredientState extends State<_AddIngredient> {
           onSubmitted: _submit,
         ).expand(),
       ],
-    ).paddingSymmetric(vertical: 12);
+    ).paddingSymmetric(vertical: 2);
   }
 }
 

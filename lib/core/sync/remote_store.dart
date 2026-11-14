@@ -5,6 +5,8 @@ typedef JsonRow = Map<String, dynamic>;
 class RemoteFailure implements Exception {
   const new(this.message, {required this.isTransient, this.code});
 
+  static const noBackend = 'no-backend';
+
   final String message;
   final bool isTransient;
   final String? code;

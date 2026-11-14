@@ -268,10 +268,19 @@ class _CodeForm extends StatelessWidget {
             color: context.primaryDeep,
           ).paddingOnly(top: Spacing.s),
         const SizedBox(height: Spacing.m),
-        if (state.resendIn > 0)
-          AppText.secondary(
-            text: "Didn't get it? You can resend in ${_clock(state.resendIn)}.",
-            config: FontConfigs.body3,
+        if (state.resending)
+          const _Resending()
+        else if (state.resendIn > 0)
+          Semantics(
+            liveRegion: true,
+            child: AppText.secondary(
+              text: state.resent
+                  ? 'New code sent to ${state.email.trim()}. You can resend '
+                        'again in ${_clock(state.resendIn)}.'
+                  : "Didn't get it? You can resend in "
+                        '${_clock(state.resendIn)}.',
+              config: FontConfigs.body3,
+            ),
           )
         else
           Align(
@@ -293,6 +302,35 @@ class _CodeForm extends StatelessWidget {
 
   static String _clock(int seconds) =>
       '${seconds ~/ 60}:${(seconds % 60).toString().padLeft(2, '0')}';
+}
+
+class _Resending extends StatelessWidget {
+  const new();
+
+  @override
+  Widget build(BuildContext context) {
+    return Semantics(
+      liveRegion: true,
+      child: Row(
+        spacing: Spacing.xs,
+        children: [
+          SizedBox.square(
+            dimension: 16,
+            child: CircularProgressIndicator(
+              value: context.reduceMotion ? 0.3 : null,
+              strokeWidth: 2.5,
+              color: context.primary,
+              backgroundColor: context.primary.withValues(alpha: 0.2),
+            ),
+          ),
+          const AppText.secondary(
+            text: 'Sending a new code…',
+            config: FontConfigs.body3,
+          ),
+        ],
+      ).paddingSymmetric(vertical: Spacing.xs),
+    );
+  }
 }
 
 class _SignInAction extends StatelessWidget {
