@@ -23,48 +23,106 @@ class PrimaryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final enabled = onTap != null && !isBusy;
+    final disabled = onTap == null;
+    final fill = disabled ? context.sp.disabledFill : context.primary;
+    final ink = disabled ? context.textMuted : context.onPrimary;
     return Pressable(
-      onTap: enabled ? onTap : null,
-      child: AnimatedOpacity(
-        opacity: onTap == null ? 0.5 : 1,
+      onTap: isBusy ? null : onTap,
+      child: AnimatedContainer(
         duration: context.motion(Motion.small),
-        child: Container(
-          height: Sizes.button,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            color: context.primary,
-            borderRadius: BorderRadius.circular(Rounding.pill),
-            boxShadow: [
-              BoxShadow(
-                color: context.primary.withValues(alpha: 0.28),
-                blurRadius: 18,
-                offset: const Offset(0, 8),
-              ),
-            ],
-          ),
-          alignment: Alignment.center,
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            spacing: Spacing.xs,
-            children: [
-              if (isBusy)
-                SizedBox.square(
-                  dimension: 16,
-                  child: CircularProgressIndicator(
-                    value: context.reduceMotion ? 0.3 : null,
-                    strokeWidth: 2.5,
-                    color: context.onPrimary,
-                    backgroundColor: context.onPrimary.withValues(alpha: 0.35),
+        curve: Motion.arrive,
+        height: Sizes.button,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: fill,
+          borderRadius: BorderRadius.circular(Rounding.pill),
+          boxShadow: disabled
+              ? null
+              : [
+                  BoxShadow(
+                    color: context.primary.withValues(alpha: 0.28),
+                    blurRadius: 18,
+                    offset: const Offset(0, 8),
                   ),
+                ],
+        ),
+        alignment: Alignment.center,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          spacing: Spacing.xs,
+          children: [
+            if (isBusy)
+              SizedBox.square(
+                dimension: 16,
+                child: CircularProgressIndicator(
+                  value: context.reduceMotion ? 0.3 : null,
+                  strokeWidth: 2.5,
+                  color: ink,
+                  backgroundColor: ink.withValues(alpha: 0.35),
                 ),
-              AppText(
-                text: isBusy ? busyLabel ?? label : label,
-                config: FontConfigs.button1,
-                color: context.onPrimary,
               ),
-            ],
+            AppText(
+              text: isBusy ? busyLabel ?? label : label,
+              config: FontConfigs.button1,
+              color: ink,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class SecondaryButton extends StatelessWidget {
+  const new({
+    required this.label,
+    required this.onTap,
+    super.key,
+    this.icon,
+    this.height = 52,
+    this.dark = false,
+    this.outlined = false,
+  });
+
+  final String label;
+  final VoidCallback? onTap;
+  final SpIcons? icon;
+  final double height;
+  final bool dark;
+  final bool outlined;
+
+  @override
+  Widget build(BuildContext context) {
+    final glyph = icon;
+    final fill = dark ? context.textPrimary : context.container;
+    final ink = dark ? context.background : context.textPrimary;
+    return Pressable(
+      onTap: onTap,
+      child: Container(
+        height: height,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: fill,
+          borderRadius: BorderRadius.circular(
+            outlined || dark ? Rounding.chip + 2 : Rounding.pill,
           ),
+          border: outlined
+              ? Border.all(color: context.sp.fieldBorder, width: 1.5)
+              : null,
+        ),
+        alignment: Alignment.center,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          spacing: Spacing.xs,
+          children: [
+            if (glyph != null) SpIcon(glyph, size: 20, color: ink),
+            AppText(
+              text: label,
+              config: FontConfigs.body2,
+              weight: FontWeight.w600,
+              color: ink,
+            ),
+          ],
         ),
       ),
     );
@@ -149,6 +207,34 @@ class CircleIconButton extends StatelessWidget {
               ),
             ),
         ],
+      ),
+    );
+  }
+}
+
+class CompactButton extends StatelessWidget {
+  const new({required this.label, required this.onTap, super.key});
+
+  final String label;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Pressable(
+      onTap: onTap,
+      child: Container(
+        height: Sizes.minTap,
+        padding: const EdgeInsets.symmetric(horizontal: 18),
+        decoration: BoxDecoration(
+          color: context.primary,
+          borderRadius: BorderRadius.circular(Rounding.pill),
+        ),
+        alignment: Alignment.center,
+        child: AppText(
+          text: label,
+          config: FontConfigs.button2,
+          color: context.onPrimary,
+        ),
       ),
     );
   }

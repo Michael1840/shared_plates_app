@@ -108,6 +108,24 @@ class ProfileTastes extends Table {
   Set<Column<Object>> get primaryKey => {userId, tagId};
 }
 
+@DataClassName('HiddenFoodRow')
+class HiddenFoods extends Table {
+  TextColumn get userId => text()();
+  TextColumn get foodId => text()();
+
+  @override
+  Set<Column<Object>> get primaryKey => {userId, foodId};
+}
+
+@DataClassName('AppSettingRow')
+class AppSettings extends Table {
+  TextColumn get key => text()();
+  TextColumn get value => text()();
+
+  @override
+  Set<Column<Object>> get primaryKey => {key};
+}
+
 @DataClassName('RecipeRow')
 class Recipes extends Table {
   TextColumn get id => text()();
@@ -255,7 +273,7 @@ class RecentlyViewed extends Table {
   Set<Column<Object>> get primaryKey => {userId, recipeId};
 }
 
-enum OutboxKind { upsert, delete, rpc }
+enum OutboxKind { upsert, update, delete, rpc }
 
 @DataClassName('OutboxEntry')
 class Outbox extends Table {

@@ -15,6 +15,7 @@ class PhotoPrint extends StatelessWidget {
     this.width,
     this.animate = true,
     this.delay = const Duration(milliseconds: 160),
+    this.color,
   });
 
   final Widget child;
@@ -25,6 +26,7 @@ class PhotoPrint extends StatelessWidget {
   final double? width;
   final bool animate;
   final Duration delay;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +38,7 @@ class PhotoPrint extends StatelessWidget {
           width: width,
           padding: padding,
           decoration: BoxDecoration(
-            color: context.container,
+            color: color ?? context.container,
             borderRadius: BorderRadius.circular(radius),
             boxShadow: [
               BoxShadow(

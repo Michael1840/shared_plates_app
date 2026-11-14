@@ -21,6 +21,7 @@ class FakeRemoteStore implements RemoteStore {
   final Map<String, List<String>> keys = {};
   final List<RemoteCall> calls = [];
   final List<RemoteFailure> failures = [];
+  final Map<String, Object?> rpcResults = {};
 
   void seed(String table, List<JsonRow> rows, {List<String> key = const []}) {
     tables[table] = [...rows];
@@ -56,6 +57,20 @@ class FakeRemoteStore implements RemoteStore {
   }
 
   @override
+  Future<void> update(
+    String table,
+    JsonRow values, {
+    required Map<String, Object> match,
+  }) async {
+    calls.add(RemoteCall('update', table, {...values, 'match': match}));
+    _maybeFail();
+    final rows = tables[table] ?? [];
+    for (var i = 0; i < rows.length; i++) {
+      if (_matches(rows[i], match)) rows[i] = {...rows[i], ...values};
+    }
+  }
+
+  @override
   Future<void> delete(String table, Map<String, Object> match) async {
     calls.add(RemoteCall('delete', table, match));
     _maybeFail();
@@ -66,7 +81,7 @@ class FakeRemoteStore implements RemoteStore {
   Future<Object?> rpc(String function, JsonRow params) async {
     calls.add(RemoteCall('rpc', function, params));
     _maybeFail();
-    return null;
+    return rpcResults[function];
   }
 
   @override

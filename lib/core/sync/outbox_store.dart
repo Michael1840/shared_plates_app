@@ -35,6 +35,18 @@ class OutboxOperation {
     dedupeKey: dedupeKey,
   );
 
+  factory update(
+    String table,
+    JsonRow values, {
+    required Map<String, Object> match,
+    String? dedupeKey,
+  }) => OutboxOperation._(
+    kind: OutboxKind.update,
+    target: table,
+    payload: {'values': values, 'match': match},
+    dedupeKey: dedupeKey,
+  );
+
   factory delete(
     String table,
     Map<String, Object> match, {
@@ -150,11 +162,28 @@ class OutboxStore {
       );
 
   Future<Set<String>> pendingKeys() async {
-    final rows = await (_db.selectOnly(
-      _db.outbox,
-    )..addColumns([_db.outbox.dedupeKey])).get();
+    final rows =
+        await (_db.selectOnly(_db.outbox)
+              ..addColumns([_db.outbox.dedupeKey])
+              ..where(_db.outbox.failed.equals(false)))
+            .get();
     return {for (final r in rows) ?r.read(_db.outbox.dedupeKey)};
   }
+
+  Future<void> discardPending(String keyPrefix) async {
+    final keys = await pendingKeys();
+    final matching = [
+      for (final k in keys)
+        if (hasPendingWithPrefix({k}, keyPrefix)) k,
+    ];
+    if (matching.isEmpty) return;
+    await (_db.delete(
+      _db.outbox,
+    )..where((t) => t.failed.equals(false) & t.dedupeKey.isIn(matching))).go();
+  }
+
+  bool hasPendingWithPrefix(Set<String> keys, String prefix) =>
+      keys.any((k) => k == prefix || k.startsWith('$prefix:'));
 
   Stream<int> watchPendingCount() {
     final count = _db.outbox.id.count();

@@ -4,6 +4,9 @@ import 'package:shared_plates_app/core/theme/sizing.dart';
 import 'package:shared_plates_app/core/theme/typography.dart';
 import 'package:shared_plates_app/core/utils/extensions.dart';
 import 'package:shared_plates_app/core/widgets/motion/pressable.dart';
+import 'package:shared_plates_app/core/widgets/sp_icon.dart';
+
+enum ChipTone { accent, neutral }
 
 class SpChip extends StatelessWidget {
   const new({
@@ -11,16 +14,44 @@ class SpChip extends StatelessWidget {
     required this.selected,
     required this.onTap,
     super.key,
+    this.icon,
+    this.tone = ChipTone.accent,
+    this.height = Sizes.chip,
   });
 
   final String label;
   final bool selected;
   final VoidCallback? onTap;
+  final SpIcons? icon;
+  final ChipTone tone;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
     final sp = context.sp;
     final duration = context.motion(Motion.small);
+    final accent = tone == ChipTone.accent;
+    final fill = !selected
+        ? sp.chipFill
+        : accent
+        ? sp.chipSelectedFill
+        : sp.avoidFill;
+    final ring = !selected
+        ? sp.line
+        : accent
+        ? sp.chipSelectedRing
+        : sp.avoidRing;
+    final ink = !selected
+        ? sp.textPrimary
+        : accent
+        ? sp.chipSelectedText
+        : sp.textPrimary;
+    final iconInk = !selected
+        ? sp.chevron
+        : accent
+        ? sp.primary
+        : sp.textPrimary;
+    final glyph = icon;
     return Semantics(
       selected: selected,
       child: Pressable(
@@ -28,16 +59,12 @@ class SpChip extends StatelessWidget {
         child: AnimatedContainer(
           duration: duration,
           curve: Motion.arrive,
-          height: Sizes.chip,
-          padding: const EdgeInsets.symmetric(horizontal: 14),
-          alignment: Alignment.center,
+          height: height,
+          padding: EdgeInsets.only(left: glyph == null ? 14 : 11, right: 14),
           decoration: BoxDecoration(
-            color: selected ? sp.chipSelectedFill : sp.chipFill,
+            color: fill,
             borderRadius: BorderRadius.circular(Rounding.chip),
-            border: Border.all(
-              color: selected ? sp.chipSelectedRing : sp.line,
-              width: selected ? 1.5 : 1,
-            ),
+            border: Border.all(color: ring, width: selected ? 1.5 : 1),
             boxShadow: selected
                 ? null
                 : [
@@ -48,14 +75,21 @@ class SpChip extends StatelessWidget {
                     ),
                   ],
           ),
-          child: AnimatedDefaultTextStyle(
-            duration: duration,
-            style: context.textStyle(
-              FontConfigs.body3,
-              color: selected ? sp.chipSelectedText : sp.textPrimary,
-              weight: selected ? FontWeight.w700 : FontWeight.w500,
-            ),
-            child: Text(label),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            spacing: 7,
+            children: [
+              if (glyph != null) SpIcon(glyph, size: 18, color: iconInk),
+              AnimatedDefaultTextStyle(
+                duration: duration,
+                style: context.textStyle(
+                  FontConfigs.body3,
+                  color: ink,
+                  weight: selected ? FontWeight.w700 : FontWeight.w500,
+                ),
+                child: Text(label),
+              ),
+            ],
           ),
         ),
       ),

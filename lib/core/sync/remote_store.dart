@@ -21,6 +21,12 @@ abstract interface class RemoteStore {
     bool ignoreDuplicates = false,
   });
 
+  Future<void> update(
+    String table,
+    JsonRow values, {
+    required Map<String, Object> match,
+  });
+
   Future<void> delete(String table, Map<String, Object> match);
 
   Future<Object?> rpc(String function, JsonRow params);

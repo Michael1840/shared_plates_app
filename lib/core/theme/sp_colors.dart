@@ -45,6 +45,13 @@ class SpColors extends ThemeExtension<SpColors> {
     required this.chevron,
     required this.shadow,
     required this.printShadow,
+    required this.disabledFill,
+    required this.fieldBorder,
+    required this.success,
+    required this.avoidFill,
+    required this.avoidRing,
+    required this.progressTrack,
+    required this.paper,
   });
 
   static const light = SpColors(
@@ -89,6 +96,13 @@ class SpColors extends ThemeExtension<SpColors> {
     chevron: Palette.chevron,
     shadow: Color(0x293C2314),
     printShadow: Color(0x243C2314),
+    disabledFill: Color(0xFFEBDDD2),
+    fieldBorder: Palette.divider,
+    success: Palette.herb,
+    avoidFill: Color(0xFFEDE4DA),
+    avoidRing: Palette.cocoa,
+    progressTrack: Color(0xFFF1E8DF),
+    paper: Color(0xFFFFFDF8),
   );
 
   static const dark = SpColors(
@@ -133,6 +147,13 @@ class SpColors extends ThemeExtension<SpColors> {
     chevron: Palette.nightMuted,
     shadow: Color(0x4D000000),
     printShadow: Color(0x59000000),
+    disabledFill: Palette.nightRaised,
+    fieldBorder: Palette.nightRaised,
+    success: Color(0xFF7CC48A),
+    avoidFill: Palette.nightRaised,
+    avoidRing: Palette.nightSecondary,
+    progressTrack: Palette.nightRaised,
+    paper: Palette.nightCard,
   );
 
   final Color background;
@@ -176,6 +197,13 @@ class SpColors extends ThemeExtension<SpColors> {
   final Color chevron;
   final Color shadow;
   final Color printShadow;
+  final Color disabledFill;
+  final Color fieldBorder;
+  final Color success;
+  final Color avoidFill;
+  final Color avoidRing;
+  final Color progressTrack;
+  final Color paper;
 
   @override
   SpColors copyWith() => this;
@@ -226,6 +254,13 @@ class SpColors extends ThemeExtension<SpColors> {
       chevron: l(chevron, other.chevron),
       shadow: l(shadow, other.shadow),
       printShadow: l(printShadow, other.printShadow),
+      disabledFill: l(disabledFill, other.disabledFill),
+      fieldBorder: l(fieldBorder, other.fieldBorder),
+      success: l(success, other.success),
+      avoidFill: l(avoidFill, other.avoidFill),
+      avoidRing: l(avoidRing, other.avoidRing),
+      progressTrack: l(progressTrack, other.progressTrack),
+      paper: l(paper, other.paper),
     );
   }
 }

@@ -32,6 +32,13 @@ class SupabaseRemoteStore implements RemoteStore {
   );
 
   @override
+  Future<void> update(
+    String table,
+    JsonRow values, {
+    required Map<String, Object> match,
+  }) => _guard(() => _client.from(table).update(values).match(match));
+
+  @override
   Future<void> delete(String table, Map<String, Object> match) =>
       _guard(() => _client.from(table).delete().match(match));
 

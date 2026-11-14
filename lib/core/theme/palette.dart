@@ -41,4 +41,11 @@ abstract final class Palette {
   static const nightLine = Color(0xFF3A2F28);
   static const nightSkeleton = Color(0xFF3A2F28);
   static const nightHandle = Color(0xFF5A4A40);
+
+  static const avatars = <(Color, Color)>[
+    (Color(0xFFF9E3D8), Color(0xFF8F2E12)),
+    (Color(0xFFF5E1B5), Color(0xFF6B430B)),
+    (Color(0xFFDCE7CD), Color(0xFF2F4A1A)),
+    (Color(0xFFF6D6DA), Color(0xFF4A1622)),
+  ];
 }

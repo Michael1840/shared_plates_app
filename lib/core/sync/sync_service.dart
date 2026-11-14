@@ -133,6 +133,12 @@ class SyncService {
           onConflict: conflict,
           ignoreDuplicates: conflict != null,
         );
+      case OutboxKind.update:
+        await _remote.update(
+          entry.target,
+          payload['values'] as JsonRow,
+          match: (payload['match'] as JsonRow).cast<String, Object>(),
+        );
       case OutboxKind.delete:
         await _remote.delete(entry.target, payload.cast<String, Object>());
       case OutboxKind.rpc:
@@ -220,29 +226,50 @@ class SyncService {
     final rows = await _remote.fetchIn('profiles', column: 'id', values: [uid]);
     if (rows.isEmpty) return;
     final pending = await _outbox.pendingKeys();
-    if (pending.contains('profiles:$uid')) return;
     final tastes = await _remote.fetchIn(
       'profile_tastes',
       column: 'user_id',
       values: [uid],
     );
+    final hidden = await _remote.fetchIn(
+      'hidden_foods',
+      column: 'user_id',
+      values: [uid],
+    );
     await _db.transaction(() async {
-      await _db
-          .into(_db.profiles)
-          .insertOnConflictUpdate(Profile.fromJson(rows.first).toCompanion());
-      if (pending.contains('profile_tastes:$uid')) return;
-      await (_db.delete(
-        _db.profileTastes,
-      )..where((t) => t.userId.equals(uid))).go();
-      await _db.batch(
-        (b) => b.insertAll(_db.profileTastes, [
-          for (final t in tastes)
-            ProfileTastesCompanion.insert(
-              userId: uid,
-              tagId: (t['tag_id'] as num).toInt(),
-            ),
-        ]),
-      );
+      if (!_outbox.hasPendingWithPrefix(pending, 'profiles:$uid')) {
+        await _db
+            .into(_db.profiles)
+            .insertOnConflictUpdate(Profile.fromJson(rows.first).toCompanion());
+      }
+      if (!_outbox.hasPendingWithPrefix(pending, 'profile_tastes:$uid')) {
+        await (_db.delete(
+          _db.profileTastes,
+        )..where((t) => t.userId.equals(uid))).go();
+        await _db.batch(
+          (b) => b.insertAll(_db.profileTastes, [
+            for (final t in tastes)
+              ProfileTastesCompanion.insert(
+                userId: uid,
+                tagId: (t['tag_id'] as num).toInt(),
+              ),
+          ]),
+        );
+      }
+      if (!_outbox.hasPendingWithPrefix(pending, 'hidden_foods:$uid')) {
+        await (_db.delete(
+          _db.hiddenFoods,
+        )..where((t) => t.userId.equals(uid))).go();
+        await _db.batch(
+          (b) => b.insertAll(_db.hiddenFoods, [
+            for (final h in hidden)
+              HiddenFoodsCompanion.insert(
+                userId: uid,
+                foodId: h['food_id'] as String,
+              ),
+          ]),
+        );
+      }
     });
   }
 

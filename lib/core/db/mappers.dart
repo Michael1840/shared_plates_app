@@ -176,3 +176,37 @@ extension StepRowMapping on RecipeStep {
     updatedAt: updatedAt,
   );
 }
+
+extension ProfileRowToDomain on ProfileRow {
+  Profile toDomain() => Profile(
+    id: id,
+    username: username,
+    displayName: displayName,
+    avatarPath: avatarPath,
+    bio: bio,
+    city: city,
+    units: units,
+    currency: currency,
+    defaultVisibility: defaultVisibility,
+    keepScreenOn: keepScreenOn,
+    notifySaves: notifySaves,
+    notifyCooks: notifyCooks,
+    notifyFriends: notifyFriends,
+    weeklyRoundup: weeklyRoundup,
+    onboardedAt: onboardedAt,
+    createdAt: createdAt,
+    updatedAt: updatedAt,
+  );
+}
+
+extension TagRowToDomain on TagRow {
+  Tag toDomain() => Tag(
+    id: id,
+    slug: slug,
+    label: label,
+    kind: kind,
+    coverStyle: coverStyle,
+    position: position,
+    updatedAt: updatedAt,
+  );
+}

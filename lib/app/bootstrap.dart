@@ -30,7 +30,7 @@ Future<void> bootstrap() async {
     client = Supabase.instance.client;
   }
   configureDependencies(supabase: client);
-  if (sl.isRegistered<SyncService>()) sl<SyncService>().start();
+  if (Env.hasBackend) sl<SyncService>().start();
 
   runApp(const SharedPlatesApp());
 }

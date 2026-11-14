@@ -31,48 +31,71 @@ class PaprikaHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final sp = context.sp;
-    final fill = tone == HeaderTone.herb ? sp.headerFriends : sp.header;
-    final ink = tone == HeaderTone.herb ? sp.onHeaderFriends : sp.onHeader;
-    final top = MediaQuery.paddingOf(context).top;
+    final ink = HeaderBlock.inkFor(context, tone);
     final searchBar = search;
     final hello = greeting;
-    return ClipRRect(
-      borderRadius: const BorderRadius.vertical(
-        bottom: Radius.circular(Rounding.header),
+    return HeaderBlock(
+      tone: tone,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          if (hello != null || actions.isNotEmpty)
+            _HeaderTopRow(greeting: hello, actions: actions, ink: ink),
+          _HeaderTitleRow(title: title, note: note, mood: mood, ink: ink),
+          if (searchBar != null)
+            Entrance(
+              delay: const Duration(milliseconds: 140),
+              child: searchBar,
+            ).paddingOnly(top: Spacing.m),
+        ],
       ),
+    );
+  }
+}
+
+class HeaderBlock extends StatelessWidget {
+  const new({
+    required this.child,
+    super.key,
+    this.tone = HeaderTone.paprika,
+    this.radius = Rounding.header,
+    this.bottomPadding = Spacing.l,
+  });
+
+  final Widget child;
+  final HeaderTone tone;
+  final double radius;
+  final double bottomPadding;
+
+  static Color inkFor(BuildContext context, HeaderTone tone) =>
+      tone == HeaderTone.herb
+      ? context.sp.onHeaderFriends
+      : context.sp.onHeader;
+
+  @override
+  Widget build(BuildContext context) {
+    final sp = context.sp;
+    final fill = tone == HeaderTone.herb ? sp.headerFriends : sp.header;
+    final top = MediaQuery.paddingOf(context).top;
+    return ClipRRect(
+      borderRadius: BorderRadius.vertical(bottom: Radius.circular(radius)),
       child: ColoredBox(
         color: fill,
         child: Stack(
           children: [
             Positioned.fill(
-              child: CustomPaint(painter: _HeaderRingsPainter(ink)),
+              child: CustomPaint(
+                painter: _HeaderRingsPainter(inkFor(context, tone)),
+              ),
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(
                 Spacing.gutter,
                 top + Spacing.s,
                 Spacing.gutter,
-                Spacing.l,
+                bottomPadding,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  if (hello != null || actions.isNotEmpty)
-                    _HeaderTopRow(greeting: hello, actions: actions, ink: ink),
-                  _HeaderTitleRow(
-                    title: title,
-                    note: note,
-                    mood: mood,
-                    ink: ink,
-                  ),
-                  if (searchBar != null)
-                    Entrance(
-                      delay: const Duration(milliseconds: 140),
-                      child: searchBar,
-                    ).paddingOnly(top: Spacing.m),
-                ],
-              ),
+              child: child,
             ),
           ],
         ),

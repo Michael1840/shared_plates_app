@@ -15,6 +15,8 @@ part 'app_database.g.dart';
     FoodPortions,
     Profiles,
     ProfileTastes,
+    HiddenFoods,
+    AppSettings,
     Recipes,
     RecipeIngredients,
     RecipeSteps,
@@ -73,6 +75,8 @@ class AppDatabase extends _$AppDatabase {
     for (final table in <TableInfo<Table, Object?>>[
       profiles,
       profileTastes,
+      hiddenFoods,
+      appSettings,
       recipes,
       recipeIngredients,
       recipeSteps,
