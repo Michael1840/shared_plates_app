@@ -3,6 +3,7 @@ import 'package:drift/drift.dart' show driftRuntimeOptions;
 import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:shared_plates_app/app/di.dart';
@@ -165,6 +166,14 @@ void main() {
     await tester.runAsync(() async {
       for (final mood in PaprikaMood.values) {
         await precacheImage(AssetImage(mood.asset), context);
+      }
+      for (final svg in [
+        'assets/brand/logo.svg',
+        'assets/brand/apple.svg',
+        'assets/brand/google.svg',
+        for (final style in CoverStyle.values) style.asset,
+      ]) {
+        await vg.loadPicture(SvgAssetLoader(svg), null);
       }
       await Future<void>.delayed(const Duration(milliseconds: 300));
     });
