@@ -202,6 +202,7 @@ _RecipeCard _$RecipeCardFromJson(Map<String, dynamic> json) => _RecipeCard(
   isLiked: json['is_liked'] as bool? ?? false,
   isSaved: json['is_saved'] as bool? ?? false,
   isMine: json['is_mine'] as bool? ?? false,
+  coverUrl: json['cover_url'] as String?,
 );
 
 Map<String, dynamic> _$RecipeCardToJson(_RecipeCard instance) =>
@@ -238,4 +239,5 @@ Map<String, dynamic> _$RecipeCardToJson(_RecipeCard instance) =>
       'is_liked': instance.isLiked,
       'is_saved': instance.isSaved,
       'is_mine': instance.isMine,
+      'cover_url': instance.coverUrl,
     };

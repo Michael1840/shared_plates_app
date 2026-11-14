@@ -1,16 +1,29 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:equatable/equatable.dart';
 import 'package:shared_plates_app/core/utils/error_reporter.dart';
 import 'package:shared_plates_app/core/utils/result.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 enum SocialProvider { apple, google }
 
-abstract interface class AuthRepository {
-  String? get currentUserId;
+class AuthUser extends Equatable {
+  const new({required this.id, this.isAnonymous = false});
 
-  Stream<String?> get userChanges;
+  final String id;
+  final bool isAnonymous;
+
+  @override
+  List<Object?> get props => [id, isAnonymous];
+}
+
+abstract interface class AuthRepository {
+  AuthUser? get currentUser;
+
+  Stream<AuthUser?> get userChanges;
+
+  Future<Result<void>> signInAnonymously();
 
   Future<Result<void>> sendEmailCode(String email);
 
@@ -42,11 +55,19 @@ class SupabaseAuthRepository implements AuthRepository {
   GoTrueClient get _auth => _client.auth;
 
   @override
-  String? get currentUserId => _auth.currentUser?.id;
+  AuthUser? get currentUser => _map(_auth.currentUser);
 
   @override
-  Stream<String?> get userChanges =>
-      _auth.onAuthStateChange.map((s) => s.session?.user.id).distinct();
+  Stream<AuthUser?> get userChanges =>
+      _auth.onAuthStateChange.map((s) => _map(s.session?.user)).distinct();
+
+  static AuthUser? _map(User? user) => user == null
+      ? null
+      : AuthUser(id: user.id, isAnonymous: user.isAnonymous);
+
+  @override
+  Future<Result<void>> signInAnonymously() =>
+      _guard('signInAnonymously', _auth.signInAnonymously);
 
   @override
   Future<Result<void>> sendEmailCode(String email) => _guard(
@@ -127,10 +148,13 @@ class UnavailableAuthRepository implements AuthRepository {
   static final _error = Result<void>.error(Exception(AuthMessages.unavailable));
 
   @override
-  String? get currentUserId => null;
+  AuthUser? get currentUser => null;
 
   @override
-  Stream<String?> get userChanges => const Stream.empty();
+  Stream<AuthUser?> get userChanges => const Stream.empty();
+
+  @override
+  Future<Result<void>> signInAnonymously() async => _error;
 
   @override
   Future<Result<void>> sendEmailCode(String email) async => _error;

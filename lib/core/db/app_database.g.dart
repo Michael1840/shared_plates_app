@@ -3607,6 +3607,268 @@ class AppSettingsCompanion extends UpdateCompanion<AppSettingRow> {
   }
 }
 
+class $FeedCacheTable extends FeedCache
+    with TableInfo<$FeedCacheTable, FeedCacheRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $FeedCacheTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _keyMeta = const VerificationMeta('key');
+  @override
+  late final GeneratedColumn<String> key = GeneratedColumn<String>(
+    'key',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _jsonMeta = const VerificationMeta('json');
+  @override
+  late final GeneratedColumn<String> json = GeneratedColumn<String>(
+    'json',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _fetchedAtMeta = const VerificationMeta(
+    'fetchedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> fetchedAt = GeneratedColumn<DateTime>(
+    'fetched_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [key, json, fetchedAt];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'feed_cache';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<FeedCacheRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('key')) {
+      context.handle(
+        _keyMeta,
+        key.isAcceptableOrUnknown(data['key']!, _keyMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_keyMeta);
+    }
+    if (data.containsKey('json')) {
+      context.handle(
+        _jsonMeta,
+        json.isAcceptableOrUnknown(data['json']!, _jsonMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_jsonMeta);
+    }
+    if (data.containsKey('fetched_at')) {
+      context.handle(
+        _fetchedAtMeta,
+        fetchedAt.isAcceptableOrUnknown(data['fetched_at']!, _fetchedAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_fetchedAtMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {key};
+  @override
+  FeedCacheRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return FeedCacheRow(
+      key: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}key'],
+      )!,
+      json: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}json'],
+      )!,
+      fetchedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}fetched_at'],
+      )!,
+    );
+  }
+
+  @override
+  $FeedCacheTable createAlias(String alias) {
+    return $FeedCacheTable(attachedDatabase, alias);
+  }
+}
+
+class FeedCacheRow extends DataClass implements Insertable<FeedCacheRow> {
+  final String key;
+  final String json;
+  final DateTime fetchedAt;
+  const FeedCacheRow({
+    required this.key,
+    required this.json,
+    required this.fetchedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['key'] = Variable<String>(key);
+    map['json'] = Variable<String>(json);
+    map['fetched_at'] = Variable<DateTime>(fetchedAt);
+    return map;
+  }
+
+  FeedCacheCompanion toCompanion(bool nullToAbsent) {
+    return FeedCacheCompanion(
+      key: Value(key),
+      json: Value(json),
+      fetchedAt: Value(fetchedAt),
+    );
+  }
+
+  factory FeedCacheRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return FeedCacheRow(
+      key: serializer.fromJson<String>(json['key']),
+      json: serializer.fromJson<String>(json['json']),
+      fetchedAt: serializer.fromJson<DateTime>(json['fetchedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'key': serializer.toJson<String>(key),
+      'json': serializer.toJson<String>(json),
+      'fetchedAt': serializer.toJson<DateTime>(fetchedAt),
+    };
+  }
+
+  FeedCacheRow copyWith({String? key, String? json, DateTime? fetchedAt}) =>
+      FeedCacheRow(
+        key: key ?? this.key,
+        json: json ?? this.json,
+        fetchedAt: fetchedAt ?? this.fetchedAt,
+      );
+  FeedCacheRow copyWithCompanion(FeedCacheCompanion data) {
+    return FeedCacheRow(
+      key: data.key.present ? data.key.value : this.key,
+      json: data.json.present ? data.json.value : this.json,
+      fetchedAt: data.fetchedAt.present ? data.fetchedAt.value : this.fetchedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('FeedCacheRow(')
+          ..write('key: $key, ')
+          ..write('json: $json, ')
+          ..write('fetchedAt: $fetchedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(key, json, fetchedAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is FeedCacheRow &&
+          other.key == this.key &&
+          other.json == this.json &&
+          other.fetchedAt == this.fetchedAt);
+}
+
+class FeedCacheCompanion extends UpdateCompanion<FeedCacheRow> {
+  final Value<String> key;
+  final Value<String> json;
+  final Value<DateTime> fetchedAt;
+  final Value<int> rowid;
+  const FeedCacheCompanion({
+    this.key = const Value.absent(),
+    this.json = const Value.absent(),
+    this.fetchedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  FeedCacheCompanion.insert({
+    required String key,
+    required String json,
+    required DateTime fetchedAt,
+    this.rowid = const Value.absent(),
+  }) : key = Value(key),
+       json = Value(json),
+       fetchedAt = Value(fetchedAt);
+  static Insertable<FeedCacheRow> custom({
+    Expression<String>? key,
+    Expression<String>? json,
+    Expression<DateTime>? fetchedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (key != null) 'key': key,
+      if (json != null) 'json': json,
+      if (fetchedAt != null) 'fetched_at': fetchedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  FeedCacheCompanion copyWith({
+    Value<String>? key,
+    Value<String>? json,
+    Value<DateTime>? fetchedAt,
+    Value<int>? rowid,
+  }) {
+    return FeedCacheCompanion(
+      key: key ?? this.key,
+      json: json ?? this.json,
+      fetchedAt: fetchedAt ?? this.fetchedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (key.present) {
+      map['key'] = Variable<String>(key.value);
+    }
+    if (json.present) {
+      map['json'] = Variable<String>(json.value);
+    }
+    if (fetchedAt.present) {
+      map['fetched_at'] = Variable<DateTime>(fetchedAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('FeedCacheCompanion(')
+          ..write('key: $key, ')
+          ..write('json: $json, ')
+          ..write('fetchedAt: $fetchedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 class $RecipesTable extends Recipes with TableInfo<$RecipesTable, RecipeRow> {
   @override
   final GeneratedDatabase attachedDatabase;
@@ -9505,6 +9767,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $ProfileTastesTable profileTastes = $ProfileTastesTable(this);
   late final $HiddenFoodsTable hiddenFoods = $HiddenFoodsTable(this);
   late final $AppSettingsTable appSettings = $AppSettingsTable(this);
+  late final $FeedCacheTable feedCache = $FeedCacheTable(this);
   late final $RecipesTable recipes = $RecipesTable(this);
   late final $RecipeIngredientsTable recipeIngredients =
       $RecipeIngredientsTable(this);
@@ -9533,6 +9796,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     profileTastes,
     hiddenFoods,
     appSettings,
+    feedCache,
     recipes,
     recipeIngredients,
     recipeSteps,
@@ -11479,6 +11743,175 @@ typedef $$AppSettingsTableProcessedTableManager =
         BaseReferences<_$AppDatabase, $AppSettingsTable, AppSettingRow>,
       ),
       AppSettingRow,
+      PrefetchHooks Function()
+    >;
+typedef $$FeedCacheTableCreateCompanionBuilder = FeedCacheCompanion Function({
+  required String key,
+  required String json,
+  required DateTime fetchedAt,
+  Value<int> rowid,
+});
+typedef $$FeedCacheTableUpdateCompanionBuilder = FeedCacheCompanion Function({
+  Value<String> key,
+  Value<String> json,
+  Value<DateTime> fetchedAt,
+  Value<int> rowid,
+});
+
+class $$FeedCacheTableFilterComposer
+    extends Composer<_$AppDatabase, $FeedCacheTable> {
+  $$FeedCacheTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get key => $composableBuilder(
+    column: $table.key,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get json => $composableBuilder(
+    column: $table.json,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get fetchedAt => $composableBuilder(
+    column: $table.fetchedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$FeedCacheTableOrderingComposer
+    extends Composer<_$AppDatabase, $FeedCacheTable> {
+  $$FeedCacheTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get key => $composableBuilder(
+    column: $table.key,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get json => $composableBuilder(
+    column: $table.json,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get fetchedAt => $composableBuilder(
+    column: $table.fetchedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$FeedCacheTableAnnotationComposer
+    extends Composer<_$AppDatabase, $FeedCacheTable> {
+  $$FeedCacheTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get key =>
+      $composableBuilder(column: $table.key, builder: (column) => column);
+
+  GeneratedColumn<String> get json =>
+      $composableBuilder(column: $table.json, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get fetchedAt =>
+      $composableBuilder(column: $table.fetchedAt, builder: (column) => column);
+}
+
+class $$FeedCacheTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $FeedCacheTable,
+          FeedCacheRow,
+          $$FeedCacheTableFilterComposer,
+          $$FeedCacheTableOrderingComposer,
+          $$FeedCacheTableAnnotationComposer,
+          $$FeedCacheTableCreateCompanionBuilder,
+          $$FeedCacheTableUpdateCompanionBuilder,
+          (
+            FeedCacheRow,
+            BaseReferences<_$AppDatabase, $FeedCacheTable, FeedCacheRow>,
+          ),
+          FeedCacheRow,
+          PrefetchHooks Function()
+        > {
+  $$FeedCacheTableTableManager(_$AppDatabase db, $FeedCacheTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$FeedCacheTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$FeedCacheTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$FeedCacheTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> key = const Value.absent(),
+                Value<String> json = const Value.absent(),
+                Value<DateTime> fetchedAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => FeedCacheCompanion(
+                key: key,
+                json: json,
+                fetchedAt: fetchedAt,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String key,
+                required String json,
+                required DateTime fetchedAt,
+                Value<int> rowid = const Value.absent(),
+              }) => FeedCacheCompanion.insert(
+                key: key,
+                json: json,
+                fetchedAt: fetchedAt,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$FeedCacheTable, FeedCacheRow>(table),
+                  BaseReferences<_$AppDatabase, $FeedCacheTable, FeedCacheRow>(
+                    db,
+                    table,
+                    e,
+                  ),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$FeedCacheTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $FeedCacheTable,
+      FeedCacheRow,
+      $$FeedCacheTableFilterComposer,
+      $$FeedCacheTableOrderingComposer,
+      $$FeedCacheTableAnnotationComposer,
+      $$FeedCacheTableCreateCompanionBuilder,
+      $$FeedCacheTableUpdateCompanionBuilder,
+      (
+        FeedCacheRow,
+        BaseReferences<_$AppDatabase, $FeedCacheTable, FeedCacheRow>,
+      ),
+      FeedCacheRow,
       PrefetchHooks Function()
     >;
 typedef $$RecipesTableCreateCompanionBuilder = RecipesCompanion Function({
@@ -14596,6 +15029,8 @@ class $AppDatabaseManager {
       $$HiddenFoodsTableTableManager(_db, _db.hiddenFoods);
   $$AppSettingsTableTableManager get appSettings =>
       $$AppSettingsTableTableManager(_db, _db.appSettings);
+  $$FeedCacheTableTableManager get feedCache =>
+      $$FeedCacheTableTableManager(_db, _db.feedCache);
   $$RecipesTableTableManager get recipes =>
       $$RecipesTableTableManager(_db, _db.recipes);
   $$RecipeIngredientsTableTableManager get recipeIngredients =>

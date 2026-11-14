@@ -8,8 +8,11 @@ import 'package:shared_plates_app/core/sync/remote_store.dart';
 import 'package:shared_plates_app/core/sync/supabase_remote_store.dart';
 import 'package:shared_plates_app/core/sync/sync_service.dart';
 import 'package:shared_plates_app/features/auth/data/auth_repository.dart';
+import 'package:shared_plates_app/features/browse/data/browse_api.dart';
+import 'package:shared_plates_app/features/browse/data/browse_repository.dart';
 import 'package:shared_plates_app/features/home/data/checklist_repository.dart';
 import 'package:shared_plates_app/features/profile/data/profile_repository.dart';
+import 'package:shared_plates_app/features/recipe/data/recipe_actions_repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 final GetIt sl = GetIt.instance;
@@ -49,6 +52,19 @@ void configureDependencies({required SupabaseClient? supabase}) {
     )
     ..registerSingleton<ChecklistRepository>(
       ChecklistRepositoryImpl(db, settings),
+    )
+    ..registerSingleton<BrowseRepository>(
+      BrowseRepositoryImpl(
+        api: supabase == null
+            ? const OfflineBrowseApi()
+            : SupabaseBrowseApi(supabase),
+        db: db,
+        outbox: outbox,
+        currentUserId: () => remote.userId,
+      ),
+    )
+    ..registerSingleton<RecipeActionsRepository>(
+      RecipeActionsRepositoryImpl(db: db, outbox: outbox, sync: sync),
     );
 }
 

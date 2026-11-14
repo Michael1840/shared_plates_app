@@ -138,13 +138,32 @@ class _EntranceFrame extends StatelessWidget {
         opacity: opacity,
         child: Transform.scale(scale: 1.7 - 0.7 * t, child: child),
       ),
-      EntranceStyle.write => ClipRect(
-        child: Align(
-          alignment: Alignment.centerLeft,
-          widthFactor: opacity,
-          child: child,
-        ),
-      ),
+      EntranceStyle.write =>
+        opacity >= 1
+            ? child
+            : ClipRect(clipper: _RevealClipper(opacity), child: child),
     };
   }
+}
+
+class _RevealClipper extends CustomClipper<Rect> {
+  new(this.progress);
+
+  final double progress;
+
+  @override
+  Rect getClip(Size size) {
+    final slackX = size.width * 0.1;
+    final slackY = size.height * 0.4;
+    return Rect.fromLTRB(
+      -slackX,
+      -slackY,
+      (size.width + slackX * 2) * progress - slackX,
+      size.height + slackY,
+    );
+  }
+
+  @override
+  bool shouldReclip(_RevealClipper oldClipper) =>
+      oldClipper.progress != progress;
 }

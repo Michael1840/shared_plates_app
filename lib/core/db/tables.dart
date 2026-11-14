@@ -126,6 +126,16 @@ class AppSettings extends Table {
   Set<Column<Object>> get primaryKey => {key};
 }
 
+@DataClassName('FeedCacheRow')
+class FeedCache extends Table {
+  TextColumn get key => text()();
+  TextColumn get json => text()();
+  DateTimeColumn get fetchedAt => dateTime()();
+
+  @override
+  Set<Column<Object>> get primaryKey => {key};
+}
+
 @DataClassName('RecipeRow')
 class Recipes extends Table {
   TextColumn get id => text()();

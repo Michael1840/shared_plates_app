@@ -11,12 +11,12 @@ import 'package:shared_plates_app/core/utils/extensions.dart';
 import 'package:shared_plates_app/core/widgets/buttons.dart';
 import 'package:shared_plates_app/core/widgets/motion/entrance.dart';
 import 'package:shared_plates_app/core/widgets/paprika.dart';
+import 'package:shared_plates_app/core/widgets/person_row.dart';
 import 'package:shared_plates_app/core/widgets/skeleton.dart';
 import 'package:shared_plates_app/core/widgets/snackbars.dart';
 import 'package:shared_plates_app/core/widgets/sp_icon.dart';
 import 'package:shared_plates_app/features/auth/presentation/bloc/session_cubit.dart';
 import 'package:shared_plates_app/features/onboarding/presentation/bloc/onboarding_cubit.dart';
-import 'package:shared_plates_app/features/onboarding/presentation/widgets/cook_row.dart';
 import 'package:shared_plates_app/features/onboarding/presentation/widgets/onboarding_header.dart';
 import 'package:shared_plates_app/features/onboarding/presentation/widgets/onboarding_scaffold.dart';
 
@@ -173,7 +173,7 @@ class _CookList extends StatelessWidget {
         for (final (i, cook) in list.indexed)
           Entrance.staggered(
             index: i,
-            child: CookRow(
+            child: PersonRow(
               cook: cook,
               index: i,
               requested: state.requested.contains(cook.id),

@@ -141,6 +141,7 @@ abstract class RecipeCard with _$RecipeCard {
     @Default(false) bool isLiked,
     @Default(false) bool isSaved,
     @Default(false) bool isMine,
+    String? coverUrl,
   }) = _RecipeCard;
 
   factory fromJson(Map<String, dynamic> json) => _$RecipeCardFromJson(json);

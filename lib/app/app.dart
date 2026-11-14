@@ -13,6 +13,8 @@ import 'package:shared_plates_app/features/auth/data/auth_repository.dart';
 import 'package:shared_plates_app/features/auth/presentation/bloc/session_cubit.dart';
 import 'package:shared_plates_app/features/profile/data/profile_repository.dart';
 import 'package:shared_plates_app/features/profile/presentation/bloc/current_profile_cubit.dart';
+import 'package:shared_plates_app/features/recipe/data/recipe_actions_repository.dart';
+import 'package:shared_plates_app/features/recipe/presentation/bloc/recipe_actions_cubit.dart';
 
 class SharedPlatesApp extends StatefulWidget {
   const new({super.key});
@@ -33,6 +35,10 @@ class _SharedPlatesAppState extends State<SharedPlatesApp> {
     profiles: sl<ProfileRepository>(),
     session: _session,
   );
+  late final RecipeActionsCubit _actions = RecipeActionsCubit(
+    actions: sl<RecipeActionsRepository>(),
+    session: _session,
+  );
   late final GoRouter _router = buildRouter(_session);
 
   @override
@@ -45,6 +51,7 @@ class _SharedPlatesAppState extends State<SharedPlatesApp> {
   void dispose() {
     _router.dispose();
     unawaited(_profile.close());
+    unawaited(_actions.close());
     unawaited(_session.close());
     super.dispose();
   }
@@ -55,6 +62,7 @@ class _SharedPlatesAppState extends State<SharedPlatesApp> {
       providers: [
         BlocProvider.value(value: _session),
         BlocProvider.value(value: _profile),
+        BlocProvider.value(value: _actions),
       ],
       child: MaterialApp.router(
         title: 'SharedPlates',

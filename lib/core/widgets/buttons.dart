@@ -229,11 +229,13 @@ class CompactButton extends StatelessWidget {
           color: context.primary,
           borderRadius: BorderRadius.circular(Rounding.pill),
         ),
-        alignment: Alignment.center,
-        child: AppText(
-          text: label,
-          config: FontConfigs.button2,
-          color: context.onPrimary,
+        child: Center(
+          widthFactor: 1,
+          child: AppText(
+            text: label,
+            config: FontConfigs.button2,
+            color: context.onPrimary,
+          ),
         ),
       ),
     );

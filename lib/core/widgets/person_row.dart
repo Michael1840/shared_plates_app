@@ -9,7 +9,7 @@ import 'package:shared_plates_app/core/widgets/motion/pressable.dart';
 import 'package:shared_plates_app/core/widgets/sp_icon.dart';
 import 'package:shared_plates_app/features/profile/domain/popular_cook.dart';
 
-class CookRow extends StatelessWidget {
+class PersonRow extends StatelessWidget {
   const new({
     required this.cook,
     required this.index,
@@ -62,7 +62,9 @@ class CookRow extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
               AppText.secondary(
-                text: '@${cook.username} · ${cook.recipes} $noun',
+                text: cook.recipes > 0
+                    ? '@${cook.username} · ${cook.recipes} $noun'
+                    : '@${cook.username}',
                 config: FontConfigs.sublabel1,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,

@@ -38,20 +38,20 @@ class SessionCubit extends Cubit<SessionState> {
   final AppSettingsStore _settings;
   final SyncService _sync;
   final AppDatabase _db;
-  StreamSubscription<String?>? _userSub;
+  StreamSubscription<AuthUser?>? _userSub;
   Future<void> _queue = Future.value();
 
   Future<void> start() async {
-    _userSub ??= _auth.userChanges.listen((uid) => unawaited(_resolve(uid)));
-    await _resolve(_auth.currentUserId);
+    _userSub ??= _auth.userChanges.listen((user) => unawaited(_resolve(user)));
+    await _resolve(_auth.currentUser);
   }
 
-  Future<void> _resolve(String? uid) =>
-      _queue = _queue.then((_) => _apply(uid));
+  Future<void> _resolve(AuthUser? user) =>
+      _queue = _queue.then((_) => _apply(user));
 
-  Future<void> _apply(String? uid) async {
+  Future<void> _apply(AuthUser? user) async {
     if (isClosed) return;
-    if (uid == null) {
+    if (user == null) {
       final guest = await _settings.flag(SettingKey.guest);
       emit(
         SessionState(
@@ -60,10 +60,14 @@ class SessionCubit extends Cubit<SessionState> {
       );
       return;
     }
-    if (state.userId == uid && state.status != SessionStatus.unknown) return;
+    if (user.isAnonymous) {
+      emit(SessionState(status: SessionStatus.guest, userId: user.id));
+      return;
+    }
+    if (state.userId == user.id && state.isAuthenticated) return;
     await _settings.setFlag(SettingKey.guest, value: false);
-    final local = await _profiles.localProfile(uid);
-    final profile = switch (await _profiles.refreshProfile(uid)) {
+    final local = await _profiles.localProfile(user.id);
+    final profile = switch (await _profiles.refreshProfile(user.id)) {
       Ok(:final value) => value ?? local,
       Error() || CastError() => local,
     };
@@ -74,17 +78,23 @@ class SessionCubit extends Cubit<SessionState> {
         status: needsOnboarding
             ? SessionStatus.onboarding
             : SessionStatus.signedIn,
-        userId: uid,
+        userId: user.id,
       ),
     );
   }
 
   Future<void> continueAsGuest() async {
     await _settings.setFlag(SettingKey.guest, value: true);
+    final result = await _auth.signInAnonymously();
+    if (isClosed || result is Ok<void>) return;
     emit(const SessionState(status: SessionStatus.guest));
   }
 
   Future<void> leaveGuest() async {
+    if (state.userId != null) {
+      await _auth.signOut();
+      await _db.clearUserData();
+    }
     await _settings.setFlag(SettingKey.guest, value: false);
     emit(const SessionState(status: SessionStatus.signedOut));
   }

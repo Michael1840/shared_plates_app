@@ -10,6 +10,8 @@ import 'package:shared_plates_app/app/router/app_shell.dart';
 import 'package:shared_plates_app/app/router/routes.dart';
 import 'package:shared_plates_app/app/router/session_listenable.dart';
 import 'package:shared_plates_app/app/router/transitions.dart';
+import 'package:shared_plates_app/core/domain/models/recipe.dart';
+import 'package:shared_plates_app/core/domain/search_filters.dart';
 import 'package:shared_plates_app/features/auth/presentation/bloc/session_cubit.dart';
 import 'package:shared_plates_app/features/auth/presentation/pages/email_sign_in_page.dart';
 import 'package:shared_plates_app/features/auth/presentation/pages/splash_page.dart';
@@ -24,7 +26,9 @@ import 'package:shared_plates_app/features/onboarding/presentation/pages/onboard
 import 'package:shared_plates_app/features/onboarding/presentation/pages/onboarding_taste_page.dart';
 import 'package:shared_plates_app/features/onboarding/presentation/pages/onboarding_you_page.dart';
 import 'package:shared_plates_app/features/profile/data/profile_repository.dart';
+import 'package:shared_plates_app/features/recipe/presentation/pages/recipe_page.dart';
 import 'package:shared_plates_app/features/recipes/presentation/pages/recipes_page.dart';
+import 'package:shared_plates_app/features/search/presentation/pages/search_page.dart';
 
 String? sessionRedirect(SessionStatus status, String location) {
   final inAuth = location == Routes.welcome || location == Routes.signIn;
@@ -157,6 +161,31 @@ GoRouter buildRouter(SessionCubit session) {
         name: RouteNames.create,
         pageBuilder: (context, state) =>
             SpPages.sheet(state, const CreateStartPage()),
+      ),
+      GoRoute(
+        parentNavigatorKey: rootKey,
+        path: Routes.search,
+        name: RouteNames.search,
+        pageBuilder: (context, state) => SpPages.push(
+          state,
+          SearchPage(
+            initial: state.extra is SearchFilters
+                ? state.extra! as SearchFilters
+                : const SearchFilters(),
+          ),
+        ),
+      ),
+      GoRoute(
+        parentNavigatorKey: rootKey,
+        path: Routes.recipe,
+        name: RouteNames.recipe,
+        pageBuilder: (context, state) => SpPages.push(
+          state,
+          RecipePage(
+            recipeId: state.pathParameters['id'] ?? '',
+            card: state.extra is RecipeCard ? state.extra! as RecipeCard : null,
+          ),
+        ),
       ),
       if (Env.isDev)
         GoRoute(

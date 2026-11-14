@@ -5,6 +5,7 @@ import 'package:shared_plates_app/core/theme/sizing.dart';
 import 'package:shared_plates_app/core/theme/typography.dart';
 import 'package:shared_plates_app/core/utils/extensions.dart';
 import 'package:shared_plates_app/core/widgets/handwritten_note.dart';
+import 'package:shared_plates_app/core/widgets/motion/pop_on_change.dart';
 import 'package:shared_plates_app/core/widgets/motion/pressable.dart';
 import 'package:shared_plates_app/core/widgets/photo_print.dart';
 import 'package:shared_plates_app/core/widgets/recipe_cover.dart';
@@ -160,7 +161,15 @@ class _SaveBadge extends StatelessWidget {
         height: 36,
         decoration: BoxDecoration(color: fill, shape: BoxShape.circle),
         alignment: Alignment.center,
-        child: SpIcon(SpIcons.bookmark, size: 16, color: ink, filled: isSaved),
+        child: PopOnChange(
+          value: isSaved,
+          child: SpIcon(
+            SpIcons.bookmark,
+            size: 16,
+            color: ink,
+            filled: isSaved,
+          ),
+        ),
       ),
     );
   }

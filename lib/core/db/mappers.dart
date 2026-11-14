@@ -210,3 +210,40 @@ extension TagRowToDomain on TagRow {
     updatedAt: updatedAt,
   );
 }
+
+extension RecipeRowToCard on RecipeRow {
+  RecipeCard toCard({required String? viewerId}) => RecipeCard(
+    id: id,
+    authorId: authorId,
+    title: title,
+    updatedAt: updatedAt,
+    authorName: authorName,
+    authorUsername: authorUsername,
+    authorAvatar: authorAvatar,
+    note: note,
+    coverPath: coverPath,
+    coverStyle: coverStyle,
+    baseServings: baseServings,
+    totalMinutes: totalMinutes,
+    visibility: visibility,
+    status: status,
+    kcalPerServing: kcalPerServing,
+    proteinG: proteinG,
+    carbsG: carbsG,
+    fatG: fatG,
+    fibreG: fibreG,
+    ingredientCount: ingredientCount,
+    matchedLines: matchedLines,
+    costCents: costCents,
+    costCurrency: costCurrency,
+    costPerPlate: costCents == null
+        ? null
+        : (costCents! / baseServings).round(),
+    likeCount: likeCount,
+    saveCount: saveCount,
+    cookCount: cookCount,
+    forkedFromId: forkedFromId,
+    publishedAt: publishedAt,
+    isMine: viewerId != null && viewerId == authorId,
+  );
+}
