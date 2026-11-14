@@ -189,8 +189,6 @@ class SyncService {
   Future<void> _pushRecipe(JsonRow snapshot) async {
     final recipe = {...snapshot['recipe'] as JsonRow};
     final id = recipe['id'] as String;
-    final coverPath = await _uploadCover(id, snapshot['cover'] as JsonRow?);
-    if (coverPath != null) recipe['cover_path'] = coverPath;
     final ingredients = [
       for (final r in snapshot['ingredients'] as List<dynamic>) r as JsonRow,
     ];
@@ -205,6 +203,14 @@ class SyncService {
     };
 
     await _remote.upsert('recipes', recipe);
+    final coverPath = await _uploadCover(id, snapshot['cover'] as JsonRow?);
+    if (coverPath != null) {
+      await _remote.update(
+        'recipes',
+        {'cover_path': coverPath},
+        match: {'id': id},
+      );
+    }
 
     final stepIds = {for (final s in steps) s['id'] as String};
     final ingredientIds = {for (final i in ingredients) i['id'] as String};

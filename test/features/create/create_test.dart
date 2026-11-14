@@ -250,7 +250,7 @@ void main() {
       expect(remote.tables['recipe_tags'], isEmpty);
     });
 
-    test('uploads a new photo and records its path', () async {
+    test('uploads the photo after the recipe exists', () async {
       final dir = await Directory.systemTemp.createTemp('sp-cover');
       addTearDown(() => dir.delete(recursive: true));
       final photo = File('${dir.path}/r1-123.jpg')..writeAsBytesSync([1, 2, 3]);
@@ -267,6 +267,13 @@ void main() {
       expect(remote.uploads['recipe-photos/$path'], 3);
       expect(remote.tables['recipes']!.single['cover_path'], path);
       expect((await db.select(db.recipes).getSingle()).coverPath, path);
+      final order = [
+        for (final c in remote.calls)
+          if (c.method == 'upload' ||
+              (c.method == 'upsert' && c.target == 'recipes'))
+            c.method,
+      ];
+      expect(order, ['upsert', 'upload']);
     });
   });
 
