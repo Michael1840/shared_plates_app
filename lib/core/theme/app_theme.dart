@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_plates_app/core/theme/page_transitions.dart';
 import 'package:shared_plates_app/core/theme/sp_colors.dart';
 import 'package:shared_plates_app/core/theme/typography.dart';
 
@@ -38,6 +39,7 @@ abstract final class AppTheme {
       scaffoldBackgroundColor: c.background,
       fontFamily: type.body,
       splashFactory: NoSplash.splashFactory,
+      pageTransitionsTheme: ReduceMotionTransitions.theme,
       highlightColor: Colors.transparent,
       materialTapTargetSize: MaterialTapTargetSize.padded,
       textSelectionTheme: TextSelectionThemeData(
