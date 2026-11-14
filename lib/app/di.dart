@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:drift/drift.dart' show TableUpdateQuery;
 import 'package:get_it/get_it.dart';
 import 'package:shared_plates_app/core/db/app_database.dart';
 import 'package:shared_plates_app/core/settings/app_settings_store.dart';
@@ -12,7 +15,9 @@ import 'package:shared_plates_app/features/browse/data/browse_api.dart';
 import 'package:shared_plates_app/features/browse/data/browse_repository.dart';
 import 'package:shared_plates_app/features/home/data/checklist_repository.dart';
 import 'package:shared_plates_app/features/profile/data/profile_repository.dart';
+import 'package:shared_plates_app/features/recipe/data/cover_cache.dart';
 import 'package:shared_plates_app/features/recipe/data/recipe_actions_repository.dart';
+import 'package:shared_plates_app/features/recipe/data/recipe_detail_repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 final GetIt sl = GetIt.instance;
@@ -66,6 +71,27 @@ void configureDependencies({required SupabaseClient? supabase}) {
     ..registerSingleton<RecipeActionsRepository>(
       RecipeActionsRepositoryImpl(db: db, outbox: outbox, sync: sync),
     );
+  final browseApi = supabase == null
+      ? const OfflineBrowseApi()
+      : SupabaseBrowseApi(supabase) as BrowseApi;
+  final covers = CoverCache(db: db, api: browseApi);
+  sl.registerSingleton<RecipeDetailRepository>(
+    RecipeDetailRepositoryImpl(
+      db: db,
+      outbox: outbox,
+      remote: remote,
+      sync: sync,
+      api: browseApi,
+      covers: covers,
+    ),
+  );
+  void backfill() {
+    final uid = remote.userId;
+    if (uid != null) unawaited(covers.backfill(uid));
+  }
+
+  sync.reports.listen((_) => backfill());
+  db.tableUpdates(TableUpdateQuery.onTable(db.saves)).listen((_) => backfill());
 }
 
 RemoteStore _remoteFor(SupabaseClient? client) =>

@@ -76,10 +76,45 @@ class SyncService {
     _debounceTimer?.cancel();
     _periodic?.cancel();
     await _onlineSub?.cancel();
+    await _reports.close();
   }
 
+  final StreamController<SyncReport> _reports =
+      StreamController<SyncReport>.broadcast();
+
+  Stream<SyncReport> get reports => _reports.stream;
+
   Future<SyncReport> syncNow({bool force = false}) =>
-      _running ??= _run(force: force).whenComplete(() => _running = null);
+      _running ??= _run(force: force)
+          .then((report) {
+            if (!_reports.isClosed) _reports.add(report);
+            return report;
+          })
+          .whenComplete(() => _running = null);
+
+  Future<void> pullRecipe(String id) async {
+    final uid = _remote.userId;
+    final pending = await _outbox.pendingKeys();
+    if (pending.contains('recipes:$id')) return;
+    final rows = await _remote.fetchIn(
+      'recipe_cards',
+      column: 'id',
+      values: [id],
+    );
+    if (rows.isEmpty) return;
+    final card = RecipeCard.fromJson(rows.first);
+    if (card.authorId == uid) {
+      final own = await _remote.fetchIn('recipes', column: 'id', values: [id]);
+      if (own.isNotEmpty) {
+        await _db
+            .into(_db.recipes)
+            .insertOnConflictUpdate(Recipe.fromJson(own.first).toCompanion());
+      }
+    } else {
+      await _db.into(_db.recipes).insertOnConflictUpdate(card.toCompanion());
+    }
+    await _replaceChildren([id]);
+  }
 
   Future<SyncReport> _run({required bool force}) async {
     final push = await pushOutbox(ignoreBackoff: force);
@@ -324,6 +359,87 @@ class SyncService {
     await _pullSavedRecipes(uid, [
       for (final s in saves) s['recipe_id'] as String,
     ]);
+    await _pullTicks(uid, pending);
+    await _pullRecentlyViewed(uid, pending);
+  }
+
+  Future<void> _pullTicks(String uid, Set<String> pending) async {
+    final rows = await _remote.fetchIn(
+      'shopping_ticks',
+      column: 'user_id',
+      values: [uid],
+    );
+    final remote = {for (final r in rows) r['ingredient_id'] as String: r};
+    await _db.transaction(() async {
+      final local = await (_db.select(
+        _db.shoppingTicks,
+      )..where((t) => t.userId.equals(uid))).get();
+      for (final tick in local) {
+        if (remote.containsKey(tick.ingredientId) ||
+            pending.contains('shopping_ticks:${tick.ingredientId}')) {
+          continue;
+        }
+        await (_db.delete(_db.shoppingTicks)..where(
+              (t) =>
+                  t.userId.equals(uid) &
+                  t.ingredientId.equals(tick.ingredientId),
+            ))
+            .go();
+      }
+      await _db.batch(
+        (b) => b.insertAllOnConflictUpdate(_db.shoppingTicks, [
+          for (final r in rows)
+            if (!pending.contains('shopping_ticks:${r['ingredient_id']}'))
+              ShoppingTicksCompanion.insert(
+                userId: uid,
+                ingredientId: r['ingredient_id'] as String,
+                recipeId: r['recipe_id'] as String,
+                tickedAt: DateTime.parse(r['ticked_at'] as String),
+              ),
+        ]),
+      );
+    });
+  }
+
+  Future<void> _pullRecentlyViewed(String uid, Set<String> pending) async {
+    final rows = await _remote.fetchIn(
+      'recently_viewed',
+      column: 'user_id',
+      values: [uid],
+    );
+    if (rows.isEmpty) return;
+    await _db.batch(
+      (b) => b.insertAllOnConflictUpdate(_db.recentlyViewed, [
+        for (final r in rows)
+          if (!pending.contains('recently_viewed:${r['recipe_id']}'))
+            RecentlyViewedCompanion.insert(
+              userId: uid,
+              recipeId: r['recipe_id'] as String,
+              viewedAt: DateTime.parse(r['viewed_at'] as String),
+            ),
+      ]),
+    );
+    final ids = [for (final r in rows) r['recipe_id'] as String];
+    final known = {
+      for (final r in await (_db.select(
+        _db.recipes,
+      )..where((t) => t.id.isIn(ids))).get())
+        r.id,
+    };
+    final missing = [
+      for (final id in ids)
+        if (!known.contains(id)) id,
+    ];
+    if (missing.isEmpty) return;
+    final cards = await _remote.fetchIn(
+      'recipe_cards',
+      column: 'id',
+      values: missing,
+    );
+    await _upsertAll(
+      _db.recipes,
+      cards.map((r) => RecipeCard.fromJson(r).toCompanion()),
+    );
   }
 
   Future<void> _reconcileUserRecipeRows<T extends Table, D>({

@@ -41,6 +41,7 @@ class ShelfPrintCard extends StatelessWidget {
                 RecipeCover(
                   style: card.coverStyle,
                   imageUrl: card.coverUrl,
+                  localPath: card.localCoverPath,
                   height: 108,
                   radius: 2,
                 ),

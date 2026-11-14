@@ -13,6 +13,11 @@ abstract final class Env {
   static bool get hasBackend =>
       supabaseUrl.isNotEmpty && supabaseKey.isNotEmpty;
 
+  static const shareBaseUrl = String.fromEnvironment(
+    'SHARE_BASE_URL',
+    defaultValue: 'https://sharedplates.app',
+  );
+
   static const testEmail = String.fromEnvironment('TEST_EMAIL');
   static const testPassword = String.fromEnvironment('TEST_PASSWORD');
 

@@ -1,5 +1,5 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:drift/drift.dart' show driftRuntimeOptions;
+import 'package:drift/drift.dart' show Value, driftRuntimeOptions;
 import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,6 +15,7 @@ import 'package:shared_plates_app/core/domain/search_filters.dart';
 import 'package:shared_plates_app/core/settings/app_settings_store.dart';
 import 'package:shared_plates_app/core/sync/outbox_store.dart';
 import 'package:shared_plates_app/core/sync/remote_store.dart';
+import 'package:shared_plates_app/core/sync/sync_service.dart';
 import 'package:shared_plates_app/core/theme/app_theme.dart';
 import 'package:shared_plates_app/core/widgets/dot_grid_background.dart';
 import 'package:shared_plates_app/core/widgets/paprika.dart';
@@ -28,11 +29,16 @@ import 'package:shared_plates_app/features/home/data/checklist_repository.dart';
 import 'package:shared_plates_app/features/home/presentation/pages/home_page.dart';
 import 'package:shared_plates_app/features/profile/data/profile_repository.dart';
 import 'package:shared_plates_app/features/profile/presentation/bloc/current_profile_cubit.dart';
+import 'package:shared_plates_app/features/recipe/data/cover_cache.dart';
+import 'package:shared_plates_app/features/recipe/data/recipe_detail_repository.dart';
 import 'package:shared_plates_app/features/recipe/presentation/bloc/recipe_actions_cubit.dart';
+import 'package:shared_plates_app/features/recipe/presentation/pages/recipe_page.dart';
 import 'package:shared_plates_app/features/search/presentation/pages/search_page.dart';
 
 import '../helpers/fake_browse_api.dart';
+import '../helpers/fake_remote_store.dart';
 import '../helpers/mocks.dart';
+import '../helpers/recipe_seed.dart';
 
 class _MockSession extends MockCubit<SessionState> implements SessionCubit;
 
@@ -105,6 +111,20 @@ void main() {
     final profiles = MockProfileRepository();
     when(profiles.watchTags).thenAnswer((_) => Stream.value(_tags));
     final outbox = OutboxStore(db);
+    final recipeRemote = FakeRemoteStore();
+    seedRecipe(recipeRemote);
+    await db
+        .into(db.tags)
+        .insert(
+          TagsCompanion.insert(
+            id: const Value(1),
+            slug: 'curry',
+            label: 'Curries',
+            kind: TagKind.cuisine,
+            coverStyle: CoverStyle.stew,
+            updatedAt: DateTime.utc(2026),
+          ),
+        );
     sl
       ..registerSingleton<BrowseRepository>(
         BrowseRepositoryImpl(
@@ -116,6 +136,16 @@ void main() {
       )
       ..registerSingleton<ProfileRepository>(profiles)
       ..registerSingleton<AuthRepository>(MockAuthRepository())
+      ..registerSingleton<RecipeDetailRepository>(
+        RecipeDetailRepositoryImpl(
+          db: db,
+          outbox: outbox,
+          remote: recipeRemote,
+          sync: SyncService(db: db, outbox: outbox, remote: recipeRemote),
+          api: api,
+          covers: CoverCache(db: db, api: api),
+        ),
+      )
       ..registerSingleton<ChecklistRepository>(
         ChecklistRepositoryImpl(db, AppSettingsStore(db)),
       );
@@ -258,6 +288,20 @@ void main() {
     await expectLater(
       find.byType(MaterialApp),
       matchesGoldenFile('goldens/email_sign_in.png'),
+    );
+  });
+
+  testWidgets('recipe page', (tester) async {
+    await pumpScreen(
+      tester,
+      const RecipePage(recipeId: seedRecipeId),
+      height: 2300,
+      wrap: false,
+    );
+    expect(tester.takeException(), isNull);
+    await expectLater(
+      find.byType(MaterialApp),
+      matchesGoldenFile('goldens/recipe.png'),
     );
   });
 }

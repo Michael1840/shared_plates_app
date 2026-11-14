@@ -35,6 +35,7 @@ class CardPrint extends StatelessWidget {
       title: card.title,
       coverStyle: card.coverStyle,
       imageUrl: card.coverUrl,
+      localPath: card.localCoverPath,
       note: note == null || note.length > 40 ? null : note,
       minutes: showStats ? card.totalMinutes : null,
       likes: showStats ? card.likeCount : null,

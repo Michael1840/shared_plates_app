@@ -18,6 +18,7 @@ class RecipePrintCard extends StatelessWidget {
     required this.coverStyle,
     super.key,
     this.imageUrl,
+    this.localPath,
     this.note,
     this.minutes,
     this.likes,
@@ -36,6 +37,7 @@ class RecipePrintCard extends StatelessWidget {
   final String title;
   final CoverStyle coverStyle;
   final String? imageUrl;
+  final String? localPath;
   final String? note;
   final int? minutes;
   final int? likes;
@@ -70,6 +72,7 @@ class RecipePrintCard extends StatelessWidget {
             _PrintPhoto(
               coverStyle: coverStyle,
               imageUrl: imageUrl,
+              localPath: localPath,
               height: photoHeight,
               minutes: minutes,
               isSaved: isSaved,
@@ -104,6 +107,7 @@ class _PrintPhoto extends StatelessWidget {
   const new({
     required this.coverStyle,
     required this.imageUrl,
+    required this.localPath,
     required this.height,
     required this.minutes,
     required this.isSaved,
@@ -113,6 +117,7 @@ class _PrintPhoto extends StatelessWidget {
 
   final CoverStyle coverStyle;
   final String? imageUrl;
+  final String? localPath;
   final double height;
   final int? minutes;
   final bool isSaved;
@@ -125,7 +130,12 @@ class _PrintPhoto extends StatelessWidget {
     return Stack(
       clipBehavior: Clip.none,
       children: [
-        RecipeCover(style: coverStyle, imageUrl: imageUrl, height: height),
+        RecipeCover(
+          style: coverStyle,
+          imageUrl: imageUrl,
+          localPath: localPath,
+          height: height,
+        ),
         if (onSave != null)
           Positioned(
             top: 0,

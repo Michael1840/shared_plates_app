@@ -23,6 +23,8 @@ dependencies:
   go_router: ^18.1.4
   intl: ^0.20.3
   json_annotation: ^4.12.0
+  path_provider: ^2.1.6
+  share_plus: ^13.3.1
   supabase_flutter: ^2.18.3
   uuid: ^4.6.0
 

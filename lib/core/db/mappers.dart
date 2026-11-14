@@ -245,5 +245,36 @@ extension RecipeRowToCard on RecipeRow {
     forkedFromId: forkedFromId,
     publishedAt: publishedAt,
     isMine: viewerId != null && viewerId == authorId,
+    localCoverPath: localCoverPath,
+  );
+}
+
+extension IngredientRowToDomain on IngredientRow {
+  RecipeIngredient toDomain() => RecipeIngredient(
+    id: id,
+    recipeId: recipeId,
+    position: position,
+    rawText: rawText,
+    updatedAt: updatedAt,
+    section: section,
+    quantity: quantity,
+    unit: unit,
+    portionLabel: portionLabel,
+    foodId: foodId,
+    prepNote: prepNote,
+    grams: grams,
+    costCents: costCents,
+    optional: optional,
+  );
+}
+
+extension StepRowToDomain on StepRow {
+  RecipeStep toDomain() => RecipeStep(
+    id: id,
+    recipeId: recipeId,
+    position: position,
+    body: body,
+    updatedAt: updatedAt,
+    timerSeconds: timerSeconds,
   );
 }

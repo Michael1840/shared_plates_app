@@ -57,6 +57,7 @@ class RecipeRowCard extends StatelessWidget {
               child: RecipeCover(
                 style: card.coverStyle,
                 imageUrl: card.coverUrl,
+                localPath: card.localCoverPath,
                 width: thumb,
                 height: thumb,
                 radius: 2,
