@@ -11,17 +11,20 @@ import 'package:shared_plates_app/core/sync/remote_store.dart';
 import 'package:shared_plates_app/core/sync/supabase_remote_store.dart';
 import 'package:shared_plates_app/core/sync/sync_service.dart';
 import 'package:shared_plates_app/core/utils/screen_awake.dart';
+import 'package:shared_plates_app/features/activity/data/activity_repository.dart';
 import 'package:shared_plates_app/features/auth/data/auth_repository.dart';
 import 'package:shared_plates_app/features/browse/data/browse_api.dart';
 import 'package:shared_plates_app/features/browse/data/browse_repository.dart';
 import 'package:shared_plates_app/features/cook/data/cook_repository.dart';
 import 'package:shared_plates_app/features/create/data/create_repository.dart';
 import 'package:shared_plates_app/features/create/data/photo_store.dart';
+import 'package:shared_plates_app/features/friends/data/friends_repository.dart';
 import 'package:shared_plates_app/features/home/data/checklist_repository.dart';
 import 'package:shared_plates_app/features/profile/data/profile_repository.dart';
 import 'package:shared_plates_app/features/recipe/data/cover_cache.dart';
 import 'package:shared_plates_app/features/recipe/data/recipe_actions_repository.dart';
 import 'package:shared_plates_app/features/recipe/data/recipe_detail_repository.dart';
+import 'package:shared_plates_app/features/recipes/data/library_repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 final GetIt sl = GetIt.instance;
@@ -97,7 +100,14 @@ void configureDependencies({required SupabaseClient? supabase}) {
     ..registerSingleton<CreateRepository>(
       CreateRepositoryImpl(db: db, outbox: outbox, sync: sync),
     )
-    ..registerLazySingleton<PhotoStore>(DevicePhotoStore.new);
+    ..registerLazySingleton<PhotoStore>(DevicePhotoStore.new)
+    ..registerSingleton<LibraryRepository>(LibraryRepositoryImpl(db))
+    ..registerSingleton<FriendsRepository>(
+      FriendsRepositoryImpl(remote: remote, api: browseApi, db: db),
+    )
+    ..registerSingleton<ActivityRepository>(
+      ActivityRepositoryImpl(remote: remote, api: browseApi, db: db),
+    );
   void backfill() {
     final uid = remote.userId;
     if (uid != null) unawaited(covers.backfill(uid));

@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_plates_app/core/domain/models/recipe.dart';
+import 'package:shared_plates_app/core/settings/app_settings_store.dart';
 import 'package:shared_plates_app/core/utils/delayed_result.dart';
 import 'package:shared_plates_app/core/utils/extensions.dart';
 import 'package:shared_plates_app/core/utils/result.dart';
@@ -58,15 +59,21 @@ class CookDoneCubit extends Cubit<CookDoneState> {
     required RecipeCard card,
     required int servings,
     this._userId,
+    this._settings,
   }) : super(CookDoneState(card: card, servings: servings));
 
   final CookRepository _cooks;
   final RecipeDetailRepository _recipes;
   final String? _userId;
+  final AppSettingsStore? _settings;
 
   Future<void> load() async {
     final uid = _userId;
     if (uid == null) return;
+    final tell = await _settings?.value(SettingKey.tellCooks);
+    if (tell == 'false' && !isClosed && !state.logged) {
+      emit(state.copyWith(toldCreator: false));
+    }
     final before = await _cooks.cooksThisMonth(uid);
     if (!isClosed) emit(state.copyWith(monthCount: before + 1));
   }

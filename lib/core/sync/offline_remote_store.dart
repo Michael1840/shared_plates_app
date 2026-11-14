@@ -64,6 +64,15 @@ class OfflineRemoteStore implements RemoteStore {
   }) => Future.error(_failure);
 
   @override
+  Future<List<JsonRow>> select(
+    String table, {
+    Map<String, Object> match = const {},
+    String? orderBy,
+    bool descending = true,
+    int limit = 50,
+  }) => Future.error(_failure);
+
+  @override
   Future<List<JsonRow>> fetchIn(
     String table, {
     required String column,

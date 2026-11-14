@@ -151,6 +151,30 @@ class FakeRemoteStore implements RemoteStore {
   }
 
   @override
+  Future<List<JsonRow>> select(
+    String table, {
+    Map<String, Object> match = const {},
+    String? orderBy,
+    bool descending = true,
+    int limit = 50,
+  }) async {
+    calls.add(RemoteCall('select', table, match));
+    _maybeFail();
+    final rows = [
+      for (final r in tables[table] ?? const <JsonRow>[])
+        if (_matches(r, match)) r,
+    ];
+    final order = orderBy;
+    if (order != null) {
+      rows.sort((a, b) {
+        final c = '${a[order]}'.compareTo('${b[order]}');
+        return descending ? -c : c;
+      });
+    }
+    return rows.take(limit).toList();
+  }
+
+  @override
   Future<List<JsonRow>> fetchIn(
     String table, {
     required String column,

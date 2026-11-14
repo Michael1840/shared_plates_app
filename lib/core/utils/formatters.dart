@@ -34,6 +34,11 @@ abstract final class Formatters {
     return letters.toUpperCase();
   }
 
+  static String relativeDayLabel(DateTime when, DateTime now) {
+    final day = relativeDay(when, now);
+    return day.isEmpty ? day : '${day[0].toUpperCase()}${day.substring(1)}';
+  }
+
   static String relativeDay(DateTime when, DateTime now) {
     final day = DateTime(when.year, when.month, when.day);
     final today = DateTime(now.year, now.month, now.day);

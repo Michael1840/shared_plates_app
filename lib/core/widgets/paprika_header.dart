@@ -18,6 +18,7 @@ class PaprikaHeader extends StatelessWidget {
     this.mood = PaprikaMood.happy,
     this.note,
     this.search,
+    this.bottom,
     this.tone = HeaderTone.paprika,
   });
 
@@ -27,12 +28,14 @@ class PaprikaHeader extends StatelessWidget {
   final PaprikaMood mood;
   final String? note;
   final Widget? search;
+  final Widget? bottom;
   final HeaderTone tone;
 
   @override
   Widget build(BuildContext context) {
     final ink = HeaderBlock.inkFor(context, tone);
     final searchBar = search;
+    final below = bottom;
     final hello = greeting;
     return HeaderBlock(
       tone: tone,
@@ -47,6 +50,7 @@ class PaprikaHeader extends StatelessWidget {
               delay: const Duration(milliseconds: 140),
               child: searchBar,
             ).paddingOnly(top: Spacing.m),
+          if (below != null) below.paddingOnly(top: Spacing.s),
         ],
       ),
     );

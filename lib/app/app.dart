@@ -9,12 +9,15 @@ import 'package:shared_plates_app/core/db/app_database.dart';
 import 'package:shared_plates_app/core/settings/app_settings_store.dart';
 import 'package:shared_plates_app/core/sync/sync_service.dart';
 import 'package:shared_plates_app/core/theme/app_theme.dart';
+import 'package:shared_plates_app/features/activity/data/activity_repository.dart';
+import 'package:shared_plates_app/features/activity/presentation/bloc/activity_cubit.dart';
 import 'package:shared_plates_app/features/auth/data/auth_repository.dart';
 import 'package:shared_plates_app/features/auth/presentation/bloc/session_cubit.dart';
 import 'package:shared_plates_app/features/profile/data/profile_repository.dart';
 import 'package:shared_plates_app/features/profile/presentation/bloc/current_profile_cubit.dart';
 import 'package:shared_plates_app/features/recipe/data/recipe_actions_repository.dart';
 import 'package:shared_plates_app/features/recipe/presentation/bloc/recipe_actions_cubit.dart';
+import 'package:shared_plates_app/features/settings/presentation/bloc/settings_cubit.dart';
 
 class SharedPlatesApp extends StatefulWidget {
   const new({super.key});
@@ -39,6 +42,10 @@ class _SharedPlatesAppState extends State<SharedPlatesApp> {
     actions: sl<RecipeActionsRepository>(),
     session: _session,
   );
+  late final ThemeModeCubit _theme = ThemeModeCubit(sl<AppSettingsStore>());
+  late final ActivityBadgeCubit _badge = ActivityBadgeCubit(
+    activity: sl<ActivityRepository>(),
+  );
   late final GoRouter _router = buildRouter(_session);
 
   @override
@@ -52,6 +59,8 @@ class _SharedPlatesAppState extends State<SharedPlatesApp> {
     _router.dispose();
     unawaited(_profile.close());
     unawaited(_actions.close());
+    unawaited(_theme.close());
+    unawaited(_badge.close());
     unawaited(_session.close());
     super.dispose();
   }
@@ -63,13 +72,18 @@ class _SharedPlatesAppState extends State<SharedPlatesApp> {
         BlocProvider.value(value: _session),
         BlocProvider.value(value: _profile),
         BlocProvider.value(value: _actions),
+        BlocProvider.value(value: _theme),
+        BlocProvider.value(value: _badge),
       ],
-      child: MaterialApp.router(
-        title: 'SharedPlates',
-        debugShowCheckedModeBanner: false,
-        theme: AppTheme.light,
-        darkTheme: AppTheme.dark,
-        routerConfig: _router,
+      child: BlocBuilder<ThemeModeCubit, ThemeMode>(
+        builder: (context, mode) => MaterialApp.router(
+          title: 'SharedPlates',
+          debugShowCheckedModeBanner: false,
+          theme: AppTheme.light,
+          darkTheme: AppTheme.dark,
+          themeMode: mode,
+          routerConfig: _router,
+        ),
       ),
     );
   }

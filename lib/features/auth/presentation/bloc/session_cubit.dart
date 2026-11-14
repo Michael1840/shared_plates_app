@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_plates_app/core/db/app_database.dart';
 import 'package:shared_plates_app/core/settings/app_settings_store.dart';
 import 'package:shared_plates_app/core/sync/sync_service.dart';
+import 'package:shared_plates_app/core/utils/extensions.dart';
 import 'package:shared_plates_app/core/utils/result.dart';
 import 'package:shared_plates_app/features/auth/data/auth_repository.dart';
 import 'package:shared_plates_app/features/profile/data/profile_repository.dart';
@@ -108,6 +109,23 @@ class SessionCubit extends Cubit<SessionState> {
     await _auth.signOut();
     await _db.clearUserData();
     emit(const SessionState(status: SessionStatus.signedOut));
+  }
+
+  AuthUser? get account => _auth.currentUser;
+
+  Future<String?> deleteAccount() async {
+    final result = await _auth.deleteAccount();
+    switch (result) {
+      case Ok<void>():
+        await _db.clearUserData();
+        await _settings.setFlag(SettingKey.guest, value: false);
+        emit(const SessionState(status: SessionStatus.signedOut));
+        return null;
+      case Error<void>(:final error):
+        return error.cleanError;
+      case CastError<void>(:final error):
+        return error.cleanError;
+    }
   }
 
   @override

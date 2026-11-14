@@ -49,6 +49,67 @@ abstract interface class ProfileRepository {
   Future<Result<List<PopularCook>>> popularCooks({int limit = 6});
 
   Future<Result<void>> requestFriend(String addresseeId);
+
+  Future<Result<void>> updateDetails({
+    required String uid,
+    required String displayName,
+    required String? bio,
+    required String? city,
+    String? username,
+  });
+
+  Future<Result<void>> updatePreferences(
+    String uid,
+    ProfilePreferences preferences,
+  );
+
+  Stream<Set<AvoidOption>> watchAvoid(String uid);
+
+  Future<Result<void>> saveAvoid(String uid, Set<AvoidOption> avoid);
+}
+
+class ProfilePreferences {
+  const new({
+    this.units,
+    this.defaultVisibility,
+    this.keepScreenOn,
+    this.notifySaves,
+    this.notifyCooks,
+    this.notifyFriends,
+    this.weeklyRoundup,
+  });
+
+  final UnitSystem? units;
+  final RecipeVisibility? defaultVisibility;
+  final bool? keepScreenOn;
+  final bool? notifySaves;
+  final bool? notifyCooks;
+  final bool? notifyFriends;
+  final bool? weeklyRoundup;
+
+  JsonRow toRemote() => {
+    'units': ?units?.name,
+    'default_visibility': ?defaultVisibility?.name,
+    'keep_screen_on': ?keepScreenOn,
+    'notify_saves': ?notifySaves,
+    'notify_cooks': ?notifyCooks,
+    'notify_friends': ?notifyFriends,
+    'weekly_roundup': ?weeklyRoundup,
+  };
+
+  ProfilesCompanion toLocal(DateTime at) => ProfilesCompanion(
+    units: _value(units),
+    defaultVisibility: _value(defaultVisibility),
+    keepScreenOn: _value(keepScreenOn),
+    notifySaves: _value(notifySaves),
+    notifyCooks: _value(notifyCooks),
+    notifyFriends: _value(notifyFriends),
+    weeklyRoundup: _value(weeklyRoundup),
+    updatedAt: Value(at),
+  );
+
+  static Value<T> _value<T>(T? v) =>
+      v == null ? const Value.absent() : Value(v);
 }
 
 class ProfileRepositoryImpl implements ProfileRepository {
@@ -252,6 +313,119 @@ class ProfileRepositoryImpl implements ProfileRepository {
           ),
         );
         await _settings.setFlag(SettingKey.friendRequested, value: true);
+      });
+
+  @override
+  Future<Result<void>> updateDetails({
+    required String uid,
+    required String displayName,
+    required String? bio,
+    required String? city,
+    String? username,
+  }) => _local('updateDetails', () async {
+    final name = username;
+    String? clean(String? v, int max) {
+      final t = v?.trim();
+      if (t == null || t.isEmpty) return null;
+      return t.length > max ? t.substring(0, max) : t;
+    }
+
+    final shownName = clean(displayName, 60) ?? displayName.trim();
+    final about = clean(bio, 160);
+    final place = clean(city, 60);
+    await _db.transaction(() async {
+      await (_db.update(_db.profiles)..where((t) => t.id.equals(uid))).write(
+        ProfilesCompanion(
+          displayName: Value(shownName),
+          bio: Value(about),
+          city: Value(place),
+          username: name == null ? const Value.absent() : Value(name),
+          updatedAt: Value(_now()),
+        ),
+      );
+      await _outbox.enqueue(
+        OutboxOperation.update(
+          'profiles',
+          {
+            'display_name': shownName,
+            'bio': about,
+            'city': place,
+            'username': ?name,
+          },
+          match: {'id': uid},
+          dedupeKey: 'profiles:$uid:details',
+        ),
+      );
+    });
+  });
+
+  @override
+  Future<Result<void>> updatePreferences(
+    String uid,
+    ProfilePreferences preferences,
+  ) => _local('updatePreferences', () async {
+    final remote = preferences.toRemote();
+    if (remote.isEmpty) return;
+    await _db.transaction(() async {
+      await (_db.update(
+        _db.profiles,
+      )..where((t) => t.id.equals(uid))).write(preferences.toLocal(_now()));
+      for (final MapEntry(key: column, :value) in remote.entries) {
+        await _outbox.enqueue(
+          OutboxOperation.update(
+            'profiles',
+            {column: value},
+            match: {'id': uid},
+            dedupeKey: 'profiles:$uid:$column',
+          ),
+        );
+      }
+    });
+  });
+
+  @override
+  Stream<Set<AvoidOption>> watchAvoid(String uid) {
+    final query = _db.select(_db.foods).join([
+      innerJoin(
+        _db.hiddenFoods,
+        _db.hiddenFoods.foodId.equalsExp(_db.foods.id) &
+            _db.hiddenFoods.userId.equals(uid),
+      ),
+    ]);
+    return query.watch().map((rows) {
+      final foods = [for (final r in rows) r.readTable(_db.foods)];
+      return {
+        for (final option in AvoidOption.values)
+          if (foods.any((f) => option.matches(f.name, f.aliases))) option,
+      };
+    });
+  }
+
+  @override
+  Future<Result<void>> saveAvoid(String uid, Set<AvoidOption> avoid) =>
+      _local('saveAvoid', () async {
+        final foods = await _db.select(_db.foods).get();
+        final hidden = {
+          for (final f in foods)
+            if (avoid.any((o) => o.matches(f.name, f.aliases))) f.id,
+        };
+        await _db.transaction(() async {
+          await (_db.delete(
+            _db.hiddenFoods,
+          )..where((t) => t.userId.equals(uid))).go();
+          await _db.batch(
+            (b) => b.insertAll(_db.hiddenFoods, [
+              for (final id in hidden)
+                HiddenFoodsCompanion.insert(userId: uid, foodId: id),
+            ]),
+          );
+          await _replaceRemoteSet(
+            table: 'hidden_foods',
+            uid: uid,
+            column: 'food_id',
+            values: hidden,
+          );
+        });
       });
 
   Future<Result<void>> _local(

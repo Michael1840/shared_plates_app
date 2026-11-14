@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_plates_app/app/di.dart';
 import 'package:shared_plates_app/app/router/routes.dart';
+import 'package:shared_plates_app/core/settings/app_settings_store.dart';
 import 'package:shared_plates_app/core/theme/app_text.dart';
 import 'package:shared_plates_app/core/theme/sizing.dart';
 import 'package:shared_plates_app/core/theme/typography.dart';
@@ -41,6 +42,9 @@ class CookDonePage extends StatelessWidget {
           servings: args.servings,
           userId: session.status == SessionStatus.signedIn
               ? session.userId
+              : null,
+          settings: sl.isRegistered<AppSettingsStore>()
+              ? sl<AppSettingsStore>()
               : null,
         );
         unawaited(cubit.load());
@@ -104,7 +108,7 @@ class _CookDoneViewState extends State<CookDoneView> {
     }
     context
       ..showSnackBarMessage('Saved as your version. Make it yours.')
-      ..pushReplacement(Routes.recipeFor(id));
+      ..pushReplacement(Routes.editRecipe(id));
   }
 
   @override

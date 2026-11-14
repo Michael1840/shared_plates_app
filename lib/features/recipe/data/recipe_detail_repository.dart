@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:shared_plates_app/core/db/app_database.dart';
 import 'package:shared_plates_app/core/db/mappers.dart';
+import 'package:shared_plates_app/core/db/reload_on.dart';
 import 'package:shared_plates_app/core/domain/measure.dart';
 import 'package:shared_plates_app/core/sync/outbox_store.dart';
 import 'package:shared_plates_app/core/sync/remote_store.dart';
@@ -61,9 +62,8 @@ class RecipeDetailRepositoryImpl implements RecipeDetailRepository {
   final DateTime Function() _now;
 
   @override
-  Stream<RecipeDetail?> watch(String id, {String? viewerId}) async* {
-    yield await _load(id, viewerId);
-    final updates = _db.tableUpdates(
+  Stream<RecipeDetail?> watch(String id, {String? viewerId}) => reloadOn(
+    _db.tableUpdates(
       TableUpdateQuery.onAllTables([
         _db.recipes,
         _db.recipeIngredients,
@@ -72,11 +72,9 @@ class RecipeDetailRepositoryImpl implements RecipeDetailRepository {
         _db.recipeTags,
         _db.shoppingTicks,
       ]),
-    );
-    await for (final _ in updates) {
-      yield await _load(id, viewerId);
-    }
-  }
+    ),
+    () => _load(id, viewerId),
+  );
 
   Future<RecipeDetail?> _load(String id, String? viewerId) async {
     final row = await (_db.select(

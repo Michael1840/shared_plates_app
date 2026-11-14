@@ -22,12 +22,12 @@ import 'package:shared_plates_app/core/widgets/motion/pressable.dart';
 import 'package:shared_plates_app/core/widgets/paprika.dart';
 import 'package:shared_plates_app/core/widgets/paprika_header.dart';
 import 'package:shared_plates_app/core/widgets/section_header.dart';
-import 'package:shared_plates_app/core/widgets/sheets.dart';
 import 'package:shared_plates_app/core/widgets/sp_icon.dart';
 import 'package:shared_plates_app/core/widgets/sp_search_bar.dart';
 import 'package:shared_plates_app/core/widgets/status_note.dart';
 import 'package:shared_plates_app/core/widgets/sticky_note.dart';
 import 'package:shared_plates_app/core/widgets/tab_page.dart';
+import 'package:shared_plates_app/features/activity/presentation/bloc/activity_cubit.dart';
 import 'package:shared_plates_app/features/auth/presentation/bloc/session_cubit.dart';
 import 'package:shared_plates_app/features/browse/data/browse_repository.dart';
 import 'package:shared_plates_app/features/browse/presentation/widgets/browse_skeletons.dart';
@@ -40,7 +40,6 @@ import 'package:shared_plates_app/features/home/presentation/bloc/home_cubit.dar
 import 'package:shared_plates_app/features/home/presentation/widgets/first_run_checklist.dart';
 import 'package:shared_plates_app/features/profile/data/profile_repository.dart';
 import 'package:shared_plates_app/features/profile/presentation/bloc/current_profile_cubit.dart';
-import 'package:shared_plates_app/features/profile/presentation/widgets/account_sheet.dart';
 import 'package:shared_plates_app/features/search/presentation/widgets/filter_sheet.dart';
 
 class HomePage extends StatelessWidget {
@@ -117,12 +116,7 @@ class _HomeView extends StatelessWidget {
             : 'braai weather,\njust saying',
         mood: home.isLoading ? PaprikaMood.thinking : PaprikaMood.happy,
         actions: [
-          if (!guest)
-            HeaderIconButton(
-              icon: SpIcons.bell,
-              semanticLabel: 'Activity',
-              onTap: () {},
-            ),
+          if (!guest) _ActivityBell(userId: session.userId),
           _AvatarButton(profile: profile, guest: guest),
         ],
         search: SpSearchBar(
@@ -341,6 +335,40 @@ class _PrintShelf extends StatelessWidget {
   }
 }
 
+class _ActivityBell extends StatefulWidget {
+  const new({required this.userId});
+
+  final String? userId;
+
+  @override
+  State<_ActivityBell> createState() => _ActivityBellState();
+}
+
+class _ActivityBellState extends State<_ActivityBell> {
+  @override
+  void initState() {
+    super.initState();
+    unawaited(context.read<ActivityBadgeCubit>().refresh(widget.userId));
+  }
+
+  Future<void> _open() async {
+    final badge = context.read<ActivityBadgeCubit>()..clear();
+    await context.push<void>(Routes.activity);
+    if (mounted) await badge.refresh(widget.userId);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final unread = context.watch<ActivityBadgeCubit>().state;
+    return HeaderIconButton(
+      icon: SpIcons.bell,
+      semanticLabel: unread > 0 ? 'Activity, $unread new' : 'Activity',
+      badge: unread > 0,
+      onTap: () => unawaited(_open()),
+    );
+  }
+}
+
 class _AvatarButton extends StatelessWidget {
   const new({required this.profile, required this.guest});
 
@@ -358,14 +386,7 @@ class _AvatarButton extends StatelessWidget {
           unawaited(context.read<SessionCubit>().leaveGuest());
           return;
         }
-        unawaited(
-          context.bottomSheet<void>(
-            AccountSheet(
-              profile: profile,
-              session: context.read<SessionCubit>(),
-            ),
-          ),
-        );
+        unawaited(context.push(Routes.profile));
       },
       child: Container(
         width: Sizes.minTap,

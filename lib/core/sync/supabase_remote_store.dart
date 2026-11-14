@@ -100,6 +100,21 @@ class SupabaseRemoteStore implements RemoteStore {
   });
 
   @override
+  Future<List<JsonRow>> select(
+    String table, {
+    Map<String, Object> match = const {},
+    String? orderBy,
+    bool descending = true,
+    int limit = 50,
+  }) => supabaseGuard(() {
+    final query = _client.from(table).select().match(match);
+    final order = orderBy;
+    return order == null
+        ? query.limit(limit)
+        : query.order(order, ascending: !descending).limit(limit);
+  });
+
+  @override
   Future<List<JsonRow>> fetchIn(
     String table, {
     required String column,

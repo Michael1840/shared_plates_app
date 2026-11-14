@@ -21,6 +21,13 @@ abstract final class Routes {
   static const createEdit = 'edit/:id';
   static const createDone = 'done/:id';
 
+  static const activity = '/activity';
+  static const profile = '/profile';
+  static const settings = '/settings';
+  static const person = '/people/:id';
+
+  static String personFor(String id) => '/people/$id';
+
   static String recipeFor(String id) => '/recipe/$id';
 
   static String previewRecipe(String id) => '/recipe/$id?preview=1';
@@ -56,4 +63,8 @@ abstract final class RouteNames {
   static const createPaste = 'create-paste';
   static const createEdit = 'create-edit';
   static const createDone = 'create-done';
+  static const activity = 'activity';
+  static const profile = 'profile';
+  static const settings = 'settings';
+  static const person = 'person';
 }

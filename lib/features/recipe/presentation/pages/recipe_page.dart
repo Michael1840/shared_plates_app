@@ -92,6 +92,7 @@ class _RecipeView extends StatelessWidget {
     return Scaffold(
       bottomNavigationBar: _CookBar(
         canFork: signedIn && !card.isMine,
+        canEdit: signedIn && card.isMine,
         busy: state.fork.isInProgress,
       ),
       body: DotGridBackground(
@@ -217,9 +218,10 @@ class _Content extends StatelessWidget {
 }
 
 class _CookBar extends StatelessWidget {
-  const new({required this.canFork, required this.busy});
+  const new({required this.canFork, required this.canEdit, required this.busy});
 
   final bool canFork;
+  final bool canEdit;
   final bool busy;
 
   Future<void> _fork(BuildContext context) async {
@@ -231,7 +233,7 @@ class _CookBar extends StatelessWidget {
       return;
     }
     context.showSnackBarMessage('Saved as your version. Make it yours.');
-    unawaited(context.push(Routes.recipeFor(id)));
+    unawaited(context.push(Routes.editRecipe(id)));
   }
 
   void _cook(BuildContext context) {
@@ -283,6 +285,21 @@ class _CookBar extends StatelessWidget {
                 height: Sizes.button,
                 outlined: true,
                 onTap: busy ? null : () => unawaited(_fork(context)),
+              ),
+            ),
+          if (canEdit)
+            SizedBox(
+              width: 108,
+              child: SecondaryButton(
+                label: 'Edit',
+                icon: SpIcons.pencil,
+                height: Sizes.button,
+                outlined: true,
+                onTap: () => context.push(
+                  Routes.editRecipe(
+                    context.read<RecipeDetailCubit>().state.card?.id ?? '',
+                  ),
+                ),
               ),
             ),
           PrimaryButton(

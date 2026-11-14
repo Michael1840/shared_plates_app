@@ -9,13 +9,20 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 enum SocialProvider { apple, google }
 
 class AuthUser extends Equatable {
-  const new({required this.id, this.isAnonymous = false});
+  const new({
+    required this.id,
+    this.isAnonymous = false,
+    this.email,
+    this.provider,
+  });
 
   final String id;
   final bool isAnonymous;
+  final String? email;
+  final String? provider;
 
   @override
-  List<Object?> get props => [id, isAnonymous];
+  List<Object?> get props => [id, isAnonymous, email, provider];
 }
 
 abstract interface class AuthRepository {
@@ -40,6 +47,8 @@ abstract interface class AuthRepository {
   Future<Result<void>> signInWith(SocialProvider provider);
 
   Future<Result<void>> signOut();
+
+  Future<Result<void>> deleteAccount();
 }
 
 abstract final class AuthMessages {
@@ -68,7 +77,12 @@ class SupabaseAuthRepository implements AuthRepository {
 
   static AuthUser? _map(User? user) => user == null
       ? null
-      : AuthUser(id: user.id, isAnonymous: user.isAnonymous);
+      : AuthUser(
+          id: user.id,
+          isAnonymous: user.isAnonymous,
+          email: user.email,
+          provider: user.appMetadata['provider'] as String?,
+        );
 
   @override
   Future<Result<void>> signInAnonymously() =>
@@ -115,6 +129,13 @@ class SupabaseAuthRepository implements AuthRepository {
 
   @override
   Future<Result<void>> signOut() => _guard('signOut', _auth.signOut);
+
+  @override
+  Future<Result<void>> deleteAccount() => _guard('deleteAccount', () async {
+    await _client.rpc<void>('delete_my_account');
+    await _auth.signOut();
+    return null;
+  });
 
   Future<Result<void>> _guard(
     String source,
@@ -190,4 +211,7 @@ class UnavailableAuthRepository implements AuthRepository {
 
   @override
   Future<Result<void>> signOut() async => const Result.ok(null);
+
+  @override
+  Future<Result<void>> deleteAccount() async => _error;
 }

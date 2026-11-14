@@ -12,6 +12,7 @@ import 'package:shared_plates_app/app/router/session_listenable.dart';
 import 'package:shared_plates_app/app/router/transitions.dart';
 import 'package:shared_plates_app/core/domain/models/recipe.dart';
 import 'package:shared_plates_app/core/domain/search_filters.dart';
+import 'package:shared_plates_app/features/activity/presentation/pages/activity_page.dart';
 import 'package:shared_plates_app/features/auth/presentation/bloc/session_cubit.dart';
 import 'package:shared_plates_app/features/auth/presentation/pages/email_sign_in_page.dart';
 import 'package:shared_plates_app/features/auth/presentation/pages/splash_page.dart';
@@ -25,6 +26,7 @@ import 'package:shared_plates_app/features/create/presentation/pages/recipe_edit
 import 'package:shared_plates_app/features/create/presentation/pages/recipe_shared_page.dart';
 import 'package:shared_plates_app/features/discover/presentation/pages/discover_page.dart';
 import 'package:shared_plates_app/features/friends/presentation/pages/friends_page.dart';
+import 'package:shared_plates_app/features/friends/presentation/pages/person_page.dart';
 import 'package:shared_plates_app/features/gallery/presentation/pages/widget_gallery_page.dart';
 import 'package:shared_plates_app/features/home/presentation/pages/home_page.dart';
 import 'package:shared_plates_app/features/onboarding/presentation/bloc/onboarding_cubit.dart';
@@ -32,9 +34,11 @@ import 'package:shared_plates_app/features/onboarding/presentation/pages/onboard
 import 'package:shared_plates_app/features/onboarding/presentation/pages/onboarding_taste_page.dart';
 import 'package:shared_plates_app/features/onboarding/presentation/pages/onboarding_you_page.dart';
 import 'package:shared_plates_app/features/profile/data/profile_repository.dart';
+import 'package:shared_plates_app/features/profile/presentation/pages/profile_page.dart';
 import 'package:shared_plates_app/features/recipe/presentation/pages/recipe_page.dart';
 import 'package:shared_plates_app/features/recipes/presentation/pages/recipes_page.dart';
 import 'package:shared_plates_app/features/search/presentation/pages/search_page.dart';
+import 'package:shared_plates_app/features/settings/presentation/pages/settings_page.dart';
 
 String? sessionRedirect(SessionStatus status, String location) {
   final inAuth = location == Routes.welcome || location == Routes.signIn;
@@ -246,6 +250,36 @@ GoRouter buildRouter(SessionCubit session) {
             ),
           ),
         ],
+      ),
+      GoRoute(
+        parentNavigatorKey: rootKey,
+        path: Routes.activity,
+        name: RouteNames.activity,
+        pageBuilder: (context, state) =>
+            SpPages.push(state, const ActivityPage()),
+      ),
+      GoRoute(
+        parentNavigatorKey: rootKey,
+        path: Routes.profile,
+        name: RouteNames.profile,
+        pageBuilder: (context, state) =>
+            SpPages.push(state, const ProfilePage()),
+      ),
+      GoRoute(
+        parentNavigatorKey: rootKey,
+        path: Routes.settings,
+        name: RouteNames.settings,
+        pageBuilder: (context, state) =>
+            SpPages.push(state, const SettingsPage()),
+      ),
+      GoRoute(
+        parentNavigatorKey: rootKey,
+        path: Routes.person,
+        name: RouteNames.person,
+        pageBuilder: (context, state) => SpPages.push(
+          state,
+          PersonPage(personId: state.pathParameters['id'] ?? ''),
+        ),
       ),
       if (Env.isDev)
         GoRoute(

@@ -10,4 +10,6 @@ extension AppNavigation on BuildContext {
 
   Future<void> openSearch([SearchFilters filters = const SearchFilters()]) =>
       push<void>(Routes.search, extra: filters);
+
+  Future<void> openPerson(String id) => push<void>(Routes.personFor(id));
 }
