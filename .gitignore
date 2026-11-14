@@ -48,3 +48,6 @@ app.*.map.json
 env/*.json
 !env/*.example
 
+
+# Golden test failure diffs
+**/failures/
