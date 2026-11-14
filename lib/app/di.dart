@@ -10,9 +10,11 @@ import 'package:shared_plates_app/core/sync/outbox_store.dart';
 import 'package:shared_plates_app/core/sync/remote_store.dart';
 import 'package:shared_plates_app/core/sync/supabase_remote_store.dart';
 import 'package:shared_plates_app/core/sync/sync_service.dart';
+import 'package:shared_plates_app/core/utils/screen_awake.dart';
 import 'package:shared_plates_app/features/auth/data/auth_repository.dart';
 import 'package:shared_plates_app/features/browse/data/browse_api.dart';
 import 'package:shared_plates_app/features/browse/data/browse_repository.dart';
+import 'package:shared_plates_app/features/cook/data/cook_repository.dart';
 import 'package:shared_plates_app/features/home/data/checklist_repository.dart';
 import 'package:shared_plates_app/features/profile/data/profile_repository.dart';
 import 'package:shared_plates_app/features/recipe/data/cover_cache.dart';
@@ -75,16 +77,21 @@ void configureDependencies({required SupabaseClient? supabase}) {
       ? const OfflineBrowseApi()
       : SupabaseBrowseApi(supabase) as BrowseApi;
   final covers = CoverCache(db: db, api: browseApi);
-  sl.registerSingleton<RecipeDetailRepository>(
-    RecipeDetailRepositoryImpl(
-      db: db,
-      outbox: outbox,
-      remote: remote,
-      sync: sync,
-      api: browseApi,
-      covers: covers,
-    ),
-  );
+  sl
+    ..registerSingleton<RecipeDetailRepository>(
+      RecipeDetailRepositoryImpl(
+        db: db,
+        outbox: outbox,
+        remote: remote,
+        sync: sync,
+        api: browseApi,
+        covers: covers,
+      ),
+    )
+    ..registerSingleton<CookRepository>(
+      CookRepositoryImpl(db: db, outbox: outbox, sync: sync),
+    )
+    ..registerSingleton<ScreenAwake>(const WakelockScreenAwake());
   void backfill() {
     final uid = remote.userId;
     if (uid != null) unawaited(covers.backfill(uid));

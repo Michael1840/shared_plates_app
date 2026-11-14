@@ -89,7 +89,18 @@ abstract final class FontConfigs {
     role: FontRole.display,
     weight: FontWeight.w800,
   );
-  static const cook = FontConfig(size: 26, lineHeight: 36 / 26);
+  static const cookStep = FontConfig(
+    size: 72,
+    lineHeight: 64 / 72,
+    role: FontRole.display,
+    weight: FontWeight.w800,
+  );
+  static const cook = FontConfig(
+    size: 26,
+    lineHeight: 36 / 26,
+    letterSpacing: -0.2,
+    weight: FontWeight.w500,
+  );
   static const body1 = FontConfig(size: 16, lineHeight: 24 / 16);
   static const body2 = FontConfig(size: 15, lineHeight: 21 / 15);
   static const body3 = FontConfig(size: 14, lineHeight: 20 / 14);

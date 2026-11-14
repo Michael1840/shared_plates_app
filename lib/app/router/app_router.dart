@@ -16,6 +16,9 @@ import 'package:shared_plates_app/features/auth/presentation/bloc/session_cubit.
 import 'package:shared_plates_app/features/auth/presentation/pages/email_sign_in_page.dart';
 import 'package:shared_plates_app/features/auth/presentation/pages/splash_page.dart';
 import 'package:shared_plates_app/features/auth/presentation/pages/welcome_page.dart';
+import 'package:shared_plates_app/features/cook/domain/cook_args.dart';
+import 'package:shared_plates_app/features/cook/presentation/pages/cook_done_page.dart';
+import 'package:shared_plates_app/features/cook/presentation/pages/cook_mode_page.dart';
 import 'package:shared_plates_app/features/create/presentation/pages/create_start_page.dart';
 import 'package:shared_plates_app/features/discover/presentation/pages/discover_page.dart';
 import 'package:shared_plates_app/features/friends/presentation/pages/friends_page.dart';
@@ -186,6 +189,32 @@ GoRouter buildRouter(SessionCubit session) {
             card: state.extra is RecipeCard ? state.extra! as RecipeCard : null,
           ),
         ),
+        routes: [
+          GoRoute(
+            parentNavigatorKey: rootKey,
+            path: Routes.cook,
+            name: RouteNames.cook,
+            pageBuilder: (context, state) => SpPages.sheet(
+              state,
+              CookModePage(
+                recipeId: state.pathParameters['id'] ?? '',
+                args: state.extra is CookArgs ? state.extra! as CookArgs : null,
+              ),
+            ),
+          ),
+          GoRoute(
+            parentNavigatorKey: rootKey,
+            path: Routes.cooked,
+            name: RouteNames.cooked,
+            redirect: (context, state) => state.extra is CookedArgs
+                ? null
+                : Routes.recipeFor(state.pathParameters['id'] ?? ''),
+            pageBuilder: (context, state) => SpPages.fade(
+              state,
+              CookDonePage(args: state.extra! as CookedArgs),
+            ),
+          ),
+        ],
       ),
       if (Env.isDev)
         GoRoute(

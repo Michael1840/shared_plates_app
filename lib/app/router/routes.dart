@@ -14,8 +14,14 @@ abstract final class Routes {
   static const gallery = '/gallery';
   static const search = '/search';
   static const recipe = '/recipe/:id';
+  static const cook = 'cook';
+  static const cooked = 'cooked';
 
   static String recipeFor(String id) => '/recipe/$id';
+
+  static String cookFor(String id) => '/recipe/$id/$cook';
+
+  static String cookedFor(String id) => '/recipe/$id/$cooked';
 }
 
 abstract final class RouteNames {
@@ -33,4 +39,6 @@ abstract final class RouteNames {
   static const gallery = 'gallery';
   static const search = 'search';
   static const recipe = 'recipe';
+  static const cook = 'cook';
+  static const cooked = 'cooked';
 }

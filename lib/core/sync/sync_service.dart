@@ -361,6 +361,28 @@ class SyncService {
     ]);
     await _pullTicks(uid, pending);
     await _pullRecentlyViewed(uid, pending);
+    await _pullCooks(uid);
+  }
+
+  Future<void> _pullCooks(String uid) async {
+    final rows = await _remote.fetchIn(
+      'cooks',
+      column: 'user_id',
+      values: [uid],
+    );
+    await _db.batch(
+      (b) => b.insertAll(_db.cooks, [
+        for (final r in rows)
+          CooksCompanion.insert(
+            id: r['id'] as String,
+            userId: uid,
+            recipeId: r['recipe_id'] as String,
+            servings: Value((r['servings'] as num?)?.toInt()),
+            toldCreator: Value(r['told_creator'] as bool? ?? false),
+            cookedAt: DateTime.parse(r['cooked_at'] as String),
+          ),
+      ], mode: InsertMode.insertOrIgnore),
+    );
   }
 
   Future<void> _pullTicks(String uid, Set<String> pending) async {

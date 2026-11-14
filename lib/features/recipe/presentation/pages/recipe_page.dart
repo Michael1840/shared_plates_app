@@ -22,6 +22,7 @@ import 'package:shared_plates_app/core/widgets/sp_icon.dart';
 import 'package:shared_plates_app/core/widgets/status_note.dart';
 import 'package:shared_plates_app/core/widgets/time_stamp.dart';
 import 'package:shared_plates_app/features/auth/presentation/bloc/session_cubit.dart';
+import 'package:shared_plates_app/features/cook/domain/cook_args.dart';
 import 'package:shared_plates_app/features/profile/presentation/bloc/current_profile_cubit.dart';
 import 'package:shared_plates_app/features/recipe/data/recipe_detail_repository.dart';
 import 'package:shared_plates_app/features/recipe/domain/recipe_detail.dart';
@@ -226,6 +227,29 @@ class _CookBar extends StatelessWidget {
     unawaited(context.push(Routes.recipeFor(id)));
   }
 
+  void _cook(BuildContext context) {
+    final state = context.read<RecipeDetailCubit>().state;
+    final detail = state.detail.value;
+    if (detail == null || detail.steps.isEmpty) {
+      context.showSnackBarMessage(
+        detail == null
+            ? 'Still loading. One sec.'
+            : 'No steps to cook through yet.',
+      );
+      return;
+    }
+    unawaited(
+      context.push(
+        Routes.cookFor(detail.card.id),
+        extra: CookArgs(
+          servings: state.currentServings,
+          units: state.units,
+          coverUrl: state.coverUrl ?? detail.card.coverUrl,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final bottom = MediaQuery.paddingOf(context).bottom;
@@ -256,7 +280,7 @@ class _CookBar extends StatelessWidget {
             ),
           PrimaryButton(
             label: 'Start cooking',
-            onTap: () => context.showSnackBarMessage('Cook mode is next up.'),
+            onTap: () => _cook(context),
           ).expand(),
         ],
       ),

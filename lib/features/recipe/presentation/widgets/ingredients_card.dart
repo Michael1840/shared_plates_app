@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_plates_app/core/domain/measure.dart';
 import 'package:shared_plates_app/core/domain/models/recipe.dart';
+import 'package:shared_plates_app/core/domain/step_timer.dart';
 import 'package:shared_plates_app/core/theme/app_text.dart';
 import 'package:shared_plates_app/core/theme/motion.dart';
 import 'package:shared_plates_app/core/theme/sizing.dart';
@@ -269,7 +270,10 @@ class _StepCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final seconds = step.timerSeconds;
+    final seconds = StepTimer.secondsFor(
+      explicit: step.timerSeconds,
+      body: step.body,
+    );
     return Container(
       padding: const EdgeInsets.all(Spacing.m),
       decoration: BoxDecoration(

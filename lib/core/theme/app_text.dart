@@ -54,3 +54,27 @@ class AppText extends StatelessWidget {
     );
   }
 }
+
+class AppRichText extends StatelessWidget {
+  const new({
+    required this.spans,
+    required this.config,
+    super.key,
+    this.color,
+    this.align,
+  });
+
+  final List<TextSpan> spans;
+  final FontConfig config;
+  final Color? color;
+  final TextAlign? align;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text.rich(
+      TextSpan(children: spans),
+      textAlign: align,
+      style: context.textStyle(config, color: color ?? context.textPrimary),
+    );
+  }
+}

@@ -10,6 +10,7 @@ import 'package:shared_plates_app/app/di.dart';
 import 'package:shared_plates_app/core/db/app_database.dart';
 import 'package:shared_plates_app/core/domain/enums.dart';
 import 'package:shared_plates_app/core/domain/models/profile.dart';
+import 'package:shared_plates_app/core/domain/models/recipe.dart';
 import 'package:shared_plates_app/core/domain/models/reference.dart';
 import 'package:shared_plates_app/core/domain/search_filters.dart';
 import 'package:shared_plates_app/core/settings/app_settings_store.dart';
@@ -17,6 +18,8 @@ import 'package:shared_plates_app/core/sync/outbox_store.dart';
 import 'package:shared_plates_app/core/sync/remote_store.dart';
 import 'package:shared_plates_app/core/sync/sync_service.dart';
 import 'package:shared_plates_app/core/theme/app_theme.dart';
+import 'package:shared_plates_app/core/utils/result.dart';
+import 'package:shared_plates_app/core/utils/screen_awake.dart';
 import 'package:shared_plates_app/core/widgets/dot_grid_background.dart';
 import 'package:shared_plates_app/core/widgets/paprika.dart';
 import 'package:shared_plates_app/features/auth/data/auth_repository.dart';
@@ -24,6 +27,10 @@ import 'package:shared_plates_app/features/auth/presentation/bloc/session_cubit.
 import 'package:shared_plates_app/features/auth/presentation/pages/email_sign_in_page.dart';
 import 'package:shared_plates_app/features/auth/presentation/pages/welcome_page.dart';
 import 'package:shared_plates_app/features/browse/data/browse_repository.dart';
+import 'package:shared_plates_app/features/cook/data/cook_repository.dart';
+import 'package:shared_plates_app/features/cook/domain/cook_args.dart';
+import 'package:shared_plates_app/features/cook/presentation/pages/cook_done_page.dart';
+import 'package:shared_plates_app/features/cook/presentation/pages/cook_mode_page.dart';
 import 'package:shared_plates_app/features/discover/presentation/pages/discover_page.dart';
 import 'package:shared_plates_app/features/home/data/checklist_repository.dart';
 import 'package:shared_plates_app/features/home/presentation/pages/home_page.dart';
@@ -43,6 +50,16 @@ import '../helpers/recipe_seed.dart';
 class _MockSession extends MockCubit<SessionState> implements SessionCubit;
 
 class _MockProfile extends MockCubit<Profile?> implements CurrentProfileCubit;
+
+class _MockCooks extends Mock implements CookRepository;
+
+class _StillScreen implements ScreenAwake {
+  @override
+  Future<void> keepOn() async {}
+
+  @override
+  Future<void> release() async {}
+}
 
 final List<Tag> _tags = [
   for (final (i, t) in const [
@@ -108,6 +125,16 @@ void main() {
         _rich('s2', 'Peri-peri chicken livers', minutes: 20, cents: 1900),
         _rich('s3', 'Chicken and butter bean curry', cents: 2400),
       ];
+    final cooks = _MockCooks();
+    when(() => cooks.cooksThisMonth(any())).thenAnswer((_) async => 2);
+    when(
+      () => cooks.logCook(
+        uid: any(named: 'uid'),
+        recipeId: any(named: 'recipeId'),
+        servings: any(named: 'servings'),
+        toldCreator: any(named: 'toldCreator'),
+      ),
+    ).thenAnswer((_) async => const Result.ok('c1'));
     final profiles = MockProfileRepository();
     when(profiles.watchTags).thenAnswer((_) => Stream.value(_tags));
     final outbox = OutboxStore(db);
@@ -148,7 +175,9 @@ void main() {
       )
       ..registerSingleton<ChecklistRepository>(
         ChecklistRepositoryImpl(db, AppSettingsStore(db)),
-      );
+      )
+      ..registerSingleton<CookRepository>(cooks)
+      ..registerSingleton<ScreenAwake>(_StillScreen());
     session = _MockSession();
     when(() => session.state)
         .thenReturn(const SessionState(status: SessionStatus.guest));
@@ -288,6 +317,45 @@ void main() {
     await expectLater(
       find.byType(MaterialApp),
       matchesGoldenFile('goldens/email_sign_in.png'),
+    );
+  });
+
+  testWidgets('cook mode', (tester) async {
+    await tester.runAsync(
+      () => sl<RecipeDetailRepository>().refresh(seedRecipeId),
+    );
+    await pumpScreen(
+      tester,
+      const CookModePage(
+        recipeId: seedRecipeId,
+        args: CookArgs(servings: 4, units: UnitSystem.metric),
+      ),
+      height: 844,
+      wrap: false,
+    );
+    expect(tester.takeException(), isNull);
+    await expectLater(
+      find.byType(MaterialApp),
+      matchesGoldenFile('goldens/cook_mode.png'),
+    );
+  });
+
+  testWidgets('cook finished', (tester) async {
+    when(() => session.state).thenReturn(
+      const SessionState(status: SessionStatus.signedIn, userId: 'u1'),
+    );
+    await pumpScreen(
+      tester,
+      CookDonePage(
+        args: CookedArgs(card: RecipeCard.fromJson(seedCard()), servings: 4),
+      ),
+      height: 844,
+      wrap: false,
+    );
+    expect(tester.takeException(), isNull);
+    await expectLater(
+      find.byType(MaterialApp),
+      matchesGoldenFile('goldens/cook_done.png'),
     );
   });
 
