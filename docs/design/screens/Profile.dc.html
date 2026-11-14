@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Your profile</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Inter:wght@400;500;600;700&amp;family=Caveat:wght@600;700&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#C4421D}a:hover{color:#8F2E12}
+.ico{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+button{font:inherit;cursor:pointer}
+/* SharedPlates motion: one curve family, short durations */
+:root{--ease-out:cubic-bezier(.22,1,.36,1);--ease-in:cubic-bezier(.55,0,1,.45);--ease-back:cubic-bezier(.34,1.56,.64,1);--t-press:120ms;--t-small:200ms;--t-med:300ms;--t-large:450ms}
+@keyframes m-rise{from{opacity:0;translate:0 14px}}
+@keyframes m-print{from{opacity:0;translate:0 22px;rotate:-5deg}}
+@keyframes m-pap{from{opacity:0;scale:.6;translate:0 14px}}
+@keyframes m-note{from{clip-path:inset(-20% 100% -20% 0)}to{clip-path:inset(-20% -6% -20% 0)}}
+@keyframes m-stamp{from{opacity:0;scale:1.7}}
+@keyframes m-sheet{from{translate:0 100%}}
+@keyframes m-fade{from{opacity:0}}
+@keyframes m-bump{35%{scale:1.3;color:#C4421D}}
+@keyframes m-bump2{35%{scale:1.3;color:#C4421D}}
+@keyframes m-flash{from{background-color:rgba(233,162,59,.5)}to{background-color:rgba(233,162,59,0)}}
+@keyframes m-flash2{from{background-color:rgba(233,162,59,.5)}to{background-color:rgba(233,162,59,0)}}
+@keyframes m-draw{from{stroke-dashoffset:24}to{stroke-dashoffset:0}}
+@keyframes m-next{from{opacity:0;translate:32px 0}}
+@keyframes m-next2{from{opacity:0;translate:32px 0}}
+@keyframes m-back{from{opacity:0;translate:-32px 0}}
+@keyframes m-back2{from{opacity:0;translate:-32px 0}}
+.m-rise{animation:m-rise var(--t-large) var(--ease-out) backwards;animation-delay:var(--d,0ms)}
+.m-print{animation:m-print 520ms var(--ease-out) backwards;animation-delay:var(--d,140ms);transition:translate var(--t-small) var(--ease-out),box-shadow var(--t-small) var(--ease-out),scale var(--t-press) var(--ease-out)}
+a.m-print:hover,.m-lift:hover .m-print{translate:0 -4px;box-shadow:0 16px 30px rgba(60,35,20,.22)!important}
+.m-pap{animation:m-pap 560ms var(--ease-back) backwards;animation-delay:var(--d,240ms)}
+.m-note{animation:m-note 640ms var(--ease-out) backwards;animation-delay:var(--d,420ms)}
+.m-stamp{animation:m-stamp 360ms var(--ease-back) backwards;animation-delay:var(--d,640ms)}
+.m-sheet{animation:m-sheet var(--t-large) var(--ease-out) backwards;animation-delay:80ms}
+.m-scrim{animation:m-fade var(--t-med) var(--ease-out) backwards}
+.m-print:nth-child(1){--d:160ms}.m-print:nth-child(2){--d:230ms}.m-print:nth-child(3){--d:300ms}.m-print:nth-child(4){--d:370ms}.m-print:nth-child(5){--d:440ms}.m-print:nth-child(6){--d:510ms}
+.m-tile:nth-child(1){--d:180ms}.m-tile:nth-child(2){--d:230ms}.m-tile:nth-child(3){--d:280ms}.m-tile:nth-child(4){--d:330ms}
+.m-row:nth-child(1){--d:260ms}.m-row:nth-child(2){--d:310ms}.m-row:nth-child(3){--d:360ms}.m-row:nth-child(4){--d:410ms}.m-row:nth-child(5){--d:460ms}.m-row:nth-child(n+6){--d:500ms}
+.m-tile img{transition:rotate var(--t-med) var(--ease-back),scale var(--t-med) var(--ease-back)}
+.m-tile:hover img{rotate:12deg;scale:1.06}
+button,a,label{transition:scale var(--t-press) var(--ease-out),background-color var(--t-small) var(--ease-out),color var(--t-small) var(--ease-out),box-shadow var(--t-small) var(--ease-out),border-color var(--t-small) var(--ease-out)}
+button:active,a:active{scale:.97}
+label:focus-within{box-shadow:0 0 0 3px rgba(233,162,59,.7),0 6px 16px rgba(80,25,8,.18)!important}
+:focus-visible{outline:3px solid #E9A23B;outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:1ms!important;animation-delay:0ms!important;transition-duration:1ms!important}}
+/* end motion */
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background-color: #F6F1EA; background-image: radial-gradient(#E4D8CB 1.1px, transparent 1.3px); background-size: 20px 20px; font-family: Inter, system-ui, sans-serif; color: #241C17; position: relative; overflow: hidden">
+
+  <header style="position: relative; background: #C4421D; color: #FFF6EE; border-radius: 0 0 40px 40px; padding: 56px 20px 64px; overflow: hidden">
+    <svg aria-hidden="true" viewBox="0 0 390 300" width="390" height="300" style="position: absolute; left: 0; top: 0; opacity: 0.12">
+      <circle cx="370" cy="40" r="96" fill="none" stroke="#FFF6EE" stroke-width="2"/>
+      <circle cx="370" cy="40" r="64" fill="none" stroke="#FFF6EE" stroke-width="2"/>
+    </svg>
+    <div style="position: relative; display: flex; align-items: center; gap: 8px">
+      <a href="Home.dc.html" aria-label="Back" style="width: 44px; height: 44px; border-radius: 50%; background: rgba(255, 246, 238, 0.16); color: #FFF6EE; display: flex; align-items: center; justify-content: center">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+      </a>
+      <span style="flex: 1"></span>
+      <a href="Settings.dc.html" aria-label="Settings" style="width: 44px; height: 44px; border-radius: 50%; background: rgba(255, 246, 238, 0.16); color: #FFF6EE; display: flex; align-items: center; justify-content: center">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM19 12a7 7 0 0 0-.1-1.2l2-1.5-2-3.4-2.3.9a7 7 0 0 0-2-1.2L14.2 3h-4.4l-.4 2.6a7 7 0 0 0-2 1.2l-2.3-.9-2 3.4 2 1.5a7 7 0 0 0 0 2.4l-2 1.5 2 3.4 2.3-.9a7 7 0 0 0 2 1.2l.4 2.6h4.4l.4-2.6a7 7 0 0 0 2-1.2l2.3.9 2-3.4-2-1.5A7 7 0 0 0 19 12z"/></svg>
+      </a>
+    </div>
+    <div style="position: relative; display: flex; align-items: center; gap: 16px; margin-top: 12px">
+      <span style="width: 84px; height: 84px; border-radius: 50%; background: #FFF6EE; color: #8F2E12; font-family: 'Bricolage Grotesque', Inter, sans-serif; font-weight: 800; font-size: 30px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 0 0 4px rgba(255, 246, 238, 0.3)">TN</span>
+      <div style="display: flex; flex-direction: column; gap: 2px; min-width: 0">
+        <h1 class="m-rise" style="margin: 0; font-family: 'Bricolage Grotesque', Inter, sans-serif; font-size: 30px; line-height: 32px; font-weight: 800; letter-spacing: -0.8px; --d: 60ms">Thandi Nkosi</h1>
+        <span style="font-size: 14px; opacity: 0.9">@thandi.cooks · Cape Town</span>
+      </div>
+    </div>
+    <p class="m-note" style="position: relative; margin: 12px 0 0; font-family: Caveat, cursive; font-size: 22px; line-height: 22px; font-weight: 700; color: #FFE3C7; transform: rotate(-1.5deg); transform-origin: left center">Budget suppers + anything my gran made</p>
+  </header>
+
+  <div style="padding: 0 20px; display: flex; flex-direction: column">
+    <div style="position: relative; margin-top: -40px; background: #FFFFFF; border-radius: 24px; padding: 14px 12px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; text-align: center; box-shadow: 0 10px 24px rgba(60, 35, 20, 0.12)">
+      <a href="Recipes.dc.html" style="display: flex; flex-direction: column; gap: 2px; text-decoration: none; color: #241C17; padding: 4px 0">
+        <span style="font-family: 'Bricolage Grotesque', Inter, sans-serif; font-size: 26px; font-weight: 800">7</span>
+        <span style="font-size: 12px; color: #6B5D54">Recipes</span>
+      </a>
+      <div style="display: flex; flex-direction: column; gap: 2px; padding: 4px 0; border-left: 1px solid #EFE6DC; border-right: 1px solid #EFE6DC">
+        <span style="font-family: 'Bricolage Grotesque', Inter, sans-serif; font-size: 26px; font-weight: 800; color: #C4421D">86</span>
+        <span style="font-size: 12px; color: #6B5D54">Saves by others</span>
+      </div>
+      <a href="Friends.dc.html" style="display: flex; flex-direction: column; gap: 2px; text-decoration: none; color: #241C17; padding: 4px 0">
+        <span style="font-family: 'Bricolage Grotesque', Inter, sans-serif; font-size: 26px; font-weight: 800">12</span>
+        <span style="font-size: 12px; color: #6B5D54">Friends</span>
+      </a>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 12px">
+      <button style="height: 48px; border-radius: 24px; border: none; background: #FFFFFF; box-shadow: 0 0 0 1px #EBE2D8; color: #241C17; font-size: 15px; font-weight: 600">Edit profile</button>
+      <button style="height: 48px; border-radius: 24px; border: none; background: #FFFFFF; box-shadow: 0 0 0 1px #EBE2D8; color: #241C17; font-size: 15px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px">
+        <svg class="ico" style="width: 18px; height: 18px" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V4M8 8l4-4 4 4M5 13v6a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-6"/></svg>
+        Share profile
+      </button>
+    </div>
+
+    <div class="m-print" style="position: relative; margin-top: 20px; background: #FBEFD5; border-radius: 6px; padding: 14px 16px 14px 92px; transform: rotate(-1deg); box-shadow: 0 6px 14px rgba(60, 35, 20, 0.1)">
+      <span aria-hidden="true" style="position: absolute; top: -10px; left: 50%; width: 64px; height: 20px; margin-left: -32px; background: rgba(233, 162, 59, 0.55); transform: rotate(3deg)"></span>
+      <img class="m-pap" src="/_blob/a1d1cb08871dc8d5cb4e85997a76df44" alt="" style="position: absolute; left: 6px; top: 50%; margin-top: -42px; width: 84px; height: 84px">
+      <span class="m-note" style="display: block; font-family: Caveat, cursive; font-size: 22px; line-height: 22px; font-weight: 700; color: #8F2E12">Look at you go!</span>
+      <span style="display: block; margin-top: 2px; font-size: 14px; line-height: 20px; color: #3D2A08">23 saves this month and 5 people cooked your food.</span>
+    </div>
+
+    <div style="display: flex; align-items: baseline; justify-content: space-between; margin-top: 24px">
+      <h2 class="m-rise" style="margin: 0; font-family: 'Bricolage Grotesque', Inter, sans-serif; font-size: 22px; font-weight: 800; letter-spacing: -0.4px; --d: 160ms">Your recipes</h2>
+      <a href="Recipes.dc.html" style="font-size: 14px; font-weight: 600; text-decoration: none; padding: 8px 0">See all 7</a>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 16px; margin-top: 8px; padding: 0 2px">
+      <sc-for list="{{cards}}" as="r" hint-placeholder-count="2">
+        <a class="m-print" href="Recipe-Detail.dc.html" style="position: relative; background: #FFFFFF; padding: 6px 6px 10px; border-radius: 5px; box-shadow: 0 6px 16px rgba(60, 35, 20, 0.12); display: flex; flex-direction: column; gap: 4px; text-decoration: none; color: #241C17; transform: rotate({{r.tilt}})">
+          <img src="{{r.img}}" alt="" style="width: 100%; height: 116px; object-fit: cover; border-radius: 2px; display: block">
+          <span style="padding: 2px 2px 0; font-family: 'Bricolage Grotesque', Inter, sans-serif; font-size: 15px; line-height: 18px; font-weight: 700">{{r.title}}</span>
+          <span style="padding: 0 2px; font-size: 12px; color: #6B5D54">{{r.meta}}</span>
+        </a>
+      </sc-for>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      cards: [
+        { title: 'Gran’s chakalaka', meta: 'Saved 32× · cooked 5×', tilt: '-1.4deg', img: '/_blob/21c3b93449c39969f2beb11672d2c237' },
+        { title: 'Pantry tomato pasta', meta: 'Saved 9× · cooked 1×', tilt: '1.4deg', img: '/_blob/6fc377a4d5eafc23856ca108f8111afd' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

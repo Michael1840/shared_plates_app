@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Your recipes</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Inter:wght@400;500;600;700&amp;family=Caveat:wght@600;700&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#C4421D}a:hover{color:#8F2E12}
+.ico{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+button,input{font:inherit}
+button{cursor:pointer}
+/* SharedPlates motion: one curve family, short durations */
+:root{--ease-out:cubic-bezier(.22,1,.36,1);--ease-in:cubic-bezier(.55,0,1,.45);--ease-back:cubic-bezier(.34,1.56,.64,1);--t-press:120ms;--t-small:200ms;--t-med:300ms;--t-large:450ms}
+@keyframes m-rise{from{opacity:0;translate:0 14px}}
+@keyframes m-print{from{opacity:0;translate:0 22px;rotate:-5deg}}
+@keyframes m-pap{from{opacity:0;scale:.6;translate:0 14px}}
+@keyframes m-note{from{clip-path:inset(-20% 100% -20% 0)}to{clip-path:inset(-20% -6% -20% 0)}}
+@keyframes m-stamp{from{opacity:0;scale:1.7}}
+@keyframes m-sheet{from{translate:0 100%}}
+@keyframes m-fade{from{opacity:0}}
+@keyframes m-bump{35%{scale:1.3;color:#C4421D}}
+@keyframes m-bump2{35%{scale:1.3;color:#C4421D}}
+@keyframes m-flash{from{background-color:rgba(233,162,59,.5)}to{background-color:rgba(233,162,59,0)}}
+@keyframes m-flash2{from{background-color:rgba(233,162,59,.5)}to{background-color:rgba(233,162,59,0)}}
+@keyframes m-draw{from{stroke-dashoffset:24}to{stroke-dashoffset:0}}
+@keyframes m-next{from{opacity:0;translate:32px 0}}
+@keyframes m-next2{from{opacity:0;translate:32px 0}}
+@keyframes m-back{from{opacity:0;translate:-32px 0}}
+@keyframes m-back2{from{opacity:0;translate:-32px 0}}
+.m-rise{animation:m-rise var(--t-large) var(--ease-out) backwards;animation-delay:var(--d,0ms)}
+.m-print{animation:m-print 520ms var(--ease-out) backwards;animation-delay:var(--d,140ms);transition:translate var(--t-small) var(--ease-out),box-shadow var(--t-small) var(--ease-out),scale var(--t-press) var(--ease-out)}
+a.m-print:hover,.m-lift:hover .m-print{translate:0 -4px;box-shadow:0 16px 30px rgba(60,35,20,.22)!important}
+.m-pap{animation:m-pap 560ms var(--ease-back) backwards;animation-delay:var(--d,240ms)}
+.m-note{animation:m-note 640ms var(--ease-out) backwards;animation-delay:var(--d,420ms)}
+.m-stamp{animation:m-stamp 360ms var(--ease-back) backwards;animation-delay:var(--d,640ms)}
+.m-sheet{animation:m-sheet var(--t-large) var(--ease-out) backwards;animation-delay:80ms}
+.m-scrim{animation:m-fade var(--t-med) var(--ease-out) backwards}
+.m-print:nth-child(1){--d:160ms}.m-print:nth-child(2){--d:230ms}.m-print:nth-child(3){--d:300ms}.m-print:nth-child(4){--d:370ms}.m-print:nth-child(5){--d:440ms}.m-print:nth-child(6){--d:510ms}
+.m-tile:nth-child(1){--d:180ms}.m-tile:nth-child(2){--d:230ms}.m-tile:nth-child(3){--d:280ms}.m-tile:nth-child(4){--d:330ms}
+.m-row:nth-child(1){--d:260ms}.m-row:nth-child(2){--d:310ms}.m-row:nth-child(3){--d:360ms}.m-row:nth-child(4){--d:410ms}.m-row:nth-child(5){--d:460ms}.m-row:nth-child(n+6){--d:500ms}
+.m-tile img{transition:rotate var(--t-med) var(--ease-back),scale var(--t-med) var(--ease-back)}
+.m-tile:hover img{rotate:12deg;scale:1.06}
+button,a,label{transition:scale var(--t-press) var(--ease-out),background-color var(--t-small) var(--ease-out),color var(--t-small) var(--ease-out),box-shadow var(--t-small) var(--ease-out),border-color var(--t-small) var(--ease-out)}
+button:active,a:active{scale:.97}
+label:focus-within{box-shadow:0 0 0 3px rgba(233,162,59,.7),0 6px 16px rgba(80,25,8,.18)!important}
+:focus-visible{outline:3px solid #E9A23B;outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:1ms!important;animation-delay:0ms!important;transition-duration:1ms!important}}
+/* end motion */
+</style>
+</helmet>
+<div style="width: 390px; height: 1120px; box-sizing: border-box; background-color: #F6F1EA; background-image: radial-gradient(#E4D8CB 1.1px, transparent 1.3px); background-size: 20px 20px; font-family: Inter, system-ui, sans-serif; color: #241C17; position: relative; overflow: hidden">
+
+  <header style="position: relative; background: #C4421D; color: #FFF6EE; border-radius: 0 0 40px 40px; padding: 56px 20px 20px; overflow: hidden">
+    <svg aria-hidden="true" viewBox="0 0 390 300" width="390" height="300" style="position: absolute; left: 0; top: 0; opacity: 0.12">
+      <circle cx="380" cy="10" r="90" fill="none" stroke="#FFF6EE" stroke-width="2"/>
+      <circle cx="380" cy="10" r="60" fill="none" stroke="#FFF6EE" stroke-width="2"/>
+    </svg>
+    <div style="position: relative; display: flex; align-items: flex-end; min-height: 96px">
+      <div style="flex: 1; display: flex; flex-direction: column; gap: 4px">
+        <h1 class="m-rise" style="margin: 0; font-family: 'Bricolage Grotesque', Inter, sans-serif; font-size: 40px; line-height: 40px; font-weight: 800; letter-spacing: -1.5px; --d: 60ms">Your recipes</h1>
+        <span class="m-note" style="font-family: Caveat, cursive; font-size: 21px; line-height: 20px; font-weight: 700; color: #FFE3C7; transform: rotate(-2deg); transform-origin: left center">38 and counting</span>
+      </div>
+      <img class="m-pap" src="/_blob/a1d1cb08871dc8d5cb4e85997a76df44" alt="Paprika" style="width: 96px; height: 96px; transform: rotate(-6deg); margin: 0 -6px -10px 0">
+    </div>
+    <label class="m-rise" for="rq" style="position: relative; margin-top: 16px; height: 52px; border-radius: 26px; background: #FFFFFF; display: flex; align-items: center; gap: 12px; padding: 0 16px; color: #6B5D54; box-shadow: 0 6px 16px rgba(80, 25, 8, 0.18); --d: 140ms">
+      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14zM20 20l-4-4"/></svg>
+      <input id="rq" placeholder="Search your recipes" aria-label="Search your recipes" style="flex: 1; border: none; background: transparent; font-size: 15px; color: #241C17; outline: none; min-width: 0">
+    </label>
+    <div role="tablist" style="position: relative; margin-top: 12px; background: rgba(255, 246, 238, 0.16); border-radius: 22px; padding: 4px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px">
+      <button role="tab" aria-selected="true" style="height: 40px; border-radius: 18px; border: none; background: #FFF6EE; color: #8F2E12; font-size: 14px; font-weight: 700">All · 38</button>
+      <button role="tab" aria-selected="false" style="height: 40px; border-radius: 18px; border: none; background: transparent; color: #FFF6EE; font-size: 14px; font-weight: 600">Saved · 31</button>
+      <button role="tab" aria-selected="false" style="height: 40px; border-radius: 18px; border: none; background: transparent; color: #FFF6EE; font-size: 14px; font-weight: 600">Created · 7</button>
+    </div>
+  </header>
+
+  <div style="padding: 0 20px; display: flex; flex-direction: column">
+    <div style="display: flex; gap: 8px; margin-top: 20px; margin-right: -20px">
+      <a href="Filter-Sheet.dc.html" style="height: 40px; padding: 0 12px; border-radius: 12px; background: #FFFFFF; box-shadow: 0 0 0 1px #EBE2D8, 0 1px 2px rgba(60, 35, 20, 0.06); color: #241C17; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 8px; flex-shrink: 0; text-decoration: none">
+        <svg class="ico" style="width: 16px; height: 16px" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8M16 5v4M10 15v4"/></svg>
+        Filters · 1
+      </a>
+      <button aria-pressed="true" style="height: 40px; padding: 0 10px 0 12px; border-radius: 12px; border: none; background: #F9E3D8; box-shadow: inset 0 0 0 1.5px #C4421D; color: #7A2710; font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 8px; flex-shrink: 0">
+        Under R100
+        <svg class="ico" style="width: 14px; height: 14px; stroke-width: 2.4" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+      <button aria-pressed="false" style="height: 40px; padding: 0 12px; border-radius: 12px; border: none; background: #FFFFFF; box-shadow: 0 0 0 1px #EBE2D8, 0 1px 2px rgba(60, 35, 20, 0.06); color: #241C17; font-size: 13px; font-weight: 500; flex-shrink: 0">Quick</button>
+      <button aria-pressed="false" style="height: 40px; padding: 0 12px; border-radius: 12px; border: none; background: #FFFFFF; box-shadow: 0 0 0 1px #EBE2D8, 0 1px 2px rgba(60, 35, 20, 0.06); color: #241C17; font-size: 13px; font-weight: 500; flex-shrink: 0">Veggie</button>
+      <button aria-pressed="false" style="height: 40px; padding: 0 12px; border-radius: 12px; border: none; background: #FFFFFF; box-shadow: 0 0 0 1px #EBE2D8, 0 1px 2px rgba(60, 35, 20, 0.06); color: #241C17; font-size: 13px; font-weight: 500; flex-shrink: 0">Dessert</button>
+    </div>
+
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 8px">
+      <span style="font-size: 13px; color: #6B5D54">24 recipes</span>
+      <button style="border: none; background: transparent; color: #241C17; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 4px; padding: 12px 0">
+        Recently added
+        <svg class="ico" style="width: 16px; height: 16px" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 16px; row-gap: 20px; margin-top: 8px; padding: 0 2px">
+      <a class="m-print" href="Create-Editor.dc.html" style="position: relative; background: #FFFDF9; padding: 6px 6px 10px; border-radius: 5px; border: 2px dashed #D9C7B8; display: flex; flex-direction: column; gap: 4px; text-decoration: none; color: #241C17; transform: rotate(-1.2deg); box-sizing: border-box">
+        <div style="height: 116px; border-radius: 2px; background: #FBEFD5; display: flex; align-items: center; justify-content: center">
+          <img class="m-pap" src="/_blob/fd05c3b3ed07ba9f787fd29eb349f1ae" alt="" style="width: 88px; height: 88px">
+        </div>
+        <span style="padding: 2px 2px 0; font-size: 11px; font-weight: 700; color: #7A4C0C; text-transform: uppercase; letter-spacing: 0.6px">Draft</span>
+        <span style="padding: 0 2px; font-family: 'Bricolage Grotesque', Inter, sans-serif; font-size: 15px; line-height: 18px; font-weight: 700">Gran's malva pudding</span>
+        <span class="m-note" style="padding: 0 2px; font-family: Caveat, cursive; font-size: 18px; line-height: 17px; font-weight: 700; color: #8F2E12">2 steps to go!</span>
+      </a>
+      <sc-for list="{{cards}}" as="r" hint-placeholder-count="5">
+        <a class="m-print" href="Recipe-Detail.dc.html" style="position: relative; background: #FFFFFF; padding: 6px 6px 10px; border-radius: 5px; box-shadow: 0 6px 16px rgba(60, 35, 20, 0.12); display: flex; flex-direction: column; gap: 4px; text-decoration: none; color: #241C17; transform: rotate({{r.tilt}})">
+          <span aria-hidden="true" style="position: absolute; top: -9px; left: 50%; width: 52px; height: 16px; margin-left: -26px; background: rgba(233, 162, 59, 0.55); transform: rotate({{r.tape}}); z-index: 1; display: {{r.tapeShow}}"></span>
+          <div style="position: relative">
+            <img src="{{r.img}}" alt="" style="width: 100%; height: 116px; object-fit: cover; border-radius: 2px; display: block">
+            <span style="position: absolute; left: 6px; top: 6px; border-radius: 999px; padding: 3px 8px; font-size: 11px; font-weight: 700; background: {{r.tagBg}}; color: {{r.tagFg}}">{{r.tag}}</span>
+          </div>
+          <span style="padding: 2px 2px 0; font-family: 'Bricolage Grotesque', Inter, sans-serif; font-size: 15px; line-height: 18px; font-weight: 700">{{r.title}}</span>
+          <span style="padding: 0 2px; font-size: 12px; color: #6B5D54">{{r.meta}}</span>
+        </a>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="position: absolute; left: 0; bottom: 0">
+    <dc-import name="TabBar" active="recipes" hint-size="390px,96px"></dc-import>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1120}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const mine = { tag: 'Yours', tagBg: '#C4421D', tagFg: '#FFFFFF' };
+    const saved = { tag: 'Saved', tagBg: '#FFFFFF', tagFg: '#241C17' };
+    const tape = (t) => ({ tape: t, tapeShow: 'block' });
+    const none = { tape: '0deg', tapeShow: 'none' };
+    return {
+      cards: [
+        { title: 'Gran’s chakalaka', meta: 'R11 a plate · saved 32×', tilt: '1.4deg', img: '/_blob/21c3b93449c39969f2beb11672d2c237', ...mine, ...tape('-4deg') },
+        { title: 'Cape Malay chicken curry', meta: 'R37 a plate · Lerato M.', tilt: '1deg', img: '/_blob/bba34ca874bd0e3b4ba3d543557bb0c7', ...saved, ...none },
+        { title: 'Peri-peri chicken livers', meta: 'R19 a plate · Riaan v. W.', tilt: '-1.4deg', img: '/_blob/5244c8ab21a47605c7219e1c3620e4ca', ...saved, ...tape('3deg') },
+        { title: 'Pantry tomato pasta', meta: 'R14 a plate · saved 9×', tilt: '-1deg', img: '/_blob/6fc377a4d5eafc23856ca108f8111afd', ...mine, ...none },
+        { title: 'Lemon drizzle mug cake', meta: 'R8 a plate · Nadia S.', tilt: '1.2deg', img: '/_blob/cd04100869b5f57ad968a25fdb12a2b7', ...saved, ...tape('-3deg') }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

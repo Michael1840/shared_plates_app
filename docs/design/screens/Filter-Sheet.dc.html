@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Filter sheet</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Inter:wght@400;500;600;700&amp;family=Caveat:wght@600;700&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#C4421D}a:hover{color:#8F2E12}
+.ico{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+button{font:inherit;cursor:pointer}
+/* SharedPlates motion: one curve family, short durations */
+:root{--ease-out:cubic-bezier(.22,1,.36,1);--ease-in:cubic-bezier(.55,0,1,.45);--ease-back:cubic-bezier(.34,1.56,.64,1);--t-press:120ms;--t-small:200ms;--t-med:300ms;--t-large:450ms}
+@keyframes m-rise{from{opacity:0;translate:0 14px}}
+@keyframes m-print{from{opacity:0;translate:0 22px;rotate:-5deg}}
+@keyframes m-pap{from{opacity:0;scale:.6;translate:0 14px}}
+@keyframes m-note{from{clip-path:inset(-20% 100% -20% 0)}to{clip-path:inset(-20% -6% -20% 0)}}
+@keyframes m-stamp{from{opacity:0;scale:1.7}}
+@keyframes m-sheet{from{translate:0 100%}}
+@keyframes m-fade{from{opacity:0}}
+@keyframes m-bump{35%{scale:1.3;color:#C4421D}}
+@keyframes m-bump2{35%{scale:1.3;color:#C4421D}}
+@keyframes m-flash{from{background-color:rgba(233,162,59,.5)}to{background-color:rgba(233,162,59,0)}}
+@keyframes m-flash2{from{background-color:rgba(233,162,59,.5)}to{background-color:rgba(233,162,59,0)}}
+@keyframes m-draw{from{stroke-dashoffset:24}to{stroke-dashoffset:0}}
+@keyframes m-next{from{opacity:0;translate:32px 0}}
+@keyframes m-next2{from{opacity:0;translate:32px 0}}
+@keyframes m-back{from{opacity:0;translate:-32px 0}}
+@keyframes m-back2{from{opacity:0;translate:-32px 0}}
+.m-rise{animation:m-rise var(--t-large) var(--ease-out) backwards;animation-delay:var(--d,0ms)}
+.m-print{animation:m-print 520ms var(--ease-out) backwards;animation-delay:var(--d,140ms);transition:translate var(--t-small) var(--ease-out),box-shadow var(--t-small) var(--ease-out),scale var(--t-press) var(--ease-out)}
+a.m-print:hover,.m-lift:hover .m-print{translate:0 -4px;box-shadow:0 16px 30px rgba(60,35,20,.22)!important}
+.m-pap{animation:m-pap 560ms var(--ease-back) backwards;animation-delay:var(--d,240ms)}
+.m-note{animation:m-note 640ms var(--ease-out) backwards;animation-delay:var(--d,420ms)}
+.m-stamp{animation:m-stamp 360ms var(--ease-back) backwards;animation-delay:var(--d,640ms)}
+.m-sheet{animation:m-sheet var(--t-large) var(--ease-out) backwards;animation-delay:80ms}
+.m-scrim{animation:m-fade var(--t-med) var(--ease-out) backwards}
+.m-print:nth-child(1){--d:160ms}.m-print:nth-child(2){--d:230ms}.m-print:nth-child(3){--d:300ms}.m-print:nth-child(4){--d:370ms}.m-print:nth-child(5){--d:440ms}.m-print:nth-child(6){--d:510ms}
+.m-tile:nth-child(1){--d:180ms}.m-tile:nth-child(2){--d:230ms}.m-tile:nth-child(3){--d:280ms}.m-tile:nth-child(4){--d:330ms}
+.m-row:nth-child(1){--d:260ms}.m-row:nth-child(2){--d:310ms}.m-row:nth-child(3){--d:360ms}.m-row:nth-child(4){--d:410ms}.m-row:nth-child(5){--d:460ms}.m-row:nth-child(n+6){--d:500ms}
+.m-tile img{transition:rotate var(--t-med) var(--ease-back),scale var(--t-med) var(--ease-back)}
+.m-tile:hover img{rotate:12deg;scale:1.06}
+button,a,label{transition:scale var(--t-press) var(--ease-out),background-color var(--t-small) var(--ease-out),color var(--t-small) var(--ease-out),box-shadow var(--t-small) var(--ease-out),border-color var(--t-small) var(--ease-out)}
+button:active,a:active{scale:.97}
+label:focus-within{box-shadow:0 0 0 3px rgba(233,162,59,.7),0 6px 16px rgba(80,25,8,.18)!important}
+:focus-visible{outline:3px solid #E9A23B;outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:1ms!important;animation-delay:0ms!important;transition-duration:1ms!important}}
+/* end motion */
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #F6F1EA; font-family: Inter, system-ui, sans-serif; color: #241C17; position: relative; overflow: hidden">
+  <div aria-hidden="true" style="background: #C4421D; border-radius: 0 0 36px 36px; height: 200px; padding: 56px 20px 0; box-sizing: border-box; display: flex; align-items: flex-start; gap: 8px">
+    <span style="width: 44px; height: 44px; border-radius: 50%; background: rgba(255, 246, 238, 0.16)"></span>
+    <span style="flex: 1; height: 52px; border-radius: 26px; background: #FFFFFF; display: flex; align-items: center; padding: 0 16px; font-size: 15px">chicken</span>
+  </div>
+  <div aria-hidden="true" class="m-scrim" style="position: absolute; inset: 0; background: rgba(36, 28, 23, 0.5)"></div>
+
+  <div role="dialog" aria-label="Filters" class="m-sheet" style="position: absolute; left: 0; right: 0; top: 128px; bottom: 0; background-color: #F6F1EA; background-image: radial-gradient(#E4D8CB 1.1px, transparent 1.3px); background-size: 20px 20px; border-radius: 28px 28px 0 0; padding: 12px 20px 34px; display: flex; flex-direction: column">
+    <span aria-hidden="true" style="align-self: center; width: 40px; height: 4px; border-radius: 2px; background: #D9C7B8"></span>
+    <img class="m-pap" src="/_blob/1201ae0500ad6f592c30046b749c8cab" alt="" style="position: absolute; right: 18px; top: -58px; width: 76px; height: 76px; transform: rotate(8deg)">
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 8px">
+      <div style="display: flex; align-items: baseline; gap: 10px">
+        <h1 class="m-rise" style="margin: 0; font-family: 'Bricolage Grotesque', Inter, sans-serif; font-size: 30px; font-weight: 800; letter-spacing: -1px; --d: 60ms">Filters</h1>
+        <span class="m-note" style="font-family: Caveat, cursive; font-size: 20px; font-weight: 700; color: #8F2E12">narrow it down</span>
+      </div>
+      <button style="height: 44px; padding: 0 4px; border: none; background: transparent; color: #8F2E12; font-size: 15px; font-weight: 600">Clear all</button>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 4px">
+      <sc-for list="{{groups}}" as="g" hint-placeholder-count="5">
+        <fieldset style="border: none; margin: 0; padding: 0">
+          <legend style="font-family: 'Bricolage Grotesque', Inter, sans-serif; font-size: 16px; font-weight: 700; padding: 0; margin-bottom: 8px">{{g.title}} <span style="font-weight: 400; color: #6B5D54">{{g.hint}}</span></legend>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px">
+            <sc-for list="{{g.options}}" as="o" hint-placeholder-count="4">
+              <button aria-pressed="{{o.pressed}}" style="height: 40px; padding: 0 14px; border-radius: 12px; border: none; font-size: 14px; background: {{o.bg}}; color: {{o.fg}}; box-shadow: {{o.ring}}; font-weight: {{o.weight}}">{{o.label}}</button>
+            </sc-for>
+          </div>
+        </fieldset>
+      </sc-for>
+    </div>
+
+    <a href="Search-Results.dc.html" style="margin-top: auto; height: 56px; border-radius: 28px; background: #C4421D; box-shadow: 0 8px 18px rgba(196, 66, 29, 0.28); color: #FFFFFF; font-size: 16px; font-weight: 700; display: flex; align-items: center; justify-content: center; text-decoration: none">Show 24 recipes</a>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const opt = (label, on) => ({
+      label,
+      pressed: on ? 'true' : 'false',
+      bg: on ? '#F9E3D8' : '#FFFFFF',
+      fg: on ? '#7A2710' : '#241C17',
+      ring: on ? 'inset 0 0 0 1.5px #C4421D' : '0 0 0 1px #EBE2D8, 0 1px 2px rgba(60, 35, 20, 0.06)',
+      weight: on ? '700' : '500'
+    });
+    const group = (title, hint, labels, picked) => ({ title, hint, options: labels.map((l) => opt(l, picked.includes(l))) });
+    return {
+      groups: [
+        group('Total cost', '', ['Any', 'Under R50', 'Under R100', 'Under R200'], ['Under R100']),
+        group('Time', '', ['Any', '15 min', '30 min', '1 hour'], ['Any']),
+        group('Diet', '· pick any', ['Vegetarian', 'Vegan', 'Halal', 'Gluten-free', 'Dairy-free'], []),
+        group('From', '', ['Everyone', 'Friends', 'Just mine'], ['Everyone']),
+        group('Sort by', '', ['Most saved', 'Newest', 'Cheapest', 'Quickest'], ['Most saved'])
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

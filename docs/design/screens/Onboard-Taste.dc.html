@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Onboarding · Your tastes</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Inter:wght@400;500;600;700&amp;family=Caveat:wght@600;700&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#C4421D}a:hover{color:#8F2E12}
+.ico{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+button{font:inherit;cursor:pointer}
+/* SharedPlates motion: one curve family, short durations */
+:root{--ease-out:cubic-bezier(.22,1,.36,1);--ease-in:cubic-bezier(.55,0,1,.45);--ease-back:cubic-bezier(.34,1.56,.64,1);--t-press:120ms;--t-small:200ms;--t-med:300ms;--t-large:450ms}
+@keyframes m-rise{from{opacity:0;translate:0 14px}}
+@keyframes m-print{from{opacity:0;translate:0 22px;rotate:-5deg}}
+@keyframes m-pap{from{opacity:0;scale:.6;translate:0 14px}}
+@keyframes m-note{from{clip-path:inset(-20% 100% -20% 0)}to{clip-path:inset(-20% -6% -20% 0)}}
+@keyframes m-stamp{from{opacity:0;scale:1.7}}
+@keyframes m-sheet{from{translate:0 100%}}
+@keyframes m-fade{from{opacity:0}}
+@keyframes m-bump{35%{scale:1.3;color:#C4421D}}
+@keyframes m-bump2{35%{scale:1.3;color:#C4421D}}
+@keyframes m-flash{from{background-color:rgba(233,162,59,.5)}to{background-color:rgba(233,162,59,0)}}
+@keyframes m-flash2{from{background-color:rgba(233,162,59,.5)}to{background-color:rgba(233,162,59,0)}}
+@keyframes m-draw{from{stroke-dashoffset:24}to{stroke-dashoffset:0}}
+@keyframes m-next{from{opacity:0;translate:32px 0}}
+@keyframes m-next2{from{opacity:0;translate:32px 0}}
+@keyframes m-back{from{opacity:0;translate:-32px 0}}
+@keyframes m-back2{from{opacity:0;translate:-32px 0}}
+.m-rise{animation:m-rise var(--t-large) var(--ease-out) backwards;animation-delay:var(--d,0ms)}
+.m-print{animation:m-print 520ms var(--ease-out) backwards;animation-delay:var(--d,140ms);transition:translate var(--t-small) var(--ease-out),box-shadow var(--t-small) var(--ease-out),scale var(--t-press) var(--ease-out)}
+a.m-print:hover,.m-lift:hover .m-print{translate:0 -4px;box-shadow:0 16px 30px rgba(60,35,20,.22)!important}
+.m-pap{animation:m-pap 560ms var(--ease-back) backwards;animation-delay:var(--d,240ms)}
+.m-note{animation:m-note 640ms var(--ease-out) backwards;animation-delay:var(--d,420ms)}
+.m-stamp{animation:m-stamp 360ms var(--ease-back) backwards;animation-delay:var(--d,640ms)}
+.m-sheet{animation:m-sheet var(--t-large) var(--ease-out) backwards;animation-delay:80ms}
+.m-scrim{animation:m-fade var(--t-med) var(--ease-out) backwards}
+.m-print:nth-child(1){--d:160ms}.m-print:nth-child(2){--d:230ms}.m-print:nth-child(3){--d:300ms}.m-print:nth-child(4){--d:370ms}.m-print:nth-child(5){--d:440ms}.m-print:nth-child(6){--d:510ms}
+.m-tile:nth-child(1){--d:180ms}.m-tile:nth-child(2){--d:230ms}.m-tile:nth-child(3){--d:280ms}.m-tile:nth-child(4){--d:330ms}
+.m-row:nth-child(1){--d:260ms}.m-row:nth-child(2){--d:310ms}.m-row:nth-child(3){--d:360ms}.m-row:nth-child(4){--d:410ms}.m-row:nth-child(5){--d:460ms}.m-row:nth-child(n+6){--d:500ms}
+.m-tile img{transition:rotate var(--t-med) var(--ease-back),scale var(--t-med) var(--ease-back)}
+.m-tile:hover img{rotate:12deg;scale:1.06}
+button,a,label{transition:scale var(--t-press) var(--ease-out),background-color var(--t-small) var(--ease-out),color var(--t-small) var(--ease-out),box-shadow var(--t-small) var(--ease-out),border-color var(--t-small) var(--ease-out)}
+button:active,a:active{scale:.97}
+label:focus-within{box-shadow:0 0 0 3px rgba(233,162,59,.7),0 6px 16px rgba(80,25,8,.18)!important}
+:focus-visible{outline:3px solid #E9A23B;outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:1ms!important;animation-delay:0ms!important;transition-duration:1ms!important}}
+/* end motion */
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background-color: #F6F1EA; background-image: radial-gradient(#E4D8CB 1.1px, transparent 1.3px); background-size: 20px 20px; font-family: Inter, system-ui, sans-serif; color: #241C17; display: flex; flex-direction: column; padding: 0 20px 34px">
+  <header style="position: relative; flex-shrink: 0; margin: 0 -20px; background: #C4421D; color: #FFF6EE; border-radius: 0 0 36px 36px; padding: 56px 20px 22px; overflow: hidden">
+  <svg aria-hidden="true" viewBox="0 0 390 300" width="390" height="300" style="position: absolute; left: 0; top: 0; opacity: 0.12">
+      <circle cx="370" cy="30" r="96" fill="none" stroke="#FFF6EE" stroke-width="2"/>
+      <circle cx="370" cy="30" r="64" fill="none" stroke="#FFF6EE" stroke-width="2"/>
+    </svg>
+  <div style="position: relative; display: flex; align-items: center; gap: 12px">
+    <a href="Onboard-You.dc.html" aria-label="Back" style="width: 44px; height: 44px; border-radius: 50%; background: rgba(255, 246, 238, 0.16); color: #FFF6EE; display: flex; align-items: center; justify-content: center">
+      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+    </a>
+    <div style="flex: 1; display: flex; flex-direction: column; gap: 8px">
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+        <span style="height: 6px; border-radius: 3px; background: #FFF6EE"></span>
+        <span style="height: 6px; border-radius: 3px; background: #FFF6EE"></span>
+        <span style="height: 6px; border-radius: 3px; background: rgba(255, 246, 238, 0.3)"></span>
+      </div>
+      <span style="font-size: 12px; color: #FFE3C7">Step 2 of 3</span>
+    </div>
+    <a href="Onboard-Friends.dc.html" style="font-size: 15px; font-weight: 600; color: #FFF6EE; text-decoration: none; padding: 12px 4px">Skip</a>
+  </div>
+
+  <div style="display: flex; align-items: flex-end; gap: 12px; margin-top: 18px; position: relative">
+    <img class="m-pap" src="/_blob/1201ae0500ad6f592c30046b749c8cab" alt="Paprika" style="width: 92px; height: 92px; margin: 0 -6px -14px -8px; flex-shrink: 0">
+    <div style="background: #FFFFFF; color: #241C17; border-radius: 22px 22px 22px 6px; box-shadow: 0 6px 16px rgba(80, 25, 8, 0.18); padding: 12px 16px; font-size: 15px; line-height: 22px; margin-bottom: 10px">What do you love cooking? Pick a few and I'll fill your feed with them.</div>
+  </div>
+  </header>
+
+  <h2 class="m-rise" style="margin: 24px 0 12px; font-size: 14px; font-weight: 600; --d: 160ms">I'm into…</h2>
+  <div style="display: flex; flex-wrap: wrap; gap: 8px">
+    <sc-for list="{{likes}}" as="c" hint-placeholder-count="16">
+      <button aria-pressed="{{c.pressed}}" style="height: 44px; padding: 0 14px 0 11px; border-radius: 14px; border: none; font-size: 14px; display: flex; align-items: center; gap: 7px; background: {{c.bg}}; color: {{c.fg}}; box-shadow: {{c.ring}}; font-weight: {{c.weight}}">
+        <svg class="ico" style="width: 18px; height: 18px; color: {{c.iconColor}}" viewBox="0 0 24 24" aria-hidden="true"><path d="{{c.d}}"/></svg>
+        {{c.label}}
+      </button>
+    </sc-for>
+  </div>
+
+  <h2 class="m-rise" style="margin: 24px 0 4px; font-size: 14px; font-weight: 600; --d: 240ms">Hide recipes with…</h2>
+  <p style="margin: 0 0 12px; font-size: 13px; color: #6B5D54">Optional. You can change this in Settings.</p>
+  <div style="display: flex; flex-wrap: wrap; gap: 8px">
+    <sc-for list="{{avoid}}" as="c" hint-placeholder-count="6">
+      <button aria-pressed="{{c.pressed}}" style="height: 44px; padding: 0 14px 0 11px; border-radius: 14px; border: none; font-size: 14px; display: flex; align-items: center; gap: 7px; background: {{c.bg}}; color: {{c.fg}}; box-shadow: {{c.ring}}; font-weight: {{c.weight}}">
+        <svg class="ico" style="width: 18px; height: 18px; color: {{c.iconColor}}" viewBox="0 0 24 24" aria-hidden="true"><path d="{{c.d}}"/></svg>
+        {{c.label}}
+      </button>
+    </sc-for>
+  </div>
+
+  <a href="Onboard-Friends.dc.html" style="margin-top: auto; height: 56px; border-radius: 28px; background: #C4421D; box-shadow: 0 8px 18px rgba(196, 66, 29, 0.28); color: #FFFFFF; font-size: 16px; font-weight: 700; display: flex; align-items: center; justify-content: center; text-decoration: none">Continue · 5 picked</a>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const off = { bg: '#FFFFFF', fg: '#241C17', ring: '0 0 0 1px #EBE2D8, 0 1px 2px rgba(60, 35, 20, 0.06)', weight: '500', iconColor: '#8A7B70' };
+    const likeOn = { bg: '#F9E3D8', fg: '#7A2710', ring: 'inset 0 0 0 1.5px #C4421D', weight: '700', iconColor: '#C4421D' };
+    const avoidOn = { bg: '#EDE4DA', fg: '#241C17', ring: 'inset 0 0 0 1.5px #5E5048', weight: '700', iconColor: '#241C17' };
+    const chip = (label, d, on, onStyle) => ({ label, d, pressed: on ? 'true' : 'false', ...(on ? onStyle : off) });
+    const picked = ['Quick weeknight', 'Budget-friendly', 'Curries', 'Braai', 'Baking'];
+    const likes = [
+      ['Quick weeknight', 'M13 3 5 14h6l-1 7 8-11h-6z'],
+      ['Budget-friendly', 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM9.5 16V8.5H13a2 2 0 0 1 0 4H9.5M12.5 12.5 15 16'],
+      ['Curries', 'M4 11h16a8 8 0 0 1-16 0zM9 7c0-1 1-1.5 1-3M14 7c0-1 1-1.5 1-3'],
+      ['Braai', 'M12 21c-3.9 0-6.5-2.6-6.5-6.2 0-3.6 3-5.6 3.7-9.3 2.3 1.4 3.5 3.3 3.6 5.5 1-.6 1.7-1.6 2-2.8 2 1.6 3.7 4 3.7 6.6 0 3.6-2.6 6.2-6.5 6.2z'],
+      ['Baking', 'M4 20h16M5 20v-7h14v7M5 16c2 1.5 4 1.5 7 0s5-1.5 7 0M12 13V9M12 6v.01'],
+      ['Vegetarian', 'M5 19C5 10 11 5 20 4c0 9-5 15-14 15zM5 19l8-8'],
+      ['Healthy', 'M12 20s-7.5-4.5-7.5-10A4.3 4.3 0 0 1 12 7.4 4.3 4.3 0 0 1 19.5 10c0 5.5-7.5 10-7.5 10z'],
+      ['Meal prep', 'M4 8h16v11H4zM4 12h16M12 8v11'],
+      ['Pasta', 'M7 3v6a3 3 0 0 0 6 0V3M10 3v18M17 3c-1.5 2-2 5-2 8h2v10'],
+      ['Desserts', 'M8 10a4 4 0 1 1 8 0M7 10h10l-5 11z'],
+      ['Breakfast', 'M12 20c-4 0-7-3-7-7 0-5 3-9 7-9s7 4 7 9c0 4-3 7-7 7zM12 15a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z'],
+      ['Spicy', 'M14 6c3 0 5 2 5 5-1 6-8 10-14 9 5-2 7-6 7-10 0-2 .5-4 2-4zM14 6c0-1.5 1-2.5 2.5-3']
+    ];
+    const ban = 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM5.6 5.6l12.8 12.8';
+    const avoid = ['Pork', 'Nuts', 'Dairy', 'Gluten', 'Seafood', 'Beef'];
+    return {
+      likes: likes.map(([l, d]) => chip(l, d, picked.includes(l), likeOn)),
+      avoid: avoid.map((l) => chip(l, ban, l === 'Pork', avoidOn))
+    };
+  }
+}
+</script>
+</body>
+</html>

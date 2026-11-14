@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Empty, no-results and offline states</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Inter:wght@400;500;600;700&amp;family=Caveat:wght@600;700&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#C4421D}a:hover{color:#8F2E12}
+.ico{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+button,input{font:inherit}
+button{cursor:pointer}
+/* SharedPlates motion: one curve family, short durations */
+:root{--ease-out:cubic-bezier(.22,1,.36,1);--ease-in:cubic-bezier(.55,0,1,.45);--ease-back:cubic-bezier(.34,1.56,.64,1);--t-press:120ms;--t-small:200ms;--t-med:300ms;--t-large:450ms}
+@keyframes m-rise{from{opacity:0;translate:0 14px}}
+@keyframes m-print{from{opacity:0;translate:0 22px;rotate:-5deg}}
+@keyframes m-pap{from{opacity:0;scale:.6;translate:0 14px}}
+@keyframes m-note{from{clip-path:inset(-20% 100% -20% 0)}to{clip-path:inset(-20% -6% -20% 0)}}
+@keyframes m-stamp{from{opacity:0;scale:1.7}}
+@keyframes m-sheet{from{translate:0 100%}}
+@keyframes m-fade{from{opacity:0}}
+@keyframes m-bump{35%{scale:1.3;color:#C4421D}}
+@keyframes m-bump2{35%{scale:1.3;color:#C4421D}}
+@keyframes m-flash{from{background-color:rgba(233,162,59,.5)}to{background-color:rgba(233,162,59,0)}}
+@keyframes m-flash2{from{background-color:rgba(233,162,59,.5)}to{background-color:rgba(233,162,59,0)}}
+@keyframes m-draw{from{stroke-dashoffset:24}to{stroke-dashoffset:0}}
+@keyframes m-next{from{opacity:0;translate:32px 0}}
+@keyframes m-next2{from{opacity:0;translate:32px 0}}
+@keyframes m-back{from{opacity:0;translate:-32px 0}}
+@keyframes m-back2{from{opacity:0;translate:-32px 0}}
+.m-rise{animation:m-rise var(--t-large) var(--ease-out) backwards;animation-delay:var(--d,0ms)}
+.m-print{animation:m-print 520ms var(--ease-out) backwards;animation-delay:var(--d,140ms);transition:translate var(--t-small) var(--ease-out),box-shadow var(--t-small) var(--ease-out),scale var(--t-press) var(--ease-out)}
+a.m-print:hover,.m-lift:hover .m-print{translate:0 -4px;box-shadow:0 16px 30px rgba(60,35,20,.22)!important}
+.m-pap{animation:m-pap 560ms var(--ease-back) backwards;animation-delay:var(--d,240ms)}
+.m-note{animation:m-note 640ms var(--ease-out) backwards;animation-delay:var(--d,420ms)}
+.m-stamp{animation:m-stamp 360ms var(--ease-back) backwards;animation-delay:var(--d,640ms)}
+.m-sheet{animation:m-sheet var(--t-large) var(--ease-out) backwards;animation-delay:80ms}
+.m-scrim{animation:m-fade var(--t-med) var(--ease-out) backwards}
+.m-print:nth-child(1){--d:160ms}.m-print:nth-child(2){--d:230ms}.m-print:nth-child(3){--d:300ms}.m-print:nth-child(4){--d:370ms}.m-print:nth-child(5){--d:440ms}.m-print:nth-child(6){--d:510ms}
+.m-tile:nth-child(1){--d:180ms}.m-tile:nth-child(2){--d:230ms}.m-tile:nth-child(3){--d:280ms}.m-tile:nth-child(4){--d:330ms}
+.m-row:nth-child(1){--d:260ms}.m-row:nth-child(2){--d:310ms}.m-row:nth-child(3){--d:360ms}.m-row:nth-child(4){--d:410ms}.m-row:nth-child(5){--d:460ms}.m-row:nth-child(n+6){--d:500ms}
+.m-tile img{transition:rotate var(--t-med) var(--ease-back),scale var(--t-med) var(--ease-back)}
+.m-tile:hover img{rotate:12deg;scale:1.06}
+button,a,label{transition:scale var(--t-press) var(--ease-out),background-color var(--t-small) var(--ease-out),color var(--t-small) var(--ease-out),box-shadow var(--t-small) var(--ease-out),border-color var(--t-small) var(--ease-out)}
+button:active,a:active{scale:.97}
+label:focus-within{box-shadow:0 0 0 3px rgba(233,162,59,.7),0 6px 16px rgba(80,25,8,.18)!important}
+:focus-visible{outline:3px solid #E9A23B;outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:1ms!important;animation-delay:0ms!important;transition-duration:1ms!important}}
+/* end motion */
+</style>
+</helmet>
+<div style="width: 1250px; height: 844px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; font-family: Inter, system-ui, sans-serif; color: #241C17">
+
+  <section aria-label="Your recipes, nothing saved yet" style="position: relative; height: 844px; border-radius: 36px; overflow: hidden; background-color: #F6F1EA; background-image: radial-gradient(#E4D8CB 1.1px, transparent 1.3px); background-size: 20px 20px; padding: 0 20px; box-sizing: border-box; display: flex; flex-direction: column">
+    <header style="position: relative; flex-shrink: 0; margin: 0 -20px; background: #C4421D; color: #FFF6EE; border-radius: 0 0 36px 36px; padding: 56px 20px 22px; overflow: hidden">
+    <svg aria-hidden="true" viewBox="0 0 390 300" width="390" height="300" style="position: absolute; left: 0; top: 0; opacity: 0.12">
+      <circle cx="370" cy="30" r="96" fill="none" stroke="#FFF6EE" stroke-width="2"/>
+      <circle cx="370" cy="30" r="64" fill="none" stroke="#FFF6EE" stroke-width="2"/>
+    </svg>
+    <h1 class="m-rise" style="position: relative; margin: 0; font-family: 'Bricolage Grotesque', Inter, sans-serif; font-size: 40px; line-height: 40px; font-weight: 800; letter-spacing: -1.5px; --d: 60ms">Your recipes</h1>
+    <span class="m-note" style="position: relative; display: block; margin-top: 4px; font-family: Caveat, cursive; font-size: 21px; font-weight: 700; color: #FFE3C7; transform: rotate(-2deg); transform-origin: left center">empty shelf, for now</span>
+    <div role="tablist" style="position: relative; margin-top: 14px; background: rgba(255, 246, 238, 0.16); border-radius: 22px; padding: 4px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px">
+      <button role="tab" aria-selected="false" style="height: 40px; border-radius: 18px; border: none; background: transparent; color: #FFF6EE; font-size: 14px; font-weight: 600">All · 0</button>
+      <button role="tab" aria-selected="true" style="height: 40px; border-radius: 18px; border: none; background: #FFF6EE; color: #8F2E12; font-size: 14px; font-weight: 700">Saved · 0</button>
+      <button role="tab" aria-selected="false" style="height: 40px; border-radius: 18px; border: none; background: transparent; color: #FFF6EE; font-size: 14px; font-weight: 600">Created · 0</button>
+    </div>
+  </header>
+    <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 12px; padding-bottom: 120px">
+      <img class="m-pap" src="/_blob/fd05c3b3ed07ba9f787fd29eb349f1ae" alt="" style="width: 140px; height: 140px">
+      <h2 class="m-rise" style="margin: 4px 0 0; font-family: 'Bricolage Grotesque', Inter, sans-serif; font-size: 26px; font-weight: 800; letter-spacing: -0.6px; --d: 160ms">Nothing saved yet</h2>
+      <p style="margin: 0; font-size: 15px; line-height: 22px; color: #5E5048; max-width: 280px">Tap the bookmark on any recipe and it'll wait for you here, even offline.</p>
+      <a href="Discover.dc.html" style="margin-top: 8px; height: 52px; padding: 0 24px; border-radius: 26px; background: #C4421D; box-shadow: 0 8px 18px rgba(196, 66, 29, 0.28); color: #FFFFFF; font-size: 15px; font-weight: 700; display: flex; align-items: center; text-decoration: none">Find something to cook</a>
+    </div>
+    <div style="position: absolute; left: 0; bottom: 0">
+      <dc-import name="TabBar" active="recipes" hint-size="390px,96px"></dc-import>
+    </div>
+  </section>
+
+  <section aria-label="Search with no results" style="position: relative; height: 844px; border-radius: 36px; overflow: hidden; background-color: #F6F1EA; background-image: radial-gradient(#E4D8CB 1.1px, transparent 1.3px); background-size: 20px 20px; padding: 0 20px; box-sizing: border-box; display: flex; flex-direction: column">
+    <header style="position: relative; flex-shrink: 0; margin: 0 -20px; background: #C4421D; color: #FFF6EE; border-radius: 0 0 36px 36px; padding: 56px 20px 24px; overflow: hidden">
+    <svg aria-hidden="true" viewBox="0 0 390 300" width="390" height="300" style="position: absolute; left: 0; top: 0; opacity: 0.12">
+      <circle cx="370" cy="30" r="96" fill="none" stroke="#FFF6EE" stroke-width="2"/>
+      <circle cx="370" cy="30" r="64" fill="none" stroke="#FFF6EE" stroke-width="2"/>
+    </svg>
+    <div style="position: relative; display: flex; align-items: center; gap: 8px">
+      <a href="Home.dc.html" aria-label="Back" style="width: 44px; height: 44px; border-radius: 50%; background: rgba(255, 246, 238, 0.16); color: #FFF6EE; display: flex; align-items: center; justify-content: center; flex-shrink: 0">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+      </a>
+      <label class="m-rise" for="sq" style="flex: 1; height: 52px; border-radius: 26px; background: #FFFFFF; box-shadow: 0 6px 16px rgba(80, 25, 8, 0.18); display: flex; align-items: center; gap: 8px; padding: 0 12px; color: #6B5D54; --d: 140ms">
+        <svg class="ico" style="width: 20px; height: 20px" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14zM20 20l-4-4"/></svg>
+        <input id="sq" value="umngqusho" aria-label="Search" style="flex: 1; border: none; background: transparent; font-size: 15px; color: #241C17; outline: none; min-width: 0">
+      </label>
+    </div>
+    </header>
+    <div style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px; margin-top: 40px">
+      <img class="m-pap" src="/_blob/610bf722aa4c166937c9b0853de39acd" alt="" style="width: 140px; height: 140px">
+      <span class="m-note" style="font-family: Caveat, cursive; font-size: 22px; font-weight: 700; color: #8F2E12; transform: rotate(-3deg)">well, this is awkward</span>
+      <h2 class="m-rise" style="margin: 0; font-family: 'Bricolage Grotesque', Inter, sans-serif; font-size: 26px; line-height: 28px; font-weight: 800; letter-spacing: -0.6px; --d: 240ms">No umngqusho recipes yet</h2>
+      <p style="margin: 0; font-size: 15px; line-height: 22px; color: #5E5048; max-width: 290px">Nobody has shared one, so yours would be the first. Or try something close:</p>
+      <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 4px">
+        <button style="height: 40px; padding: 0 14px; border-radius: 12px; border: none; background: #FFFFFF; box-shadow: 0 0 0 1px #EBE2D8, 0 1px 2px rgba(60, 35, 20, 0.06); color: #241C17; font-size: 14px; font-weight: 500">Samp and beans</button>
+        <button style="height: 40px; padding: 0 14px; border-radius: 12px; border: none; background: #FFFFFF; box-shadow: 0 0 0 1px #EBE2D8, 0 1px 2px rgba(60, 35, 20, 0.06); color: #241C17; font-size: 14px; font-weight: 500">Bean stew</button>
+        <button style="height: 40px; padding: 0 14px; border-radius: 12px; border: none; background: #FFFFFF; box-shadow: 0 0 0 1px #EBE2D8, 0 1px 2px rgba(60, 35, 20, 0.06); color: #241C17; font-size: 14px; font-weight: 500">Pap</button>
+      </div>
+    </div>
+    <a href="Create-Start.dc.html" style="margin-top: auto; margin-bottom: 34px; height: 56px; border-radius: 28px; background: #C4421D; box-shadow: 0 8px 18px rgba(196, 66, 29, 0.28); color: #FFFFFF; font-size: 16px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none">
+      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+      Share your umngqusho
+    </a>
+  </section>
+
+  <section aria-label="Offline, with a like that could not be saved" style="position: relative; height: 844px; border-radius: 36px; overflow: hidden; background-color: #F6F1EA; background-image: radial-gradient(#E4D8CB 1.1px, transparent 1.3px); background-size: 20px 20px; padding: 0 20px; box-sizing: border-box; display: flex; flex-direction: column">
+    <header style="position: relative; flex-shrink: 0; margin: 0 -20px; background: #5E5048; color: #FFF6EE; border-radius: 0 0 36px 36px; padding: 56px 20px 24px; overflow: hidden">
+    <svg aria-hidden="true" viewBox="0 0 390 300" width="390" height="300" style="position: absolute; left: 0; top: 0; opacity: 0.12">
+      <circle cx="370" cy="30" r="96" fill="none" stroke="#FFF6EE" stroke-width="2"/>
+      <circle cx="370" cy="30" r="64" fill="none" stroke="#FFF6EE" stroke-width="2"/>
+    </svg>
+    <h1 class="m-rise" style="position: relative; margin: 0; font-family: 'Bricolage Grotesque', Inter, sans-serif; font-size: 40px; line-height: 40px; font-weight: 800; letter-spacing: -1.5px; --d: 60ms">Offline</h1>
+    <span class="m-note" style="position: relative; display: block; margin-top: 4px; font-family: Caveat, cursive; font-size: 21px; font-weight: 700; color: #F1E6DC; transform: rotate(-2deg); transform-origin: left center">no signal? no stress.</span>
+    <img class="m-pap" src="/_blob/610bf722aa4c166937c9b0853de39acd" alt="" style="position: absolute; right: 8px; bottom: -10px; width: 110px; height: 110px; transform: rotate(6deg)">
+  </header>
+    <div class="m-print" role="status" style="position: relative; margin-top: 24px; background: #FBEFD5; border-radius: 6px; padding: 12px 16px; display: flex; align-items: center; gap: 12px; color: #4A3208; transform: rotate(-0.8deg); box-shadow: 0 6px 14px rgba(60, 35, 20, 0.1)">
+      <span aria-hidden="true" style="position: absolute; top: -10px; left: 50%; width: 60px; height: 20px; margin-left: -30px; background: rgba(233, 162, 59, 0.55); transform: rotate(3deg)"></span>
+      <svg class="ico" style="width: 20px; height: 20px" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 8.5a15 15 0 0 1 5-2.9M9.5 5.1A15 15 0 0 1 22 8.5M5 12a10 10 0 0 1 3.5-2M12.5 9.3A10 10 0 0 1 19 12M8.5 15.5a5 5 0 0 1 7 0M12 19h.01M3 3l18 18"/></svg>
+      <span style="flex: 1; font-size: 14px; line-height: 20px"><span style="font-weight: 700">You're offline.</span> Showing recipes saved on your phone.</span>
+    </div>
+    <h2 class="m-rise" style="margin: 24px 0 12px; font-family: 'Bricolage Grotesque', Inter, sans-serif; font-size: 22px; font-weight: 800; letter-spacing: -0.4px; --d: 320ms">Saved on this phone</h2>
+    <div style="display: flex; flex-direction: column; gap: 8px">
+      <a class="m-row m-rise" href="Recipe-Detail.dc.html" style="background: #FFFFFF; border-radius: 22px; padding: 10px 14px 10px 10px; display: flex; align-items: center; gap: 12px; text-decoration: none; color: #241C17">
+        <span class="m-print" style="background: #FFFFFF; padding: 3px; border-radius: 3px; box-shadow: 0 3px 8px rgba(60, 35, 20, 0.2); transform: rotate(-3deg); flex-shrink: 0; display: block"><img src="/_blob/bba34ca874bd0e3b4ba3d543557bb0c7" alt="" style="width: 52px; height: 52px; border-radius: 2px; object-fit: cover; display: block"></span>
+        <span style="flex: 1; display: flex; flex-direction: column; gap: 2px">
+          <span style="font-size: 15px; font-weight: 600">Cape Malay chicken curry</span>
+          <span style="font-size: 13px; color: #6B5D54">Lerato M. · ready offline</span>
+        </span>
+      </a>
+      <a class="m-row m-rise" href="Recipe-Detail.dc.html" style="background: #FFFFFF; border-radius: 22px; padding: 10px 14px 10px 10px; display: flex; align-items: center; gap: 12px; text-decoration: none; color: #241C17">
+        <span class="m-print" style="background: #FFFFFF; padding: 3px; border-radius: 3px; box-shadow: 0 3px 8px rgba(60, 35, 20, 0.2); transform: rotate(2.5deg); flex-shrink: 0; display: block"><img src="/_blob/21c3b93449c39969f2beb11672d2c237" alt="" style="width: 52px; height: 52px; border-radius: 2px; object-fit: cover; display: block"></span>
+        <span style="flex: 1; display: flex; flex-direction: column; gap: 2px">
+          <span style="font-size: 15px; font-weight: 600">Gran's chakalaka</span>
+          <span style="font-size: 13px; color: #6B5D54">Your recipe · ready offline</span>
+        </span>
+      </a>
+    </div>
+
+    <div role="alert" style="position: absolute; left: 16px; right: 16px; bottom: 112px; background: #241C17; color: #FFFFFF; border-radius: 22px; padding: 12px 12px 12px 16px; display: flex; align-items: center; gap: 12px; box-shadow: 0 8px 24px rgba(36, 28, 23, 0.25)">
+      <span style="flex: 1; font-size: 14px; line-height: 20px">Your like didn't save. We'll try again when you're back online.</span>
+      <button style="height: 40px; padding: 0 16px; border-radius: 20px; border: none; background: #3A2F28; color: #F7B79B; font-size: 14px; font-weight: 700">Retry</button>
+    </div>
+    <div style="position: absolute; left: 0; bottom: 0">
+      <dc-import name="TabBar" active="home" hint-size="390px,96px"></dc-import>
+    </div>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1250,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

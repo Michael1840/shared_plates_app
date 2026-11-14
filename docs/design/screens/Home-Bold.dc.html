@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Home · Bold colour direction</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Inter:wght@400;500;600;700&amp;family=Caveat:wght@600;700&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#C4421D}a:hover{color:#8F2E12}
+.ico{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+button,input{font:inherit}
+button{cursor:pointer}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #F6F1EA; font-family: Inter, system-ui, sans-serif; color: #241C17; position: relative; overflow: hidden">
+  <div style="position: relative; background: #C4421D; color: #FFF6EE; border-radius: 0 0 40px 40px; padding: 56px 20px 64px">
+    <svg aria-hidden="true" viewBox="0 0 390 300" width="390" height="300" style="position: absolute; left: 0; top: 0; opacity: 0.12">
+      <circle cx="350" cy="40" r="90" fill="none" stroke="#FFF6EE" stroke-width="2"/>
+      <circle cx="350" cy="40" r="60" fill="none" stroke="#FFF6EE" stroke-width="2"/>
+      <circle cx="-20" cy="250" r="70" fill="none" stroke="#FFF6EE" stroke-width="2"/>
+    </svg>
+    <div style="position: relative; display: flex; align-items: center; gap: 8px">
+      <span style="flex: 1; font-size: 14px; font-weight: 600; opacity: 0.9">Good evening, Thandi</span>
+      <a href="Notifications.dc.html" aria-label="Activity, 2 new" style="position: relative; width: 44px; height: 44px; border-radius: 50%; background: rgba(255, 246, 238, 0.16); color: #FFF6EE; display: flex; align-items: center; justify-content: center">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 16V11a6 6 0 1 1 12 0v5l1.5 2h-15zM10 20.5a2 2 0 0 0 4 0"/></svg>
+        <span style="position: absolute; top: 9px; right: 10px; width: 9px; height: 9px; border-radius: 50%; background: #F5C26B; border: 2px solid #C4421D"></span>
+      </a>
+      <a href="Profile.dc.html" aria-label="Your profile" style="width: 44px; height: 44px; border-radius: 50%; background: #FFF6EE; color: #8F2E12; font-weight: 700; font-size: 15px; display: flex; align-items: center; justify-content: center; text-decoration: none">TN</a>
+    </div>
+    <h1 style="position: relative; margin: 16px 0 0; font-family: 'Bricolage Grotesque', Inter, sans-serif; font-size: 42px; line-height: 40px; font-weight: 800; letter-spacing: -1.6px; max-width: 250px">What's cooking tonight?</h1>
+    <label for="q" style="position: relative; margin-top: 20px; height: 52px; border-radius: 26px; background: #FFFFFF; display: flex; align-items: center; gap: 12px; padding: 0 16px; color: #6B5D54; max-width: 262px; box-sizing: border-box">
+      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14zM20 20l-4-4"/></svg>
+      <input id="q" placeholder="Search recipes" aria-label="Search" style="flex: 1; border: none; background: transparent; font-size: 15px; color: #241C17; outline: none; min-width: 0">
+    </label>
+    <img src="/_blob/f402df697933c300ec103155ec0ee4eb" alt="Paprika" style="position: absolute; right: -8px; bottom: -34px; width: 150px; height: 150px; transform: rotate(-8deg)">
+    <span style="position: absolute; right: 22px; bottom: 124px; font-family: Caveat, cursive; font-size: 21px; line-height: 20px; font-weight: 700; color: #FFE3C7; transform: rotate(-6deg); text-align: center">braai weather,<br>just saying</span>
+  </div>
+
+  <div style="padding: 0 20px; display: flex; flex-direction: column">
+    <h2 style="margin: 32px 0 12px; font-family: 'Bricolage Grotesque', Inter, sans-serif; font-size: 22px; font-weight: 800; letter-spacing: -0.4px">Cook by mood</h2>
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+      <sc-for list="{{moods}}" as="m" hint-placeholder-count="4">
+        <a href="Discover.dc.html" style="position: relative; height: 112px; border-radius: 24px; overflow: hidden; padding: 14px 16px; box-sizing: border-box; text-decoration: none; display: flex; flex-direction: column; justify-content: flex-end; gap: 2px; background: {{m.bg}}; color: {{m.fg}}">
+          <img src="{{m.img}}" alt="" style="position: absolute; right: -14px; top: -18px; width: 74px; height: 74px; border-radius: 50%; object-fit: cover; border: 4px solid {{m.ring}}">
+          <span style="position: relative; font-size: 12px; font-weight: 600; opacity: 0.85">{{m.sub}}</span>
+          <span style="position: relative; font-family: 'Bricolage Grotesque', Inter, sans-serif; font-size: 19px; line-height: 20px; font-weight: 800; letter-spacing: -0.3px">{{m.title}}</span>
+        </a>
+      </sc-for>
+    </div>
+
+    <div style="display: flex; align-items: baseline; justify-content: space-between; margin-top: 28px">
+      <h2 style="margin: 0; font-family: 'Bricolage Grotesque', Inter, sans-serif; font-size: 22px; font-weight: 800; letter-spacing: -0.4px">Trending this week</h2>
+      <a href="Discover.dc.html" style="font-size: 14px; font-weight: 600; text-decoration: none; padding: 8px 0">See all</a>
+    </div>
+    <div style="display: flex; gap: 16px; margin-top: 12px; margin-right: -20px">
+      <img src="/_blob/bba34ca874bd0e3b4ba3d543557bb0c7" alt="" style="width: 200px; height: 150px; border-radius: 24px; object-fit: cover; flex-shrink: 0">
+      <img src="/_blob/cf415157c0811c29977becaecf673006" alt="" style="width: 200px; height: 150px; border-radius: 24px; object-fit: cover; flex-shrink: 0">
+    </div>
+  </div>
+
+  <div style="position: absolute; left: 0; bottom: 0">
+    <dc-import name="TabBar" active="home" hint-size="390px,96px"></dc-import>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      moods: [
+        { title: 'Under R100', sub: '126 recipes', bg: '#F5E1B5', fg: '#3D2A08', ring: '#F5E1B5', img: '/_blob/21c3b93449c39969f2beb11672d2c237' },
+        { title: 'Ready in 20', sub: '84 recipes', bg: '#DCE7CD', fg: '#1F3510', ring: '#DCE7CD', img: '/_blob/6fc377a4d5eafc23856ca108f8111afd' },
+        { title: 'Braai night', sub: '59 recipes', bg: '#2B221C', fg: '#FFF6EE', ring: '#2B221C', img: '/_blob/cf415157c0811c29977becaecf673006' },
+        { title: 'Something sweet', sub: '71 recipes', bg: '#F6D6DA', fg: '#4A1622', ring: '#F6D6DA', img: '/_blob/2363ba8a9310ccaa16e3f20ef7080999' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

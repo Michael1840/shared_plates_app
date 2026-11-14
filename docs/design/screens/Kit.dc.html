@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Kitchen kit</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Inter:wght@400;500;600;700&amp;family=Caveat:wght@600;700&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#C4421D}a:hover{color:#8F2E12}
+.ico{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+button{font:inherit}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes hop{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-8px)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
+@keyframes pop{0%,60%,100%{transform:scale(1)}75%{transform:scale(1.3)}}
+.spin{animation:spin .9s linear infinite}
+.hop1{animation:hop 1.1s ease-in-out infinite}
+.hop2{animation:hop 1.1s ease-in-out .15s infinite}
+.hop3{animation:hop 1.1s ease-in-out .3s infinite}
+.pulse{animation:pulse 1.4s ease-in-out infinite}
+.pop{animation:pop 1.6s ease-out infinite}
+/* SharedPlates motion: one curve family, short durations */
+:root{--ease-out:cubic-bezier(.22,1,.36,1);--ease-in:cubic-bezier(.55,0,1,.45);--ease-back:cubic-bezier(.34,1.56,.64,1);--t-press:120ms;--t-small:200ms;--t-med:300ms;--t-large:450ms}
+@keyframes m-rise{from{opacity:0;translate:0 14px}}
+@keyframes m-print{from{opacity:0;translate:0 22px;rotate:-5deg}}
+@keyframes m-pap{from{opacity:0;scale:.6;translate:0 14px}}
+@keyframes m-note{from{clip-path:inset(-20% 100% -20% 0)}to{clip-path:inset(-20% -6% -20% 0)}}
+@keyframes m-stamp{from{opacity:0;scale:1.7}}
+@keyframes m-sheet{from{translate:0 100%}}
+@keyframes m-fade{from{opacity:0}}
+@keyframes m-bump{35%{scale:1.3;color:#C4421D}}
+@keyframes m-bump2{35%{scale:1.3;color:#C4421D}}
+@keyframes m-flash{from{background-color:rgba(233,162,59,.5)}to{background-color:rgba(233,162,59,0)}}
+@keyframes m-flash2{from{background-color:rgba(233,162,59,.5)}to{background-color:rgba(233,162,59,0)}}
+@keyframes m-draw{from{stroke-dashoffset:24}to{stroke-dashoffset:0}}
+@keyframes m-next{from{opacity:0;translate:32px 0}}
+@keyframes m-next2{from{opacity:0;translate:32px 0}}
+@keyframes m-back{from{opacity:0;translate:-32px 0}}
+@keyframes m-back2{from{opacity:0;translate:-32px 0}}
+.m-rise{animation:m-rise var(--t-large) var(--ease-out) backwards;animation-delay:var(--d,0ms)}
+.m-print{animation:m-print 520ms var(--ease-out) backwards;animation-delay:var(--d,140ms);transition:translate var(--t-small) var(--ease-out),box-shadow var(--t-small) var(--ease-out),scale var(--t-press) var(--ease-out)}
+a.m-print:hover,.m-lift:hover .m-print{translate:0 -4px;box-shadow:0 16px 30px rgba(60,35,20,.22)!important}
+.m-pap{animation:m-pap 560ms var(--ease-back) backwards;animation-delay:var(--d,240ms)}
+.m-note{animation:m-note 640ms var(--ease-out) backwards;animation-delay:var(--d,420ms)}
+.m-stamp{animation:m-stamp 360ms var(--ease-back) backwards;animation-delay:var(--d,640ms)}
+.m-sheet{animation:m-sheet var(--t-large) var(--ease-out) backwards;animation-delay:80ms}
+.m-scrim{animation:m-fade var(--t-med) var(--ease-out) backwards}
+.m-print:nth-child(1){--d:160ms}.m-print:nth-child(2){--d:230ms}.m-print:nth-child(3){--d:300ms}.m-print:nth-child(4){--d:370ms}.m-print:nth-child(5){--d:440ms}.m-print:nth-child(6){--d:510ms}
+.m-tile:nth-child(1){--d:180ms}.m-tile:nth-child(2){--d:230ms}.m-tile:nth-child(3){--d:280ms}.m-tile:nth-child(4){--d:330ms}
+.m-row:nth-child(1){--d:260ms}.m-row:nth-child(2){--d:310ms}.m-row:nth-child(3){--d:360ms}.m-row:nth-child(4){--d:410ms}.m-row:nth-child(5){--d:460ms}.m-row:nth-child(n+6){--d:500ms}
+.m-tile img{transition:rotate var(--t-med) var(--ease-back),scale var(--t-med) var(--ease-back)}
+.m-tile:hover img{rotate:12deg;scale:1.06}
+button,a,label{transition:scale var(--t-press) var(--ease-out),background-color var(--t-small) var(--ease-out),color var(--t-small) var(--ease-out),box-shadow var(--t-small) var(--ease-out),border-color var(--t-small) var(--ease-out)}
+button:active,a:active{scale:.97}
+label:focus-within{box-shadow:0 0 0 3px rgba(233,162,59,.7),0 6px 16px rgba(80,25,8,.18)!important}
+:focus-visible{outline:3px solid #E9A23B;outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:1ms!important;animation-delay:0ms!important;transition-duration:1ms!important}}
+@keyframes k-rise{0%{opacity:0;translate:0 14px}17%,100%{opacity:1;translate:0 0}}
+@keyframes k-print{0%{opacity:0;translate:0 22px;rotate:-5deg}20%,100%{opacity:1;translate:0 0;rotate:0deg}}
+@keyframes k-stamp{0%,25%{opacity:0;scale:1.7}39%,100%{opacity:1;scale:1}}
+@keyframes k-note{0%,10%{clip-path:inset(-20% 100% -20% 0)}35%,100%{clip-path:inset(-20% -6% -20% 0)}}
+@keyframes k-pap{0%,8%{opacity:0;scale:.6;translate:0 14px}30%,100%{opacity:1;scale:1;translate:0 0}}
+@keyframes k-press{0%,40%,100%{scale:1}45%,52%{scale:.97}}
+@keyframes k-sheet{0%{translate:0 100%}17%,100%{translate:0 0}}
+@keyframes k-flash{0%,30%{background-color:rgba(233,162,59,0)}32%{background-color:rgba(233,162,59,.5)}60%,100%{background-color:rgba(233,162,59,0)}}
+.k-loop{animation-duration:2.6s;animation-iteration-count:infinite;animation-timing-function:cubic-bezier(.22,1,.36,1)}
+@media (prefers-reduced-motion:reduce){.k-loop{animation:none}}
+/* end motion */
+</style>
+</helmet>
+<div style="width: 1240px; height: 2360px; box-sizing: border-box; background-color: #F6F1EA; background-image: radial-gradient(#E4D8CB 1.1px, transparent 1.3px); background-size: 20px 20px; font-family: Inter, system-ui, sans-serif; color: #241C17; padding: 48px; display: flex; flex-direction: column; gap: 28px">
+  <div style="display: flex; align-items: center; gap: 14px">
+    <img src="/_blob/54c25f02fb5cbb83548da6a512b0e6b1" alt="SharedPlates logo" style="width: 44px; height: 44px">
+    <div style="display: flex; flex-direction: column; gap: 2px">
+      <span style="font-family: 'Bricolage Grotesque', Inter, sans-serif; font-size: 30px; font-weight: 800; letter-spacing: -0.6px">Kitchen kit</span>
+      <span style="font-size: 15px; color: #5E5048">Warm oat background, paprika accent, rounded cards. Homely, but clean enough to stay modern.</span>
+    </div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px">
+    <section style="background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 14px">
+      <h2 style="margin: 0; font-family: 'Bricolage Grotesque', Inter, sans-serif; font-size: 20px; font-weight: 700">Colour</h2>
+      <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px">
+        <sc-for list="{{swatches}}" as="s" hint-placeholder-count="8">
+          <div style="display: flex; flex-direction: column; gap: 6px">
+            <span style="height: 56px; border-radius: 16px; background: {{s.hex}}; border: 1px solid #EADFD4"></span>
+            <span style="font-size: 13px; font-weight: 700">{{s.name}}</span>
+            <span style="font-size: 12px; color: #6B5D54">{{s.hex}} · {{s.use}}</span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+      <h2 style="margin: 0; font-family: 'Bricolage Grotesque', Inter, sans-serif; font-size: 20px; font-weight: 700">Type</h2>
+      <div style="display: flex; align-items: baseline; gap: 16px">
+        <span style="font-family: 'Bricolage Grotesque', Inter, sans-serif; font-size: 40px; font-weight: 800; letter-spacing: -1px">Gran's chakalaka</span>
+      </div>
+      <span style="font-size: 13px; color: #6B5D54">Bricolage Grotesque 700–800 · titles and headings. Friendly, a little hand-made, still crisp.</span>
+      <span style="font-size: 17px; line-height: 25px">Heat the oil in a big pan and fry the onion until soft. Inter 400–700 for everything you read while cooking.</span>
+      <span style="font-size: 13px; color: #6B5D54">Body 15–17 px · cook mode 26 px · labels 12–13 px, never lighter than #6B5D54 on light backgrounds.</span>
+      <span style="font-family: Caveat, cursive; font-size: 28px; line-height: 28px; font-weight: 700; color: #8F2E12">Lerato's. Feeds 4 for R148!</span>
+      <span style="font-size: 13px; color: #6B5D54">Caveat 600–700 · handwritten notes only: a creator's comment, a section aside, Paprika's voice. Never for anything you need to read to cook.</span>
+    </section>
+  </div>
+
+  <section style="background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 16px">
+    <h2 style="margin: 0; font-family: 'Bricolage Grotesque', Inter, sans-serif; font-size: 20px; font-weight: 700">Personality: the scrapbook touches</h2>
+    <div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; align-items: start">
+      <div style="display: flex; flex-direction: column; gap: 10px">
+        <div style="height: 150px; border-radius: 0 0 28px 28px; background: #C4421D; color: #FFF6EE; padding: 16px 14px; box-sizing: border-box; position: relative; overflow: hidden">
+          <span style="font-family: 'Bricolage Grotesque', Inter, sans-serif; font-size: 22px; line-height: 22px; font-weight: 800; letter-spacing: -0.6px; display: block; max-width: 110px">What's cooking?</span>
+          <img src="/_blob/f402df697933c300ec103155ec0ee4eb" alt="" style="position: absolute; right: -4px; bottom: -8px; width: 76px; height: 76px; transform: rotate(-6deg)">
+        </div>
+        <span style="font-size: 14px; font-weight: 700">Paprika header</span>
+        <span style="font-size: 12px; line-height: 17px; color: #5E5048">Top of each main tab. Big title, Paprika, full-width search. Friends get herb green.</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 10px">
+        <div style="height: 150px; display: flex; align-items: center; justify-content: center">
+          <div style="position: relative; width: 130px; background: #FFFFFF; padding: 6px 6px 22px; border-radius: 5px; box-shadow: 0 8px 18px rgba(60, 35, 20, 0.16); transform: rotate(-3deg)">
+            <span style="position: absolute; top: -9px; left: 50%; width: 52px; height: 16px; margin-left: -26px; background: rgba(233, 162, 59, 0.55); transform: rotate(4deg)"></span>
+            <img src="/_blob/bba34ca874bd0e3b4ba3d543557bb0c7" alt="" style="width: 100%; height: 88px; object-fit: cover; border-radius: 2px; display: block">
+          </div>
+        </div>
+        <span style="font-size: 14px; font-weight: 700">Photo prints + tape</span>
+        <span style="font-size: 12px; line-height: 17px; color: #5E5048">Recipe cards are prints: white border, 1–2° tilt, honey tape on some. Hides uneven photos.</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 10px">
+        <div style="height: 150px; display: flex; align-items: center; justify-content: center">
+          <span style="width: 80px; height: 80px; border-radius: 50%; background: #C4421D; color: #FFFFFF; border: 4px solid #FFFFFF; box-shadow: 0 6px 14px rgba(196, 66, 29, 0.3); display: flex; flex-direction: column; align-items: center; justify-content: center; transform: rotate(10deg)">
+            <span style="font-family: 'Bricolage Grotesque', Inter, sans-serif; font-size: 26px; line-height: 26px; font-weight: 800">55</span>
+            <span style="font-size: 11px; font-weight: 700; letter-spacing: 1px">MIN</span>
+          </span>
+        </div>
+        <span style="font-size: 14px; font-weight: 700">Time stamp</span>
+        <span style="font-size: 12px; line-height: 17px; color: #5E5048">Cook time as a round stamp on the photo corner. One per card, always rotated 10°.</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 10px">
+        <div style="height: 150px; display: flex; flex-direction: column; justify-content: center; gap: 8px">
+          <span style="font-family: Caveat, cursive; font-size: 24px; line-height: 22px; font-weight: 700; color: #8F2E12">Riaan swears by these</span>
+          <span style="font-family: Caveat, cursive; font-size: 24px; line-height: 22px; font-weight: 700; color: #8F2E12">where were we?</span>
+        </div>
+        <span style="font-size: 14px; font-weight: 700">Handwritten notes</span>
+        <span style="font-size: 12px; line-height: 17px; color: #5E5048">Short asides in Caveat, #8F2E12 on light, #FFE3C7 on paprika. A few words, max one per section.</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 10px">
+        <div style="height: 150px; display: flex; align-items: center; justify-content: center">
+          <div style="position: relative; width: 150px; background: #FBEFD5; border-radius: 6px; padding: 12px 10px 12px 56px; transform: rotate(-2deg); box-shadow: 0 6px 14px rgba(60, 35, 20, 0.1)">
+            <span style="position: absolute; top: -9px; left: 50%; width: 48px; height: 16px; margin-left: -24px; background: rgba(233, 162, 59, 0.55)"></span>
+            <img src="/_blob/1201ae0500ad6f592c30046b749c8cab" alt="" style="position: absolute; left: 2px; top: 50%; margin-top: -27px; width: 54px; height: 54px">
+            <span style="font-family: Caveat, cursive; font-size: 19px; line-height: 18px; font-weight: 700; color: #8F2E12">Paprika's tip</span>
+          </div>
+        </div>
+        <span style="font-size: 14px; font-weight: 700">Sticky notes + dot grid</span>
+        <span style="font-size: 12px; line-height: 17px; color: #5E5048">Tips and wins go on a taped honey note. Every light page sits on a faint 20 px dot grid.</span>
+      </div>
+    </div>
+  </section>
+
+  <section style="background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 16px">
+    <div style="display: flex; align-items: baseline; gap: 14px">
+      <h2 style="margin: 0; font-family: 'Bricolage Grotesque', Inter, sans-serif; font-size: 20px; font-weight: 700">Motion: quick, warm, never in the way</h2>
+      <span style="font-family: Caveat, cursive; font-size: 22px; font-weight: 700; color: #8F2E12">these demos loop</span>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px">
+      <div style="display: flex; flex-direction: column; gap: 10px">
+        <div style="height: 132px; border-radius: 20px; background: #F6F1EA; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative"><span class="k-loop" style="animation-name: k-rise; font-family: 'Bricolage Grotesque', Inter, sans-serif; font-size: 26px; font-weight: 800">Trending</span></div>
+        <span style="font-size: 14px; font-weight: 700">Rise in</span>
+        <span style="font-size: 12px; line-height: 17px; color: #5E5048">450 ms ease-out, 14 px up. Headings and rows, 50–70 ms apart.</span>
+      </div>      <div style="display: flex; flex-direction: column; gap: 10px">
+        <div style="height: 132px; border-radius: 20px; background: #F6F1EA; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative"><span class="k-loop" style="animation-name: k-print; width: 96px; background: #FFFFFF; padding: 5px 5px 14px; border-radius: 4px; box-shadow: 0 6px 14px rgba(60,35,20,.16); display: block"><img src="/_blob/bba34ca874bd0e3b4ba3d543557bb0c7" alt="" style="width: 100%; height: 64px; object-fit: cover; border-radius: 2px; display: block"></span></div>
+        <span style="font-size: 14px; font-weight: 700">Print settles</span>
+        <span style="font-size: 12px; line-height: 17px; color: #5E5048">520 ms ease-out, from 22 px down and 5° extra tilt. Lifts 4 px on hover.</span>
+      </div>      <div style="display: flex; flex-direction: column; gap: 10px">
+        <div style="height: 132px; border-radius: 20px; background: #F6F1EA; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative"><span class="k-loop" style="animation-name: k-stamp; width: 62px; height: 62px; border-radius: 50%; background: #C4421D; color: #FFFFFF; border: 3px solid #FFFFFF; box-shadow: 0 4px 10px rgba(196,66,29,.3); display: flex; flex-direction: column; align-items: center; justify-content: center; rotate: 10deg"><span style="font-family: 'Bricolage Grotesque', Inter, sans-serif; font-size: 20px; line-height: 20px; font-weight: 800">55</span><span style="font-size: 9px; font-weight: 700; letter-spacing: 1px">MIN</span></span></div>
+        <span style="font-size: 14px; font-weight: 700">Stamp lands</span>
+        <span style="font-size: 12px; line-height: 17px; color: #5E5048">360 ms with a small overshoot, after the card it sits on.</span>
+      </div>      <div style="display: flex; flex-direction: column; gap: 10px">
+        <div style="height: 132px; border-radius: 20px; background: #F6F1EA; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative"><span class="k-loop" style="animation-name: k-note; font-family: Caveat, cursive; font-size: 28px; font-weight: 700; color: #8F2E12; rotate: -3deg; display: inline-block">Riaan swears by these</span></div>
+        <span style="font-size: 14px; font-weight: 700">Note writes on</span>
+        <span style="font-size: 12px; line-height: 17px; color: #5E5048">640 ms left-to-right reveal, last thing on screen to arrive.</span>
+      </div>      <div style="display: flex; flex-direction: column; gap: 10px">
+        <div style="height: 132px; border-radius: 20px; background: #F6F1EA; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative"><img class="k-loop" src="/_blob/f402df697933c300ec103155ec0ee4eb" alt="" style="animation-name: k-pap; width: 104px; height: 104px"></div>
+        <span style="font-size: 14px; font-weight: 700">Paprika pops</span>
+        <span style="font-size: 12px; line-height: 17px; color: #5E5048">560 ms with overshoot. The only real bounce in the app.</span>
+      </div>      <div style="display: flex; flex-direction: column; gap: 10px">
+        <div style="height: 132px; border-radius: 20px; background: #F6F1EA; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative"><span class="k-loop" style="animation-name: k-press; height: 48px; padding: 0 24px; border-radius: 24px; background: #C4421D; color: #FFFFFF; font-size: 15px; font-weight: 700; display: inline-flex; align-items: center">Start cooking</span></div>
+        <span style="font-size: 14px; font-weight: 700">Press</span>
+        <span style="font-size: 12px; line-height: 17px; color: #5E5048">120 ms to 97% scale, so every tap feels answered.</span>
+      </div>      <div style="display: flex; flex-direction: column; gap: 10px">
+        <div style="height: 132px; border-radius: 20px; background: #F6F1EA; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative"><div style="position: absolute; inset: 0; background: rgba(36,28,23,.35)"></div><div class="k-loop" style="animation-name: k-sheet; position: absolute; left: 24px; right: 24px; bottom: 0; height: 84px; border-radius: 18px 18px 0 0; background: #F6F1EA; box-shadow: 0 -4px 14px rgba(0,0,0,.1); display: flex; justify-content: center; padding-top: 8px; box-sizing: border-box"><span style="width: 32px; height: 4px; border-radius: 2px; background: #D9C7B8"></span></div></div>
+        <span style="font-size: 14px; font-weight: 700">Sheet slides up</span>
+        <span style="font-size: 12px; line-height: 17px; color: #5E5048">450 ms ease-out from the bottom. Pushes come from the right, back from the left.</span>
+      </div>      <div style="display: flex; flex-direction: column; gap: 10px">
+        <div style="height: 132px; border-radius: 20px; background: #F6F1EA; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative"><span style="font-size: 18px">Add <span class="k-loop" style="animation-name: k-flash; font-weight: 700; border-radius: 4px; padding: 0 3px">1.5 kg</span> chicken</span></div>
+        <span style="font-size: 14px; font-weight: 700">Amounts flash</span>
+        <span style="font-size: 12px; line-height: 17px; color: #5E5048">Changing servings or units highlights every amount that moved.</span>
+      </div>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; padding-top: 4px; border-top: 1px solid #EFE6DC">
+      <span style="font-size: 13px; line-height: 19px; color: #3D2A08; padding-top: 12px"><b>Timing.</b> 120 ms presses, 200 ms small changes, 300 ms tabs and steps, 450 ms screens and sheets. Nothing over 500 ms except Paprika.</span>
+      <span style="font-size: 13px; line-height: 19px; color: #3D2A08; padding-top: 12px"><b>Easing.</b> One family. Ease-out cubic-bezier(.22,1,.36,1) to arrive, ease-in to leave, a gentle back curve only for Paprika, stamps and notes.</span>
+      <span style="font-size: 13px; line-height: 19px; color: #3D2A08; padding-top: 12px"><b>Direction.</b> Things move from where they come from: next step from the right, back from the left, sheets from below. Lists stagger 50–70 ms, six items max.</span>
+      <span style="font-size: 13px; line-height: 19px; color: #3D2A08; padding-top: 12px"><b>Respect.</b> Feedback starts within 100 ms. Skeletons pulse, never spin. With Reduce motion on, everything becomes an instant change.</span>
+    </div>
+  </section>
+
+
+  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px">
+    <section style="background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 14px">
+      <h2 style="margin: 0; font-family: 'Bricolage Grotesque', Inter, sans-serif; font-size: 20px; font-weight: 700">Paprika, your kitchen buddy</h2>
+      <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px">
+        <sc-for list="{{moods}}" as="m" hint-placeholder-count="4">
+          <div style="background: #F6F1EA; border-radius: 18px; padding: 8px; display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center">
+            <img src="{{m.img}}" alt="{{m.alt}}" style="width: 100%; max-width: 88px; aspect-ratio: 1 / 1">
+            <span style="font-size: 14px; font-weight: 700">{{m.name}}</span>
+            <span style="font-size: 12px; line-height: 16px; color: #5E5048">{{m.use}}</span>
+          </div>
+        </sc-for>
+      </div>
+      <span style="font-size: 13px; line-height: 19px; color: #5E5048">Paprika only shows up when there's something useful to say: a tip, a win, a wait or a problem. Never in the way of the food.</span>
+    </section>
+
+    <section style="background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 14px">
+      <h2 style="margin: 0; font-family: 'Bricolage Grotesque', Inter, sans-serif; font-size: 20px; font-weight: 700">Loading and feedback</h2>
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px">
+        <div style="background: #F6F1EA; border-radius: 20px; padding: 16px; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center">
+          <span class="spin" style="width: 34px; height: 34px; border-radius: 50%; border: 4px solid #F1DDD4; border-top-color: #C4421D; box-sizing: border-box"></span>
+          <span style="font-size: 13px; font-weight: 700">Plate spinner</span>
+          <span style="font-size: 12px; color: #5E5048">Small areas, 1–3 s</span>
+        </div>
+        <div style="background: #F6F1EA; border-radius: 20px; padding: 16px; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center">
+          <span style="height: 34px; display: flex; align-items: center; gap: 6px">
+            <span class="hop1" style="width: 10px; height: 10px; border-radius: 50%; background: #C4421D"></span>
+            <span class="hop2" style="width: 10px; height: 10px; border-radius: 50%; background: #E9A23B"></span>
+            <span class="hop3" style="width: 10px; height: 10px; border-radius: 50%; background: #2F6B3A"></span>
+          </span>
+          <span style="font-size: 13px; font-weight: 700">Simmer dots</span>
+          <span style="font-size: 12px; color: #5E5048">Parsing, matching foods</span>
+        </div>
+        <div style="background: #F6F1EA; border-radius: 20px; padding: 16px; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center">
+          <svg class="pop" viewBox="0 0 24 24" width="34" height="34" aria-hidden="true" style="fill: #C4421D; stroke: #C4421D; stroke-width: 1.9; stroke-linejoin: round"><path d="M12 20s-7.5-4.5-7.5-10A4.3 4.3 0 0 1 12 7.4 4.3 4.3 0 0 1 19.5 10c0 5.5-7.5 10-7.5 10z"/></svg>
+          <span style="font-size: 13px; font-weight: 700">Instant like</span>
+          <span style="font-size: 12px; color: #5E5048">Updates first, syncs after</span>
+        </div>
+        <div style="background: #F6F1EA; border-radius: 20px; padding: 16px; display: flex; flex-direction: column; gap: 8px; grid-column: span 2">
+          <span class="pulse" style="height: 64px; border-radius: 14px; background: #EADFD4"></span>
+          <span class="pulse" style="height: 12px; width: 70%; border-radius: 6px; background: #EADFD4"></span>
+          <span style="font-size: 13px; font-weight: 700">Skeletons for every page</span>
+          <span style="font-size: 12px; color: #5E5048">Same shapes as the real layout, so nothing jumps when it loads</span>
+        </div>
+        <div style="background: #F6F1EA; border-radius: 20px; padding: 16px; display: flex; flex-direction: column; gap: 10px; justify-content: center">
+          <span style="height: 48px; border-radius: 14px; background: #C4421D; color: #FFFFFF; font-size: 14px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px">
+            <span class="spin" style="width: 16px; height: 16px; border-radius: 50%; border: 2.5px solid rgba(255, 255, 255, 0.35); border-top-color: #FFFFFF; box-sizing: border-box"></span>
+            Sharing…
+          </span>
+          <span style="font-size: 12px; color: #5E5048; text-align: center">Buttons keep their size</span>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section style="background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; gap: 28px">
+    <div style="flex: 1; display: flex; flex-direction: column; gap: 14px">
+      <h2 style="margin: 0; font-family: 'Bricolage Grotesque', Inter, sans-serif; font-size: 20px; font-weight: 700">Default covers, picked from tags</h2>
+      <div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px">
+        <sc-for list="{{covers}}" as="c" hint-placeholder-count="5">
+          <div style="display: flex; flex-direction: column; gap: 6px">
+            <img src="{{c.img}}" alt="" style="width: 100%; aspect-ratio: 4 / 3; border-radius: 16px; object-fit: cover; display: block">
+            <span style="font-size: 12px; font-weight: 600">{{c.name}}</span>
+          </div>
+        </sc-for>
+      </div>
+      <span style="font-size: 13px; line-height: 19px; color: #5E5048">Every recipe looks good in a grid, even without a photo. The cover follows the first matching tag, and the creator can swap it.</span>
+    </div>
+    <div style="width: 360px; display: flex; flex-direction: column; gap: 12px">
+      <h2 style="margin: 0; font-family: 'Bricolage Grotesque', Inter, sans-serif; font-size: 20px; font-weight: 700">When it's a real photo</h2>
+      <img src="/_blob/bba34ca874bd0e3b4ba3d543557bb0c7" alt="A home cook's photo of chicken curry, cropped to 4:3" style="width: 100%; height: 150px; border-radius: 18px; object-fit: cover; display: block">
+      <span style="font-size: 13px; line-height: 19px; color: #5E5048">Crop to 4:3 around the plate, gently auto-brighten, round the corners. Text never sits on top of a photo, so a dark or messy shot still reads fine.</span>
+    </div>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1240,"height":2360}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      swatches: [
+        { name: 'Oat', hex: '#F6F1EA', use: 'background' },
+        { name: 'Card', hex: '#FFFFFF', use: 'surfaces' },
+        { name: 'Ink', hex: '#241C17', use: 'text, cook mode' },
+        { name: 'Cocoa', hex: '#5E5048', use: 'secondary text' },
+        { name: 'Paprika', hex: '#C4421D', use: 'main actions' },
+        { name: 'Blush', hex: '#F9E3D8', use: 'soft highlights' },
+        { name: 'Herb', hex: '#2F6B3A', use: 'done, matched' },
+        { name: 'Honey', hex: '#E9A23B', use: 'timers, tips' }
+      ],
+      moods: [
+        { name: 'Happy', use: 'Welcome, guides, empty states', img: '/_blob/f402df697933c300ec103155ec0ee4eb', alt: 'Paprika smiling' },
+        { name: 'Cheer', use: 'Shared, cooked, milestones', img: '/_blob/6a79ef128fe80f165db8235afce70eda', alt: 'Paprika cheering' },
+        { name: 'Sleepy', use: 'Drafts, loads over 3 s', img: '/_blob/fd05c3b3ed07ba9f787fd29eb349f1ae', alt: 'Paprika dozing' },
+        { name: 'Oops', use: 'Errors, offline, no results', img: '/_blob/610bf722aa4c166937c9b0853de39acd', alt: 'Paprika looking worried' },
+        { name: 'Thinking', use: 'Sorting a paste, choosing tastes', img: '/_blob/1201ae0500ad6f592c30046b749c8cab', alt: 'Paprika thinking' },
+        { name: 'Wink', use: 'Tips and gentle nudges', img: '/_blob/395006def16e4f69026fd1869cbd727d', alt: 'Paprika winking' },
+        { name: 'Proud', use: 'Saves, round-ups, ready to share', img: '/_blob/a1d1cb08871dc8d5cb4e85997a76df44', alt: 'Paprika smiling proudly' },
+        { name: 'Focused', use: 'Cook mode and timers', img: '/_blob/77481a5bbb3c8ffcd049da64fb4971c4', alt: 'Paprika concentrating' }
+      ],
+      covers: [
+        { name: 'Curries & stews', img: '/_blob/986769dc2e2026ecfeb3f823e092b0d3' },
+        { name: 'Meat & braai', img: '/_blob/5244c8ab21a47605c7219e1c3620e4ca' },
+        { name: 'Veg & salads', img: '/_blob/6d16b5637651b4d74b732325b0d20f3b' },
+        { name: 'Baking & sweet', img: '/_blob/cd04100869b5f57ad968a25fdb12a2b7' },
+        { name: 'Everything else', img: '/_blob/cdb7cef2b1a9e310511d7d8fdc4c8108' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

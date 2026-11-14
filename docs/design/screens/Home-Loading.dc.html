@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Home · loading</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Inter:wght@400;500;600;700&amp;family=Caveat:wght@600;700&amp;display=swap">
+<style>
+body{margin:0}
+.ico{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
+.sk{background:#EADFD4;animation:pulse 1.4s ease-in-out infinite}
+.sk2{background:#EADFD4;animation:pulse 1.4s ease-in-out .2s infinite}
+.sk3{background:#EADFD4;animation:pulse 1.4s ease-in-out .4s infinite}
+@keyframes bob{0%,100%{transform:rotate(-6deg) translateY(0)}50%{transform:rotate(-2deg) translateY(-4px)}}
+.bob{animation:bob 1.6s ease-in-out infinite}
+@media (prefers-reduced-motion: reduce){.sk,.sk2,.sk3,.bob{animation:none}}
+/* SharedPlates motion: one curve family, short durations */
+:root{--ease-out:cubic-bezier(.22,1,.36,1);--ease-in:cubic-bezier(.55,0,1,.45);--ease-back:cubic-bezier(.34,1.56,.64,1);--t-press:120ms;--t-small:200ms;--t-med:300ms;--t-large:450ms}
+@keyframes m-rise{from{opacity:0;translate:0 14px}}
+@keyframes m-print{from{opacity:0;translate:0 22px;rotate:-5deg}}
+@keyframes m-pap{from{opacity:0;scale:.6;translate:0 14px}}
+@keyframes m-note{from{clip-path:inset(-20% 100% -20% 0)}to{clip-path:inset(-20% -6% -20% 0)}}
+@keyframes m-stamp{from{opacity:0;scale:1.7}}
+@keyframes m-sheet{from{translate:0 100%}}
+@keyframes m-fade{from{opacity:0}}
+@keyframes m-bump{35%{scale:1.3;color:#C4421D}}
+@keyframes m-bump2{35%{scale:1.3;color:#C4421D}}
+@keyframes m-flash{from{background-color:rgba(233,162,59,.5)}to{background-color:rgba(233,162,59,0)}}
+@keyframes m-flash2{from{background-color:rgba(233,162,59,.5)}to{background-color:rgba(233,162,59,0)}}
+@keyframes m-draw{from{stroke-dashoffset:24}to{stroke-dashoffset:0}}
+@keyframes m-next{from{opacity:0;translate:32px 0}}
+@keyframes m-next2{from{opacity:0;translate:32px 0}}
+@keyframes m-back{from{opacity:0;translate:-32px 0}}
+@keyframes m-back2{from{opacity:0;translate:-32px 0}}
+.m-rise{animation:m-rise var(--t-large) var(--ease-out) backwards;animation-delay:var(--d,0ms)}
+.m-print{animation:m-print 520ms var(--ease-out) backwards;animation-delay:var(--d,140ms);transition:translate var(--t-small) var(--ease-out),box-shadow var(--t-small) var(--ease-out),scale var(--t-press) var(--ease-out)}
+a.m-print:hover,.m-lift:hover .m-print{translate:0 -4px;box-shadow:0 16px 30px rgba(60,35,20,.22)!important}
+.m-pap{animation:m-pap 560ms var(--ease-back) backwards;animation-delay:var(--d,240ms)}
+.m-note{animation:m-note 640ms var(--ease-out) backwards;animation-delay:var(--d,420ms)}
+.m-stamp{animation:m-stamp 360ms var(--ease-back) backwards;animation-delay:var(--d,640ms)}
+.m-sheet{animation:m-sheet var(--t-large) var(--ease-out) backwards;animation-delay:80ms}
+.m-scrim{animation:m-fade var(--t-med) var(--ease-out) backwards}
+.m-print:nth-child(1){--d:160ms}.m-print:nth-child(2){--d:230ms}.m-print:nth-child(3){--d:300ms}.m-print:nth-child(4){--d:370ms}.m-print:nth-child(5){--d:440ms}.m-print:nth-child(6){--d:510ms}
+.m-tile:nth-child(1){--d:180ms}.m-tile:nth-child(2){--d:230ms}.m-tile:nth-child(3){--d:280ms}.m-tile:nth-child(4){--d:330ms}
+.m-row:nth-child(1){--d:260ms}.m-row:nth-child(2){--d:310ms}.m-row:nth-child(3){--d:360ms}.m-row:nth-child(4){--d:410ms}.m-row:nth-child(5){--d:460ms}.m-row:nth-child(n+6){--d:500ms}
+.m-tile img{transition:rotate var(--t-med) var(--ease-back),scale var(--t-med) var(--ease-back)}
+.m-tile:hover img{rotate:12deg;scale:1.06}
+button,a,label{transition:scale var(--t-press) var(--ease-out),background-color var(--t-small) var(--ease-out),color var(--t-small) var(--ease-out),box-shadow var(--t-small) var(--ease-out),border-color var(--t-small) var(--ease-out)}
+button:active,a:active{scale:.97}
+label:focus-within{box-shadow:0 0 0 3px rgba(233,162,59,.7),0 6px 16px rgba(80,25,8,.18)!important}
+:focus-visible{outline:3px solid #E9A23B;outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:1ms!important;animation-delay:0ms!important;transition-duration:1ms!important}}
+/* end motion */
+</style>
+</helmet>
+<div aria-busy="true" aria-label="Loading your home feed" style="width: 390px; height: 844px; box-sizing: border-box; background-color: #F6F1EA; background-image: radial-gradient(#E4D8CB 1.1px, transparent 1.3px); background-size: 20px 20px; font-family: Inter, system-ui, sans-serif; color: #241C17; position: relative; overflow: hidden">
+
+  <header style="position: relative; background: #C4421D; color: #FFF6EE; border-radius: 0 0 40px 40px; padding: 56px 20px 24px; overflow: hidden">
+    <div style="display: flex; align-items: center; gap: 8px">
+      <span style="flex: 1; font-size: 14px; font-weight: 600">Good evening, Thandi</span>
+      <span style="width: 44px; height: 44px; border-radius: 50%; background: rgba(255, 246, 238, 0.16)"></span>
+      <span style="width: 44px; height: 44px; border-radius: 50%; background: #FFF6EE; color: #8F2E12; font-weight: 700; font-size: 15px; display: flex; align-items: center; justify-content: center">TN</span>
+    </div>
+    <div style="display: flex; align-items: flex-end; margin-top: 12px; min-height: 128px">
+      <span style="flex: 1; font-family: 'Bricolage Grotesque', Inter, sans-serif; font-size: 40px; line-height: 39px; font-weight: 800; letter-spacing: -1.5px">What's cooking tonight?</span>
+      <div style="width: 132px; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; margin-right: -8px">
+        <span class="m-note" style="font-family: Caveat, cursive; font-size: 20px; line-height: 18px; font-weight: 700; color: #FFE3C7; transform: rotate(-6deg); text-align: center; margin-bottom: 2px">stirring the pot...</span>
+        <img class="bob" src="/_blob/1201ae0500ad6f592c30046b749c8cab" alt="" style="width: 112px; height: 112px; margin-bottom: -10px">
+      </div>
+    </div>
+    <div style="margin-top: 16px; height: 52px; border-radius: 26px; background: #FFFFFF; display: flex; align-items: center; gap: 12px; padding: 0 6px 0 16px; color: #6B5D54; box-shadow: 0 6px 16px rgba(80, 25, 8, 0.18)">
+      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14zM20 20l-4-4"/></svg>
+      <span style="flex: 1; font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Search recipes or people</span>
+      <span style="width: 40px; height: 40px; border-radius: 50%; background: #F9E3D8"></span>
+    </div>
+  </header>
+
+  <div style="padding: 0 20px; display: flex; flex-direction: column">
+    <span class="sk" style="margin-top: 32px; width: 150px; height: 22px; border-radius: 8px"></span>
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 16px">
+      <sc-for list="{{four}}" as="i" hint-placeholder-count="4">
+        <span class="{{i.cls}}" style="height: 104px; border-radius: 24px"></span>
+      </sc-for>
+    </div>
+
+    <span class="sk" style="margin-top: 32px; width: 190px; height: 22px; border-radius: 8px"></span>
+    <div style="display: flex; gap: 20px; margin-top: 8px; margin-right: -20px; padding: 16px 0 0 6px">
+      <sc-for list="{{two}}" as="i" hint-placeholder-count="2">
+        <div class="m-print" style="position: relative; width: 224px; flex-shrink: 0; background: #FFFFFF; padding: 8px 8px 12px; box-sizing: border-box; border-radius: 6px; box-shadow: 0 10px 24px rgba(60, 35, 20, 0.1); display: flex; flex-direction: column; gap: 10px; transform: rotate({{i.tilt}})">
+          <span style="position: absolute; top: -11px; left: 50%; width: 72px; height: 22px; margin-left: -36px; background: rgba(233, 162, 59, 0.35)"></span>
+          <span class="sk" style="height: 160px; border-radius: 3px"></span>
+          <span class="sk2" style="height: 16px; width: 75%; border-radius: 6px; margin: 0 4px"></span>
+          <span class="sk3" style="height: 12px; width: 50%; border-radius: 6px; margin: 0 4px"></span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="position: absolute; left: 0; bottom: 0">
+    <dc-import name="TabBar" active="home" hint-size="390px,96px"></dc-import>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      four: [{ cls: 'sk' }, { cls: 'sk2' }, { cls: 'sk2' }, { cls: 'sk3' }],
+      two: [{ tilt: '-1.8deg' }, { tilt: '1.6deg' }]
+    };
+  }
+}
+</script>
+</body>
+</html>

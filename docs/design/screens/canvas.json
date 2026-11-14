@@ -1,0 +1,381 @@
+{
+  "v": 3,
+  "createdOnFiles": {
+    "v": 1,
+    "at": "2026-11-11T21:20:00Z"
+  },
+  "title": "SharedPlates Redesign",
+  "launch": {
+    "view": "canvas"
+  },
+  "pages": [],
+  "boards": {
+    "Main.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "Welcome & sign in",
+      "radius": 36
+    },
+    "Sign-In-Email.dc.html": {
+      "x": 470,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "Email sign-in \u00b7 code",
+      "radius": 36
+    },
+    "Onboard-You.dc.html": {
+      "x": 940,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "Onboarding 1 \u00b7 You",
+      "radius": 36
+    },
+    "Onboard-Taste.dc.html": {
+      "x": 1410,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "Onboarding 2 \u00b7 Taste",
+      "radius": 36
+    },
+    "Onboard-Friends.dc.html": {
+      "x": 1880,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "Onboarding 3 \u00b7 Friends",
+      "radius": 36
+    },
+    "Home-FirstRun.dc.html": {
+      "x": 2350,
+      "y": 0,
+      "w": 390,
+      "h": 1100,
+      "title": "Home \u00b7 first run (full scroll)",
+      "radius": 36
+    },
+    "Home.dc.html": {
+      "x": 0,
+      "y": 1550,
+      "w": 390,
+      "h": 1320,
+      "title": "Home (full scroll)",
+      "radius": 36
+    },
+    "Discover.dc.html": {
+      "x": 470,
+      "y": 1550,
+      "w": 390,
+      "h": 1120,
+      "title": "Discover (full scroll)",
+      "radius": 36
+    },
+    "Recipes.dc.html": {
+      "x": 940,
+      "y": 1550,
+      "w": 390,
+      "h": 1120,
+      "title": "Your recipes (full scroll)",
+      "radius": 36
+    },
+    "Friends.dc.html": {
+      "x": 1410,
+      "y": 1550,
+      "w": 390,
+      "h": 1180,
+      "title": "Friends (full scroll)",
+      "radius": 36
+    },
+    "Home-Loading.dc.html": {
+      "x": 1880,
+      "y": 1550,
+      "w": 390,
+      "h": 844,
+      "title": "Home \u00b7 loading skeleton",
+      "radius": 36
+    },
+    "Search-Results.dc.html": {
+      "x": 2350,
+      "y": 1550,
+      "w": 390,
+      "h": 844,
+      "title": "Search results",
+      "radius": 36
+    },
+    "Filter-Sheet.dc.html": {
+      "x": 2820,
+      "y": 1550,
+      "w": 390,
+      "h": 844,
+      "title": "Filter sheet",
+      "radius": 36
+    },
+    "Notifications.dc.html": {
+      "x": 3290,
+      "y": 1550,
+      "w": 390,
+      "h": 844,
+      "title": "Activity (notifications)",
+      "radius": 36
+    },
+    "Recipe-Detail.dc.html": {
+      "x": 0,
+      "y": 3316,
+      "w": 390,
+      "h": 2840,
+      "title": "Recipe detail (full scroll, interactive)",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "Cook-Mode.dc.html": {
+      "x": 470,
+      "y": 3316,
+      "w": 390,
+      "h": 844,
+      "title": "Cook mode (interactive)",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "Cook-Done.dc.html": {
+      "x": 940,
+      "y": 3316,
+      "w": 390,
+      "h": 844,
+      "title": "Cook mode \u00b7 finished",
+      "radius": 36
+    },
+    "Create-Start.dc.html": {
+      "x": 0,
+      "y": 6596,
+      "w": 390,
+      "h": 844,
+      "title": "Create \u00b7 start",
+      "radius": 36
+    },
+    "Create-Paste.dc.html": {
+      "x": 470,
+      "y": 6596,
+      "w": 390,
+      "h": 1300,
+      "title": "Create \u00b7 paste and confirm",
+      "radius": 36
+    },
+    "Create-Editor.dc.html": {
+      "x": 940,
+      "y": 6596,
+      "w": 390,
+      "h": 2540,
+      "title": "Create \u00b7 editor (full scroll)",
+      "radius": 36
+    },
+    "Create-Published.dc.html": {
+      "x": 1410,
+      "y": 6596,
+      "w": 390,
+      "h": 844,
+      "title": "Create \u00b7 shared",
+      "radius": 36
+    },
+    "Kit.dc.html": {
+      "x": 0,
+      "y": 9536,
+      "w": 1240,
+      "h": 2360,
+      "title": "Kitchen kit: colour, type, Paprika, loaders, covers"
+    },
+    "TabBar.dc.html": {
+      "x": 1320,
+      "y": 9536,
+      "w": 390,
+      "h": 96,
+      "title": "Tab bar component"
+    },
+    "States.dc.html": {
+      "x": 1320,
+      "y": 9752,
+      "w": 1250,
+      "h": 844,
+      "title": "Empty, no-results and offline states"
+    },
+    "Profile.dc.html": {
+      "x": 0,
+      "y": 12476,
+      "w": 390,
+      "h": 844,
+      "title": "Your profile",
+      "radius": 36
+    },
+    "Friend-Profile.dc.html": {
+      "x": 470,
+      "y": 12476,
+      "w": 390,
+      "h": 960,
+      "title": "A friend's profile (full scroll)",
+      "radius": 36
+    },
+    "Settings.dc.html": {
+      "x": 940,
+      "y": 12476,
+      "w": 390,
+      "h": 1720,
+      "title": "Settings (full scroll)",
+      "radius": 36
+    },
+    "Home-Dark.dc.html": {
+      "x": 0,
+      "y": 14646,
+      "w": 390,
+      "h": 1320,
+      "title": "Home \u00b7 dark (full scroll)",
+      "radius": 36
+    },
+    "Recipe-Dark.dc.html": {
+      "x": 470,
+      "y": 14646,
+      "w": 390,
+      "h": 844,
+      "title": "Recipe \u00b7 dark (top of page)",
+      "radius": 36
+    },
+    "Home-Notebook.dc.html": {
+      "x": 4150,
+      "y": 1550,
+      "w": 390,
+      "h": 844,
+      "title": "Earlier option A: kitchen notebook",
+      "radius": 36
+    },
+    "Home-Bold.dc.html": {
+      "x": 4620,
+      "y": 1550,
+      "w": 390,
+      "h": 844,
+      "title": "Earlier option B: bold colour",
+      "radius": 36
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "Sign-In-Email.dc.html",
+    "Onboard-You.dc.html",
+    "Onboard-Taste.dc.html",
+    "Onboard-Friends.dc.html",
+    "Home-FirstRun.dc.html",
+    "Home.dc.html",
+    "Discover.dc.html",
+    "Recipes.dc.html",
+    "Friends.dc.html",
+    "Home-Loading.dc.html",
+    "Search-Results.dc.html",
+    "Filter-Sheet.dc.html",
+    "Notifications.dc.html",
+    "Home-Notebook.dc.html",
+    "Home-Bold.dc.html",
+    "Recipe-Detail.dc.html",
+    "Cook-Mode.dc.html",
+    "Cook-Done.dc.html",
+    "Create-Start.dc.html",
+    "Create-Paste.dc.html",
+    "Create-Editor.dc.html",
+    "Create-Published.dc.html",
+    "Kit.dc.html",
+    "TabBar.dc.html",
+    "States.dc.html",
+    "Profile.dc.html",
+    "Friend-Profile.dc.html",
+    "Settings.dc.html",
+    "Home-Dark.dc.html",
+    "Recipe-Dark.dc.html"
+  ],
+  "notes": {
+    "t1": {
+      "x": 0,
+      "y": -300,
+      "text": "1 \u00b7 Getting started: sign in, three quick questions, a first-run home",
+      "kind": "title1",
+      "maxW": 2740
+    },
+    "t2": {
+      "x": 0,
+      "y": 1250,
+      "text": "2 \u00b7 Everyday: home, discover, your recipes, friends, search, activity",
+      "kind": "title1",
+      "maxW": 3680
+    },
+    "t3": {
+      "x": 0,
+      "y": 3016,
+      "text": "3 \u00b7 Recipe and cook mode",
+      "kind": "title1",
+      "maxW": 1800
+    },
+    "t4": {
+      "x": 0,
+      "y": 6296,
+      "text": "4 \u00b7 Creating a recipe",
+      "kind": "title1",
+      "maxW": 2270
+    },
+    "t5": {
+      "x": 0,
+      "y": 9236,
+      "text": "5 \u00b7 Kitchen kit and edge states",
+      "kind": "title1",
+      "maxW": 2570
+    },
+    "t6": {
+      "x": 0,
+      "y": 12176,
+      "text": "6 \u00b7 Profiles and settings",
+      "kind": "title1",
+      "maxW": 1800
+    },
+    "t7": {
+      "x": 0,
+      "y": 14346,
+      "text": "7 \u00b7 Dark mode",
+      "kind": "title1",
+      "maxW": 1330
+    },
+    "s1": {
+      "x": 2820,
+      "y": 0,
+      "w": 360,
+      "fill": "orange",
+      "text": "Onboarding: one tap to sign in, then 3 short steps (name, tastes, friends), each skippable. Units default to metric from the device locale. Notifications and contacts are only asked for later, when they clearly help (e.g. the first time someone saves your recipe)."
+    },
+    "s2": {
+      "x": 1410,
+      "y": 3316,
+      "w": 360,
+      "fill": "orange",
+      "text": "Cook mode: big type for reading at arm's length, the screen stays on, timers come from the step text, and the left/right halves of the screen are huge Back/Next targets for messy hands. Finishing a cook tells the creator someone made their food, which gives creators a reward without needing comments."
+    },
+    "s3": {
+      "x": 1880,
+      "y": 6596,
+      "w": 360,
+      "fill": "orange",
+      "text": "Creating: one page, not a wizard. Type or paste ingredients and method as plain lines; each line is parsed into amount + unit + food and matched to the food library. Unmatched lines are kept as written (they just don't count towards nutrition). Only title, 1 ingredient and 1 step are required; everything autosaves as a draft."
+    },
+    "s4": {
+      "x": 940,
+      "y": 14646,
+      "w": 360,
+      "fill": "orange",
+      "text": "Dark palette: background #1C1613, cards #2B221C, raised #3A2F28, text #F6F1EA, secondary text #CDBFB4, accent text #F7B79B. Main buttons stay paprika #C4421D with white text. Selected chips: #4A2A1E fill, #E0683F outline. Photos and illustrated covers are unchanged."
+    },
+    "t8": {
+      "x": 4150,
+      "y": 1250,
+      "text": "Earlier directions (Home now mixes both)",
+      "kind": "title1",
+      "maxW": 860
+    }
+  },
+  "designSystems": []
+}

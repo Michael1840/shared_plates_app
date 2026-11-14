@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Activity</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Inter:wght@400;500;600;700&amp;family=Caveat:wght@600;700&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#C4421D}a:hover{color:#8F2E12}
+.ico{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+button{font:inherit;cursor:pointer}
+/* SharedPlates motion: one curve family, short durations */
+:root{--ease-out:cubic-bezier(.22,1,.36,1);--ease-in:cubic-bezier(.55,0,1,.45);--ease-back:cubic-bezier(.34,1.56,.64,1);--t-press:120ms;--t-small:200ms;--t-med:300ms;--t-large:450ms}
+@keyframes m-rise{from{opacity:0;translate:0 14px}}
+@keyframes m-print{from{opacity:0;translate:0 22px;rotate:-5deg}}
+@keyframes m-pap{from{opacity:0;scale:.6;translate:0 14px}}
+@keyframes m-note{from{clip-path:inset(-20% 100% -20% 0)}to{clip-path:inset(-20% -6% -20% 0)}}
+@keyframes m-stamp{from{opacity:0;scale:1.7}}
+@keyframes m-sheet{from{translate:0 100%}}
+@keyframes m-fade{from{opacity:0}}
+@keyframes m-bump{35%{scale:1.3;color:#C4421D}}
+@keyframes m-bump2{35%{scale:1.3;color:#C4421D}}
+@keyframes m-flash{from{background-color:rgba(233,162,59,.5)}to{background-color:rgba(233,162,59,0)}}
+@keyframes m-flash2{from{background-color:rgba(233,162,59,.5)}to{background-color:rgba(233,162,59,0)}}
+@keyframes m-draw{from{stroke-dashoffset:24}to{stroke-dashoffset:0}}
+@keyframes m-next{from{opacity:0;translate:32px 0}}
+@keyframes m-next2{from{opacity:0;translate:32px 0}}
+@keyframes m-back{from{opacity:0;translate:-32px 0}}
+@keyframes m-back2{from{opacity:0;translate:-32px 0}}
+.m-rise{animation:m-rise var(--t-large) var(--ease-out) backwards;animation-delay:var(--d,0ms)}
+.m-print{animation:m-print 520ms var(--ease-out) backwards;animation-delay:var(--d,140ms);transition:translate var(--t-small) var(--ease-out),box-shadow var(--t-small) var(--ease-out),scale var(--t-press) var(--ease-out)}
+a.m-print:hover,.m-lift:hover .m-print{translate:0 -4px;box-shadow:0 16px 30px rgba(60,35,20,.22)!important}
+.m-pap{animation:m-pap 560ms var(--ease-back) backwards;animation-delay:var(--d,240ms)}
+.m-note{animation:m-note 640ms var(--ease-out) backwards;animation-delay:var(--d,420ms)}
+.m-stamp{animation:m-stamp 360ms var(--ease-back) backwards;animation-delay:var(--d,640ms)}
+.m-sheet{animation:m-sheet var(--t-large) var(--ease-out) backwards;animation-delay:80ms}
+.m-scrim{animation:m-fade var(--t-med) var(--ease-out) backwards}
+.m-print:nth-child(1){--d:160ms}.m-print:nth-child(2){--d:230ms}.m-print:nth-child(3){--d:300ms}.m-print:nth-child(4){--d:370ms}.m-print:nth-child(5){--d:440ms}.m-print:nth-child(6){--d:510ms}
+.m-tile:nth-child(1){--d:180ms}.m-tile:nth-child(2){--d:230ms}.m-tile:nth-child(3){--d:280ms}.m-tile:nth-child(4){--d:330ms}
+.m-row:nth-child(1){--d:260ms}.m-row:nth-child(2){--d:310ms}.m-row:nth-child(3){--d:360ms}.m-row:nth-child(4){--d:410ms}.m-row:nth-child(5){--d:460ms}.m-row:nth-child(n+6){--d:500ms}
+.m-tile img{transition:rotate var(--t-med) var(--ease-back),scale var(--t-med) var(--ease-back)}
+.m-tile:hover img{rotate:12deg;scale:1.06}
+button,a,label{transition:scale var(--t-press) var(--ease-out),background-color var(--t-small) var(--ease-out),color var(--t-small) var(--ease-out),box-shadow var(--t-small) var(--ease-out),border-color var(--t-small) var(--ease-out)}
+button:active,a:active{scale:.97}
+label:focus-within{box-shadow:0 0 0 3px rgba(233,162,59,.7),0 6px 16px rgba(80,25,8,.18)!important}
+:focus-visible{outline:3px solid #E9A23B;outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:1ms!important;animation-delay:0ms!important;transition-duration:1ms!important}}
+/* end motion */
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background-color: #F6F1EA; background-image: radial-gradient(#E4D8CB 1.1px, transparent 1.3px); background-size: 20px 20px; font-family: Inter, system-ui, sans-serif; color: #241C17; display: flex; flex-direction: column; overflow: hidden; position: relative">
+  <header style="position: relative; flex-shrink: 0; background: #C4421D; color: #FFF6EE; border-radius: 0 0 36px 36px; padding: 56px 20px 24px; overflow: hidden">
+    <svg aria-hidden="true" viewBox="0 0 390 300" width="390" height="300" style="position: absolute; left: 0; top: 0; opacity: 0.12">
+      <circle cx="370" cy="30" r="96" fill="none" stroke="#FFF6EE" stroke-width="2"/>
+      <circle cx="370" cy="30" r="64" fill="none" stroke="#FFF6EE" stroke-width="2"/>
+    </svg>
+  <div style="position: relative; display: flex; align-items: center; gap: 12px">
+    <a href="Home.dc.html" aria-label="Back" style="width: 44px; height: 44px; border-radius: 50%; background: rgba(255, 246, 238, 0.16); color: #FFF6EE; display: flex; align-items: center; justify-content: center">
+      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+    </a>
+    <span style="flex: 1"></span>
+    <a href="Settings.dc.html" aria-label="Notification settings" style="width: 44px; height: 44px; border-radius: 50%; background: rgba(255, 246, 238, 0.16); color: #FFF6EE; display: flex; align-items: center; justify-content: center">
+      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8M16 5v4M10 15v4"/></svg>
+    </a>
+  </div>
+  <div style="position: relative; margin-top: 8px; display: flex; align-items: baseline; gap: 12px">
+    <h1 class="m-rise" style="margin: 0; font-family: 'Bricolage Grotesque', Inter, sans-serif; font-size: 40px; line-height: 40px; font-weight: 800; letter-spacing: -1.5px; --d: 60ms">Activity</h1>
+    <span class="m-note" style="font-family: Caveat, cursive; font-size: 21px; font-weight: 700; color: #FFE3C7; transform: rotate(-3deg)">2 new since lunch</span>
+  </div>
+  </header>
+  <div style="padding: 0 20px; display: flex; flex-direction: column">
+
+  <div class="m-print" style="position: relative; margin-top: 24px; background: #FBEFD5; border-radius: 6px; padding: 14px 16px 14px 84px; display: flex; flex-direction: column; gap: 10px; transform: rotate(-0.8deg); box-shadow: 0 6px 14px rgba(60, 35, 20, 0.1)">
+    <span aria-hidden="true" style="position: absolute; top: -10px; left: 50%; width: 64px; height: 20px; margin-left: -32px; background: rgba(233, 162, 59, 0.55); transform: rotate(3deg)"></span>
+    <img class="m-pap" src="/_blob/395006def16e4f69026fd1869cbd727d" alt="" style="position: absolute; left: 4px; top: 12px; width: 76px; height: 76px">
+    <span style="font-size: 14px; line-height: 20px; color: #4A3208"><span style="font-weight: 700">Want a nudge when someone saves your recipe?</span> That's all we'll use it for.</span>
+    <div style="display: flex; gap: 8px">
+      <button style="height: 44px; padding: 0 18px; border-radius: 22px; border: none; background: #C4421D; color: #FFFFFF; font-size: 14px; font-weight: 700">Turn on</button>
+      <button style="height: 44px; padding: 0 16px; border-radius: 12px; border: none; background: transparent; color: #4A3208; font-size: 14px; font-weight: 600">Not now</button>
+    </div>
+  </div>
+
+  <sc-for list="{{groups}}" as="g" hint-placeholder-count="2">
+    <div style="display: flex; flex-direction: column">
+      <h2 class="m-rise" style="margin: 24px 0 10px; font-family: 'Bricolage Grotesque', Inter, sans-serif; font-size: 22px; font-weight: 800; letter-spacing: -0.4px; --d: 160ms">{{g.title}}</h2>
+      <div style="background: #FFFFFF; border-radius: 24px; padding: 4px 14px; box-shadow: 0 1px 2px rgba(60, 35, 20, 0.05)">
+        <sc-for list="{{g.items}}" as="n" hint-placeholder-count="3">
+          <div style="display: flex; flex-direction: column; gap: 12px; padding: 12px 0; border-bottom: {{n.rule}}">
+            <div style="display: flex; align-items: center; gap: 12px">
+              <sc-if value="{{n.isPerson}}" hint-placeholder-val="{{true}}">
+                <span style="width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; flex-shrink: 0; background: {{n.bg}}; color: {{n.fg}}">{{n.initials}}</span>
+              </sc-if>
+              <sc-if value="{{n.isPaprika}}" hint-placeholder-val="{{false}}">
+                <img src="/_blob/a1d1cb08871dc8d5cb4e85997a76df44" alt="" style="width: 44px; height: 44px; flex-shrink: 0">
+              </sc-if>
+              <span style="flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0">
+                <span style="font-size: 14px; line-height: 20px"><span style="font-weight: 700">{{n.who}}</span> {{n.what}}</span>
+                <span style="font-size: 12px; color: #6B5D54">{{n.when}}</span>
+              </span>
+              <sc-if value="{{n.hasThumb}}" hint-placeholder-val="{{true}}">
+                <span class="m-print" style="background: #FFFFFF; padding: 3px; border-radius: 3px; box-shadow: 0 3px 8px rgba(60, 35, 20, 0.2); transform: rotate(4deg); flex-shrink: 0; display: block"><img src="{{n.thumb}}" alt="" style="width: 42px; height: 42px; border-radius: 2px; object-fit: cover; display: block"></span>
+              </sc-if>
+              <sc-if value="{{n.unread}}" hint-placeholder-val="{{false}}">
+                <span role="img" aria-label="New" style="width: 8px; height: 8px; border-radius: 50%; background: #C4421D; flex-shrink: 0"></span>
+              </sc-if>
+            </div>
+            <sc-if value="{{n.isRequest}}" hint-placeholder-val="{{false}}">
+              <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; padding-left: 56px">
+                <button style="height: 44px; border-radius: 22px; border: none; background: #C4421D; color: #FFFFFF; font-size: 14px; font-weight: 700">Accept</button>
+                <button style="height: 44px; border-radius: 22px; border: none; background: #F6F1EA; color: #241C17; font-size: 14px; font-weight: 600">Not now</button>
+              </div>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </sc-for>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const chak = '/_blob/21c3b93449c39969f2beb11672d2c237';
+    const pasta = '/_blob/6fc377a4d5eafc23856ca108f8111afd';
+    const person = (initials, bg, fg) => ({ isPerson: true, isPaprika: false, initials, bg, fg });
+    const paprika = { isPerson: false, isPaprika: true };
+    const fill = (items) => items.map((n, i) => ({
+      thumb: '', isRequest: false, unread: false, ...n,
+      hasThumb: !!n.thumb,
+      rule: i < items.length - 1 ? '1px solid #F1E8DF' : 'none'
+    }));
+    return {
+      groups: [
+        { title: 'New', items: fill([
+          { ...person('SD', '#F5E1B5', '#6B430B'), who: 'Sipho', what: 'saved Gran’s chakalaka. He’s planning to cook it.', when: '5 min ago', thumb: chak, unread: true },
+          { ...person('MB', '#DCE2EE', '#2F4064'), who: 'Megan', what: 'cooked your Gran’s chakalaka.', when: '1 hour ago', thumb: chak, unread: true },
+          { ...paprika, who: '12 saves this week.', what: 'That’s 12 kitchens with your food on the menu.', when: 'Weekly round-up' }
+        ]) },
+        { title: 'Earlier', items: fill([
+          { ...person('SD', '#F5E1B5', '#6B430B'), who: 'Sipho Dlamini', what: 'wants to be friends.', when: 'Yesterday · 4 friends in common', isRequest: true },
+          { ...person('LM', '#F9E3D8', '#8F2E12'), who: 'Lerato', what: 'shared a new recipe: Mom’s bobotie.', when: 'Yesterday', thumb: '/_blob/986769dc2e2026ecfeb3f823e092b0d3' },
+          { ...person('AP', '#DCE7CD', '#2F4A1A'), who: 'Aisha', what: 'liked Pantry tomato pasta.', when: '2 days ago', thumb: pasta }
+        ]) }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>
