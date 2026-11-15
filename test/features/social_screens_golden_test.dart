@@ -166,8 +166,14 @@ void main() {
         'kind': 'friend_request',
         'recipe_id': null,
         'data': <String, dynamic>{},
-        'read_at': '2026-11-13T08:00:00Z',
-        'created_at': '2026-11-13T07:00:00Z',
+        'read_at': DateTime.now()
+            .toUtc()
+            .subtract(const Duration(days: 10))
+            .toIso8601String(),
+        'created_at': DateTime.now()
+            .toUtc()
+            .subtract(const Duration(days: 10))
+            .toIso8601String(),
       },
     ]);
     final api = FakeBrowseApi();

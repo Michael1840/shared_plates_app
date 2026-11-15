@@ -18,6 +18,13 @@ abstract final class Env {
     defaultValue: 'https://sharedplates.app',
   );
 
+  static const googleWebClientId = String.fromEnvironment(
+    'GOOGLE_WEB_CLIENT_ID',
+  );
+  static const googleIosClientId = String.fromEnvironment(
+    'GOOGLE_IOS_CLIENT_ID',
+  );
+
   static const testEmail = String.fromEnvironment('TEST_EMAIL');
   static const testPassword = String.fromEnvironment('TEST_PASSWORD');
 

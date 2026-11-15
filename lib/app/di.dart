@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:drift/drift.dart' show TableUpdateQuery;
 import 'package:get_it/get_it.dart';
+import 'package:shared_plates_app/app/env.dart';
 import 'package:shared_plates_app/core/db/app_database.dart';
 import 'package:shared_plates_app/core/settings/app_settings_store.dart';
 import 'package:shared_plates_app/core/sync/connectivity_service.dart';
@@ -13,6 +14,7 @@ import 'package:shared_plates_app/core/sync/sync_service.dart';
 import 'package:shared_plates_app/core/utils/screen_awake.dart';
 import 'package:shared_plates_app/features/activity/data/activity_repository.dart';
 import 'package:shared_plates_app/features/auth/data/auth_repository.dart';
+import 'package:shared_plates_app/features/auth/data/native_identity.dart';
 import 'package:shared_plates_app/features/browse/data/browse_api.dart';
 import 'package:shared_plates_app/features/browse/data/browse_repository.dart';
 import 'package:shared_plates_app/features/cook/data/cook_repository.dart';
@@ -51,7 +53,13 @@ void configureDependencies({required SupabaseClient? supabase}) {
     ..registerSingleton<AuthRepository>(
       supabase == null
           ? const UnavailableAuthRepository()
-          : SupabaseAuthRepository(supabase),
+          : SupabaseAuthRepository(
+              supabase,
+              native: DeviceNativeIdentity(
+                webClientId: Env.googleWebClientId,
+                iosClientId: Env.googleIosClientId,
+              ),
+            ),
     )
     ..registerSingleton<ProfileRepository>(
       ProfileRepositoryImpl(

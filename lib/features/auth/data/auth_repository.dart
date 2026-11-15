@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:equatable/equatable.dart';
 import 'package:shared_plates_app/core/utils/error_reporter.dart';
 import 'package:shared_plates_app/core/utils/result.dart';
+import 'package:shared_plates_app/features/auth/data/native_identity.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 enum SocialProvider { apple, google }
@@ -60,11 +61,12 @@ abstract final class AuthMessages {
 }
 
 class SupabaseAuthRepository implements AuthRepository {
-  new(this._client);
+  new(this._client, {this._native = const NoNativeIdentity()});
 
   static const redirectUrl = 'sharedplates://login-callback';
 
   final SupabaseClient _client;
+  final NativeIdentity _native;
 
   GoTrueClient get _auth => _client.auth;
 
@@ -119,12 +121,33 @@ class SupabaseAuthRepository implements AuthRepository {
   @override
   Future<Result<void>> signInWith(SocialProvider provider) =>
       _guard('signInWith', () async {
-        final launched = await _auth.signInWithOAuth(switch (provider) {
+        final oauth = switch (provider) {
           SocialProvider.apple => OAuthProvider.apple,
           SocialProvider.google => OAuthProvider.google,
-        }, redirectTo: redirectUrl);
-        if (!launched) throw const AuthException(AuthMessages.generic);
-        return launched;
+        };
+        final native = switch (provider) {
+          SocialProvider.apple => _native.supportsApple,
+          SocialProvider.google => _native.supportsGoogle,
+        };
+        if (!native) {
+          final launched = await _auth.signInWithOAuth(
+            oauth,
+            redirectTo: redirectUrl,
+          );
+          if (!launched) throw const AuthException(AuthMessages.generic);
+          return launched;
+        }
+        final grant = switch (provider) {
+          SocialProvider.apple => await _native.apple(),
+          SocialProvider.google => await _native.google(),
+        };
+        if (grant == null) return null;
+        return await _auth.signInWithIdToken(
+          provider: oauth,
+          idToken: grant.idToken,
+          accessToken: grant.accessToken,
+          nonce: grant.rawNonce,
+        );
       });
 
   @override

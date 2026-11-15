@@ -1,5 +1,7 @@
 {
   "APP_ENV": "prod",
   "SUPABASE_URL": "https://gerwtfbubnoskoppmjbf.supabase.co",
-  "SUPABASE_PUBLISHABLE_KEY": "sb_publishable_..."
+  "SUPABASE_PUBLISHABLE_KEY": "sb_publishable_...",
+  "GOOGLE_WEB_CLIENT_ID": "",
+  "GOOGLE_IOS_CLIENT_ID": ""
 }
