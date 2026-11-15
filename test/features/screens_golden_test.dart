@@ -1,3 +1,6 @@
+@Tags(['golden'])
+library;
+
 import 'package:bloc_test/bloc_test.dart';
 import 'package:drift/drift.dart' show Value, driftRuntimeOptions;
 import 'package:drift/native.dart';
@@ -7,7 +10,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:shared_plates_app/app/di.dart';
-import 'package:shared_plates_app/core/db/app_database.dart';
+import 'package:shared_plates_app/core/db/app_database.dart' hide Tags;
 import 'package:shared_plates_app/core/domain/enums.dart';
 import 'package:shared_plates_app/core/domain/models/profile.dart';
 import 'package:shared_plates_app/core/domain/models/recipe.dart';
