@@ -14,7 +14,7 @@ import 'package:shared_plates_app/features/create/domain/recipe_parser.dart';
 import 'package:shared_plates_app/features/create/presentation/bloc/paste_cubit.dart';
 
 class PasteReview extends StatelessWidget {
-  const new({super.key});
+  const PasteReview({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +81,7 @@ class PasteReview extends StatelessWidget {
 }
 
 class _PastedPreview extends StatelessWidget {
-  const new({required this.text, required this.lines});
+  const _PastedPreview({required this.text, required this.lines});
 
   final String text;
   final int lines;
@@ -127,9 +127,9 @@ class _PastedPreview extends StatelessWidget {
 }
 
 class LineLabel {
-  const new(this.label, this.fill, this.ink);
+  const LineLabel(this.label, this.fill, this.ink);
 
-  factory of(BuildContext context, LineKind kind) => switch (kind) {
+  factory LineLabel.of(BuildContext context, LineKind kind) => switch (kind) {
     LineKind.title => LineLabel(
       'Title',
       context.textPrimary,
@@ -169,7 +169,7 @@ class LineLabel {
 }
 
 class _LineRow extends StatelessWidget {
-  const new({required this.line, required this.onRelabel});
+  const _LineRow({required this.line, required this.onRelabel});
 
   final ParsedLine line;
   final VoidCallback onRelabel;
@@ -228,7 +228,7 @@ class _LineRow extends StatelessWidget {
 }
 
 class _UnsureCard extends StatelessWidget {
-  const new({
+  const _UnsureCard({
     required this.line,
     required this.onInclude,
     required this.onSkip,
@@ -279,7 +279,7 @@ class _UnsureCard extends StatelessWidget {
 }
 
 class _SmallButton extends StatelessWidget {
-  const new({required this.label, required this.onTap});
+  const _SmallButton({required this.label, required this.onTap});
 
   final String label;
   final VoidCallback onTap;

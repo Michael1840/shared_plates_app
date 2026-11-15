@@ -23,7 +23,7 @@ import 'package:shared_plates_app/features/recipe/presentation/recipe_share.dart
 import 'package:shared_plates_app/features/recipe/presentation/widgets/recipe_sections.dart';
 
 class IngredientsCard extends StatelessWidget {
-  const new({required this.state, required this.detail, super.key});
+  const IngredientsCard({required this.state, required this.detail, super.key});
 
   final RecipeDetailState state;
   final RecipeDetail detail;
@@ -84,7 +84,7 @@ class IngredientsCard extends StatelessWidget {
 }
 
 class _SendListButton extends StatelessWidget {
-  const new({required this.state, required this.detail});
+  const _SendListButton({required this.state, required this.detail});
 
   final RecipeDetailState state;
   final RecipeDetail detail;
@@ -132,7 +132,7 @@ class _SendListButton extends StatelessWidget {
 }
 
 class _IngredientRow extends StatelessWidget {
-  const new({
+  const _IngredientRow({
     required this.ingredient,
     required this.amount,
     required this.cost,
@@ -225,7 +225,7 @@ class _IngredientRow extends StatelessWidget {
 }
 
 class MethodSection extends StatelessWidget {
-  const new({required this.state, required this.detail, super.key});
+  const MethodSection({required this.state, required this.detail, super.key});
 
   final RecipeDetailState state;
   final RecipeDetail detail;
@@ -256,7 +256,7 @@ class MethodSection extends StatelessWidget {
 }
 
 class _StepCard extends StatelessWidget {
-  const new({
+  const _StepCard({
     required this.number,
     required this.step,
     required this.linked,

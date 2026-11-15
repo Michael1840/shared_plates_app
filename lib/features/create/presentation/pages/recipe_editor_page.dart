@@ -27,7 +27,7 @@ import 'package:shared_plates_app/features/create/presentation/widgets/editor_st
 import 'package:shared_plates_app/features/profile/presentation/bloc/current_profile_cubit.dart';
 
 class RecipeEditorPage extends StatelessWidget {
-  const new({required this.recipeId, super.key});
+  const RecipeEditorPage({required this.recipeId, super.key});
 
   final String recipeId;
 
@@ -55,7 +55,7 @@ class RecipeEditorPage extends StatelessWidget {
 }
 
 class RecipeEditorView extends StatelessWidget {
-  const new({super.key});
+  const RecipeEditorView({super.key});
 
   Future<void> _preview(BuildContext context) async {
     final cubit = context.read<RecipeEditorCubit>();
@@ -199,7 +199,7 @@ class RecipeEditorView extends StatelessWidget {
 }
 
 class _EditorActions extends StatelessWidget {
-  const new();
+  const _EditorActions();
 
   Future<void> _publish(BuildContext context) async {
     final cubit = context.read<RecipeEditorCubit>();

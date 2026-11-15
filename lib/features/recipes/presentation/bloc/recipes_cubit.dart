@@ -17,13 +17,13 @@ enum QuickFilter {
   veggie('Veggie'),
   dessert('Dessert');
 
-  new(this.label);
+  const QuickFilter(this.label);
 
   final String label;
 }
 
 class RecipesState extends Equatable {
-  const new({
+  const RecipesState({
     this.entries = const DelayedResult.idle(),
     this.tags = const [],
     this.tab = LibraryTab.all,
@@ -112,8 +112,11 @@ class RecipesState extends Equatable {
 }
 
 class RecipesCubit extends Cubit<RecipesState> {
-  new({required this._library, required this._profiles, required this._userId})
-    : super(const RecipesState());
+  RecipesCubit({
+    required this._library,
+    required this._profiles,
+    required this._userId,
+  }) : super(const RecipesState());
 
   final LibraryRepository _library;
   final ProfileRepository _profiles;

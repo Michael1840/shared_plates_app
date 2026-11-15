@@ -42,7 +42,7 @@ import 'package:shared_plates_app/features/profile/presentation/bloc/current_pro
 import 'package:shared_plates_app/features/search/presentation/widgets/filter_sheet.dart';
 
 class HomePage extends StatelessWidget {
-  const new({super.key});
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +78,7 @@ class HomePage extends StatelessWidget {
 }
 
 class _HomeView extends StatelessWidget {
-  const new();
+  const _HomeView();
 
   static String greetingFor(DateTime now, String? name) {
     final hour = now.hour;
@@ -165,7 +165,7 @@ class _HomeView extends StatelessWidget {
 }
 
 class _FirstRunSection extends StatelessWidget {
-  const new({required this.progress, required this.home});
+  const _FirstRunSection({required this.progress, required this.home});
 
   final ChecklistProgress progress;
   final HomeState home;
@@ -209,7 +209,7 @@ class _FirstRunSection extends StatelessWidget {
 }
 
 class _EverydaySection extends StatelessWidget {
-  const new({required this.home});
+  const _EverydaySection({required this.home});
 
   final HomeState home;
 
@@ -310,7 +310,7 @@ class _EverydaySection extends StatelessWidget {
 }
 
 class _PrintShelf extends StatelessWidget {
-  const new({required this.children});
+  const _PrintShelf({required this.children});
 
   final List<Widget> children;
 
@@ -330,7 +330,7 @@ class _PrintShelf extends StatelessWidget {
 }
 
 class _ActivityBell extends StatefulWidget {
-  const new({required this.userId});
+  const _ActivityBell({required this.userId});
 
   final String? userId;
 
@@ -364,7 +364,7 @@ class _ActivityBellState extends State<_ActivityBell> {
 }
 
 class _AvatarButton extends StatelessWidget {
-  const new({required this.profile, required this.guest});
+  const _AvatarButton({required this.profile, required this.guest});
 
   final Profile? profile;
   final bool guest;

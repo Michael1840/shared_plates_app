@@ -13,7 +13,7 @@ import 'package:shared_plates_app/features/browse/data/browse_repository.dart';
 import 'package:shared_plates_app/features/friends/domain/person.dart';
 
 class ActivityItem extends Equatable {
-  const new({
+  const ActivityItem({
     required this.id,
     required this.kind,
     required this.createdAt,
@@ -23,7 +23,7 @@ class ActivityItem extends Equatable {
     this.readAt,
   });
 
-  factory fromJson(Map<String, dynamic> json) {
+  factory ActivityItem.fromJson(Map<String, dynamic> json) {
     final actor = json['actor'] as Map<String, dynamic>?;
     final recipe = json['recipe'] as Map<String, dynamic>?;
     final read = json['read_at'] as String?;
@@ -81,7 +81,7 @@ abstract interface class ActivityRepository {
 }
 
 class ActivityRepositoryImpl implements ActivityRepository {
-  new({
+  ActivityRepositoryImpl({
     required this._remote,
     required this._api,
     required this._db,

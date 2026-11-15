@@ -19,7 +19,7 @@ import 'package:shared_plates_app/features/recipe/presentation/recipe_share.dart
 import 'package:shared_plates_app/features/recipe/presentation/widgets/save_button.dart';
 
 class RecipeHero extends StatelessWidget {
-  const new({
+  const RecipeHero({
     required this.card,
     required this.coverUrl,
     super.key,
@@ -76,7 +76,7 @@ class RecipeHero extends StatelessWidget {
 }
 
 class _ShareSheet extends StatelessWidget {
-  const new({required this.card});
+  const _ShareSheet({required this.card});
 
   final RecipeCard card;
 
@@ -128,7 +128,11 @@ class _ShareSheet extends StatelessWidget {
 }
 
 class _ShareRow extends StatelessWidget {
-  const new({required this.icon, required this.label, required this.onTap});
+  const _ShareRow({
+    required this.icon,
+    required this.label,
+    required this.onTap,
+  });
 
   final SpIcons icon;
   final String label;

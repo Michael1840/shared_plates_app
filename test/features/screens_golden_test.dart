@@ -58,11 +58,11 @@ import '../helpers/fake_remote_store.dart';
 import '../helpers/mocks.dart';
 import '../helpers/recipe_seed.dart';
 
-class _MockSession extends MockCubit<SessionState> implements SessionCubit;
+class _MockSession extends MockCubit<SessionState> implements SessionCubit {}
 
-class _MockProfile extends MockCubit<Profile?> implements CurrentProfileCubit;
+class _MockProfile extends MockCubit<Profile?> implements CurrentProfileCubit {}
 
-class _MockCooks extends Mock implements CookRepository;
+class _MockCooks extends Mock implements CookRepository {}
 
 const _paste = '''
 Gran's chakalaka

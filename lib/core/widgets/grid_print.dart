@@ -12,7 +12,7 @@ import 'package:shared_plates_app/core/widgets/recipe_cover.dart';
 import 'package:shared_plates_app/core/widgets/tape.dart';
 
 class GridBadge {
-  const new(this.label, this.fill, this.ink);
+  const GridBadge(this.label, this.fill, this.ink);
 
   final String label;
   final Color fill;
@@ -20,7 +20,7 @@ class GridBadge {
 }
 
 class GridPrint extends StatelessWidget {
-  const new({
+  const GridPrint({
     required this.title,
     required this.coverStyle,
     required this.index,
@@ -141,7 +141,7 @@ class GridPrint extends StatelessWidget {
 }
 
 class DraftPrint extends StatelessWidget {
-  const new({
+  const DraftPrint({
     required this.title,
     required this.toGo,
     required this.index,
@@ -216,7 +216,7 @@ class DraftPrint extends StatelessWidget {
 }
 
 class PrintGrid extends StatelessWidget {
-  const new({required this.children, super.key});
+  const PrintGrid({required this.children, super.key});
 
   final List<Widget> children;
 

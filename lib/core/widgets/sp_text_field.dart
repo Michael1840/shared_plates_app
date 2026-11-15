@@ -9,7 +9,7 @@ import 'package:shared_plates_app/core/utils/extensions.dart';
 enum FieldStatus { idle, success, error }
 
 class SpTextField extends StatelessWidget {
-  const new({
+  const SpTextField({
     required this.label,
     super.key,
     this.controller,

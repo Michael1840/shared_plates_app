@@ -26,7 +26,7 @@ import 'package:shared_plates_app/features/auth/presentation/bloc/session_cubit.
 import 'package:shared_plates_app/features/auth/presentation/bloc/social_sign_in_cubit.dart';
 
 class WelcomePage extends StatelessWidget {
-  const new({super.key});
+  const WelcomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class WelcomePage extends StatelessWidget {
 }
 
 class _WelcomeBody extends StatelessWidget {
-  const new();
+  const _WelcomeBody();
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +74,7 @@ class _WelcomeBody extends StatelessWidget {
 }
 
 class _WelcomeHeader extends StatelessWidget {
-  const new();
+  const _WelcomeHeader();
 
   @override
   Widget build(BuildContext context) {
@@ -121,7 +121,7 @@ class _WelcomeHeader extends StatelessWidget {
 }
 
 class _Collage extends StatelessWidget {
-  const new();
+  const _Collage();
 
   @override
   Widget build(BuildContext context) {
@@ -165,7 +165,7 @@ class _Collage extends StatelessWidget {
 }
 
 class _MiniPrint extends StatelessWidget {
-  const new({
+  const _MiniPrint({
     required this.style,
     required this.tilt,
     required this.tape,
@@ -193,7 +193,7 @@ class _MiniPrint extends StatelessWidget {
 }
 
 class _BobbingPaprika extends StatefulWidget {
-  const new();
+  const _BobbingPaprika();
 
   @override
   State<_BobbingPaprika> createState() => _BobbingPaprikaState();
@@ -236,7 +236,7 @@ class _BobbingPaprikaState extends State<_BobbingPaprika>
 }
 
 class _SignInOptions extends StatelessWidget {
-  const new();
+  const _SignInOptions();
 
   @override
   Widget build(BuildContext context) {
@@ -298,7 +298,7 @@ class _SignInOptions extends StatelessWidget {
 }
 
 class _SocialButton extends StatelessWidget {
-  const new({required this.provider, required this.busy});
+  const _SocialButton({required this.provider, required this.busy});
 
   final SocialProvider provider;
   final bool busy;

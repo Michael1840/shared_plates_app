@@ -3,7 +3,7 @@ import 'package:shared_plates_app/core/theme/motion.dart';
 import 'package:shared_plates_app/core/utils/extensions.dart';
 
 class TickBox extends StatefulWidget {
-  const new({required this.checked, super.key, this.size = 24});
+  const TickBox({required this.checked, super.key, this.size = 24});
 
   final bool checked;
   final double size;
@@ -68,7 +68,7 @@ class _TickBoxState extends State<TickBox> with SingleTickerProviderStateMixin {
 }
 
 class _TickPainter extends CustomPainter {
-  new({required this.progress, required this.color});
+  _TickPainter({required this.progress, required this.color});
 
   final double progress;
   final Color color;

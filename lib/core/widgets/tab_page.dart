@@ -4,7 +4,7 @@ import 'package:shared_plates_app/core/theme/sizing.dart';
 import 'package:shared_plates_app/core/utils/extensions.dart';
 
 class TabPage extends StatelessWidget {
-  const new({
+  const TabPage({
     required this.header,
     required this.children,
     super.key,

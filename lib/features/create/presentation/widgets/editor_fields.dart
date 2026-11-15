@@ -18,7 +18,7 @@ import 'package:shared_plates_app/core/widgets/sp_icon.dart';
 import 'package:shared_plates_app/features/create/presentation/bloc/recipe_editor_cubit.dart';
 
 class EditorTextField extends StatelessWidget {
-  const new({
+  const EditorTextField({
     required this.config,
     super.key,
     this.controller,
@@ -95,7 +95,7 @@ class EditorTextField extends StatelessWidget {
 }
 
 class TitleField extends StatefulWidget {
-  const new({super.key});
+  const TitleField({super.key});
 
   @override
   State<TitleField> createState() => _TitleFieldState();
@@ -157,7 +157,7 @@ class _TitleFieldState extends State<TitleField> {
 }
 
 class ServesAndTime extends StatefulWidget {
-  const new({super.key});
+  const ServesAndTime({super.key});
 
   @override
   State<ServesAndTime> createState() => _ServesAndTimeState();
@@ -242,7 +242,11 @@ class _ServesAndTimeState extends State<ServesAndTime> {
 }
 
 class _SmallCard extends StatelessWidget {
-  const new({required this.label, required this.child, this.optional = false});
+  const _SmallCard({
+    required this.label,
+    required this.child,
+    this.optional = false,
+  });
 
   final String label;
   final Widget child;
@@ -279,7 +283,7 @@ class _SmallCard extends StatelessWidget {
 }
 
 class _StepperButton extends StatelessWidget {
-  const new({
+  const _StepperButton({
     required this.label,
     required this.semanticLabel,
     required this.onTap,
@@ -309,7 +313,7 @@ class _StepperButton extends StatelessWidget {
 }
 
 class TagsSection extends StatelessWidget {
-  const new({super.key});
+  const TagsSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -348,7 +352,7 @@ class TagsSection extends StatelessWidget {
 }
 
 class _ChosenTag extends StatelessWidget {
-  const new({required this.tag, required this.onRemove});
+  const _ChosenTag({required this.tag, required this.onRemove});
 
   final Tag tag;
   final VoidCallback onRemove;
@@ -386,7 +390,7 @@ class _ChosenTag extends StatelessWidget {
 }
 
 class _GuessTag extends StatelessWidget {
-  const new({required this.tag, required this.onAdd});
+  const _GuessTag({required this.tag, required this.onAdd});
 
   final Tag tag;
   final VoidCallback onAdd;
@@ -420,7 +424,7 @@ class _GuessTag extends StatelessWidget {
 }
 
 class _AddTagButton extends StatelessWidget {
-  const new({required this.onTap});
+  const _AddTagButton({required this.onTap});
 
   final VoidCallback onTap;
 
@@ -450,7 +454,7 @@ class _AddTagButton extends StatelessWidget {
 }
 
 class _TagPicker extends StatelessWidget {
-  const new();
+  const _TagPicker();
 
   static const Map<TagKind, String> _kinds = {
     TagKind.meal: 'Meal',
@@ -502,7 +506,7 @@ class _TagPicker extends StatelessWidget {
 }
 
 class DashedBox extends StatelessWidget {
-  const new({
+  const DashedBox({
     required this.child,
     required this.color,
     super.key,
@@ -537,7 +541,7 @@ class DashedBox extends StatelessWidget {
 }
 
 class _DashedRect extends CustomPainter {
-  const new({
+  const _DashedRect({
     required this.color,
     required this.radius,
     required this.strokeWidth,
@@ -579,7 +583,7 @@ class _DashedRect extends CustomPainter {
 }
 
 class VisibilityPicker extends StatelessWidget {
-  const new({super.key});
+  const VisibilityPicker({super.key});
 
   static const Map<RecipeVisibility, String> _options = {
     RecipeVisibility.public: 'Everyone',
@@ -642,7 +646,12 @@ class VisibilityPicker extends StatelessWidget {
 }
 
 class EditorSectionTitle extends StatelessWidget {
-  const new({required this.title, super.key, this.action, this.onAction});
+  const EditorSectionTitle({
+    required this.title,
+    super.key,
+    this.action,
+    this.onAction,
+  });
 
   final String title;
   final String? action;

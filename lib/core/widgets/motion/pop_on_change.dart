@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_plates_app/core/utils/extensions.dart';
 
 class PopOnChange extends StatefulWidget {
-  const new({required this.value, required this.child, super.key});
+  const PopOnChange({required this.value, required this.child, super.key});
 
   final Object? value;
   final Widget child;

@@ -1,19 +1,22 @@
 import 'package:equatable/equatable.dart';
 
 class DelayedResult<T> extends Equatable {
-  const new fromValue(T result)
+  const DelayedResult.fromValue(T result)
     : value = result,
       error = null,
       isInProgress = false;
 
-  const new fromError(String err)
+  const DelayedResult.fromError(String err)
     : value = null,
       error = err,
       isInProgress = false;
 
-  const new inProgress() : value = null, error = null, isInProgress = true;
+  const DelayedResult.inProgress()
+    : value = null,
+      error = null,
+      isInProgress = true;
 
-  const new idle() : value = null, error = null, isInProgress = false;
+  const DelayedResult.idle() : value = null, error = null, isInProgress = false;
 
   final T? value;
   final String? error;

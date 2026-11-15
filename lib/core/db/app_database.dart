@@ -33,9 +33,10 @@ part 'app_database.g.dart';
   ],
 )
 class AppDatabase extends _$AppDatabase {
-  new(super.e);
+  AppDatabase(super.e);
 
-  factory open() => AppDatabase(driftDatabase(name: 'shared_plates'));
+  factory AppDatabase.open() =>
+      AppDatabase(driftDatabase(name: 'shared_plates'));
 
   @override
   int get schemaVersion => 1;

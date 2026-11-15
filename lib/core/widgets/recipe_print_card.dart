@@ -13,7 +13,7 @@ import 'package:shared_plates_app/core/widgets/sp_icon.dart';
 import 'package:shared_plates_app/core/widgets/time_stamp.dart';
 
 class RecipePrintCard extends StatelessWidget {
-  const new({
+  const RecipePrintCard({
     required this.title,
     required this.coverStyle,
     super.key,
@@ -104,7 +104,7 @@ class RecipePrintCard extends StatelessWidget {
 }
 
 class _PrintPhoto extends StatelessWidget {
-  const new({
+  const _PrintPhoto({
     required this.coverStyle,
     required this.imageUrl,
     required this.localPath,
@@ -154,7 +154,7 @@ class _PrintPhoto extends StatelessWidget {
 }
 
 class _SaveBadge extends StatelessWidget {
-  const new({required this.isSaved, required this.onTap});
+  const _SaveBadge({required this.isSaved, required this.onTap});
 
   final bool isSaved;
   final VoidCallback? onTap;
@@ -186,7 +186,7 @@ class _SaveBadge extends StatelessWidget {
 }
 
 class _PrintMeta extends StatelessWidget {
-  const new({required this.text, required this.showHeart});
+  const _PrintMeta({required this.text, required this.showHeart});
 
   final String text;
   final bool showHeart;

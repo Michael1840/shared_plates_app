@@ -26,7 +26,7 @@ abstract final class EditorMessages {
 }
 
 class EditorState extends Equatable {
-  new({
+  EditorState({
     required this.draft,
     FoodLibrary? library,
     this.tags = const [],
@@ -103,7 +103,7 @@ class EditorState extends Equatable {
 }
 
 class RecipeEditorCubit extends Cubit<EditorState> {
-  new({
+  RecipeEditorCubit({
     required this._repository,
     required this._photos,
     required this._userId,

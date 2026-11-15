@@ -5,7 +5,7 @@ part 'popular_cook.g.dart';
 
 @freezed
 abstract class PopularCook with _$PopularCook {
-  const factory({
+  const factory PopularCook({
     required String id,
     required String username,
     required String displayName,
@@ -14,9 +14,10 @@ abstract class PopularCook with _$PopularCook {
     @Default(0) int saves,
   }) = _PopularCook;
 
-  const new _();
+  const PopularCook._();
 
-  factory fromJson(Map<String, dynamic> json) => _$PopularCookFromJson(json);
+  factory PopularCook.fromJson(Map<String, dynamic> json) =>
+      _$PopularCookFromJson(json);
 
   String get initials {
     final parts = displayName.trim().split(RegExp(r'\s+'));

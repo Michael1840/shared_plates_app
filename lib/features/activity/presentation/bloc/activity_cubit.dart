@@ -10,7 +10,7 @@ import 'package:shared_plates_app/features/browse/presentation/bloc/feed_slice.d
 import 'package:shared_plates_app/features/friends/data/friends_repository.dart';
 
 class ActivityState extends Equatable {
-  const new({
+  const ActivityState({
     this.items = const DelayedResult.idle(),
     this.answered = const {},
     this.busy = const {},
@@ -55,8 +55,11 @@ class ActivityState extends Equatable {
 }
 
 class ActivityCubit extends Cubit<ActivityState> {
-  new({required this._activity, required this._friends, required this._userId})
-    : super(const ActivityState());
+  ActivityCubit({
+    required this._activity,
+    required this._friends,
+    required this._userId,
+  }) : super(const ActivityState());
 
   final ActivityRepository _activity;
   final FriendsRepository _friends;
@@ -111,7 +114,7 @@ class ActivityCubit extends Cubit<ActivityState> {
 }
 
 class ActivityBadgeCubit extends Cubit<int> {
-  new({required this._activity}) : super(0);
+  ActivityBadgeCubit({required this._activity}) : super(0);
 
   final ActivityRepository _activity;
 

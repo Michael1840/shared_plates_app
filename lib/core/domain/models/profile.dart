@@ -6,7 +6,7 @@ part 'profile.g.dart';
 
 @freezed
 abstract class Profile with _$Profile {
-  const factory({
+  const factory Profile({
     required String id,
     required String username,
     required String displayName,
@@ -26,5 +26,6 @@ abstract class Profile with _$Profile {
     DateTime? onboardedAt,
   }) = _Profile;
 
-  factory fromJson(Map<String, dynamic> json) => _$ProfileFromJson(json);
+  factory Profile.fromJson(Map<String, dynamic> json) =>
+      _$ProfileFromJson(json);
 }

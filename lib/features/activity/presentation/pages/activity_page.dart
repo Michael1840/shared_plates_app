@@ -36,7 +36,7 @@ import 'package:shared_plates_app/features/browse/presentation/bloc/feed_slice.d
 import 'package:shared_plates_app/features/friends/data/friends_repository.dart';
 
 class ActivityPage extends StatelessWidget {
-  const new({super.key});
+  const ActivityPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +57,7 @@ class ActivityPage extends StatelessWidget {
 }
 
 class ActivityView extends StatelessWidget {
-  const new({super.key});
+  const ActivityView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -132,7 +132,7 @@ class ActivityView extends StatelessWidget {
 }
 
 class _ActivityHeader extends StatelessWidget {
-  const new({required this.newCount});
+  const _ActivityHeader({required this.newCount});
 
   final int newCount;
 
@@ -189,7 +189,7 @@ class _ActivityHeader extends StatelessWidget {
 }
 
 class _Group extends StatelessWidget {
-  const new({required this.title, required this.items});
+  const _Group({required this.title, required this.items});
 
   final String title;
   final List<ActivityItem> items;
@@ -221,7 +221,7 @@ class _Group extends StatelessWidget {
 }
 
 class ActivityRow extends StatelessWidget {
-  const new({required this.item, required this.last, super.key});
+  const ActivityRow({required this.item, required this.last, super.key});
 
   final ActivityItem item;
   final bool last;
@@ -378,7 +378,7 @@ class ActivityRow extends StatelessWidget {
 }
 
 class _RequestActions extends StatelessWidget {
-  const new({
+  const _RequestActions({
     required this.personId,
     required this.answered,
     required this.busy,
@@ -417,7 +417,7 @@ class _RequestActions extends StatelessWidget {
 }
 
 class _ActivitySkeleton extends StatelessWidget {
-  const new();
+  const _ActivitySkeleton();
 
   @override
   Widget build(BuildContext context) {

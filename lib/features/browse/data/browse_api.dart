@@ -26,7 +26,7 @@ abstract interface class BrowseApi {
 }
 
 class SupabaseBrowseApi implements BrowseApi {
-  new(this._client);
+  SupabaseBrowseApi(this._client);
 
   static const coverBucket = 'recipe-photos';
   static const int _signedFor = 60 * 60 * 24 * 7;
@@ -98,7 +98,7 @@ class SupabaseBrowseApi implements BrowseApi {
 }
 
 class OfflineBrowseApi implements BrowseApi {
-  const new();
+  const OfflineBrowseApi();
 
   static const _failure = RemoteFailure(
     'This build has no backend configured',

@@ -31,7 +31,7 @@ import 'package:shared_plates_app/features/create/presentation/bloc/recipe_share
 import 'package:shared_plates_app/features/recipe/presentation/recipe_share.dart';
 
 class RecipeSharedPage extends StatelessWidget {
-  const new({required this.recipeId, super.key});
+  const RecipeSharedPage({required this.recipeId, super.key});
 
   final String recipeId;
 
@@ -54,7 +54,7 @@ class RecipeSharedPage extends StatelessWidget {
 }
 
 class RecipeSharedView extends StatelessWidget {
-  const new({super.key});
+  const RecipeSharedView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +97,7 @@ class RecipeSharedView extends StatelessWidget {
 }
 
 class _SharedHeader extends StatelessWidget {
-  const new({required this.visibility});
+  const _SharedHeader({required this.visibility});
 
   final RecipeVisibility? visibility;
 
@@ -156,7 +156,7 @@ class _SharedHeader extends StatelessWidget {
 }
 
 class _SharedPrint extends StatelessWidget {
-  const new({required this.card});
+  const _SharedPrint({required this.card});
 
   final RecipeCard card;
 
@@ -237,7 +237,7 @@ class _SharedPrint extends StatelessWidget {
 }
 
 class _BoxProgress extends StatelessWidget {
-  const new({required this.state});
+  const _BoxProgress({required this.state});
 
   final RecipeSharedState state;
 
@@ -276,7 +276,7 @@ class _BoxProgress extends StatelessWidget {
 }
 
 class _SharedActions extends StatelessWidget {
-  const new({required this.card});
+  const _SharedActions({required this.card});
 
   final RecipeCard card;
 

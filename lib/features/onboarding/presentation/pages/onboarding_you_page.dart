@@ -19,7 +19,7 @@ import 'package:shared_plates_app/features/onboarding/presentation/widgets/onboa
 import 'package:shared_plates_app/features/onboarding/presentation/widgets/unit_choice_card.dart';
 
 class OnboardingYouPage extends StatefulWidget {
-  const new({super.key});
+  const OnboardingYouPage({super.key});
 
   @override
   State<OnboardingYouPage> createState() => _OnboardingYouPageState();
@@ -151,7 +151,7 @@ class _OnboardingYouPageState extends State<OnboardingYouPage> {
 }
 
 class _UsernameStatus extends StatelessWidget {
-  const new({required this.check});
+  const _UsernameStatus({required this.check});
 
   final UsernameCheck check;
 

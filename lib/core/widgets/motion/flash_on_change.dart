@@ -3,7 +3,7 @@ import 'package:shared_plates_app/core/theme/motion.dart';
 import 'package:shared_plates_app/core/utils/extensions.dart';
 
 class FlashOnChange extends StatefulWidget {
-  const new({required this.trigger, required this.child, super.key});
+  const FlashOnChange({required this.trigger, required this.child, super.key});
 
   final Object? trigger;
   final Widget child;

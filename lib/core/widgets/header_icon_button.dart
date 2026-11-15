@@ -4,7 +4,7 @@ import 'package:shared_plates_app/core/widgets/paprika_header.dart';
 import 'package:shared_plates_app/core/widgets/sp_icon.dart';
 
 class HeaderIconButton extends StatelessWidget {
-  const new({
+  const HeaderIconButton({
     required this.icon,
     required this.semanticLabel,
     required this.onTap,

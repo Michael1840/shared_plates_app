@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ReduceMotionTransitions extends PageTransitionsBuilder {
-  const new(this._inner);
+  const ReduceMotionTransitions(this._inner);
 
   final PageTransitionsBuilder _inner;
 

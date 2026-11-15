@@ -10,7 +10,7 @@ import 'package:shared_plates_app/features/auth/data/auth_repository.dart';
 enum EmailStep { email, code }
 
 class EmailSignInState extends Equatable {
-  const new({
+  const EmailSignInState({
     this.step = EmailStep.email,
     this.email = '',
     this.code = '',
@@ -70,7 +70,8 @@ class EmailSignInState extends Equatable {
 }
 
 class EmailSignInCubit extends Cubit<EmailSignInState> {
-  new(this._auth, {this.resendSeconds = 60}) : super(const EmailSignInState());
+  EmailSignInCubit(this._auth, {this.resendSeconds = 60})
+    : super(const EmailSignInState());
 
   final AuthRepository _auth;
   final int resendSeconds;

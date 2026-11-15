@@ -19,7 +19,7 @@ import 'package:shared_plates_app/features/recipe/presentation/bloc/recipe_actio
 import 'package:shared_plates_app/features/recipe/presentation/widgets/recipe_action_helpers.dart';
 
 class CookedPrint extends StatelessWidget {
-  const new({required this.card, super.key, this.coverUrl});
+  const CookedPrint({required this.card, super.key, this.coverUrl});
 
   static const width = 270.0;
 
@@ -63,7 +63,7 @@ class CookedPrint extends StatelessWidget {
 }
 
 class _CookedStamp extends StatelessWidget {
-  const new();
+  const _CookedStamp();
 
   static const size = 70.0;
 
@@ -102,7 +102,7 @@ class _CookedStamp extends StatelessWidget {
 }
 
 class TellCreatorCard extends StatelessWidget {
-  const new({
+  const TellCreatorCard({
     required this.card,
     required this.value,
     required this.locked,
@@ -184,7 +184,7 @@ class TellCreatorCard extends StatelessWidget {
 }
 
 class DoneActions extends StatefulWidget {
-  const new({required this.card, super.key});
+  const DoneActions({required this.card, super.key});
 
   final RecipeCard card;
 
@@ -238,7 +238,7 @@ class _DoneActionsState extends State<DoneActions> {
 }
 
 class _PillAction extends StatelessWidget {
-  const new({
+  const _PillAction({
     required this.label,
     required this.semanticLabel,
     required this.icon,

@@ -6,7 +6,7 @@ part 'reference.g.dart';
 
 @freezed
 abstract class Tag with _$Tag {
-  const factory({
+  const factory Tag({
     required int id,
     required String slug,
     required String label,
@@ -16,12 +16,12 @@ abstract class Tag with _$Tag {
     @Default(0) int position,
   }) = _Tag;
 
-  factory fromJson(Map<String, dynamic> json) => _$TagFromJson(json);
+  factory Tag.fromJson(Map<String, dynamic> json) => _$TagFromJson(json);
 }
 
 @freezed
 abstract class MeasureUnit with _$MeasureUnit {
-  const factory({
+  const factory MeasureUnit({
     required String code,
     required String label,
     required UnitKind kind,
@@ -30,12 +30,13 @@ abstract class MeasureUnit with _$MeasureUnit {
     required DateTime updatedAt,
   }) = _MeasureUnit;
 
-  factory fromJson(Map<String, dynamic> json) => _$MeasureUnitFromJson(json);
+  factory MeasureUnit.fromJson(Map<String, dynamic> json) =>
+      _$MeasureUnitFromJson(json);
 }
 
 @freezed
 abstract class Food with _$Food {
-  const factory({
+  const factory Food({
     required String id,
     required String name,
     required DateTime updatedAt,
@@ -51,12 +52,12 @@ abstract class Food with _$Food {
     double? densityGMl,
   }) = _Food;
 
-  factory fromJson(Map<String, dynamic> json) => _$FoodFromJson(json);
+  factory Food.fromJson(Map<String, dynamic> json) => _$FoodFromJson(json);
 }
 
 @freezed
 abstract class FoodPortion with _$FoodPortion {
-  const factory({
+  const factory FoodPortion({
     required String foodId,
     required String label,
     required double grams,
@@ -64,5 +65,6 @@ abstract class FoodPortion with _$FoodPortion {
     @Default(false) bool isDefault,
   }) = _FoodPortion;
 
-  factory fromJson(Map<String, dynamic> json) => _$FoodPortionFromJson(json);
+  factory FoodPortion.fromJson(Map<String, dynamic> json) =>
+      _$FoodPortionFromJson(json);
 }

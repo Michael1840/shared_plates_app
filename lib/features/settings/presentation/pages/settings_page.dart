@@ -27,7 +27,7 @@ import 'package:shared_plates_app/features/settings/presentation/bloc/settings_c
 import 'package:shared_plates_app/features/settings/presentation/widgets/settings_rows.dart';
 
 class SettingsPage extends StatelessWidget {
-  const new({super.key});
+  const SettingsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,7 @@ class SettingsPage extends StatelessWidget {
 }
 
 class SettingsView extends StatelessWidget {
-  const new({super.key});
+  const SettingsView({super.key});
 
   static String providerLabel(String? provider) => switch (provider) {
     'google' => 'Google',
@@ -260,7 +260,7 @@ class SettingsView extends StatelessWidget {
 }
 
 class _SettingsHeader extends StatelessWidget {
-  const new();
+  const _SettingsHeader();
 
   @override
   Widget build(BuildContext context) {

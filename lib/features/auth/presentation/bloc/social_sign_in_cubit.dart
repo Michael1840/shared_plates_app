@@ -6,7 +6,10 @@ import 'package:shared_plates_app/core/utils/result.dart';
 import 'package:shared_plates_app/features/auth/data/auth_repository.dart';
 
 class SocialSignInState extends Equatable {
-  const new({this.provider, this.launch = const DelayedResult.idle()});
+  const SocialSignInState({
+    this.provider,
+    this.launch = const DelayedResult.idle(),
+  });
 
   final SocialProvider? provider;
   final DelayedResult<bool> launch;
@@ -16,7 +19,7 @@ class SocialSignInState extends Equatable {
 }
 
 class SocialSignInCubit extends Cubit<SocialSignInState> {
-  new(this._auth) : super(const SocialSignInState());
+  SocialSignInCubit(this._auth) : super(const SocialSignInState());
 
   final AuthRepository _auth;
 

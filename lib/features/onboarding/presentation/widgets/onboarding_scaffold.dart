@@ -4,7 +4,7 @@ import 'package:shared_plates_app/core/utils/extensions.dart';
 import 'package:shared_plates_app/core/widgets/dot_grid_background.dart';
 
 class OnboardingScaffold extends StatelessWidget {
-  const new({
+  const OnboardingScaffold({
     required this.header,
     required this.children,
     required this.action,

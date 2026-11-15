@@ -3,7 +3,7 @@ import 'package:shared_plates_app/core/domain/models/recipe.dart';
 import 'package:shared_plates_app/core/domain/models/reference.dart';
 
 class RecipeDetail extends Equatable {
-  const new({
+  const RecipeDetail({
     required this.card,
     this.ingredients = const [],
     this.steps = const [],

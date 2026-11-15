@@ -3,7 +3,7 @@ import 'package:shared_plates_app/core/widgets/dot_grid_background.dart';
 import 'package:shared_plates_app/core/widgets/paprika.dart';
 
 class SplashPage extends StatelessWidget {
-  const new({super.key});
+  const SplashPage({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -32,7 +32,7 @@ import 'package:shared_plates_app/features/recipe/presentation/widgets/recipe_he
 import 'package:shared_plates_app/features/recipe/presentation/widgets/recipe_sections.dart';
 
 class RecipePage extends StatelessWidget {
-  const new({
+  const RecipePage({
     required this.recipeId,
     super.key,
     this.card,
@@ -68,7 +68,7 @@ class RecipePage extends StatelessWidget {
 }
 
 class _RecipeView extends StatelessWidget {
-  const new();
+  const _RecipeView();
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +118,7 @@ class _RecipeView extends StatelessWidget {
 }
 
 class _Body extends StatelessWidget {
-  const new({required this.state, required this.card});
+  const _Body({required this.state, required this.card});
 
   final RecipeDetailState state;
   final RecipeCard card;
@@ -195,7 +195,7 @@ class _Body extends StatelessWidget {
 }
 
 class _Content extends StatelessWidget {
-  const new({required this.state, required this.detail});
+  const _Content({required this.state, required this.detail});
 
   final RecipeDetailState state;
   final RecipeDetail detail;
@@ -218,7 +218,11 @@ class _Content extends StatelessWidget {
 }
 
 class _CookBar extends StatelessWidget {
-  const new({required this.canFork, required this.canEdit, required this.busy});
+  const _CookBar({
+    required this.canFork,
+    required this.canEdit,
+    required this.busy,
+  });
 
   final bool canFork;
   final bool canEdit;
@@ -313,7 +317,7 @@ class _CookBar extends StatelessWidget {
 }
 
 class _LoadingBody extends StatelessWidget {
-  const new({required this.withHero});
+  const _LoadingBody({required this.withHero});
 
   final bool withHero;
 
@@ -344,7 +348,7 @@ class _LoadingBody extends StatelessWidget {
 }
 
 class _Missing extends StatelessWidget {
-  const new({required this.message});
+  const _Missing({required this.message});
 
   final String message;
 

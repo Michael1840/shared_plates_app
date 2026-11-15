@@ -23,7 +23,11 @@ import 'package:shared_plates_app/features/create/presentation/bloc/recipe_edito
 import 'package:shared_plates_app/features/create/presentation/widgets/editor_fields.dart';
 
 class EditorTopBar extends StatelessWidget {
-  const new({required this.onClose, required this.onPreview, super.key});
+  const EditorTopBar({
+    required this.onClose,
+    required this.onPreview,
+    super.key,
+  });
 
   final VoidCallback onClose;
   final VoidCallback onPreview;
@@ -84,7 +88,7 @@ class EditorTopBar extends StatelessWidget {
 }
 
 class ReadyCard extends StatelessWidget {
-  const new({super.key});
+  const ReadyCard({super.key});
 
   static String _count(int n, String word) => '$n $word${n == 1 ? '' : 's'}';
 
@@ -167,7 +171,11 @@ class ReadyCard extends StatelessWidget {
 }
 
 class _ReadyChip extends StatelessWidget {
-  const new({required this.label, required this.ok, required this.flagged});
+  const _ReadyChip({
+    required this.label,
+    required this.ok,
+    required this.flagged,
+  });
 
   final String label;
   final bool? ok;
@@ -197,7 +205,7 @@ class _ReadyChip extends StatelessWidget {
 }
 
 class PhotoCard extends StatelessWidget {
-  const new({super.key});
+  const PhotoCard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -276,7 +284,11 @@ class PhotoCard extends StatelessWidget {
 }
 
 class _CoverOption extends StatelessWidget {
-  const new({required this.style, required this.selected, required this.onTap});
+  const _CoverOption({
+    required this.style,
+    required this.selected,
+    required this.onTap,
+  });
 
   static const Map<CoverStyle, String> _labels = {
     CoverStyle.stew: 'Stew cover',
@@ -316,7 +328,7 @@ class _CoverOption extends StatelessWidget {
 }
 
 class _PhotoSourceSheet extends StatelessWidget {
-  const new();
+  const _PhotoSourceSheet();
 
   @override
   Widget build(BuildContext context) {
@@ -344,7 +356,7 @@ class _PhotoSourceSheet extends StatelessWidget {
 }
 
 class PasteTextSheet extends StatefulWidget {
-  const new({
+  const PasteTextSheet({
     required this.title,
     required this.hint,
     required this.action,

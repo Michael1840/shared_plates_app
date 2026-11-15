@@ -29,7 +29,7 @@ import 'package:shared_plates_app/features/recipes/data/library_repository.dart'
 import 'package:shared_plates_app/features/recipes/presentation/bloc/recipes_cubit.dart';
 
 class RecipesPage extends StatelessWidget {
-  const new({super.key});
+  const RecipesPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +51,7 @@ class RecipesPage extends StatelessWidget {
 }
 
 class RecipesView extends StatelessWidget {
-  const new({super.key});
+  const RecipesView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +86,7 @@ class RecipesView extends StatelessWidget {
 }
 
 class _LibraryTabs extends StatelessWidget {
-  const new();
+  const _LibraryTabs();
 
   @override
   Widget build(BuildContext context) {
@@ -138,7 +138,7 @@ class _LibraryTabs extends StatelessWidget {
 }
 
 class _QuickFilters extends StatelessWidget {
-  const new();
+  const _QuickFilters();
 
   @override
   Widget build(BuildContext context) {
@@ -165,7 +165,7 @@ class _QuickFilters extends StatelessWidget {
 }
 
 class _CountRow extends StatelessWidget {
-  const new();
+  const _CountRow();
 
   @override
   Widget build(BuildContext context) {
@@ -207,7 +207,7 @@ class _CountRow extends StatelessWidget {
 }
 
 class _LibraryGrid extends StatelessWidget {
-  const new();
+  const _LibraryGrid();
 
   @override
   Widget build(BuildContext context) {
@@ -271,7 +271,7 @@ class _LibraryGrid extends StatelessWidget {
 }
 
 class _LibrarySkeleton extends StatelessWidget {
-  const new();
+  const _LibrarySkeleton();
 
   @override
   Widget build(BuildContext context) {
@@ -300,7 +300,7 @@ class _LibrarySkeleton extends StatelessWidget {
 }
 
 class _EmptyLibrary extends StatelessWidget {
-  const new();
+  const _EmptyLibrary();
 
   @override
   Widget build(BuildContext context) {
@@ -326,7 +326,7 @@ class _EmptyLibrary extends StatelessWidget {
 }
 
 class _GuestRecipes extends StatelessWidget {
-  const new();
+  const _GuestRecipes();
 
   @override
   Widget build(BuildContext context) {

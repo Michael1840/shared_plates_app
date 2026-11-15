@@ -15,7 +15,7 @@ import 'package:shared_plates_app/features/cook/domain/step_text.dart';
 import 'package:shared_plates_app/features/cook/presentation/bloc/cook_mode_cubit.dart';
 
 class CookStepArea extends StatelessWidget {
-  const new({super.key});
+  const CookStepArea({super.key});
 
   static const _swipeVelocity = 300.0;
 
@@ -64,7 +64,7 @@ class CookStepArea extends StatelessWidget {
 }
 
 class _StepTransition extends StatelessWidget {
-  const new({
+  const _StepTransition({
     required this.animation,
     required this.incoming,
     required this.direction,
@@ -98,7 +98,7 @@ class _StepTransition extends StatelessWidget {
 }
 
 class _StepContent extends StatelessWidget {
-  const new({required this.index, required this.maxHeight, super.key});
+  const _StepContent({required this.index, required this.maxHeight, super.key});
 
   final int index;
   final double maxHeight;
@@ -178,7 +178,7 @@ class _StepContent extends StatelessWidget {
 }
 
 class _Needs extends StatelessWidget {
-  const new({required this.labels});
+  const _Needs({required this.labels});
 
   final List<String> labels;
 
@@ -221,7 +221,7 @@ class _Needs extends StatelessWidget {
 }
 
 class _TimerButton extends StatelessWidget {
-  const new({required this.timer});
+  const _TimerButton({required this.timer});
 
   static const height = 64.0;
 

@@ -7,7 +7,7 @@ import 'package:shared_plates_app/core/widgets/motion/entrance.dart';
 enum NoteSurface { light, header }
 
 class HandwrittenNote extends StatelessWidget {
-  const new(
+  const HandwrittenNote(
     this.text, {
     super.key,
     this.surface = NoteSurface.light,

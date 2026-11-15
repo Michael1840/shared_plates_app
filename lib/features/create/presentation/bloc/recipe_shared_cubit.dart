@@ -4,7 +4,7 @@ import 'package:shared_plates_app/core/domain/models/recipe.dart';
 import 'package:shared_plates_app/features/create/data/create_repository.dart';
 
 class RecipeSharedState extends Equatable {
-  const new({this.card, this.count = 0, this.loaded = false});
+  const RecipeSharedState({this.card, this.count = 0, this.loaded = false});
 
   static const boxSize = 5;
 
@@ -21,7 +21,7 @@ class RecipeSharedState extends Equatable {
 }
 
 class RecipeSharedCubit extends Cubit<RecipeSharedState> {
-  new({
+  RecipeSharedCubit({
     required this._repository,
     required this._recipeId,
     required this._userId,

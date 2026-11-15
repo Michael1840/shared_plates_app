@@ -9,7 +9,7 @@ import 'package:shared_plates_app/core/utils/error_reporter.dart';
 import 'package:shared_plates_app/features/browse/data/browse_api.dart';
 
 class CoverCache {
-  new({
+  CoverCache({
     required this._db,
     required this._api,
     Future<Directory> Function()? directory,

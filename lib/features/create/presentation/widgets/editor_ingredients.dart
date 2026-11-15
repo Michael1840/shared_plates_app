@@ -16,7 +16,7 @@ import 'package:shared_plates_app/features/create/presentation/bloc/recipe_edito
 import 'package:shared_plates_app/features/create/presentation/widgets/editor_fields.dart';
 
 class IngredientsCard extends StatelessWidget {
-  const new({super.key});
+  const IngredientsCard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +68,7 @@ class IngredientsCard extends StatelessWidget {
 }
 
 class IngredientLine extends StatefulWidget {
-  const new({
+  const IngredientLine({
     required this.index,
     required this.ingredient,
     required this.library,
@@ -212,7 +212,7 @@ class _IngredientLineState extends State<IngredientLine> {
 }
 
 class _IngredientText extends StatelessWidget {
-  const new({required this.ingredient});
+  const _IngredientText({required this.ingredient});
 
   final DraftIngredient ingredient;
 
@@ -236,7 +236,7 @@ class _IngredientText extends StatelessWidget {
 }
 
 class _MatchInfo extends StatelessWidget {
-  const new({
+  const _MatchInfo({
     required this.ingredient,
     required this.library,
     required this.suggestion,
@@ -329,7 +329,11 @@ class _MatchInfo extends StatelessWidget {
 }
 
 class _PillButton extends StatelessWidget {
-  const new({required this.label, required this.filled, required this.onTap});
+  const _PillButton({
+    required this.label,
+    required this.filled,
+    required this.onTap,
+  });
 
   final String label;
   final bool filled;
@@ -365,7 +369,7 @@ class _PillButton extends StatelessWidget {
 }
 
 class _CostField extends StatelessWidget {
-  const new({
+  const _CostField({
     required this.controller,
     required this.onChanged,
     required this.label,
@@ -412,7 +416,7 @@ class _CostField extends StatelessWidget {
 }
 
 class _AddIngredient extends StatefulWidget {
-  const new();
+  const _AddIngredient();
 
   @override
   State<_AddIngredient> createState() => _AddIngredientState();
@@ -486,7 +490,7 @@ class _AddIngredientState extends State<_AddIngredient> {
 }
 
 class TotalsCard extends StatelessWidget {
-  const new({super.key});
+  const TotalsCard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -522,7 +526,7 @@ class TotalsCard extends StatelessWidget {
 }
 
 class _Total extends StatelessWidget {
-  const new({required this.label, required this.value});
+  const _Total({required this.label, required this.value});
 
   final String label;
   final String value;

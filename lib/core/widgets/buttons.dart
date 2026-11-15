@@ -8,7 +8,7 @@ import 'package:shared_plates_app/core/widgets/motion/pressable.dart';
 import 'package:shared_plates_app/core/widgets/sp_icon.dart';
 
 class PrimaryButton extends StatelessWidget {
-  const new({
+  const PrimaryButton({
     required this.label,
     required this.onTap,
     super.key,
@@ -74,7 +74,7 @@ class PrimaryButton extends StatelessWidget {
 }
 
 class SecondaryButton extends StatelessWidget {
-  const new({
+  const SecondaryButton({
     required this.label,
     required this.onTap,
     super.key,
@@ -128,7 +128,12 @@ class SecondaryButton extends StatelessWidget {
 }
 
 class TextLinkButton extends StatelessWidget {
-  const new({required this.label, required this.onTap, super.key, this.color});
+  const TextLinkButton({
+    required this.label,
+    required this.onTap,
+    super.key,
+    this.color,
+  });
 
   final String label;
   final VoidCallback? onTap;
@@ -149,7 +154,7 @@ class TextLinkButton extends StatelessWidget {
 }
 
 class CircleIconButton extends StatelessWidget {
-  const new({
+  const CircleIconButton({
     required this.icon,
     required this.semanticLabel,
     required this.onTap,
@@ -211,7 +216,7 @@ class CircleIconButton extends StatelessWidget {
 }
 
 class CompactButton extends StatelessWidget {
-  const new({required this.label, required this.onTap, super.key});
+  const CompactButton({required this.label, required this.onTap, super.key});
 
   final String label;
   final VoidCallback? onTap;

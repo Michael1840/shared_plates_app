@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_plates_app/features/home/data/checklist_repository.dart';
 
 class ChecklistCubit extends Cubit<ChecklistProgress?> {
-  new(this._repository) : super(null);
+  ChecklistCubit(this._repository) : super(null);
 
   final ChecklistRepository _repository;
   StreamSubscription<ChecklistProgress>? _sub;

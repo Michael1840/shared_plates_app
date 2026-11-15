@@ -28,7 +28,7 @@ import 'package:shared_plates_app/features/profile/presentation/bloc/current_pro
 import 'package:shared_plates_app/features/recipe/data/recipe_detail_repository.dart';
 
 class CookModePage extends StatelessWidget {
-  const new({required this.recipeId, super.key, this.args});
+  const CookModePage({required this.recipeId, super.key, this.args});
 
   final String recipeId;
   final CookArgs? args;
@@ -66,7 +66,7 @@ class CookModePage extends StatelessWidget {
 }
 
 class CookModeView extends StatelessWidget {
-  const new({required this.keepsScreenOn, super.key, this.coverUrl});
+  const CookModeView({required this.keepsScreenOn, super.key, this.coverUrl});
 
   final bool keepsScreenOn;
   final String? coverUrl;
@@ -110,7 +110,7 @@ class CookModeView extends StatelessWidget {
 }
 
 class _CookBody extends StatelessWidget {
-  const new({required this.keepsScreenOn, required this.coverUrl});
+  const _CookBody({required this.keepsScreenOn, required this.coverUrl});
 
   final bool keepsScreenOn;
   final String? coverUrl;
@@ -157,7 +157,7 @@ class _CookBody extends StatelessWidget {
 }
 
 class _CookMissing extends StatelessWidget {
-  const new({required this.message});
+  const _CookMissing({required this.message});
 
   final String message;
 

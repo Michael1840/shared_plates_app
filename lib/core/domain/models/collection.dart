@@ -6,7 +6,7 @@ part 'collection.g.dart';
 
 @freezed
 abstract class RecipeCollection with _$RecipeCollection {
-  const factory({
+  const factory RecipeCollection({
     required String id,
     required String slug,
     required String title,
@@ -18,9 +18,9 @@ abstract class RecipeCollection with _$RecipeCollection {
     DateTime? endsOn,
   }) = _RecipeCollection;
 
-  const new _();
+  const RecipeCollection._();
 
-  factory fromJson(Map<String, dynamic> json) =>
+  factory RecipeCollection.fromJson(Map<String, dynamic> json) =>
       _$RecipeCollectionFromJson(json);
 
   bool isLiveOn(DateTime day) {

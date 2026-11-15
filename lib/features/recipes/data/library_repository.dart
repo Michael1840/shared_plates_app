@@ -7,7 +7,7 @@ import 'package:shared_plates_app/core/domain/enums.dart';
 import 'package:shared_plates_app/core/domain/models/recipe.dart';
 
 class LibraryEntry extends Equatable {
-  const new({
+  const LibraryEntry({
     required this.card,
     required this.addedAt,
     this.isMine = false,
@@ -50,7 +50,7 @@ abstract interface class LibraryRepository {
 }
 
 class LibraryRepositoryImpl implements LibraryRepository {
-  new(this._db);
+  LibraryRepositoryImpl(this._db);
 
   final AppDatabase _db;
 

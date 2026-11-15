@@ -10,7 +10,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 enum SocialProvider { apple, google }
 
 class AuthUser extends Equatable {
-  const new({
+  const AuthUser({
     required this.id,
     this.isAnonymous = false,
     this.email,
@@ -61,7 +61,10 @@ abstract final class AuthMessages {
 }
 
 class SupabaseAuthRepository implements AuthRepository {
-  new(this._client, {this._native = const NoNativeIdentity()});
+  SupabaseAuthRepository(
+    this._client, {
+    this._native = const NoNativeIdentity(),
+  });
 
   static const redirectUrl = 'sharedplates://login-callback';
 
@@ -201,7 +204,7 @@ class SupabaseAuthRepository implements AuthRepository {
 }
 
 class UnavailableAuthRepository implements AuthRepository {
-  const new();
+  const UnavailableAuthRepository();
 
   static final _error = Result<void>.error(Exception(AuthMessages.unavailable));
 

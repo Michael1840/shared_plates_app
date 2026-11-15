@@ -11,7 +11,7 @@ import 'package:shared_plates_app/features/friends/domain/person.dart';
 enum PersonAction { added, accepted, removed, blocked, reported }
 
 class PersonState extends Equatable {
-  const new({
+  const PersonState({
     this.profile = const DelayedResult.idle(),
     this.tagId,
     this.busy = false,
@@ -72,8 +72,11 @@ class PersonState extends Equatable {
 }
 
 class PersonCubit extends Cubit<PersonState> {
-  new({required this._friends, required this._userId, required this._personId})
-    : super(const PersonState());
+  PersonCubit({
+    required this._friends,
+    required this._userId,
+    required this._personId,
+  }) : super(const PersonState());
 
   final FriendsRepository _friends;
   final String _userId;

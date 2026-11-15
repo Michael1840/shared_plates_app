@@ -10,7 +10,7 @@ import 'package:shared_plates_app/features/recipe/presentation/bloc/recipe_actio
 import 'package:shared_plates_app/features/recipe/presentation/widgets/recipe_action_helpers.dart';
 
 class CardPrint extends StatelessWidget {
-  const new({
+  const CardPrint({
     required this.card,
     required this.index,
     super.key,

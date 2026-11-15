@@ -28,7 +28,7 @@ import 'package:shared_plates_app/features/friends/presentation/bloc/friends_cub
 import 'package:shared_plates_app/features/friends/presentation/widgets/friends_sections.dart';
 
 class FriendsPage extends StatelessWidget {
-  const new({super.key});
+  const FriendsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +54,7 @@ class FriendsPage extends StatelessWidget {
 }
 
 class FriendsView extends StatelessWidget {
-  const new({super.key});
+  const FriendsView({super.key});
 
   static Future<void> invite() => SharePlus.instance.share(
     ShareParams(
@@ -125,7 +125,7 @@ class FriendsView extends StatelessWidget {
 }
 
 class _InviteButton extends StatelessWidget {
-  const new({required this.onTap});
+  const _InviteButton({required this.onTap});
 
   final VoidCallback onTap;
 
@@ -159,7 +159,7 @@ class _InviteButton extends StatelessWidget {
 }
 
 class _NoFriends extends StatelessWidget {
-  const new({required this.onInvite});
+  const _NoFriends({required this.onInvite});
 
   final VoidCallback onInvite;
 
@@ -177,7 +177,7 @@ class _NoFriends extends StatelessWidget {
 }
 
 class _FriendsSkeleton extends StatelessWidget {
-  const new();
+  const _FriendsSkeleton();
 
   @override
   Widget build(BuildContext context) {
@@ -196,7 +196,7 @@ class _FriendsSkeleton extends StatelessWidget {
 }
 
 class _GuestFriends extends StatelessWidget {
-  const new();
+  const _GuestFriends();
 
   @override
   Widget build(BuildContext context) {

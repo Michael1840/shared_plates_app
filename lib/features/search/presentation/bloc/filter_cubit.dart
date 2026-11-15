@@ -8,7 +8,10 @@ import 'package:shared_plates_app/core/utils/result.dart';
 import 'package:shared_plates_app/features/browse/data/browse_repository.dart';
 
 class FilterState extends Equatable {
-  const new({required this.filters, this.preview = const DelayedResult.idle()});
+  const FilterState({
+    required this.filters,
+    this.preview = const DelayedResult.idle(),
+  });
 
   static const previewLimit = 50;
 
@@ -28,7 +31,7 @@ class FilterState extends Equatable {
 }
 
 class FilterCubit extends Cubit<FilterState> {
-  new(
+  FilterCubit(
     this._browse, {
     required SearchFilters initial,
     this.debounce = const Duration(milliseconds: 300),

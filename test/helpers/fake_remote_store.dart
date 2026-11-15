@@ -3,7 +3,7 @@ import 'dart:typed_data';
 import 'package:shared_plates_app/core/sync/remote_store.dart';
 
 class RemoteCall {
-  const new(this.method, this.target, this.payload);
+  const RemoteCall(this.method, this.target, this.payload);
 
   final String method;
   final String target;
@@ -14,7 +14,7 @@ class RemoteCall {
 }
 
 class FakeRemoteStore implements RemoteStore {
-  new({this.userId});
+  FakeRemoteStore({this.userId});
 
   @override
   String? userId;

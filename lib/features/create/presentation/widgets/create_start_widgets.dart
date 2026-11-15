@@ -14,7 +14,7 @@ import 'package:shared_plates_app/features/create/data/create_repository.dart';
 import 'package:shared_plates_app/features/create/presentation/bloc/create_start_cubit.dart';
 
 class StartOption extends StatelessWidget {
-  const new({
+  const StartOption({
     required this.icon,
     required this.title,
     required this.body,
@@ -80,7 +80,7 @@ class StartOption extends StatelessWidget {
 }
 
 class DraftRow extends StatelessWidget {
-  const new({
+  const DraftRow({
     required this.summary,
     required this.onTap,
     required this.onDelete,
@@ -195,7 +195,7 @@ class DraftRow extends StatelessWidget {
 }
 
 class _Progress extends StatelessWidget {
-  const new({required this.value});
+  const _Progress({required this.value});
 
   final double value;
 
@@ -218,7 +218,7 @@ class _Progress extends StatelessWidget {
 }
 
 class SavedPickerSheet extends StatelessWidget {
-  const new({super.key});
+  const SavedPickerSheet({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -265,7 +265,7 @@ class SavedPickerSheet extends StatelessWidget {
 }
 
 class _SavedRow extends StatelessWidget {
-  const new({required this.card});
+  const _SavedRow({required this.card});
 
   final RecipeCard card;
 

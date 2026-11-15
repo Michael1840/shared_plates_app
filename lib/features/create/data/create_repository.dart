@@ -15,7 +15,7 @@ import 'package:shared_plates_app/features/create/domain/recipe_draft.dart';
 import 'package:shared_plates_app/features/create/domain/recipe_parser.dart';
 
 class DraftSummary extends Equatable {
-  const new({
+  const DraftSummary({
     required this.card,
     required this.ingredientCount,
     required this.stepCount,
@@ -65,7 +65,7 @@ abstract interface class CreateRepository {
 }
 
 class CreateRepositoryImpl implements CreateRepository {
-  new({
+  CreateRepositoryImpl({
     required this._db,
     required this._outbox,
     required this._sync,

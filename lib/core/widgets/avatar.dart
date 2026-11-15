@@ -5,7 +5,7 @@ import 'package:shared_plates_app/core/theme/typography.dart';
 import 'package:shared_plates_app/core/utils/formatters.dart';
 
 class Avatar extends StatelessWidget {
-  const new({
+  const Avatar({
     required this.name,
     super.key,
     this.seed,

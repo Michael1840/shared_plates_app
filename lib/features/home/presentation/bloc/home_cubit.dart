@@ -11,7 +11,7 @@ import 'package:shared_plates_app/features/browse/presentation/bloc/feed_slice.d
 import 'package:shared_plates_app/features/profile/data/profile_repository.dart';
 
 class HomeState extends Equatable {
-  const new({
+  const HomeState({
     this.moods = const DelayedResult.idle(),
     this.trending = const DelayedResult.idle(),
     this.picks = const DelayedResult.idle(),
@@ -55,8 +55,11 @@ class HomeState extends Equatable {
 }
 
 class HomeCubit extends Cubit<HomeState> {
-  new({required this._browse, required this._profiles, required this._userId})
-    : super(const HomeState());
+  HomeCubit({
+    required this._browse,
+    required this._profiles,
+    required this._userId,
+  }) : super(const HomeState());
 
   final BrowseRepository _browse;
   final ProfileRepository _profiles;

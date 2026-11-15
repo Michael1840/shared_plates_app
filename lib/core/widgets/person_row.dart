@@ -10,7 +10,7 @@ import 'package:shared_plates_app/core/widgets/sp_icon.dart';
 import 'package:shared_plates_app/features/profile/domain/popular_cook.dart';
 
 class PersonRow extends StatelessWidget {
-  const new({
+  const PersonRow({
     required this.cook,
     required this.index,
     required this.requested,
@@ -83,7 +83,11 @@ class PersonRow extends StatelessWidget {
 }
 
 class _AddButton extends StatelessWidget {
-  const new({required this.requested, required this.onTap, required this.name});
+  const _AddButton({
+    required this.requested,
+    required this.onTap,
+    required this.name,
+  });
 
   final bool requested;
   final VoidCallback onTap;

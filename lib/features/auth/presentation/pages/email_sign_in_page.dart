@@ -22,7 +22,7 @@ import 'package:shared_plates_app/features/auth/presentation/bloc/email_sign_in_
 import 'package:shared_plates_app/features/auth/presentation/widgets/code_input.dart';
 
 class EmailSignInPage extends StatelessWidget {
-  const new({super.key});
+  const EmailSignInPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class EmailSignInPage extends StatelessWidget {
 }
 
 class _EmailSignInView extends StatelessWidget {
-  const new();
+  const _EmailSignInView();
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +83,7 @@ class _EmailSignInView extends StatelessWidget {
 }
 
 class _SignInHeader extends StatelessWidget {
-  const new({required this.step});
+  const _SignInHeader({required this.step});
 
   final EmailStep step;
 
@@ -170,7 +170,7 @@ class _SignInHeader extends StatelessWidget {
 }
 
 class _SentTo extends StatelessWidget {
-  const new({required this.email});
+  const _SentTo({required this.email});
 
   final String email;
 
@@ -202,7 +202,7 @@ class _SentTo extends StatelessWidget {
 }
 
 class _EmailForm extends StatelessWidget {
-  const new({super.key});
+  const _EmailForm({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -238,7 +238,7 @@ class _EmailForm extends StatelessWidget {
 }
 
 class _CodeForm extends StatelessWidget {
-  const new({super.key});
+  const _CodeForm({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -305,7 +305,7 @@ class _CodeForm extends StatelessWidget {
 }
 
 class _Resending extends StatelessWidget {
-  const new();
+  const _Resending();
 
   @override
   Widget build(BuildContext context) {
@@ -334,7 +334,7 @@ class _Resending extends StatelessWidget {
 }
 
 class _SignInAction extends StatelessWidget {
-  const new();
+  const _SignInAction();
 
   @override
   Widget build(BuildContext context) {

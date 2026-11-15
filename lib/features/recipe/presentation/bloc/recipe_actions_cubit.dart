@@ -9,7 +9,7 @@ import 'package:shared_plates_app/features/auth/presentation/bloc/session_cubit.
 import 'package:shared_plates_app/features/recipe/data/recipe_actions_repository.dart';
 
 class RecipeActionsState extends Equatable {
-  const new({
+  const RecipeActionsState({
     this.userId,
     this.canAct = false,
     this.saved = const {},
@@ -52,7 +52,7 @@ class RecipeActionsState extends Equatable {
 enum ActionOutcome { done, needsAccount, failed }
 
 class RecipeActionsCubit extends Cubit<RecipeActionsState> {
-  new({required this._actions, required SessionCubit session})
+  RecipeActionsCubit({required this._actions, required SessionCubit session})
     : super(const RecipeActionsState()) {
     _sessionSub = session.stream.listen(_onSession);
     _onSession(session.state);

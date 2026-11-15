@@ -20,7 +20,7 @@ import 'package:shared_plates_app/features/recipe/presentation/bloc/recipe_actio
 import 'package:shared_plates_app/features/settings/presentation/bloc/settings_cubit.dart';
 
 class SharedPlatesApp extends StatefulWidget {
-  const new({super.key});
+  const SharedPlatesApp({super.key});
 
   @override
   State<SharedPlatesApp> createState() => _SharedPlatesAppState();

@@ -7,7 +7,7 @@ import 'package:shared_plates_app/core/theme/sizing.dart';
 import 'package:shared_plates_app/core/widgets/skeleton.dart';
 
 class RecipeCover extends StatelessWidget {
-  const new({
+  const RecipeCover({
     required this.style,
     super.key,
     this.imageUrl,
@@ -59,7 +59,7 @@ class RecipeCover extends StatelessWidget {
 }
 
 class _NetworkCover extends StatelessWidget {
-  const new({required this.url, required this.fallback});
+  const _NetworkCover({required this.url, required this.fallback});
 
   final String url;
   final Widget fallback;
@@ -79,7 +79,7 @@ class _NetworkCover extends StatelessWidget {
 }
 
 class _IllustratedCover extends StatelessWidget {
-  const new({required this.style});
+  const _IllustratedCover({required this.style});
 
   final CoverStyle style;
 

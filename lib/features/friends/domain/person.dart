@@ -4,7 +4,7 @@ import 'package:shared_plates_app/core/domain/models/reference.dart';
 import 'package:shared_plates_app/core/utils/formatters.dart';
 
 class Person extends Equatable {
-  const new({
+  const Person({
     required this.id,
     required this.username,
     required this.displayName,
@@ -13,7 +13,7 @@ class Person extends Equatable {
     this.city,
   });
 
-  factory fromJson(Map<String, dynamic> json) => Person(
+  factory Person.fromJson(Map<String, dynamic> json) => Person(
     id: json['id'] as String,
     username: json['username'] as String? ?? '',
     displayName: json['display_name'] as String? ?? '',
@@ -55,7 +55,11 @@ class Person extends Equatable {
 enum FriendLink { none, friends, incoming, outgoing }
 
 class Friendship extends Equatable {
-  const new({required this.person, required this.link, required this.since});
+  const Friendship({
+    required this.person,
+    required this.link,
+    required this.since,
+  });
 
   final Person person;
   final FriendLink link;
@@ -66,7 +70,7 @@ class Friendship extends Equatable {
 }
 
 class FriendsOverview extends Equatable {
-  const new({
+  const FriendsOverview({
     this.friends = const [],
     this.incoming = const [],
     this.outgoing = const [],
@@ -91,7 +95,7 @@ class FriendsOverview extends Equatable {
 }
 
 class PersonProfile extends Equatable {
-  const new({
+  const PersonProfile({
     required this.person,
     required this.link,
     this.recipes = const [],

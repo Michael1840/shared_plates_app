@@ -4,7 +4,7 @@ import 'package:shared_plates_app/core/db/app_database.dart';
 import 'package:shared_plates_app/core/settings/app_settings_store.dart';
 
 class ChecklistProgress extends Equatable {
-  const new({
+  const ChecklistProgress({
     this.setUp = false,
     this.saved = false,
     this.shared = false,
@@ -35,7 +35,7 @@ abstract interface class ChecklistRepository {
 }
 
 class ChecklistRepositoryImpl implements ChecklistRepository {
-  new(this._db, this._settings);
+  ChecklistRepositoryImpl(this._db, this._settings);
 
   final AppDatabase _db;
   final AppSettingsStore _settings;

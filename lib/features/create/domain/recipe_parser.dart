@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class ParsedIngredient extends Equatable {
-  const new({
+  const ParsedIngredient({
     required this.rawText,
     required this.name,
     this.quantity,
@@ -32,7 +32,7 @@ class ParsedIngredient extends Equatable {
 }
 
 class ParsedStep extends Equatable {
-  const new({required this.body, this.timerSeconds});
+  const ParsedStep({required this.body, this.timerSeconds});
 
   final String body;
   final int? timerSeconds;
@@ -42,7 +42,7 @@ class ParsedStep extends Equatable {
 }
 
 class ParsedRecipe extends Equatable {
-  const new({
+  const ParsedRecipe({
     this.title,
     this.servings,
     this.totalMinutes,
@@ -69,7 +69,7 @@ class ParsedRecipe extends Equatable {
 enum LineKind { title, serves, time, heading, section, ingredient, step, skip }
 
 class ParsedLine extends Equatable {
-  const new({
+  const ParsedLine({
     required this.index,
     required this.text,
     required this.kind,

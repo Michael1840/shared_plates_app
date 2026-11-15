@@ -6,7 +6,7 @@ import 'package:shared_plates_app/features/create/domain/food_matcher.dart';
 import 'package:shared_plates_app/features/create/domain/recipe_parser.dart';
 
 class DraftIngredient extends Equatable {
-  const new({
+  const DraftIngredient({
     required this.id,
     required this.rawText,
     this.name,
@@ -21,7 +21,7 @@ class DraftIngredient extends Equatable {
     this.keptAsIs = false,
   });
 
-  factory fromLine(
+  factory DraftIngredient.fromLine(
     String id,
     String line, {
     required FoodLibrary library,
@@ -34,7 +34,7 @@ class DraftIngredient extends Equatable {
     costCents: costCents,
   );
 
-  factory fromParsed(
+  factory DraftIngredient.fromParsed(
     String id,
     ParsedIngredient parsed, {
     required FoodLibrary library,
@@ -120,7 +120,7 @@ class DraftIngredient extends Equatable {
 }
 
 class DraftStep extends Equatable {
-  const new({required this.id, this.body = ''});
+  const DraftStep({required this.id, this.body = ''});
 
   final String id;
   final String body;
@@ -134,7 +134,7 @@ class DraftStep extends Equatable {
 enum DraftProblem { name, ingredients, steps }
 
 class RecipeDraft extends Equatable {
-  const new({
+  const RecipeDraft({
     required this.id,
     this.title = '',
     this.note,
@@ -289,7 +289,7 @@ class RecipeDraft extends Equatable {
 }
 
 class NutritionTotals extends Equatable {
-  const new({
+  const NutritionTotals({
     this.kcal = 0,
     this.protein = 0,
     this.carbs = 0,
@@ -298,7 +298,7 @@ class NutritionTotals extends Equatable {
     this.matched = 0,
   });
 
-  factory of(RecipeDraft draft, FoodLibrary library) {
+  factory NutritionTotals.of(RecipeDraft draft, FoodLibrary library) {
     var kcal = 0.0;
     var protein = 0.0;
     var carbs = 0.0;

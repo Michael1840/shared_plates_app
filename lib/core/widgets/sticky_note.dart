@@ -7,7 +7,7 @@ import 'package:shared_plates_app/core/widgets/paprika.dart';
 import 'package:shared_plates_app/core/widgets/tape.dart';
 
 class StickyNote extends StatelessWidget {
-  const new({
+  const StickyNote({
     required this.body,
     super.key,
     this.title,

@@ -7,7 +7,7 @@ import 'package:shared_plates_app/core/theme/typography.dart';
 import 'package:shared_plates_app/core/utils/extensions.dart';
 
 class CodeInput extends StatefulWidget {
-  const new({
+  const CodeInput({
     required this.length,
     required this.value,
     required this.onChanged,
@@ -112,7 +112,11 @@ class _CodeInputState extends State<CodeInput> {
 }
 
 class _DigitBox extends StatelessWidget {
-  const new({required this.digit, required this.active, required this.error});
+  const _DigitBox({
+    required this.digit,
+    required this.active,
+    required this.error,
+  });
 
   final String digit;
   final bool active;

@@ -5,7 +5,7 @@ import 'package:shared_plates_app/core/theme/typography.dart';
 import 'package:shared_plates_app/core/utils/extensions.dart';
 
 class SpeechBubble extends StatelessWidget {
-  const new({required this.text, super.key, this.raised = true});
+  const SpeechBubble({required this.text, super.key, this.raised = true});
 
   final String text;
   final bool raised;

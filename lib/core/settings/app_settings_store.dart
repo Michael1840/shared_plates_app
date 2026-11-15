@@ -9,7 +9,7 @@ enum SettingKey {
 }
 
 class AppSettingsStore {
-  new(this._db);
+  AppSettingsStore(this._db);
 
   final AppDatabase _db;
 

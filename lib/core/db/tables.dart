@@ -4,7 +4,7 @@ import 'package:drift/drift.dart';
 import 'package:shared_plates_app/core/domain/enums.dart';
 
 class StringListConverter extends TypeConverter<List<String>, String> {
-  const new();
+  const StringListConverter();
 
   @override
   List<String> fromSql(String fromDb) =>

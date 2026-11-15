@@ -4,7 +4,7 @@ import 'package:shared_plates_app/core/domain/measure.dart';
 import 'package:shared_plates_app/core/domain/models/reference.dart';
 
 class FoodMatch extends Equatable {
-  const new(this.food, this.score);
+  const FoodMatch(this.food, this.score);
 
   final Food food;
   final double score;
@@ -14,7 +14,7 @@ class FoodMatch extends Equatable {
 }
 
 class FoodLibrary {
-  new({
+  FoodLibrary({
     List<Food> foods = const [],
     List<FoodPortion> portions = const [],
     this.units = Measure.defaults,

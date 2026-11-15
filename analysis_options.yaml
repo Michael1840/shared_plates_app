@@ -15,3 +15,6 @@ analyzer:
 linter:
   rules:
     public_member_api_docs: false
+    unnecessary_type_name_in_constructor: false
+    empty_container_bodies: false
+    unnecessary_const_in_enum_constructor: false

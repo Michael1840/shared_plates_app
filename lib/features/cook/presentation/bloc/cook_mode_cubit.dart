@@ -12,7 +12,7 @@ import 'package:shared_plates_app/features/recipe/data/recipe_detail_repository.
 import 'package:shared_plates_app/features/recipe/domain/recipe_detail.dart';
 
 class CookTimer extends Equatable {
-  const new({required this.total, required this.remaining, this.endsAt});
+  const CookTimer({required this.total, required this.remaining, this.endsAt});
 
   final int total;
   final int remaining;
@@ -29,7 +29,7 @@ class CookTimer extends Equatable {
 }
 
 class CookModeState extends Equatable {
-  const new({
+  const CookModeState({
     this.detail = const DelayedResult.idle(),
     this.servings,
     this.units = UnitSystem.metric,
@@ -140,7 +140,7 @@ class CookModeState extends Equatable {
 }
 
 class CookModeCubit extends Cubit<CookModeState> {
-  new({
+  CookModeCubit({
     required this._repository,
     required this._recipeId,
     required this._screen,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_plates_app/core/utils/extensions.dart';
 
 class DotGridBackground extends StatelessWidget {
-  const new({required this.child, super.key});
+  const DotGridBackground({required this.child, super.key});
 
   final Widget child;
 
@@ -19,7 +19,7 @@ class DotGridBackground extends StatelessWidget {
 }
 
 class _DotGridPainter extends CustomPainter {
-  new(this.color);
+  _DotGridPainter(this.color);
 
   static const double _step = 20;
   static const double _radius = 1.1;

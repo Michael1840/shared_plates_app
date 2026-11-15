@@ -3,7 +3,7 @@ import 'dart:typed_data';
 import 'package:shared_plates_app/core/sync/remote_store.dart';
 
 class OfflineRemoteStore implements RemoteStore {
-  const new();
+  const OfflineRemoteStore();
 
   static const _failure = RemoteFailure(
     'This build has no backend configured',

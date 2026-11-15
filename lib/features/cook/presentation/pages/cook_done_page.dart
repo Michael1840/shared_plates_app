@@ -26,7 +26,7 @@ import 'package:shared_plates_app/features/profile/presentation/bloc/current_pro
 import 'package:shared_plates_app/features/recipe/data/recipe_detail_repository.dart';
 
 class CookDonePage extends StatelessWidget {
-  const new({required this.args, super.key});
+  const CookDonePage({required this.args, super.key});
 
   final CookedArgs args;
 
@@ -56,7 +56,7 @@ class CookDonePage extends StatelessWidget {
 }
 
 class CookDoneView extends StatefulWidget {
-  const new({super.key, this.coverUrl});
+  const CookDoneView({super.key, this.coverUrl});
 
   final String? coverUrl;
 
@@ -195,7 +195,7 @@ class _CookDoneViewState extends State<CookDoneView> {
 }
 
 class DoneHeader extends StatelessWidget {
-  const new({
+  const DoneHeader({
     required this.name,
     required this.monthCount,
     required this.onClose,

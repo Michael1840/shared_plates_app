@@ -6,7 +6,7 @@ import 'package:shared_plates_app/core/widgets/motion/pressable.dart';
 import 'package:shared_plates_app/core/widgets/sp_icon.dart';
 
 class SpSearchBar extends StatelessWidget {
-  const new({
+  const SpSearchBar({
     super.key,
     this.controller,
     this.hint = 'Search recipes or people',
@@ -79,7 +79,7 @@ class SpSearchBar extends StatelessWidget {
 }
 
 class _FilterButton extends StatelessWidget {
-  const new({required this.onTap});
+  const _FilterButton({required this.onTap});
 
   final VoidCallback? onTap;
 

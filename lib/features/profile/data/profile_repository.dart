@@ -69,7 +69,7 @@ abstract interface class ProfileRepository {
 }
 
 class ProfilePreferences {
-  const new({
+  const ProfilePreferences({
     this.units,
     this.defaultVisibility,
     this.keepScreenOn,
@@ -113,7 +113,7 @@ class ProfilePreferences {
 }
 
 class ProfileRepositoryImpl implements ProfileRepository {
-  new({
+  ProfileRepositoryImpl({
     required this._db,
     required this._outbox,
     required this._remote,

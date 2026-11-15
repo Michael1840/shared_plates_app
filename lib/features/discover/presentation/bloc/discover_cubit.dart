@@ -9,7 +9,7 @@ import 'package:shared_plates_app/features/browse/data/browse_repository.dart';
 import 'package:shared_plates_app/features/browse/presentation/bloc/feed_slice.dart';
 
 class DiscoverState extends Equatable {
-  const new({
+  const DiscoverState({
     this.collections = const DelayedResult.idle(),
     this.quick = const DelayedResult.idle(),
     this.mostSaved = const DelayedResult.idle(),
@@ -70,7 +70,7 @@ class DiscoverState extends Equatable {
 }
 
 class DiscoverCubit extends Cubit<DiscoverState> {
-  new(this._browse) : super(const DiscoverState());
+  DiscoverCubit(this._browse) : super(const DiscoverState());
 
   final BrowseRepository _browse;
 

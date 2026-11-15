@@ -7,7 +7,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class IdTokenGrant {
-  const new({required this.idToken, this.accessToken, this.rawNonce});
+  const IdTokenGrant({required this.idToken, this.accessToken, this.rawNonce});
 
   final String idToken;
   final String? accessToken;
@@ -25,7 +25,10 @@ abstract interface class NativeIdentity {
 }
 
 class DeviceNativeIdentity implements NativeIdentity {
-  new({required this._webClientId, required this._iosClientId});
+  DeviceNativeIdentity({
+    required this._webClientId,
+    required this._iosClientId,
+  });
 
   static const _scopes = ['email', 'profile'];
 
@@ -96,7 +99,7 @@ class DeviceNativeIdentity implements NativeIdentity {
 }
 
 class NoNativeIdentity implements NativeIdentity {
-  const new();
+  const NoNativeIdentity();
 
   @override
   bool get supportsGoogle => false;

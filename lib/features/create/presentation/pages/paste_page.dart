@@ -29,7 +29,7 @@ import 'package:shared_plates_app/features/create/presentation/widgets/paste_rev
 import 'package:shared_plates_app/features/profile/presentation/bloc/current_profile_cubit.dart';
 
 class PastePage extends StatelessWidget {
-  const new({super.key});
+  const PastePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,7 @@ class PastePage extends StatelessWidget {
 }
 
 class PasteView extends StatelessWidget {
-  const new({super.key});
+  const PasteView({super.key});
 
   Future<void> _continue(BuildContext context) async {
     final cubit = context.read<PasteCubit>();
@@ -107,7 +107,7 @@ class PasteView extends StatelessWidget {
 }
 
 class _PasteHeader extends StatelessWidget {
-  const new({required this.review, required this.onBack});
+  const _PasteHeader({required this.review, required this.onBack});
 
   final bool review;
   final VoidCallback onBack;
@@ -147,7 +147,7 @@ class _PasteHeader extends StatelessWidget {
 }
 
 class _PasteInput extends StatefulWidget {
-  const new();
+  const _PasteInput();
 
   @override
   State<_PasteInput> createState() => _PasteInputState();

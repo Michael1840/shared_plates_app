@@ -14,7 +14,7 @@ import 'package:shared_plates_app/core/sync/remote_store.dart';
 import 'package:shared_plates_app/core/utils/error_reporter.dart';
 
 class SyncReport extends Equatable {
-  const new({
+  const SyncReport({
     this.pushed = 0,
     this.failed = 0,
     this.blocked = false,
@@ -31,7 +31,7 @@ class SyncReport extends Equatable {
 }
 
 class SyncService {
-  new({
+  SyncService({
     required this._db,
     required this._outbox,
     required this._remote,

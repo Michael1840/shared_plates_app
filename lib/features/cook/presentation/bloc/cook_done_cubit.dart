@@ -9,7 +9,7 @@ import 'package:shared_plates_app/features/cook/data/cook_repository.dart';
 import 'package:shared_plates_app/features/recipe/data/recipe_detail_repository.dart';
 
 class CookDoneState extends Equatable {
-  const new({
+  const CookDoneState({
     required this.card,
     required this.servings,
     this.monthCount,
@@ -53,7 +53,7 @@ class CookDoneState extends Equatable {
 }
 
 class CookDoneCubit extends Cubit<CookDoneState> {
-  new({
+  CookDoneCubit({
     required this._cooks,
     required this._recipes,
     required RecipeCard card,

@@ -11,9 +11,11 @@ abstract interface class PhotoStore {
 }
 
 class DevicePhotoStore implements PhotoStore {
-  new({ImagePicker? picker, Future<Directory> Function()? directory})
-    : _picker = picker ?? ImagePicker(),
-      _directory = directory ?? getApplicationSupportDirectory;
+  DevicePhotoStore({
+    ImagePicker? picker,
+    Future<Directory> Function()? directory,
+  }) : _picker = picker ?? ImagePicker(),
+       _directory = directory ?? getApplicationSupportDirectory;
 
   static const maxSide = 1600.0;
   static const quality = 82;

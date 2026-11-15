@@ -5,7 +5,7 @@ import 'package:shared_plates_app/core/theme/typography.dart';
 import 'package:shared_plates_app/core/utils/extensions.dart';
 
 class CreateBottomBar extends StatelessWidget {
-  const new({required this.child, super.key, this.note});
+  const CreateBottomBar({required this.child, super.key, this.note});
 
   final Widget child;
   final String? note;

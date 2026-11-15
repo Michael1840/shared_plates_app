@@ -12,14 +12,14 @@ import 'package:shared_plates_app/core/widgets/motion/pressable.dart';
 import 'package:shared_plates_app/core/widgets/sp_icon.dart';
 
 class TabItem {
-  const new({required this.label, required this.icon});
+  const TabItem({required this.label, required this.icon});
 
   final String label;
   final SpIcons icon;
 }
 
 class FloatingTabBar extends StatelessWidget {
-  const new({
+  const FloatingTabBar({
     required this.items,
     required this.currentIndex,
     required this.onSelect,
@@ -86,7 +86,11 @@ class FloatingTabBar extends StatelessWidget {
 }
 
 class _TabButton extends StatelessWidget {
-  const new({required this.item, required this.selected, required this.onTap});
+  const _TabButton({
+    required this.item,
+    required this.selected,
+    required this.onTap,
+  });
 
   final TabItem item;
   final bool selected;
@@ -142,7 +146,7 @@ class _TabButton extends StatelessWidget {
 }
 
 class _CreateButton extends StatelessWidget {
-  const new({required this.onTap});
+  const _CreateButton({required this.onTap});
 
   final VoidCallback onTap;
 

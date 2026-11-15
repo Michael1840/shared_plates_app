@@ -16,7 +16,7 @@ import 'package:shared_plates_app/core/widgets/sp_icon.dart';
 import 'package:shared_plates_app/features/cook/presentation/bloc/cook_mode_cubit.dart';
 
 class CookTopBar extends StatelessWidget {
-  const new({super.key});
+  const CookTopBar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +63,7 @@ class CookTopBar extends StatelessWidget {
 }
 
 class StepSegments extends StatelessWidget {
-  const new({super.key});
+  const StepSegments({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +93,7 @@ class StepSegments extends StatelessWidget {
 }
 
 class AwakeNote extends StatelessWidget {
-  const new({super.key});
+  const AwakeNote({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +112,7 @@ class AwakeNote extends StatelessWidget {
 }
 
 class OtherTimers extends StatelessWidget {
-  const new({super.key});
+  const OtherTimers({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -135,7 +135,7 @@ class OtherTimers extends StatelessWidget {
 }
 
 class _OtherTimerChip extends StatelessWidget {
-  const new({required this.index, required this.remaining});
+  const _OtherTimerChip({required this.index, required this.remaining});
 
   final int index;
   final int remaining;
@@ -172,7 +172,7 @@ class _OtherTimerChip extends StatelessWidget {
 }
 
 class StepNavButtons extends StatelessWidget {
-  const new({required this.onFinish, super.key});
+  const StepNavButtons({required this.onFinish, super.key});
 
   final VoidCallback onFinish;
 
@@ -215,7 +215,7 @@ class StepNavButtons extends StatelessWidget {
 }
 
 class _NavButton extends StatelessWidget {
-  const new({
+  const _NavButton({
     required this.label,
     required this.fill,
     required this.ink,
@@ -265,7 +265,7 @@ class _NavButton extends StatelessWidget {
 }
 
 class _IngredientsSheet extends StatelessWidget {
-  const new({required this.state});
+  const _IngredientsSheet({required this.state});
 
   final CookModeState state;
 
@@ -306,7 +306,11 @@ class _IngredientsSheet extends StatelessWidget {
 }
 
 class _SheetRow extends StatelessWidget {
-  const new({required this.amount, required this.name, required this.now});
+  const _SheetRow({
+    required this.amount,
+    required this.name,
+    required this.now,
+  });
 
   final String? amount;
   final String name;

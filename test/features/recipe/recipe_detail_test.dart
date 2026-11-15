@@ -23,7 +23,7 @@ import '../../helpers/fake_browse_api.dart';
 import '../../helpers/fake_remote_store.dart';
 import '../../helpers/recipe_seed.dart';
 
-class _MockRepo extends Mock implements RecipeDetailRepository;
+class _MockRepo extends Mock implements RecipeDetailRepository {}
 
 RecipeIngredient _ing(String id, double? q, String? unit, String raw) =>
     RecipeIngredient(

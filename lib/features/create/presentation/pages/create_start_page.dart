@@ -30,7 +30,7 @@ import 'package:shared_plates_app/features/create/presentation/widgets/create_st
 import 'package:shared_plates_app/features/recipe/data/recipe_detail_repository.dart';
 
 class CreateStartPage extends StatelessWidget {
-  const new({super.key});
+  const CreateStartPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +51,7 @@ class CreateStartPage extends StatelessWidget {
 }
 
 class CreateStartView extends StatelessWidget {
-  const new({super.key});
+  const CreateStartView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -166,7 +166,7 @@ class CreateStartView extends StatelessWidget {
 }
 
 class _StartHeader extends StatelessWidget {
-  const new();
+  const _StartHeader();
 
   @override
   Widget build(BuildContext context) {
@@ -232,7 +232,7 @@ class _StartHeader extends StatelessWidget {
 }
 
 class _OfflineNote extends StatelessWidget {
-  const new();
+  const _OfflineNote();
 
   @override
   Widget build(BuildContext context) {
@@ -255,7 +255,7 @@ class _OfflineNote extends StatelessWidget {
 }
 
 class _GuestCreate extends StatelessWidget {
-  const new();
+  const _GuestCreate();
 
   @override
   Widget build(BuildContext context) {

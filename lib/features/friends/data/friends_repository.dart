@@ -34,7 +34,7 @@ abstract interface class FriendsRepository {
 }
 
 class FriendsRepositoryImpl implements FriendsRepository {
-  new({
+  FriendsRepositoryImpl({
     required this._remote,
     required this._api,
     required this._db,

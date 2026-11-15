@@ -12,7 +12,7 @@ import 'package:shared_plates_app/features/recipe/data/recipe_detail_repository.
 import 'package:shared_plates_app/features/recipe/domain/recipe_detail.dart';
 
 class RecipeDetailState extends Equatable {
-  const new({
+  const RecipeDetailState({
     this.detail = const DelayedResult.idle(),
     this.preview,
     this.refreshError,
@@ -101,7 +101,7 @@ class RecipeDetailState extends Equatable {
 }
 
 class RecipeDetailCubit extends Cubit<RecipeDetailState> {
-  new({
+  RecipeDetailCubit({
     required this._repository,
     required this._recipeId,
     this._viewerId,

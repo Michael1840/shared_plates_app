@@ -7,14 +7,14 @@ import 'package:shared_plates_app/core/utils/extensions.dart';
 enum EntranceStyle { rise, print, pop, stamp, write }
 
 class Entrance extends StatefulWidget {
-  const new({
+  const Entrance({
     required this.child,
     super.key,
     this.style = EntranceStyle.rise,
     this.delay = Duration.zero,
   });
 
-  factory staggered({
+  factory Entrance.staggered({
     required int index,
     required Widget child,
     Key? key,
@@ -99,7 +99,11 @@ class _EntranceState extends State<Entrance>
 }
 
 class _EntranceFrame extends StatelessWidget {
-  const new({required this.style, required this.t, required this.child});
+  const _EntranceFrame({
+    required this.style,
+    required this.t,
+    required this.child,
+  });
 
   final EntranceStyle style;
   final double t;
@@ -147,7 +151,7 @@ class _EntranceFrame extends StatelessWidget {
 }
 
 class _RevealClipper extends CustomClipper<Rect> {
-  new(this.progress);
+  _RevealClipper(this.progress);
 
   final double progress;
 

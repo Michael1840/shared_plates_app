@@ -6,7 +6,7 @@ import 'package:shared_plates_app/core/widgets/buttons.dart';
 import 'package:shared_plates_app/core/widgets/handwritten_note.dart';
 
 class SectionHeader extends StatelessWidget {
-  const new({
+  const SectionHeader({
     required this.title,
     super.key,
     this.actionLabel,

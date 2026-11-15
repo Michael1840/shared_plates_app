@@ -4,7 +4,7 @@ enum FontRole { display, body, hand }
 
 @immutable
 class FontConfig {
-  const new({
+  const FontConfig({
     required this.size,
     required this.lineHeight,
     this.letterSpacing,
@@ -151,7 +151,11 @@ abstract final class FontConfigs {
 
 @immutable
 class SpTypography extends ThemeExtension<SpTypography> {
-  const new({required this.display, required this.body, required this.hand});
+  const SpTypography({
+    required this.display,
+    required this.body,
+    required this.hand,
+  });
 
   static const standard = SpTypography(
     display: 'BricolageGrotesque',

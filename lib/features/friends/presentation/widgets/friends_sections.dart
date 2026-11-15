@@ -26,7 +26,7 @@ import 'package:shared_plates_app/features/friends/domain/person.dart';
 import 'package:shared_plates_app/features/friends/presentation/bloc/friends_cubit.dart';
 
 class RequestsSection extends StatelessWidget {
-  const new({required this.requests, super.key});
+  const RequestsSection({required this.requests, super.key});
 
   final List<Friendship> requests;
 
@@ -70,7 +70,7 @@ class RequestsSection extends StatelessWidget {
 }
 
 class RequestCard extends StatelessWidget {
-  const new({required this.person, super.key});
+  const RequestCard({required this.person, super.key});
 
   final Person person;
 
@@ -122,7 +122,11 @@ class RequestCard extends StatelessWidget {
 }
 
 class _PillButton extends StatelessWidget {
-  const new({required this.label, required this.onTap, this.primary = false});
+  const _PillButton({
+    required this.label,
+    required this.onTap,
+    this.primary = false,
+  });
 
   final String label;
   final VoidCallback? onTap;
@@ -153,7 +157,7 @@ class _PillButton extends StatelessWidget {
 }
 
 class _NameBlock extends StatelessWidget {
-  const new({required this.person, this.detail});
+  const _NameBlock({required this.person, this.detail});
 
   final Person person;
   final String? detail;
@@ -187,7 +191,7 @@ class _NameBlock extends StatelessWidget {
 }
 
 class JustCooked extends StatelessWidget {
-  const new({required this.cards, super.key});
+  const JustCooked({required this.cards, super.key});
 
   final List<RecipeCard> cards;
 
@@ -226,7 +230,7 @@ class JustCooked extends StatelessWidget {
 }
 
 class _CookedPrint extends StatelessWidget {
-  const new({required this.card, required this.tilt});
+  const _CookedPrint({required this.card, required this.tilt});
 
   final RecipeCard card;
   final double tilt;
@@ -293,7 +297,7 @@ class _CookedPrint extends StatelessWidget {
 }
 
 class FriendList extends StatelessWidget {
-  const new({required this.overview, super.key});
+  const FriendList({required this.overview, super.key});
 
   final FriendsOverview overview;
 
@@ -340,7 +344,11 @@ class FriendList extends StatelessWidget {
 }
 
 class _FriendRow extends StatelessWidget {
-  const new({required this.person, required this.fresh, required this.last});
+  const _FriendRow({
+    required this.person,
+    required this.fresh,
+    required this.last,
+  });
 
   final Person person;
   final int fresh;
@@ -393,7 +401,7 @@ class _FriendRow extends StatelessWidget {
 }
 
 class SentRequests extends StatelessWidget {
-  const new({required this.sent, super.key});
+  const SentRequests({required this.sent, super.key});
 
   final List<Friendship> sent;
 
@@ -431,7 +439,7 @@ class SentRequests extends StatelessWidget {
 }
 
 class PeopleResults extends StatelessWidget {
-  const new({super.key});
+  const PeopleResults({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -484,7 +492,11 @@ class PeopleResults extends StatelessWidget {
 }
 
 class _ResultRow extends StatelessWidget {
-  const new({required this.person, required this.link, required this.busy});
+  const _ResultRow({
+    required this.person,
+    required this.link,
+    required this.busy,
+  });
 
   final Person person;
   final FriendLink link;

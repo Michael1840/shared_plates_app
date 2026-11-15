@@ -17,7 +17,7 @@ import 'package:shared_plates_app/features/profile/domain/avoid_option.dart';
 import 'package:shared_plates_app/features/settings/presentation/bloc/settings_cubit.dart';
 
 class SettingsGroup extends StatelessWidget {
-  const new({required this.title, required this.rows, super.key});
+  const SettingsGroup({required this.title, required this.rows, super.key});
 
   final String title;
   final List<Widget> rows;
@@ -61,7 +61,7 @@ class SettingsGroup extends StatelessWidget {
 }
 
 class LinkRow extends StatelessWidget {
-  const new({required this.label, super.key, this.value, this.onTap});
+  const LinkRow({required this.label, super.key, this.value, this.onTap});
 
   final String label;
   final String? value;
@@ -110,7 +110,7 @@ class LinkRow extends StatelessWidget {
 }
 
 class ToggleRow extends StatelessWidget {
-  const new({
+  const ToggleRow({
     required this.label,
     required this.value,
     required this.onChanged,
@@ -168,7 +168,7 @@ class ToggleRow extends StatelessWidget {
 }
 
 class SegmentRow<T> extends StatelessWidget {
-  const new({
+  const SegmentRow({
     required this.label,
     required this.value,
     required this.options,
@@ -246,7 +246,7 @@ class SegmentRow<T> extends StatelessWidget {
 }
 
 class AvoidSheet extends StatelessWidget {
-  const new({super.key});
+  const AvoidSheet({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -290,7 +290,7 @@ class AvoidSheet extends StatelessWidget {
 }
 
 class DeleteAccountSheet extends StatelessWidget {
-  const new({super.key});
+  const DeleteAccountSheet({super.key});
 
   @override
   Widget build(BuildContext context) {

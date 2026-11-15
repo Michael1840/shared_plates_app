@@ -8,14 +8,14 @@ import 'package:shared_plates_app/core/widgets/sp_icon.dart';
 import 'package:shared_plates_app/core/widgets/tape.dart';
 
 class StatusNote extends StatelessWidget {
-  const new({
+  const StatusNote({
     required this.lead,
     required this.body,
     super.key,
     this.icon = SpIcons.ban,
   });
 
-  factory offline({Key? key}) => StatusNote(
+  factory StatusNote.offline({Key? key}) => StatusNote(
     key: key,
     lead: "You're offline.",
     body: 'Showing what loaded last time.',
@@ -83,7 +83,7 @@ class StatusNote extends StatelessWidget {
 }
 
 class ErrorRetry extends StatelessWidget {
-  const new({required this.message, required this.onRetry, super.key});
+  const ErrorRetry({required this.message, required this.onRetry, super.key});
 
   final String message;
   final VoidCallback onRetry;

@@ -43,7 +43,7 @@ abstract interface class RecipeDetailRepository {
 }
 
 class RecipeDetailRepositoryImpl implements RecipeDetailRepository {
-  new({
+  RecipeDetailRepositoryImpl({
     required this._db,
     required this._outbox,
     required this._remote,

@@ -9,7 +9,11 @@ import 'package:shared_plates_app/features/friends/data/friends_repository.dart'
 import 'package:shared_plates_app/features/recipes/data/library_repository.dart';
 
 class ProfilePageState extends Equatable {
-  const new({this.recipes = const [], this.friendCount, this.loaded = false});
+  const ProfilePageState({
+    this.recipes = const [],
+    this.friendCount,
+    this.loaded = false,
+  });
 
   final List<RecipeCard> recipes;
   final int? friendCount;
@@ -34,8 +38,11 @@ class ProfilePageState extends Equatable {
 }
 
 class ProfilePageCubit extends Cubit<ProfilePageState> {
-  new({required this._library, required this._friends, required this._userId})
-    : super(const ProfilePageState());
+  ProfilePageCubit({
+    required this._library,
+    required this._friends,
+    required this._userId,
+  }) : super(const ProfilePageState());
 
   final LibraryRepository _library;
   final FriendsRepository _friends;

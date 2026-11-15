@@ -7,7 +7,7 @@ abstract interface class ScreenAwake {
 }
 
 class WakelockScreenAwake implements ScreenAwake {
-  const new();
+  const WakelockScreenAwake();
 
   @override
   Future<void> keepOn() => WakelockPlus.enable();

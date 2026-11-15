@@ -1,7 +1,7 @@
 import 'package:shared_plates_app/core/domain/enums.dart';
 
 class UnitDef {
-  const new(this.code, this.kind, this.scope, this.toBase);
+  const UnitDef(this.code, this.kind, this.scope, this.toBase);
 
   final String code;
   final UnitKind kind;

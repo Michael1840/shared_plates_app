@@ -13,7 +13,7 @@ import 'package:shared_plates_app/core/widgets/sp_icon.dart';
 import 'package:shared_plates_app/core/widgets/speech_bubble.dart';
 
 class OnboardingHeader extends StatelessWidget {
-  const new({
+  const OnboardingHeader({
     required this.step,
     required this.stepLabel,
     required this.message,
@@ -91,7 +91,7 @@ class OnboardingHeader extends StatelessWidget {
 }
 
 class _Progress extends StatelessWidget {
-  const new({required this.step, required this.ink});
+  const _Progress({required this.step, required this.ink});
 
   final int step;
   final Color ink;

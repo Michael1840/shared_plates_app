@@ -6,7 +6,7 @@ enum SearchScope {
   mine('Just mine'),
   saved('Saved');
 
-  new(this.label);
+  const SearchScope(this.label);
 
   final String label;
 }
@@ -18,7 +18,7 @@ enum SearchSort {
   quickest('Quickest', 'quickest'),
   relevance('Best match', 'relevance');
 
-  new(this.label, this.api);
+  const SearchSort(this.label, this.api);
 
   final String label;
   final String api;
@@ -35,7 +35,7 @@ enum CostLimit {
   r100('Under R100', 10000),
   r200('Under R200', 20000);
 
-  new(this.label, this.cents);
+  const CostLimit(this.label, this.cents);
 
   final String label;
   final int? cents;
@@ -51,7 +51,7 @@ enum TimeLimit {
   m30('30 min', 30),
   h1('1 hour', 60);
 
-  new(this.label, this.minutes);
+  const TimeLimit(this.label, this.minutes);
 
   final String label;
   final int? minutes;
@@ -63,7 +63,7 @@ enum TimeLimit {
 }
 
 class SearchFilters extends Equatable {
-  const new({
+  const SearchFilters({
     this.query = '',
     this.cost = CostLimit.any,
     this.time = TimeLimit.any,
@@ -73,16 +73,18 @@ class SearchFilters extends Equatable {
     this.title,
   });
 
-  factory fromCollection(Map<String, dynamic> filter, {String? title}) =>
-      SearchFilters(
-        cost: CostLimit.fromCents((filter['max_total_cost'] as num?)?.toInt()),
-        time: TimeLimit.fromMinutes((filter['max_minutes'] as num?)?.toInt()),
-        tagSlugs: {
-          for (final t in (filter['tags'] as List<dynamic>?) ?? const []) '$t',
-        },
-        sort: SearchSort.fromApi(filter['sort'] as String?),
-        title: title,
-      );
+  factory SearchFilters.fromCollection(
+    Map<String, dynamic> filter, {
+    String? title,
+  }) => SearchFilters(
+    cost: CostLimit.fromCents((filter['max_total_cost'] as num?)?.toInt()),
+    time: TimeLimit.fromMinutes((filter['max_minutes'] as num?)?.toInt()),
+    tagSlugs: {
+      for (final t in (filter['tags'] as List<dynamic>?) ?? const []) '$t',
+    },
+    sort: SearchSort.fromApi(filter['sort'] as String?),
+    title: title,
+  );
 
   static const dietSlugs = {
     'veggie': 'Vegetarian',

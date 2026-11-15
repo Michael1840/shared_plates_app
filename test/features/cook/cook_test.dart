@@ -21,11 +21,11 @@ import 'package:shared_plates_app/features/recipe/domain/recipe_detail.dart';
 
 import '../../helpers/fake_remote_store.dart';
 
-class _MockDetailRepo extends Mock implements RecipeDetailRepository;
+class _MockDetailRepo extends Mock implements RecipeDetailRepository {}
 
-class _MockCookRepo extends Mock implements CookRepository;
+class _MockCookRepo extends Mock implements CookRepository {}
 
-class _MockScreen extends Mock implements ScreenAwake;
+class _MockScreen extends Mock implements ScreenAwake {}
 
 final _card = RecipeCard(
   id: 'r1',

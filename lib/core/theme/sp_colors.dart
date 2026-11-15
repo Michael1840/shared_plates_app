@@ -3,7 +3,7 @@ import 'package:shared_plates_app/core/theme/palette.dart';
 
 @immutable
 class SpColors extends ThemeExtension<SpColors> {
-  const new({
+  const SpColors({
     required this.background,
     required this.dotGrid,
     required this.card,

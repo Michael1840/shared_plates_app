@@ -21,7 +21,7 @@ import 'package:shared_plates_app/features/onboarding/presentation/widgets/onboa
 import 'package:shared_plates_app/features/onboarding/presentation/widgets/onboarding_scaffold.dart';
 
 class OnboardingFriendsPage extends StatefulWidget {
-  const new({super.key});
+  const OnboardingFriendsPage({super.key});
 
   @override
   State<OnboardingFriendsPage> createState() => _OnboardingFriendsPageState();
@@ -85,7 +85,7 @@ class _OnboardingFriendsPageState extends State<OnboardingFriendsPage> {
 }
 
 class _InviteCard extends StatelessWidget {
-  const new({required this.username});
+  const _InviteCard({required this.username});
 
   final String username;
 
@@ -134,7 +134,7 @@ class _InviteCard extends StatelessWidget {
 }
 
 class _CookList extends StatelessWidget {
-  const new();
+  const _CookList();
 
   @override
   Widget build(BuildContext context) {

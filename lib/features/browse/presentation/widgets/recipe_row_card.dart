@@ -13,7 +13,7 @@ import 'package:shared_plates_app/features/browse/presentation/card_text.dart';
 import 'package:shared_plates_app/features/recipe/presentation/widgets/save_button.dart';
 
 class RecipeRowCard extends StatelessWidget {
-  const new({
+  const RecipeRowCard({
     required this.card,
     required this.onTap,
     super.key,
@@ -97,7 +97,7 @@ class RecipeRowCard extends StatelessWidget {
 }
 
 class _RowStats extends StatelessWidget {
-  const new({required this.details, required this.likes});
+  const _RowStats({required this.details, required this.likes});
 
   final List<String> details;
   final String likes;
@@ -133,7 +133,7 @@ class _RowStats extends StatelessWidget {
 }
 
 class RecipeRowSkeleton extends StatelessWidget {
-  const new({super.key});
+  const RecipeRowSkeleton({super.key});
 
   @override
   Widget build(BuildContext context) {

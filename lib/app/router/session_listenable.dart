@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 
 class StreamListenable<T> extends ChangeNotifier {
-  new(Stream<T> stream) {
+  StreamListenable(Stream<T> stream) {
     _subscription = stream.listen((_) => notifyListeners());
   }
 

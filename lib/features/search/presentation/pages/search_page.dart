@@ -34,7 +34,7 @@ import 'package:shared_plates_app/features/search/presentation/bloc/search_cubit
 import 'package:shared_plates_app/features/search/presentation/widgets/filter_sheet.dart';
 
 class SearchPage extends StatelessWidget {
-  const new({super.key, this.initial = const SearchFilters()});
+  const SearchPage({super.key, this.initial = const SearchFilters()});
 
   final SearchFilters initial;
 
@@ -56,7 +56,7 @@ class SearchPage extends StatelessWidget {
 }
 
 class _SearchView extends StatelessWidget {
-  const new();
+  const _SearchView();
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +85,7 @@ class _SearchView extends StatelessWidget {
 }
 
 class _SearchHeader extends StatefulWidget {
-  const new();
+  const _SearchHeader();
 
   @override
   State<_SearchHeader> createState() => _SearchHeaderState();
@@ -148,7 +148,7 @@ class _SearchHeaderState extends State<_SearchHeader> {
 }
 
 class _QueryField extends StatelessWidget {
-  const new({
+  const _QueryField({
     required this.controller,
     required this.hint,
     required this.autofocus,
@@ -238,7 +238,7 @@ class _QueryField extends StatelessWidget {
 }
 
 class _Tabs extends StatelessWidget {
-  const new({required this.state});
+  const _Tabs({required this.state});
 
   final SearchState state;
 
@@ -274,7 +274,11 @@ class _Tabs extends StatelessWidget {
 }
 
 class _TabButton extends StatelessWidget {
-  const new({required this.label, required this.selected, required this.onTap});
+  const _TabButton({
+    required this.label,
+    required this.selected,
+    required this.onTap,
+  });
 
   final String label;
   final bool selected;
@@ -309,7 +313,7 @@ class _TabButton extends StatelessWidget {
 }
 
 class _RecipeResults extends StatelessWidget {
-  const new();
+  const _RecipeResults();
 
   @override
   Widget build(BuildContext context) {
@@ -362,7 +366,7 @@ class _RecipeResults extends StatelessWidget {
 }
 
 class _FilterRow extends StatelessWidget {
-  const new({required this.filters});
+  const _FilterRow({required this.filters});
 
   final SearchFilters filters;
 
@@ -441,7 +445,7 @@ class _FilterRow extends StatelessWidget {
 }
 
 class _RemovableChip extends StatelessWidget {
-  const new({required this.label, required this.onRemove});
+  const _RemovableChip({required this.label, required this.onRemove});
 
   final String label;
   final VoidCallback onRemove;
@@ -461,7 +465,7 @@ class _RemovableChip extends StatelessWidget {
 }
 
 class _CountLine extends StatelessWidget {
-  const new({required this.state});
+  const _CountLine({required this.state});
 
   static const _notes = [
     'winner winner!',
@@ -500,7 +504,7 @@ class _CountLine extends StatelessWidget {
 }
 
 class _NoResults extends StatelessWidget {
-  const new({required this.state});
+  const _NoResults({required this.state});
 
   final SearchState state;
 
@@ -548,7 +552,7 @@ class _NoResults extends StatelessWidget {
 }
 
 class _PeopleResults extends StatelessWidget {
-  const new();
+  const _PeopleResults();
 
   @override
   Widget build(BuildContext context) {

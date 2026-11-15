@@ -30,7 +30,7 @@ abstract interface class RecipeActionsRepository {
 }
 
 class RecipeActionsRepositoryImpl implements RecipeActionsRepository {
-  new({
+  RecipeActionsRepositoryImpl({
     required this._db,
     required this._outbox,
     required this._sync,

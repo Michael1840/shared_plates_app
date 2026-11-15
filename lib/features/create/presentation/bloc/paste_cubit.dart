@@ -23,7 +23,7 @@ abstract final class PasteMessages {
 }
 
 class PasteState extends Equatable {
-  const new({
+  const PasteState({
     this.stage = PasteStage.input,
     this.text = '',
     this.lines = const [],
@@ -113,7 +113,7 @@ class PasteState extends Equatable {
 }
 
 class PasteCubit extends Cubit<PasteState> {
-  new({
+  PasteCubit({
     required this._repository,
     required this._userId,
     this._visibility = RecipeVisibility.friends,

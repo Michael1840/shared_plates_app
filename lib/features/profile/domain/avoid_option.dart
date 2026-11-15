@@ -6,7 +6,7 @@ enum AvoidOption {
   seafood(['fish', 'prawn', 'shrimp', 'hake', 'tuna', 'calamari', 'snoek']),
   beef(['beef', 'mince', 'steak', 'boerewors', 'oxtail']);
 
-  new(this.keywords);
+  const AvoidOption(this.keywords);
 
   final List<String> keywords;
 

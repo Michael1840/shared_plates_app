@@ -12,7 +12,7 @@ import 'package:shared_plates_app/features/profile/data/profile_repository.dart'
 import 'package:shared_plates_app/features/profile/domain/avoid_option.dart';
 
 class SettingsState extends Equatable {
-  const new({
+  const SettingsState({
     this.profile,
     this.avoid = const {},
     this.tellCooks = true,
@@ -45,8 +45,11 @@ class SettingsState extends Equatable {
 }
 
 class SettingsCubit extends Cubit<SettingsState> {
-  new({required this._profiles, required this._settings, required this._userId})
-    : super(const SettingsState());
+  SettingsCubit({
+    required this._profiles,
+    required this._settings,
+    required this._userId,
+  }) : super(const SettingsState());
 
   final ProfileRepository _profiles;
   final AppSettingsStore _settings;
@@ -101,7 +104,7 @@ class SettingsCubit extends Cubit<SettingsState> {
 }
 
 class ThemeModeCubit extends Cubit<ThemeMode> {
-  new(this._settings) : super(ThemeMode.system) {
+  ThemeModeCubit(this._settings) : super(ThemeMode.system) {
     _sub = _settings.watchValue(SettingKey.themeMode).listen((v) {
       if (!isClosed) {
         emit(enumByName(ThemeMode.values, v, ThemeMode.system));

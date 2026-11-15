@@ -6,7 +6,7 @@ part 'recipe.g.dart';
 
 @freezed
 abstract class Recipe with _$Recipe {
-  const factory({
+  const factory Recipe({
     required String id,
     required String authorId,
     required DateTime createdAt,
@@ -38,9 +38,9 @@ abstract class Recipe with _$Recipe {
     DateTime? deletedAt,
   }) = _Recipe;
 
-  const new _();
+  const Recipe._();
 
-  factory fromJson(Map<String, dynamic> json) => _$RecipeFromJson(json);
+  factory Recipe.fromJson(Map<String, dynamic> json) => _$RecipeFromJson(json);
 
   Map<String, dynamic> toWritableJson() => {
     'id': id,
@@ -61,7 +61,7 @@ abstract class Recipe with _$Recipe {
 
 @freezed
 abstract class RecipeIngredient with _$RecipeIngredient {
-  const factory({
+  const factory RecipeIngredient({
     required String id,
     required String recipeId,
     required int position,
@@ -78,9 +78,9 @@ abstract class RecipeIngredient with _$RecipeIngredient {
     @Default(false) bool optional,
   }) = _RecipeIngredient;
 
-  const new _();
+  const RecipeIngredient._();
 
-  factory fromJson(Map<String, dynamic> json) =>
+  factory RecipeIngredient.fromJson(Map<String, dynamic> json) =>
       _$RecipeIngredientFromJson(json);
 
   Map<String, dynamic> toWritableJson() => toJson()
@@ -90,7 +90,7 @@ abstract class RecipeIngredient with _$RecipeIngredient {
 
 @freezed
 abstract class RecipeStep with _$RecipeStep {
-  const factory({
+  const factory RecipeStep({
     required String id,
     required String recipeId,
     required int position,
@@ -99,16 +99,17 @@ abstract class RecipeStep with _$RecipeStep {
     int? timerSeconds,
   }) = _RecipeStep;
 
-  const new _();
+  const RecipeStep._();
 
-  factory fromJson(Map<String, dynamic> json) => _$RecipeStepFromJson(json);
+  factory RecipeStep.fromJson(Map<String, dynamic> json) =>
+      _$RecipeStepFromJson(json);
 
   Map<String, dynamic> toWritableJson() => toJson()..remove('updated_at');
 }
 
 @freezed
 abstract class RecipeCard with _$RecipeCard {
-  const factory({
+  const factory RecipeCard({
     required String id,
     required String authorId,
     required String title,
@@ -146,5 +147,6 @@ abstract class RecipeCard with _$RecipeCard {
     String? localCoverPath,
   }) = _RecipeCard;
 
-  factory fromJson(Map<String, dynamic> json) => _$RecipeCardFromJson(json);
+  factory RecipeCard.fromJson(Map<String, dynamic> json) =>
+      _$RecipeCardFromJson(json);
 }

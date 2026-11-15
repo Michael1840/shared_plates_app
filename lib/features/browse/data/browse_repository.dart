@@ -30,7 +30,7 @@ abstract final class BrowseMessages {
 }
 
 class RecentRecipe extends Equatable {
-  const new({required this.card, required this.viewedAt});
+  const RecentRecipe({required this.card, required this.viewedAt});
 
   final RecipeCard card;
   final DateTime viewedAt;
@@ -61,7 +61,7 @@ abstract interface class BrowseRepository {
 }
 
 class BrowseRepositoryImpl implements BrowseRepository {
-  new({
+  BrowseRepositoryImpl({
     required this._api,
     required this._db,
     required this._outbox,

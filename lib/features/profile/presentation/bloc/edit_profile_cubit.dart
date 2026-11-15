@@ -11,7 +11,7 @@ import 'package:shared_plates_app/features/profile/data/profile_repository.dart'
 enum UsernameCheck { unchanged, invalid, checking, free, taken, unknown }
 
 class EditProfileState extends Equatable {
-  const new({
+  const EditProfileState({
     required this.displayName,
     required this.username,
     required this.city,
@@ -59,7 +59,7 @@ class EditProfileState extends Equatable {
 }
 
 class EditProfileCubit extends Cubit<EditProfileState> {
-  new({
+  EditProfileCubit({
     required this._profiles,
     required Profile profile,
     this._debounce = const Duration(milliseconds: 400),

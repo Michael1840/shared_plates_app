@@ -5,12 +5,16 @@ import 'package:shared_plates_app/features/auth/data/auth_repository.dart';
 import 'package:shared_plates_app/features/auth/data/native_identity.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class _MockClient extends Mock implements SupabaseClient;
+class _MockClient extends Mock implements SupabaseClient {}
 
-class _MockAuth extends Mock implements GoTrueClient;
+class _MockAuth extends Mock implements GoTrueClient {}
 
 class _FakeNative implements NativeIdentity {
-  new({this.supportsGoogle = false, this.supportsApple = false, this.grant});
+  _FakeNative({
+    this.supportsGoogle = false,
+    this.supportsApple = false,
+    this.grant,
+  });
 
   @override
   final bool supportsGoogle;

@@ -40,9 +40,9 @@ import '../helpers/fake_remote_store.dart';
 import '../helpers/mocks.dart';
 import '../helpers/social_seed.dart';
 
-class _MockSession extends MockCubit<SessionState> implements SessionCubit;
+class _MockSession extends MockCubit<SessionState> implements SessionCubit {}
 
-class _MockProfile extends MockCubit<Profile?> implements CurrentProfileCubit;
+class _MockProfile extends MockCubit<Profile?> implements CurrentProfileCubit {}
 
 final _me = Profile(
   id: 'u1',

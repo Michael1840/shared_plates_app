@@ -13,7 +13,11 @@ import 'package:shared_plates_app/core/widgets/sp_icon.dart';
 import 'package:shared_plates_app/features/home/data/checklist_repository.dart';
 
 class FirstRunChecklist extends StatelessWidget {
-  const new({required this.progress, required this.onDismiss, super.key});
+  const FirstRunChecklist({
+    required this.progress,
+    required this.onDismiss,
+    super.key,
+  });
 
   final ChecklistProgress progress;
   final VoidCallback onDismiss;
@@ -92,7 +96,7 @@ class FirstRunChecklist extends StatelessWidget {
 }
 
 class _Task {
-  const new({
+  const _Task({
     required this.title,
     required this.hint,
     required this.done,
@@ -108,7 +112,7 @@ class _Task {
 }
 
 class _ProgressBar extends StatelessWidget {
-  const new({required this.value});
+  const _ProgressBar({required this.value});
 
   final double value;
 
@@ -140,7 +144,7 @@ class _ProgressBar extends StatelessWidget {
 }
 
 class _TaskRow extends StatelessWidget {
-  const new({required this.task});
+  const _TaskRow({required this.task});
 
   final _Task task;
 

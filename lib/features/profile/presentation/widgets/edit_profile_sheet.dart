@@ -15,7 +15,7 @@ import 'package:shared_plates_app/features/profile/data/profile_repository.dart'
 import 'package:shared_plates_app/features/profile/presentation/bloc/edit_profile_cubit.dart';
 
 class EditProfileSheet extends StatelessWidget {
-  const new({required this.profile, super.key});
+  const EditProfileSheet({required this.profile, super.key});
 
   final Profile profile;
 
@@ -30,7 +30,7 @@ class EditProfileSheet extends StatelessWidget {
 }
 
 class _EditProfileForm extends StatefulWidget {
-  const new({required this.profile});
+  const _EditProfileForm({required this.profile});
 
   final Profile profile;
 

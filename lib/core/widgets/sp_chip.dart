@@ -9,7 +9,7 @@ import 'package:shared_plates_app/core/widgets/sp_icon.dart';
 enum ChipTone { accent, neutral }
 
 class SpChip extends StatelessWidget {
-  const new({
+  const SpChip({
     required this.label,
     required this.selected,
     required this.onTap,

@@ -92,13 +92,13 @@ enum SpIcons {
     '4h-.1a1.7 1.7 0 0 0-1.5 1z',
   );
 
-  new(this.path);
+  const SpIcons(this.path);
 
   final String path;
 }
 
 class SpIcon extends StatelessWidget {
-  const new(
+  const SpIcon(
     this.icon, {
     super.key,
     this.size = Sizes.icon,

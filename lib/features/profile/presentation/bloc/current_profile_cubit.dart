@@ -6,7 +6,8 @@ import 'package:shared_plates_app/features/auth/presentation/bloc/session_cubit.
 import 'package:shared_plates_app/features/profile/data/profile_repository.dart';
 
 class CurrentProfileCubit extends Cubit<Profile?> {
-  new({required this._profiles, required SessionCubit session}) : super(null) {
+  CurrentProfileCubit({required this._profiles, required SessionCubit session})
+    : super(null) {
     _sessionSub = session.stream.listen(_onSession);
     _onSession(session.state);
   }

@@ -36,7 +36,11 @@ extension RecipeActionsContext on BuildContext {
 }
 
 class _SignInPrompt extends StatelessWidget {
-  const new({required this.title, required this.body, required this.session});
+  const _SignInPrompt({
+    required this.title,
+    required this.body,
+    required this.session,
+  });
 
   final String title;
   final String body;

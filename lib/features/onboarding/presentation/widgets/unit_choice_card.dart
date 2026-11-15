@@ -8,7 +8,7 @@ import 'package:shared_plates_app/core/widgets/motion/pressable.dart';
 import 'package:shared_plates_app/core/widgets/sp_icon.dart';
 
 class UnitChoiceCard extends StatelessWidget {
-  const new({
+  const UnitChoiceCard({
     required this.title,
     required this.subtitle,
     required this.icon,

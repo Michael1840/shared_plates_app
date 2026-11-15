@@ -2,7 +2,7 @@ import 'package:shared_plates_app/core/domain/enums.dart';
 import 'package:shared_plates_app/core/domain/models/recipe.dart';
 
 class CookArgs {
-  const new({required this.servings, required this.units, this.coverUrl});
+  const CookArgs({required this.servings, required this.units, this.coverUrl});
 
   final int servings;
   final UnitSystem units;
@@ -10,7 +10,7 @@ class CookArgs {
 }
 
 class CookedArgs {
-  const new({required this.card, required this.servings, this.coverUrl});
+  const CookedArgs({required this.card, required this.servings, this.coverUrl});
 
   final RecipeCard card;
   final int servings;

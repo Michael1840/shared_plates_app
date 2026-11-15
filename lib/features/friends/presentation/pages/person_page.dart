@@ -36,7 +36,7 @@ import 'package:shared_plates_app/features/friends/domain/person.dart';
 import 'package:shared_plates_app/features/friends/presentation/bloc/person_cubit.dart';
 
 class PersonPage extends StatelessWidget {
-  const new({required this.personId, super.key});
+  const PersonPage({required this.personId, super.key});
 
   final String personId;
 
@@ -59,7 +59,7 @@ class PersonPage extends StatelessWidget {
 }
 
 class PersonView extends StatelessWidget {
-  const new({super.key});
+  const PersonView({super.key});
 
   static String messageFor(PersonAction action, Person person) =>
       switch (action) {
@@ -126,7 +126,7 @@ class PersonView extends StatelessWidget {
 }
 
 class _PersonHeader extends StatelessWidget {
-  const new({required this.profile});
+  const _PersonHeader({required this.profile});
 
   final PersonProfile profile;
 
@@ -228,7 +228,7 @@ class _PersonHeader extends StatelessWidget {
 }
 
 class _MoreSheet extends StatelessWidget {
-  const new({required this.person, required this.isFriend});
+  const _MoreSheet({required this.person, required this.isFriend});
 
   final Person person;
   final bool isFriend;
@@ -271,7 +271,7 @@ class _MoreSheet extends StatelessWidget {
 }
 
 class _Relationship extends StatelessWidget {
-  const new({required this.profile});
+  const _Relationship({required this.profile});
 
   final PersonProfile profile;
 
@@ -355,7 +355,7 @@ class _Relationship extends StatelessWidget {
 }
 
 class _PersonRecipes extends StatelessWidget {
-  const new({required this.profile});
+  const _PersonRecipes({required this.profile});
 
   final PersonProfile profile;
 
@@ -440,7 +440,7 @@ class _PersonRecipes extends StatelessWidget {
 }
 
 class _PersonPlaceholder extends StatelessWidget {
-  const new({required this.error});
+  const _PersonPlaceholder({required this.error});
 
   final String? error;
 

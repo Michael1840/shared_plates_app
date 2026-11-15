@@ -5,7 +5,7 @@ import 'package:shared_plates_app/core/widgets/photo_print.dart';
 import 'package:shared_plates_app/core/widgets/skeleton.dart';
 
 class HomeSkeleton extends StatelessWidget {
-  const new({super.key});
+  const HomeSkeleton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class HomeSkeleton extends StatelessWidget {
 }
 
 class ShelfSkeleton extends StatelessWidget {
-  const new({super.key, this.width = 156, this.height = 108});
+  const ShelfSkeleton({super.key, this.width = 156, this.height = 108});
 
   final double width;
   final double height;

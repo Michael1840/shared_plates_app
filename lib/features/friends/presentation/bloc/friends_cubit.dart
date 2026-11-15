@@ -12,7 +12,7 @@ import 'package:shared_plates_app/features/friends/domain/person.dart';
 import 'package:shared_plates_app/features/profile/domain/popular_cook.dart';
 
 class FriendsState extends Equatable {
-  const new({
+  const FriendsState({
     this.overview = const DelayedResult.idle(),
     this.query = '',
     this.results = const DelayedResult.idle(),
@@ -75,7 +75,7 @@ class FriendsState extends Equatable {
 }
 
 class FriendsCubit extends Cubit<FriendsState> {
-  new({
+  FriendsCubit({
     required this._friends,
     required this._browse,
     required this._userId,

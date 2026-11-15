@@ -19,7 +19,7 @@ import 'package:shared_plates_app/features/onboarding/presentation/widgets/taste
 import 'package:shared_plates_app/features/profile/domain/avoid_option.dart';
 
 class OnboardingTastePage extends StatelessWidget {
-  const new({super.key});
+  const OnboardingTastePage({super.key});
 
   Future<void> _continue(BuildContext context) async {
     final cubit = context.read<OnboardingCubit>();
@@ -107,7 +107,7 @@ class OnboardingTastePage extends StatelessWidget {
 }
 
 class _GroupTitle extends StatelessWidget {
-  const new({required this.text});
+  const _GroupTitle({required this.text});
 
   final String text;
 
@@ -125,7 +125,7 @@ class _GroupTitle extends StatelessWidget {
 }
 
 class _ChipSkeletons extends StatelessWidget {
-  const new();
+  const _ChipSkeletons();
 
   static const _widths = <double>[120, 96, 104, 88, 132, 92, 110, 84];
 

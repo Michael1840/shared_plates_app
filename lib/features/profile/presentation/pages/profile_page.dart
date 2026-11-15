@@ -37,7 +37,7 @@ import 'package:shared_plates_app/features/profile/presentation/widgets/edit_pro
 import 'package:shared_plates_app/features/recipes/data/library_repository.dart';
 
 class ProfilePage extends StatelessWidget {
-  const new({super.key});
+  const ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +58,7 @@ class ProfilePage extends StatelessWidget {
 }
 
 class ProfileView extends StatelessWidget {
-  const new({super.key});
+  const ProfileView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +101,7 @@ class ProfileView extends StatelessWidget {
 }
 
 class _ProfileHeader extends StatelessWidget {
-  const new({required this.profile});
+  const _ProfileHeader({required this.profile});
 
   final Profile? profile;
 
@@ -182,7 +182,7 @@ class _ProfileHeader extends StatelessWidget {
 }
 
 class _Stats extends StatelessWidget {
-  const new({required this.state});
+  const _Stats({required this.state});
 
   final ProfilePageState state;
 
@@ -225,7 +225,7 @@ class _Stats extends StatelessWidget {
 }
 
 class _Stat extends StatelessWidget {
-  const new({required this.value, required this.label, this.onTap});
+  const _Stat({required this.value, required this.label, this.onTap});
 
   final String value;
   final String label;
@@ -261,7 +261,7 @@ class _Stat extends StatelessWidget {
 }
 
 class _ProfileActions extends StatelessWidget {
-  const new({required this.profile});
+  const _ProfileActions({required this.profile});
 
   final Profile profile;
 
@@ -300,7 +300,7 @@ class _ProfileActions extends StatelessWidget {
 }
 
 class _Cheer extends StatelessWidget {
-  const new({required this.state});
+  const _Cheer({required this.state});
 
   final ProfilePageState state;
 
@@ -361,7 +361,7 @@ class _Cheer extends StatelessWidget {
 }
 
 class _YourRecipes extends StatelessWidget {
-  const new({required this.state});
+  const _YourRecipes({required this.state});
 
   final ProfilePageState state;
 

@@ -16,7 +16,7 @@ import 'package:shared_plates_app/features/profile/domain/popular_cook.dart';
 enum SearchTab { recipes, people }
 
 class SearchState extends Equatable {
-  const new({
+  const SearchState({
     this.filters = const SearchFilters(),
     this.tab = SearchTab.recipes,
     this.recipes = const DelayedResult.idle(),
@@ -77,7 +77,7 @@ class SearchState extends Equatable {
 }
 
 class SearchCubit extends Cubit<SearchState> {
-  new(
+  SearchCubit(
     this._browse,
     this._profiles, {
     SearchFilters initial = const SearchFilters(),

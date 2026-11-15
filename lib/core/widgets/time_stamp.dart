@@ -5,7 +5,7 @@ import 'package:shared_plates_app/core/utils/extensions.dart';
 import 'package:shared_plates_app/core/widgets/motion/entrance.dart';
 
 class TimeStamp extends StatelessWidget {
-  const new({
+  const TimeStamp({
     required this.minutes,
     super.key,
     this.large = false,

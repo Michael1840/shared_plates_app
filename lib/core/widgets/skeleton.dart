@@ -3,7 +3,7 @@ import 'package:shared_plates_app/core/theme/motion.dart';
 import 'package:shared_plates_app/core/utils/extensions.dart';
 
 class Skeleton extends StatefulWidget {
-  const new({super.key, this.width, this.height = 12, this.radius = 6});
+  const Skeleton({super.key, this.width, this.height = 12, this.radius = 6});
 
   final double? width;
   final double height;

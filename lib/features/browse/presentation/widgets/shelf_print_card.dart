@@ -10,7 +10,7 @@ import 'package:shared_plates_app/core/widgets/recipe_cover.dart';
 import 'package:shared_plates_app/features/browse/presentation/card_text.dart';
 
 class ShelfPrintCard extends StatelessWidget {
-  const new({
+  const ShelfPrintCard({
     required this.card,
     required this.onTap,
     super.key,
@@ -73,7 +73,7 @@ class ShelfPrintCard extends StatelessWidget {
 }
 
 class _Badge extends StatelessWidget {
-  const new({required this.text});
+  const _Badge({required this.text});
 
   final String text;
 

@@ -36,7 +36,7 @@ import 'package:shared_plates_app/features/discover/presentation/bloc/discover_c
 import 'package:shared_plates_app/features/search/presentation/widgets/filter_sheet.dart';
 
 class DiscoverPage extends StatelessWidget {
-  const new({super.key});
+  const DiscoverPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -52,14 +52,14 @@ class DiscoverPage extends StatelessWidget {
 }
 
 class _QuickFilter {
-  const new(this.label, this.filters);
+  const _QuickFilter(this.label, this.filters);
 
   final String label;
   final SearchFilters filters;
 }
 
 class _DiscoverView extends StatelessWidget {
-  const new();
+  const _DiscoverView();
 
   static const _quick = [
     _QuickFilter(
@@ -174,7 +174,7 @@ class _DiscoverView extends StatelessWidget {
 }
 
 class _FeaturedCard extends StatelessWidget {
-  const new({required this.collection});
+  const _FeaturedCard({required this.collection});
 
   static const _ink = Color(0xFF3D2A08);
   static const _fill = Color(0xFFF5E1B5);
@@ -269,7 +269,7 @@ class _FeaturedCard extends StatelessWidget {
 }
 
 class _MiniPrint extends StatelessWidget {
-  const new({required this.style, required this.tilt, this.tape});
+  const _MiniPrint({required this.style, required this.tilt, this.tape});
 
   final CoverStyle style;
   final double tilt;
@@ -290,7 +290,7 @@ class _MiniPrint extends StatelessWidget {
 }
 
 class _Shelf extends StatelessWidget {
-  const new({
+  const _Shelf({
     required this.title,
     required this.note,
     required this.slice,
@@ -346,7 +346,7 @@ class _Shelf extends StatelessWidget {
 }
 
 class _DiscoverSkeleton extends StatelessWidget {
-  const new();
+  const _DiscoverSkeleton();
 
   @override
   Widget build(BuildContext context) {

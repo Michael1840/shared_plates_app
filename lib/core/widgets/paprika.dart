@@ -12,7 +12,7 @@ enum PaprikaMood {
   proud('Paprika smiling proudly'),
   focused('Paprika concentrating');
 
-  new(this.description);
+  const PaprikaMood(this.description);
 
   final String description;
 
@@ -20,7 +20,7 @@ enum PaprikaMood {
 }
 
 class Paprika extends StatelessWidget {
-  const new({
+  const Paprika({
     super.key,
     this.mood = PaprikaMood.happy,
     this.size = 112,

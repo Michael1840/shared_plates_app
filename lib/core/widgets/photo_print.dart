@@ -5,7 +5,7 @@ import 'package:shared_plates_app/core/widgets/motion/entrance.dart';
 import 'package:shared_plates_app/core/widgets/tape.dart';
 
 class PhotoPrint extends StatelessWidget {
-  const new({
+  const PhotoPrint({
     required this.child,
     super.key,
     this.tilt = -1.5,

@@ -6,7 +6,7 @@ import 'package:shared_plates_app/core/db/app_database.dart';
 import 'package:shared_plates_app/core/sync/remote_store.dart';
 
 class OutboxOperation {
-  const new _({
+  const OutboxOperation._({
     required this.kind,
     required this.target,
     required this.payload,
@@ -14,15 +14,18 @@ class OutboxOperation {
     this.dedupeKey,
   });
 
-  factory upsert(String table, JsonRow row, {String? dedupeKey}) =>
-      OutboxOperation._(
-        kind: OutboxKind.upsert,
-        target: table,
-        payload: row,
-        dedupeKey: dedupeKey,
-      );
+  factory OutboxOperation.upsert(
+    String table,
+    JsonRow row, {
+    String? dedupeKey,
+  }) => OutboxOperation._(
+    kind: OutboxKind.upsert,
+    target: table,
+    payload: row,
+    dedupeKey: dedupeKey,
+  );
 
-  factory insertIgnoringDuplicates(
+  factory OutboxOperation.insertIgnoringDuplicates(
     String table,
     JsonRow row, {
     required String conflictColumns,
@@ -35,7 +38,7 @@ class OutboxOperation {
     dedupeKey: dedupeKey,
   );
 
-  factory update(
+  factory OutboxOperation.update(
     String table,
     JsonRow values, {
     required Map<String, Object> match,
@@ -47,7 +50,7 @@ class OutboxOperation {
     dedupeKey: dedupeKey,
   );
 
-  factory delete(
+  factory OutboxOperation.delete(
     String table,
     Map<String, Object> match, {
     String? dedupeKey,
@@ -58,20 +61,24 @@ class OutboxOperation {
     dedupeKey: dedupeKey,
   );
 
-  factory rpc(String function, JsonRow params, {String? dedupeKey}) =>
-      OutboxOperation._(
-        kind: OutboxKind.rpc,
-        target: function,
-        payload: params,
-        dedupeKey: dedupeKey,
-      );
-
-  factory recipe(String id, JsonRow snapshot) => OutboxOperation._(
-    kind: OutboxKind.recipe,
-    target: 'recipes',
-    payload: snapshot,
-    dedupeKey: 'recipes:$id',
+  factory OutboxOperation.rpc(
+    String function,
+    JsonRow params, {
+    String? dedupeKey,
+  }) => OutboxOperation._(
+    kind: OutboxKind.rpc,
+    target: function,
+    payload: params,
+    dedupeKey: dedupeKey,
   );
+
+  factory OutboxOperation.recipe(String id, JsonRow snapshot) =>
+      OutboxOperation._(
+        kind: OutboxKind.recipe,
+        target: 'recipes',
+        payload: snapshot,
+        dedupeKey: 'recipes:$id',
+      );
 
   final OutboxKind kind;
   final String target;
@@ -81,7 +88,8 @@ class OutboxOperation {
 }
 
 class OutboxStore {
-  new(this._db, {DateTime Function()? clock}) : _now = clock ?? DateTime.now;
+  OutboxStore(this._db, {DateTime Function()? clock})
+    : _now = clock ?? DateTime.now;
 
   static const maxBackoff = Duration(minutes: 10);
   static const baseBackoff = Duration(seconds: 5);

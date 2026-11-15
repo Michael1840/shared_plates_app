@@ -3,7 +3,7 @@ import 'package:shared_plates_app/core/theme/typography.dart';
 import 'package:shared_plates_app/core/utils/extensions.dart';
 
 class AppText extends StatelessWidget {
-  const new({
+  const AppText({
     required this.text,
     required this.config,
     super.key,
@@ -15,7 +15,7 @@ class AppText extends StatelessWidget {
     this.semanticsLabel,
   }) : _secondary = false;
 
-  const new secondary({
+  const AppText.secondary({
     required this.text,
     required this.config,
     super.key,
@@ -56,7 +56,7 @@ class AppText extends StatelessWidget {
 }
 
 class AppRichText extends StatelessWidget {
-  const new({
+  const AppRichText({
     required this.spans,
     required this.config,
     super.key,

@@ -6,7 +6,7 @@ import 'package:shared_plates_app/core/widgets/floating_tab_bar.dart';
 import 'package:shared_plates_app/core/widgets/sp_icon.dart';
 
 class AppShell extends StatelessWidget {
-  const new({required this.shell, super.key});
+  const AppShell({required this.shell, super.key});
 
   static const tabs = [
     TabItem(label: 'Home', icon: SpIcons.home),

@@ -10,7 +10,7 @@ import 'package:shared_plates_app/features/create/data/create_repository.dart';
 import 'package:shared_plates_app/features/recipe/data/recipe_detail_repository.dart';
 
 class CreateStartState extends Equatable {
-  const new({
+  const CreateStartState({
     this.drafts = const [],
     this.saved = const DelayedResult.idle(),
     this.fork = const DelayedResult.idle(),
@@ -35,7 +35,7 @@ class CreateStartState extends Equatable {
 }
 
 class CreateStartCubit extends Cubit<CreateStartState> {
-  new({
+  CreateStartCubit({
     required this._repository,
     required this._recipes,
     required this._userId,

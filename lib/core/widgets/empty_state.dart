@@ -8,7 +8,7 @@ import 'package:shared_plates_app/core/widgets/motion/entrance.dart';
 import 'package:shared_plates_app/core/widgets/paprika.dart';
 
 class EmptyState extends StatelessWidget {
-  const new({
+  const EmptyState({
     required this.title,
     required this.body,
     super.key,

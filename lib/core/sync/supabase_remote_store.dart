@@ -5,7 +5,7 @@ import 'package:shared_plates_app/core/sync/supabase_guard.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SupabaseRemoteStore implements RemoteStore {
-  new(this._client);
+  SupabaseRemoteStore(this._client);
 
   final SupabaseClient _client;
 

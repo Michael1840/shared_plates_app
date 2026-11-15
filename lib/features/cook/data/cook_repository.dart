@@ -18,7 +18,7 @@ abstract interface class CookRepository {
 }
 
 class CookRepositoryImpl implements CookRepository {
-  new({
+  CookRepositoryImpl({
     required this._db,
     required this._outbox,
     required this._sync,

@@ -8,7 +8,7 @@ import 'package:shared_plates_app/core/widgets/motion/pressable.dart';
 import 'package:shared_plates_app/core/widgets/recipe_cover.dart';
 
 class MoodTile extends StatelessWidget {
-  const new({
+  const MoodTile({
     required this.collection,
     required this.index,
     required this.onTap,

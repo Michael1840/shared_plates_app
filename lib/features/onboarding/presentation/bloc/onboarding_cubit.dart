@@ -14,7 +14,7 @@ import 'package:shared_plates_app/features/profile/domain/popular_cook.dart';
 enum UsernameCheck { unchanged, checking, available, taken, invalid, offline }
 
 class OnboardingState extends Equatable {
-  const new({
+  const OnboardingState({
     this.displayName = '',
     this.username = '',
     this.originalUsername = '',
@@ -95,7 +95,7 @@ class OnboardingState extends Equatable {
 }
 
 class OnboardingCubit extends Cubit<OnboardingState> {
-  new({
+  OnboardingCubit({
     required this._profiles,
     required this._userId,
     String? countryCode,

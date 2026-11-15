@@ -1,7 +1,7 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 
 class ConnectivityService {
-  new([Connectivity? connectivity])
+  ConnectivityService([Connectivity? connectivity])
     : _connectivity = connectivity ?? Connectivity();
 
   final Connectivity _connectivity;

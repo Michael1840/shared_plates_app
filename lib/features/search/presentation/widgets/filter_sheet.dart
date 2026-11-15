@@ -27,7 +27,7 @@ extension FilterSheetContext on BuildContext {
 }
 
 class FilterSheet extends StatelessWidget {
-  const new({super.key});
+  const FilterSheet({super.key});
 
   static const List<SearchSort> _sorts = [
     SearchSort.mostSaved,
@@ -161,7 +161,7 @@ class FilterSheet extends StatelessWidget {
 }
 
 class _Group extends StatelessWidget {
-  const new({required this.title, required this.children, this.hint});
+  const _Group({required this.title, required this.children, this.hint});
 
   final String title;
   final String? hint;

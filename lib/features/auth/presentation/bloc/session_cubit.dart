@@ -13,7 +13,7 @@ import 'package:shared_plates_app/features/profile/data/profile_repository.dart'
 enum SessionStatus { unknown, signedOut, guest, onboarding, signedIn }
 
 class SessionState extends Equatable {
-  const new({this.status = SessionStatus.unknown, this.userId});
+  const SessionState({this.status = SessionStatus.unknown, this.userId});
 
   final SessionStatus status;
   final String? userId;
@@ -26,7 +26,7 @@ class SessionState extends Equatable {
 }
 
 class SessionCubit extends Cubit<SessionState> {
-  new({
+  SessionCubit({
     required this._auth,
     required this._profiles,
     required this._settings,

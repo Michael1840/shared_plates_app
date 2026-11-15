@@ -21,7 +21,7 @@ import 'package:shared_plates_app/features/recipe/presentation/bloc/recipe_detai
 import 'package:shared_plates_app/features/recipe/presentation/widgets/recipe_action_helpers.dart';
 
 class WhiteCard extends StatelessWidget {
-  const new({
+  const WhiteCard({
     required this.child,
     super.key,
     this.padding = const EdgeInsets.all(Spacing.m),
@@ -45,7 +45,7 @@ class WhiteCard extends StatelessWidget {
 }
 
 class TagPills extends StatelessWidget {
-  const new({required this.tags, super.key});
+  const TagPills({required this.tags, super.key});
 
   static const _looks = <(Color, Color)>[
     (Palette.blush, Palette.paprikaDeep),
@@ -82,7 +82,7 @@ class TagPills extends StatelessWidget {
 }
 
 class AuthorRow extends StatefulWidget {
-  const new({required this.card, super.key});
+  const AuthorRow({required this.card, super.key});
 
   final RecipeCard card;
 
@@ -149,7 +149,11 @@ class _AuthorRowState extends State<AuthorRow> {
 }
 
 class _LikePill extends StatelessWidget {
-  const new({required this.card, required this.liked, required this.count});
+  const _LikePill({
+    required this.card,
+    required this.liked,
+    required this.count,
+  });
 
   final RecipeCard card;
   final bool liked;
@@ -196,7 +200,7 @@ class _LikePill extends StatelessWidget {
 }
 
 class CreatorNote extends StatelessWidget {
-  const new({required this.note, super.key});
+  const CreatorNote({required this.note, super.key});
 
   final String note;
 
@@ -217,7 +221,7 @@ class CreatorNote extends StatelessWidget {
 }
 
 class FactsGrid extends StatelessWidget {
-  const new({required this.state, super.key});
+  const FactsGrid({required this.state, super.key});
 
   final RecipeDetailState state;
 
@@ -263,7 +267,7 @@ class FactsGrid extends StatelessWidget {
 }
 
 class _Fact extends StatelessWidget {
-  const new({required this.label, required this.value, this.sub});
+  const _Fact({required this.label, required this.value, this.sub});
 
   final String label;
   final String value;
@@ -299,7 +303,7 @@ class _Fact extends StatelessWidget {
 }
 
 class ServingsCard extends StatelessWidget {
-  const new({required this.state, super.key});
+  const ServingsCard({required this.state, super.key});
 
   final RecipeDetailState state;
 
@@ -395,7 +399,7 @@ class ServingsCard extends StatelessWidget {
 }
 
 class _Segment extends StatelessWidget {
-  const new({required this.children});
+  const _Segment({required this.children});
 
   final List<Widget> children;
 
@@ -417,7 +421,7 @@ class _Segment extends StatelessWidget {
 }
 
 class _StepperButton extends StatelessWidget {
-  const new({
+  const _StepperButton({
     required this.icon,
     required this.label,
     required this.onTap,
@@ -461,7 +465,11 @@ class _StepperButton extends StatelessWidget {
 }
 
 class _UnitOption extends StatelessWidget {
-  const new({required this.label, required this.selected, required this.onTap});
+  const _UnitOption({
+    required this.label,
+    required this.selected,
+    required this.onTap,
+  });
 
   final String label;
   final bool selected;
@@ -497,7 +505,7 @@ class _UnitOption extends StatelessWidget {
 }
 
 class NutritionCard extends StatelessWidget {
-  const new({required this.card, super.key});
+  const NutritionCard({required this.card, super.key});
 
   final RecipeCard card;
 
@@ -578,7 +586,7 @@ class NutritionCard extends StatelessWidget {
 }
 
 class _Nutrient extends StatelessWidget {
-  const new({required this.label, required this.grams, this.swatch});
+  const _Nutrient({required this.label, required this.grams, this.swatch});
 
   final String label;
   final double grams;

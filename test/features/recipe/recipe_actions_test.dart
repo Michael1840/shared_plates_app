@@ -17,7 +17,7 @@ import '../../helpers/fake_remote_store.dart';
 import '../../helpers/mocks.dart';
 
 class _FakeSession extends Fake implements SessionCubit {
-  new(this._state);
+  _FakeSession(this._state);
 
   final SessionState _state;
 

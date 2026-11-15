@@ -10,7 +10,7 @@ import 'package:shared_plates_app/core/widgets/paprika.dart';
 enum HeaderTone { paprika, herb }
 
 class PaprikaHeader extends StatelessWidget {
-  const new({
+  const PaprikaHeader({
     required this.title,
     super.key,
     this.greeting,
@@ -58,7 +58,7 @@ class PaprikaHeader extends StatelessWidget {
 }
 
 class HeaderBlock extends StatelessWidget {
-  const new({
+  const HeaderBlock({
     required this.child,
     super.key,
     this.tone = HeaderTone.paprika,
@@ -110,7 +110,11 @@ class HeaderBlock extends StatelessWidget {
 }
 
 class _HeaderTopRow extends StatelessWidget {
-  const new({required this.greeting, required this.actions, required this.ink});
+  const _HeaderTopRow({
+    required this.greeting,
+    required this.actions,
+    required this.ink,
+  });
 
   final String? greeting;
   final List<Widget> actions;
@@ -136,7 +140,7 @@ class _HeaderTopRow extends StatelessWidget {
 }
 
 class _HeaderTitleRow extends StatelessWidget {
-  const new({
+  const _HeaderTitleRow({
     required this.title,
     required this.note,
     required this.mood,
@@ -193,7 +197,7 @@ class _HeaderTitleRow extends StatelessWidget {
 }
 
 class _HeaderRingsPainter extends CustomPainter {
-  new(this.color);
+  _HeaderRingsPainter(this.color);
 
   final Color color;
 

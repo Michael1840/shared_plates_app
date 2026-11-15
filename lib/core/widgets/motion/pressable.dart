@@ -4,7 +4,7 @@ import 'package:shared_plates_app/core/theme/sizing.dart';
 import 'package:shared_plates_app/core/utils/extensions.dart';
 
 class Pressable extends StatefulWidget {
-  const new({
+  const Pressable({
     required this.child,
     required this.onTap,
     super.key,

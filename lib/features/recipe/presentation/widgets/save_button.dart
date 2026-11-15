@@ -14,7 +14,7 @@ import 'package:shared_plates_app/features/recipe/presentation/widgets/recipe_ac
 enum SaveButtonStyle { onPhoto, onCard }
 
 class SaveButton extends StatelessWidget {
-  const new({
+  const SaveButton({
     required this.card,
     super.key,
     this.style = SaveButtonStyle.onCard,

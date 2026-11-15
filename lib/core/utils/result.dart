@@ -1,15 +1,15 @@
 sealed class Result<T> {
-  const new();
+  const Result();
 
-  const factory ok(T value) = Ok<T>;
+  const factory Result.ok(T value) = Ok<T>;
 
-  const factory error(Exception error) = Error<T>;
+  const factory Result.error(Exception error) = Error<T>;
 
-  const factory castError() = CastError<T>;
+  const factory Result.castError() = CastError<T>;
 }
 
 final class Ok<T> extends Result<T> {
-  const new(this.value);
+  const Ok(this.value);
 
   final T value;
 
@@ -18,7 +18,7 @@ final class Ok<T> extends Result<T> {
 }
 
 final class Error<T> extends Result<T> {
-  const new(this.error);
+  const Error(this.error);
 
   final Exception error;
 
@@ -27,7 +27,7 @@ final class Error<T> extends Result<T> {
 }
 
 final class CastError<T> extends Result<T> {
-  const new();
+  const CastError();
 
   Exception get error => const FormatException('Unexpected data');
 

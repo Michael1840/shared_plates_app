@@ -14,7 +14,7 @@ import 'package:shared_plates_app/features/create/presentation/bloc/recipe_edito
 import 'package:shared_plates_app/features/create/presentation/widgets/editor_fields.dart';
 
 class StepsList extends StatelessWidget {
-  const new({super.key});
+  const StepsList({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +61,7 @@ class StepsList extends StatelessWidget {
 }
 
 class StepCard extends StatefulWidget {
-  const new({
+  const StepCard({
     required this.number,
     required this.step,
     required this.focus,
@@ -183,7 +183,7 @@ class _StepCardState extends State<StepCard> {
 }
 
 class _TimerFound extends StatelessWidget {
-  const new({required this.seconds});
+  const _TimerFound({required this.seconds});
 
   final int seconds;
 
