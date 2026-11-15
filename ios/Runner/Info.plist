@@ -32,6 +32,14 @@
 				<string>sharedplates</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.430686949029-svnp5h5m4jfll9jemh4ofqgpvihjhohm</string>
+			</array>
+		</dict>
 	</array>
 	<key>FlutterDeepLinkingEnabled</key>
 	<false/>
